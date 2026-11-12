@@ -52,10 +52,20 @@ function CustomerChurn() {
         <article className="panel"><UserRoundCheck size={18}/><span>Retained</span><strong>{data.retained_users.toLocaleString("en-IN")}</strong><small>At least one event in the outcome window</small></article>
       </section>
       <section className="panel churn-section">
-        <div className="churn-section-heading"><div><h3>Held-out model evaluation</h3><p>Metrics are calculated on the 25% user holdout. Positive class = churn.</p></div><BrainCircuit size={20}/></div>
-        <div className="churn-table-wrap"><table className="churn-table"><thead><tr><th>Model</th><th>Accuracy</th><th>Precision</th><th>Recall</th><th>F1</th><th>ROC-AUC</th></tr></thead><tbody>
-          {data.model_comparison.map((item) => <tr key={item.model}><td>{item.model}</td><td>{item.metrics.accuracy.toFixed(3)}</td><td>{item.metrics.precision.toFixed(3)}</td><td>{item.metrics.recall.toFixed(3)}</td><td>{item.metrics.f1.toFixed(3)}</td><td>{item.metrics.roc_auc.toFixed(3)}</td></tr>)}
+        <div className="churn-section-heading"><div><h3>Held-out model evaluation</h3><p>Metrics are calculated on the 25% user holdout. Positive class = churn. Compare against the majority-class baseline.</p></div><BrainCircuit size={20}/></div>
+        <div className="churn-table-wrap"><table className="churn-table"><thead><tr><th>Model</th><th>Accuracy</th><th>Precision</th><th>Recall</th><th>F1</th><th>ROC-AUC</th><th>CV F1 ± SD</th><th>CV AUC ± SD</th></tr></thead><tbody>
+          {data.model_comparison.map((item) => <tr key={item.model}><td>{item.model}</td><td>{item.metrics.accuracy.toFixed(3)}</td><td>{item.metrics.precision.toFixed(3)}</td><td>{item.metrics.recall.toFixed(3)}</td><td>{item.metrics.f1.toFixed(3)}</td><td>{item.metrics.roc_auc.toFixed(3)}</td><td>{item.cross_validation ? `${item.cross_validation.f1_mean.toFixed(3)} ± ${item.cross_validation.f1_std.toFixed(3)}` : "—"}</td><td>{item.cross_validation ? `${item.cross_validation.roc_auc_mean.toFixed(3)} ± ${item.cross_validation.roc_auc_std.toFixed(3)}` : "—"}</td></tr>)}
         </tbody></table></div>
+        <p className="churn-eval-note">Cross-validation uses {data.model_comparison.find((item) => item.cross_validation)?.cross_validation?.folds ?? "—"} stratified folds on the eligible cohort. Fold scores are descriptive and may be optimistic on synthetic data.</p>
+      </section>
+      <section className="panel churn-section">
+        <div className="churn-section-heading"><div><h3>Logistic Regression confusion matrix</h3><p>Predictions on the held-out users; positive class = churn.</p></div></div>
+        <div className="churn-confusion-grid">
+          <div><small>True negative</small><strong>{data.confusion_matrix.true_negative}</strong><span>Correctly retained</span></div>
+          <div><small>False positive</small><strong>{data.confusion_matrix.false_positive}</strong><span>Flagged, but retained</span></div>
+          <div><small>False negative</small><strong>{data.confusion_matrix.false_negative}</strong><span>Missed churn</span></div>
+          <div><small>True positive</small><strong>{data.confusion_matrix.true_positive}</strong><span>Correctly flagged churn</span></div>
+        </div>
       </section>
       <section className="panel churn-section">
         <div className="churn-section-heading"><div><h3>Holdout user predictions</h3><p>Logistic Regression probabilities for unseen users, compared with their retrospective labels.</p></div></div>
