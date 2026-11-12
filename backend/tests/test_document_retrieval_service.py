@@ -46,3 +46,38 @@ def test_retrieval_returns_clear_status_when_no_active_document(monkeypatch):
     result = document_retrieval_service.retrieve_document_evidence("What is the release plan?")
     assert result["status"] == "no_active_document"
     assert result["passages"] == []
+
+
+def test_ai_analyst_returns_document_passages_without_event_or_review_data(monkeypatch):
+    from app.services import ai_analyst_service
+
+    def no_dataset():
+        raise ValueError("No active source selected.")
+
+    passages = [{
+        "document_id": "doc-1",
+        "document_name": "product-brief.pdf",
+        "chunk_index": 2,
+        "similarity": 0.42,
+        "text": "The product must support offline checkout.",
+        "locator": "Chunk 2",
+        "page": None,
+    }]
+    monkeypatch.setattr(ai_analyst_service, "calculate_product_analytics", no_dataset)
+    monkeypatch.setattr(ai_analyst_service, "calculate_voice_of_customer", no_dataset)
+    monkeypatch.setattr(
+        ai_analyst_service,
+        "retrieve_document_evidence",
+        lambda _question: {
+            "status": "ready",
+            "document_name": "product-brief.pdf",
+            "passages": passages,
+            "limitations": ["Document passage retrieval is not a generated summary."],
+        },
+    )
+
+    result = ai_analyst_service.answer_product_question("What does the brief require?")
+
+    assert result["document_evidence"] == passages
+    assert "retrieved 1 relevant passage" in result["answer"]
+    assert any(source["name"] == "Selected product document" for source in result["sources"])
