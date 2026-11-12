@@ -45,6 +45,7 @@ function UploadData() {
   const [datasets, setDatasets] = useState<Dataset[]>([]);
   const [preview, setPreview] = useState<any>(null);
   const [refreshing, setRefreshing] = useState(false);
+  const [showAllColumns, setShowAllColumns] = useState(false);
 
   async function loadDatasets() {
     setRefreshing(true);
@@ -63,6 +64,7 @@ function UploadData() {
     setError("");
     setMessage("");
     setInspection(null);
+    setShowAllColumns(false);
     setTabularFile(null);
     if (!file) return;
     const extension = file.name.toLowerCase().split(".").pop();
@@ -112,6 +114,7 @@ function UploadData() {
       setTabularFile(null);
       setInspection(null);
       setMapping({});
+      setShowAllColumns(false);
       await loadDatasets();
     } catch (err: any) {
       setError(err.response?.data?.detail || "Import failed. Check the selected column mapping.");
@@ -148,6 +151,11 @@ function UploadData() {
   }
 
   const mappingComplete = REQUIRED[datasetType].every(({ key }) => mapping[key]);
+  const mappedSources = new Set(Object.values(mapping).filter(Boolean));
+  const unmappedColumns = inspection?.columns.filter((column) => !mappedSources.has(column)) || [];
+  const visiblePreviewColumns = inspection
+    ? (showAllColumns ? inspection.columns : inspection.columns.slice(0, 8))
+    : [];
 
   return (
     <div className="upload-page">
@@ -180,7 +188,7 @@ function UploadData() {
             <div className="mapping-panel">
               <div className="mapping-heading">
                 <strong>Map your columns</strong>
-                <span>{inspection.row_count.toLocaleString()} rows detected</span>
+                <span>{inspection.row_count.toLocaleString()} rows · {inspection.columns.length} columns</span>
               </div>
               <label className="mapping-field">
                 Dataset purpose
@@ -189,6 +197,10 @@ function UploadData() {
                   <option value="reviews">Customer reviews</option>
                 </select>
               </label>
+              <div className="column-map-summary">
+                <span><strong>{mappedSources.size}</strong> source columns mapped</span>
+                <span><strong>{unmappedColumns.length}</strong> additional columns retained</span>
+              </div>
               {REQUIRED[datasetType].map(({ key, label }) => (
                 <label className="mapping-field" key={key}>
                   {label}
@@ -207,12 +219,23 @@ function UploadData() {
                 <strong>Sample rows</strong>
                 <div className="preview-table">
                   <table>
-                    <thead><tr>{inspection.columns.map((column) => <th key={column}>{column}</th>)}</tr></thead>
+                    <thead><tr>{visiblePreviewColumns.map((column) => <th key={column}>{column}</th>)}</tr></thead>
                     <tbody>{inspection.preview.slice(0, 3).map((row, index) => (
-                      <tr key={index}>{inspection.columns.map((column) => <td key={column}>{row[column]}</td>)}</tr>
+                      <tr key={index}>{visiblePreviewColumns.map((column) => <td key={column}>{row[column]}</td>)}</tr>
                     ))}</tbody>
                   </table>
                 </div>
+                {inspection.columns.length > 8 && (
+                  <button type="button" className="column-toggle" onClick={() => setShowAllColumns((value) => !value)}>
+                    {showAllColumns ? "Show first 8 columns" : `Show all ${inspection.columns.length} columns`}
+                  </button>
+                )}
+                {unmappedColumns.length > 0 && (
+                  <details className="unmapped-columns">
+                    <summary>Additional columns retained ({unmappedColumns.length})</summary>
+                    <div>{unmappedColumns.map((column) => <span key={column}>{column}</span>)}</div>
+                  </details>
+                )}
               </div>
               <button className="upload-button" disabled={!mappingComplete || uploading} onClick={handleTabularUpload}>
                 {uploading ? "Importing…" : "Validate & import dataset"} <ArrowRight size={15} />
