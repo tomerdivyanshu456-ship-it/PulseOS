@@ -88,7 +88,6 @@ function VoiceOfCustomer() {
   }
 
   const positive = data.sentiment_distribution.find((item) => item.sentiment === "Positive")?.count ?? 0;
-  const neutral = data.sentiment_distribution.find((item) => item.sentiment === "Neutral")?.count ?? 0;
   const negative = data.sentiment_distribution.find((item) => item.sentiment === "Negative")?.count ?? 0;
 
   return (
