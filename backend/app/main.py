@@ -1,5 +1,8 @@
-from fastapi import FastAPI
+import os
+from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from app.security import require_auth, validate_production_config
+from app.api.routes.auth import router as auth_router
 
 from app.api.routes.datasets import router as datasets_router
 from app.api.routes.analytics import router as analytics_router
@@ -16,41 +19,43 @@ from app.api.routes.ml_intelligence import router as ml_intelligence_router
 from app.api.routes.anomalies import router as anomalies_router
 from app.api.routes.churn import router as churn_router
 
+validate_production_config()
+
 app = FastAPI(
     title="PulseOS API",
     description="Product Intelligence Platform",
     version="0.1.0",
 )
 
-app.add_middleware(
-    CORSMiddleware,
-    # Vite may select a different port when the default ports are busy.
-    # Allow local development origins without hardcoding each Vite port.
-    allow_origin_regex=r"https?://(localhost|127\.0\.0\.1):\d+",
-    allow_origins=[
-        "http://localhost:5173",
-        "http://localhost:5174",
-    ],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+cors_origins = [item.strip().rstrip("/") for item in os.getenv("PULSEOS_CORS_ORIGINS", "").split(",") if item.strip()]
+cors_options = {
+    "allow_origins": cors_origins,
+    "allow_credentials": False,
+    "allow_methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    "allow_headers": ["Authorization", "Content-Type"],
+}
+if os.getenv("PULSEOS_ENV", "development").strip().lower() != "production":
+    cors_options["allow_origin_regex"] = r"https?://(localhost|127\\.0\\.0\\.1):\\d+"
+app.add_middleware(CORSMiddleware, **cors_options)
 
-# Register API routers
-app.include_router(datasets_router)
-app.include_router(analytics_router)
-app.include_router(voice_of_customer_router)
-app.include_router(analyst_router)
-app.include_router(opportunities_router)
-app.include_router(experiments_router)
-app.include_router(strategy_router)
-app.include_router(health_scorecard_router)
-app.include_router(segments_router)
-app.include_router(journeys_router)
-app.include_router(diagnostics_router)
-app.include_router(ml_intelligence_router)
-app.include_router(anomalies_router)
-app.include_router(churn_router)
+# Health and auth configuration remain public. All workspace APIs are protected
+# whenever an administrator password is configured.
+app.include_router(auth_router)
+protected = {"dependencies": [Depends(require_auth)]}
+app.include_router(datasets_router, **protected)
+app.include_router(analytics_router, **protected)
+app.include_router(voice_of_customer_router, **protected)
+app.include_router(analyst_router, **protected)
+app.include_router(opportunities_router, **protected)
+app.include_router(experiments_router, **protected)
+app.include_router(strategy_router, **protected)
+app.include_router(health_scorecard_router, **protected)
+app.include_router(segments_router, **protected)
+app.include_router(journeys_router, **protected)
+app.include_router(diagnostics_router, **protected)
+app.include_router(ml_intelligence_router, **protected)
+app.include_router(anomalies_router, **protected)
+app.include_router(churn_router, **protected)
 
 
 @app.get("/")
