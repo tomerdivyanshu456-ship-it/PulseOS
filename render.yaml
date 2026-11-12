@@ -1,0 +1,35 @@
+services:
+  # FastAPI backend. Free instances use ephemeral storage.
+  - type: web
+    name: pulseos-api
+    runtime: python
+    plan: free
+    region: singapore
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    envVars:
+      - key: PULSEOS_ENV
+        value: production
+      - key: PULSEOS_ADMIN_PASSWORD
+        sync: false
+      - key: PULSEOS_CORS_ORIGINS
+        sync: false
+      - key: PULSEOS_DATA_DIR
+        value: /tmp/pulseos-data
+
+  # Vite frontend. VITE_API_BASE_URL is injected at build time.
+  - type: web
+    name: pulseos-frontend
+    runtime: static
+    plan: free
+    buildCommand: npm ci && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_API_BASE_URL
+        sync: false
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
