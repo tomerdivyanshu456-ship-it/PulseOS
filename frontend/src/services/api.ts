@@ -17,6 +17,9 @@ export interface AnalyticsOverview {
     total_revenue: number;
     total_users: number;
     total_events: number;
+    repeat_users: number;
+    repeat_user_rate: number;
+    average_events_per_user: number;
   };
   funnel: Array<{
     stage: string;
