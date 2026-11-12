@@ -79,5 +79,50 @@ def test_ai_analyst_returns_document_passages_without_event_or_review_data(monke
     result = ai_analyst_service.answer_product_question("What does the brief require?")
 
     assert result["document_evidence"] == passages
-    assert "retrieved 1 relevant passage" in result["answer"]
+    assert "offline checkout" in result["answer"]
+    assert result["document_answer"]["status"] == "ready"
+    assert result["document_answer"]["citations"][0]["locator"] == "Chunk 2"
     assert any(source["name"] == "Selected product document" for source in result["sources"])
+
+
+
+def test_extractive_answer_returns_requested_cv_section_with_chunk_citation():
+    passages = [{
+        "document_name": "resume.pdf",
+        "chunk_index": 1,
+        "locator": "Chunk 1",
+        "text": (
+            "EDUCATION\\nB.Tech Chemical Engineering.\\n"
+            "EXPERIENCE\\nBusiness Analyst Intern at Gyana Deep Products.\\n"
+            "Analyzed 50K+ sales and inventory records using Python and Excel.\\n"
+            "Developed KPI dashboards that improved peak-season stock availability.\\n"
+            "PROJECTS\\nBuilt a machine learning prediction API."
+        ),
+    }]
+
+    result = document_retrieval_service.synthesize_document_answer(
+        "Describe the experience section", passages
+    )
+
+    assert result["status"] == "ready"
+    assert "Business Analyst Intern" in result["text"]
+    assert "50K+ sales and inventory records" in result["text"]
+    assert "machine learning prediction API" not in result["text"]
+    assert result["citations"][0]["locator"] == "Chunk 1"
+    assert result["method"] == "extractive"
+
+
+def test_extractive_answer_declines_when_no_sentence_matches():
+    passages = [{
+        "document_name": "brief.pdf",
+        "chunk_index": 3,
+        "locator": "Chunk 3",
+        "text": "A completely unrelated statement about gardening and soil.",
+    }]
+
+    result = document_retrieval_service.synthesize_document_answer(
+        "What is the payment gateway timeout policy?", passages
+    )
+
+    assert result["status"] == "insufficient_evidence"
+    assert result["citations"] == []
