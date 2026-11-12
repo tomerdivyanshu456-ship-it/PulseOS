@@ -1,0 +1,92 @@
+import pytest
+
+from app.services import experiment_service
+
+
+@pytest.fixture
+def isolated_database(tmp_path, monkeypatch):
+    database = tmp_path / "pulseos-test.db"
+    data_dir = tmp_path / "data"
+    data_dir.mkdir()
+    monkeypatch.setattr("app.services.dataset_service.DB_PATH", database)
+    monkeypatch.setattr("app.services.dataset_service.DATA_DIR", data_dir)
+    return database
+
+
+def test_sample_size_estimates_per_arm_and_duration():
+    result = experiment_service.calculate_sample_size(
+        baseline_rate=0.10, minimum_detectable_effect=0.02,
+        confidence_level=0.95, power=0.80, daily_eligible_users=1000,
+    )
+    assert result["sample_size_per_arm"] > 0
+    assert result["total_sample_size"] == result["sample_size_per_arm"] * 2
+    assert result["estimated_duration_days"] == (result["total_sample_size"] + 999) // 1000
+    assert "normal approximation" in result["method"]
+
+
+@pytest.mark.parametrize("kwargs", [
+    {"baseline_rate": 0, "minimum_detectable_effect": 0.02},
+    {"baseline_rate": 0.99, "minimum_detectable_effect": 0.02},
+    {"baseline_rate": 0.1, "minimum_detectable_effect": 0},
+    {"baseline_rate": 0.1, "minimum_detectable_effect": 0.9},
+    {"baseline_rate": 0.1, "minimum_detectable_effect": 0.02, "confidence_level": 0.93},
+])
+def test_sample_size_rejects_invalid_parameters(kwargs):
+    with pytest.raises(ValueError):
+        experiment_service.calculate_sample_size(**kwargs)
+
+
+def test_generate_plan_uses_opportunity_context():
+    plan = experiment_service.generate_experiment_plan({
+        "feature": "Checkout & Payments",
+        "customer_signal": {"review_count": 12, "average_rating": 2.1},
+        "behavior_signal": {"detail": "31 sessions reached cart without purchase."},
+    })
+    assert "Checkout & Payments" in plan["name"]
+    assert "12 review" in plan["rationale"]
+    assert "31 sessions" in plan["rationale"]
+    assert plan["primary_metric"]["type"] == "binary"
+    assert len(plan["guardrails"]) >= 2
+    assert "not causal evidence" in plan["evidence_note"]
+
+
+def test_create_list_and_update_experiment(isolated_database):
+    saved = experiment_service.create_experiment({
+        "name": "Checkout experiment", "opportunity_id": "payments",
+        "opportunity_title": "Payment friction",
+        "hypothesis": "Reducing payment steps will increase completed purchases.",
+        "rationale": "Payment reviews and funnel drop-off point to friction.",
+        "primary_metric": "Purchase conversion rate",
+        "secondary_metrics": [{"name": "Time to checkout"}],
+        "guardrails": [{"name": "Error rate"}],
+        "baseline_rate": 0.10, "minimum_detectable_effect": 0.02,
+        "daily_eligible_users": 1000,
+    })
+    assert saved["status"] == "draft"
+    assert saved["sample_size_per_arm"] > 0
+    assert len(experiment_service.list_experiments()) == 1
+    updated = experiment_service.update_experiment_status(saved["id"], "running")
+    assert updated["status"] == "running"
+    assert experiment_service.update_experiment_status("missing", "running") is None
+
+
+def test_analysis_reports_lift_intervals_and_guardrails():
+    result = experiment_service.analyze_experiment({
+        "control_users": 1000, "control_conversions": 100,
+        "variant_users": 1000, "variant_conversions": 125,
+        "confidence_level": 0.95, "planned_sample_size_per_arm": 900,
+        "guardrails": [{
+            "name": "Error rate", "control_rate": 0.02,
+            "variant_rate": 0.04, "max_increase": 0.005,
+        }],
+    })
+    assert result["absolute_lift"] == pytest.approx(0.025)
+    assert result["relative_lift_percent"] == pytest.approx(25)
+    assert result["sample_size_reached"] is True
+    assert result["guardrails"][0]["status"] == "review"
+    assert len(result["difference_confidence_interval"]) == 2
+
+
+def test_wilson_interval_rejects_invalid_counts():
+    with pytest.raises(ValueError):
+        experiment_service.wilson_interval(11, 10)
