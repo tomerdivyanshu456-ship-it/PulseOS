@@ -105,7 +105,7 @@ def synthesize_document_answer(question, passages, max_sentences=6):
     for passage in passages:
         for raw_line in passage.get("text", "").splitlines():
             line = re.sub(r"^\s*(?:[•*\-]|\d+[.)])\s*", "", raw_line).strip()
-            if len(line) >= 18:
+            if len(line) >= 1:
                 lines.append({
                     "text": line,
                     "document_name": passage.get("document_name", "Selected document"),
