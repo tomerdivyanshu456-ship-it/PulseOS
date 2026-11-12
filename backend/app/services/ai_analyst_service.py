@@ -166,7 +166,7 @@ def answer_product_question(question, history=None):
             limitations.append("The previous conversation was considered, but issue ranking is recalculated from the currently uploaded datasets.")
         limitations.append("Priority scores are heuristic and the review sample is small; validate the issue with additional evidence before shipping a fix.")
 
-    if checkout_intent:
+    elif checkout_intent:
         if funnel_analysis:
             f = funnel_analysis
             findings.append({
@@ -301,11 +301,20 @@ def answer_product_question(question, history=None):
     if product and metrics["total_users"] < 30:
         limitations.append(f'Only {metrics["total_users"]} users are present in the event dataset; funnel percentages may be unstable.')
 
+    # Deduplicate repeated review evidence while preserving its original order.
+    unique_evidence = []
+    seen_evidence = set()
+    for item in evidence:
+        key = (item.get("rating"), item.get("text", ""))
+        if key not in seen_evidence:
+            seen_evidence.add(key)
+            unique_evidence.append(item)
+
     return {
         "question": question,
         "answer": answer,
         "findings": findings,
-        "evidence": evidence[:8],
+        "evidence": unique_evidence[:8],
         "sources": sources,
         "limitations": list(dict.fromkeys(limitations)),
         "recommendations": recommendations,
