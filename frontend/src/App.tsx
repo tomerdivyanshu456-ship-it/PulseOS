@@ -33,6 +33,7 @@ import {
 } from "./services/api";
 import UploadData from "./UploadData";
 import VoiceOfCustomer from "./VoiceOfCustomer";
+import AIAnalyst from "./AIAnalyst";
 import "./App.css";
 
 const navigation = [
@@ -392,6 +393,8 @@ function App() {
             <UploadData />
           ) : activePage === "Voice of Customer" ? (
             <VoiceOfCustomer />
+          ) : activePage === "AI Analyst" ? (
+            <AIAnalyst />
           ) : (
             <div className="panel page-placeholder">
               <Sparkles size={32} />
