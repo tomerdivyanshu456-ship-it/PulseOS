@@ -127,6 +127,45 @@ def answer_product_question(question, history=None):
             },
         }
 
+    prioritisation_question = any(phrase in current for phrase in [
+        "what should we fix first", "what should we fix", "what to fix first",
+        "which issue first", "prioritise the issues", "prioritize the issues",
+        "what should we investigate first", "highest priority issue",
+    ])
+
+    if prioritisation_question:
+        ranked_topics = sorted(
+            (voice or {}).get("topics", []),
+            key=lambda topic: topic.get("priority_score", 0),
+            reverse=True,
+        )
+        if ranked_topics:
+            top = ranked_topics[0]
+            findings.append({
+                "title": "Highest-priority customer issue",
+                "detail": f'{top["label"]} has the highest current heuristic priority score ({top["priority_score"]}/100), based on {top["review_count"]} negative review(s) and an average rating of {top["average_rating"]}/5.',
+                "type": "customer_feedback",
+            })
+            evidence.extend(_evidence_for(voice, top.get("keywords", [])))
+            recommendations.append(_recommendation(
+                f'Investigate {top["label"]} first',
+                "Review the underlying customer report, reproduce the issue where possible, and collect event-level or operational data that measures its frequency and impact before committing to a product fix.",
+                f'This issue ranks highest among the themes in the uploaded review sample. The score is a prioritisation heuristic, not proof that it affects the most customers.',
+                "Measure issue incidence, affected users or sessions, severity, and the relevant product metric before and after a change. Gather more customer reports to validate the pattern.",
+            ))
+            answer = f'The first issue to investigate is {top["label"]}, which has the highest heuristic priority score in the uploaded review sample ({top["priority_score"]}/100). It is supported by {top["review_count"]} negative review(s), so treat it as the first investigation candidate—not yet as a proven root cause. Validate its frequency and product impact before deciding on a fix.'
+        else:
+            answer = "There are no grouped customer pain points available to rank yet. Upload valid customer reviews and rerun the analysis."
+        if product and funnel_analysis:
+            findings.append({
+                "title": "Behavioural context",
+                "detail": f'Ordered funnel: {funnel_analysis["stages"][0]["count"]} viewed, {funnel_analysis["stages"][1]["count"]} added to cart, and {funnel_analysis["stages"][2]["count"]} purchased.',
+                "type": "metric",
+            })
+        if history:
+            limitations.append("The previous conversation was considered, but issue ranking is recalculated from the currently uploaded datasets.")
+        limitations.append("Priority scores are heuristic and the review sample is small; validate the issue with additional evidence before shipping a fix.")
+
     if checkout_intent:
         if funnel_analysis:
             f = funnel_analysis
