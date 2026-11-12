@@ -295,6 +295,16 @@ export interface AnalystConversationTurn {
   content: string;
 }
 
+export interface AnalystDocumentPassage {
+  document_id: string;
+  document_name: string;
+  chunk_index: number;
+  similarity: number;
+  text: string;
+  locator: string;
+  page: number | null;
+}
+
 export interface AnalystResponse {
   question: string;
   answer: string;
@@ -320,6 +330,7 @@ export interface AnalystResponse {
     };
   };
   context_used: boolean;
+  document_evidence: AnalystDocumentPassage[];
 }
 
 export async function askAnalyst(
