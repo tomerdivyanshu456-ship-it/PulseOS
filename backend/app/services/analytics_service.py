@@ -38,6 +38,22 @@ def get_latest_dataset(dataset_type):
 
 
 
+def get_dataset_by_id(dataset_id, dataset_type):
+    connection = get_connection()
+    try:
+        row = connection.execute(
+            """SELECT stored_filename FROM datasets WHERE id = ? AND dataset_type = ?""",
+            (dataset_id, dataset_type),
+        ).fetchone()
+    finally:
+        connection.close()
+    if row is None:
+        raise ValueError(f"Selected {dataset_type} dataset was not found.")
+    file_path = UPLOAD_DIR / row["stored_filename"]
+    if not file_path.is_file():
+        raise ValueError("The selected dataset file is missing.")
+    return pd.read_csv(file_path)
+
 # Transparent starter taxonomy. Teams can extend these aliases to match
 # the event names emitted by their own product.
 FEATURE_TAXONOMY = {
