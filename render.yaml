@@ -23,6 +23,7 @@ services:
   - type: web
     name: pulseos-frontend
     runtime: static
+    rootDir: frontend
     buildCommand: npm ci && npm run build
     staticPublishPath: dist
     envVars:
