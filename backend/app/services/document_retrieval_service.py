@@ -33,8 +33,7 @@ def _chunks(text, chunk_size=1200, overlap=180):
         else:
             if current:
                 chunks.append(current)
-            tail = current[-overlap:] if current else ""
-            current = f"{tail}\n{paragraph}".strip()
+            current = paragraph
     if current:
         chunks.append(current)
     return chunks
