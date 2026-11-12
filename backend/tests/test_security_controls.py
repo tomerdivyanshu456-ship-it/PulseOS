@@ -8,7 +8,7 @@ from starlette.datastructures import UploadFile
 
 from app.api.routes.datasets import read_upload_limited
 from app.security import credentials_are_valid, validate_production_config
-from app.middleware import RequestSizeLimitMiddleware
+from app.middleware import RequestBodyTooLarge, RequestSizeLimitMiddleware
 from fastapi import FastAPI, Request
 from app.main import app
 
@@ -75,3 +75,30 @@ def test_request_size_middleware_rejects_oversized_body_before_route():
     response = TestClient(test_app).post("/upload", content=b"123456789")
     assert response.status_code == 413
     assert "server limit" in response.json()["detail"]
+
+
+def test_request_size_middleware_rejects_chunked_body_without_content_length():
+    async def inner_app(scope, receive, send):
+        await receive()
+        await receive()
+        await send({"type": "http.response.start", "status": 200, "headers": []})
+        await send({"type": "http.response.body", "body": b"ok"})
+
+    middleware = RequestSizeLimitMiddleware(inner_app, max_bytes=8)
+    messages = [
+        {"type": "http.request", "body": b"123456", "more_body": True},
+        {"type": "http.request", "body": b"789", "more_body": False},
+    ]
+    sent = []
+
+    async def receive():
+        return messages.pop(0)
+
+    async def send(message):
+        sent.append(message)
+
+    async def run():
+        await middleware({"type": "http", "method": "POST", "headers": []}, receive, send)
+
+    asyncio.run(run())
+    assert sent[0]["status"] == 413
