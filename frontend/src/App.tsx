@@ -98,7 +98,10 @@ function App() {
   }
 
   useEffect(() => {
-    refreshDataSources().catch(() => setSourceError("Could not load active data sources."));
+    const refresh = () => refreshDataSources().catch(() => setSourceError("Could not load active data sources."));
+    refresh();
+    window.addEventListener("pulseos:datasets-changed", refresh);
+    return () => window.removeEventListener("pulseos:datasets-changed", refresh);
   }, []);
 
   async function changeDataSource(kind: "events" | "reviews" | "documents", id: string) {
