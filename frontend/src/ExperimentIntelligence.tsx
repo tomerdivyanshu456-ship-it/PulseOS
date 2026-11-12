@@ -103,8 +103,15 @@ function ExperimentIntelligence() {
     setError("");
     try {
       const result = await analyzeExperiment({
-        ...counts, planned_sample_size_per_arm: selected?.sample_size_per_arm,
+        ...counts,
+        planned_sample_size_per_arm: selected?.sample_size_per_arm,
         confidence_level: selected?.confidence_level ?? 0.95,
+        guardrails: selected?.guardrails.map((item) => ({
+          name: item.name,
+          control_rate: (guardrailInputs[item.name]?.control ?? 0) / 100,
+          variant_rate: (guardrailInputs[item.name]?.variant ?? 0) / 100,
+          max_increase: (guardrailInputs[item.name]?.maxIncrease ?? 0) / 100,
+        })) ?? [],
       });
       setAnalysis(result);
     } catch (err) { setError(errorMessage(err, "Could not analyse the entered results.")); }
