@@ -184,6 +184,59 @@ def calculate_product_analytics():
             float(purchase_rows["revenue"].sum()), 2
         )
 
+    # Weekly retention cohorts: cohort week is the week of a user's first event.
+    cohort_df = df[["user_id", "timestamp"]].copy()
+    cohort_df["activity_week"] = cohort_df["timestamp"].dt.to_period("W-SUN").dt.start_time
+    first_weeks = cohort_df.groupby("user_id")["activity_week"].min().rename("cohort_week")
+    cohort_df = cohort_df.join(first_weeks, on="user_id")
+    cohort_df["week_number"] = (
+        (cohort_df["activity_week"] - cohort_df["cohort_week"]).dt.days // 7
+    ).astype(int)
+    cohort_sizes = first_weeks.groupby(first_weeks).size()
+    retention_rows = []
+    for cohort_week, cohort_size in cohort_sizes.items():
+        cohort_events = cohort_df[cohort_df["cohort_week"] == cohort_week]
+        max_observed_week = max(
+            0, int((latest_date - cohort_week.normalize()).days // 7)
+        )
+        cells = []
+        for week_number in range(max_observed_week + 1):
+            retained_users = int(
+                cohort_events[cohort_events["week_number"] == week_number]["user_id"].nunique()
+            )
+            cells.append({
+                "week": week_number,
+                "active_users": retained_users,
+                "retention_rate": round(retained_users / int(cohort_size) * 100, 1),
+            })
+        retention_rows.append({
+            "cohort": cohort_week.strftime("%Y-%m-%d"),
+            "cohort_size": int(cohort_size),
+            "weeks": cells,
+        })
+
+    # Event adoption is a proxy for feature adoption until the product
+    # supplies a maintained event-to-feature taxonomy.
+    event_adoption = (
+        df.groupby("event_name")
+        .agg(
+            active_users=("user_id", "nunique"),
+            event_count=("user_id", "size"),
+        )
+        .reset_index()
+        .sort_values(["active_users", "event_count"], ascending=False)
+    )
+    total_users = int(df["user_id"].nunique())
+    adoption_rows = [
+        {
+            "event_name": str(row.event_name),
+            "active_users": int(row.active_users),
+            "event_count": int(row.event_count),
+            "user_adoption_rate": round(int(row.active_users) / total_users * 100, 1) if total_users else 0,
+        }
+        for row in event_adoption.head(12).itertuples(index=False)
+    ]
+
     return {
         "data_source": "uploaded_csv",
         "period": {
@@ -208,4 +261,7 @@ def calculate_product_analytics():
             }
             for date, users in daily_users.items()
         ],
+        "retention_cohorts": retention_rows,
+        "event_adoption": adoption_rows,
+        "adoption_note": "Event adoption is used as a proxy for feature adoption. Map events to product features for a true feature-level view.",
     }
