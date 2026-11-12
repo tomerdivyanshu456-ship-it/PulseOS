@@ -408,7 +408,7 @@ def analyze_experiment_from_events(experiment_id, exposure_event, conversion_eve
         reasons = [
             "The approximate confidence interval for the primary-metric difference is entirely below zero."
         ]
-    elif analysis["sample_size_reached"] and lower > 0:
+    elif analysis["sample_size_reached"] and lower > 0 and guardrail_inputs:
         recommendation = "Ship"
         reasons = [
             "The planned sample size has been reached in both arms.",
@@ -422,6 +422,8 @@ def analyze_experiment_from_events(experiment_id, exposure_event, conversion_eve
             reasons.append("The planned sample size has not yet been reached in both arms.")
         if lower <= 0 <= upper:
             reasons.append("The approximate confidence interval includes zero, so the primary-metric result is inconclusive.")
+        if not guardrail_inputs:
+            reasons.append("No guardrail event was supplied; configure at least one guardrail before considering rollout.")
         if not reasons:
             reasons.append("The evidence does not meet the configured criteria for rollout or stopping.")
 
