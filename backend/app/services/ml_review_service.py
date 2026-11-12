@@ -1,7 +1,3 @@
-from collections import Counter
-from pathlib import Path
-import re
-
 import pandas as pd
 from sklearn.cluster import KMeans
 from sklearn.feature_extraction.text import TfidfVectorizer
