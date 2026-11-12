@@ -18,6 +18,10 @@ def _safe(source, function, gaps):
 def build_root_cause_diagnostics():
     gaps = []
     journey = _safe("Funnel analysis unavailable", calculate_journey_intelligence, gaps)
+    if journey and not journey.get("segment_funnels") and journey.get("dimensions"):
+        dimension = journey["dimensions"][0].get("key")
+        if dimension:
+            journey = _safe("Segment comparison unavailable", lambda: calculate_journey_intelligence(dimension=dimension), gaps)
     opportunities = _safe("Customer/opportunity analysis unavailable", calculate_product_opportunities, gaps)
     experiments = _safe("Experiment register unavailable", list_experiments, gaps) or []
 
