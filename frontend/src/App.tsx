@@ -13,6 +13,7 @@ import {
   TrendingUp,
   Activity,
   IndianRupee,
+  Target,
 } from "lucide-react";
 import {
   Area,
@@ -33,6 +34,7 @@ import {
 } from "./services/api";
 import UploadData from "./UploadData";
 import ProductAnalytics from "./ProductAnalytics";
+import ProductOpportunities from "./ProductOpportunities";
 import VoiceOfCustomer from "./VoiceOfCustomer";
 import AIAnalyst from "./AIAnalyst";
 import "./App.css";
@@ -41,6 +43,7 @@ const navigation = [
   { name: "Overview", icon: LayoutDashboard },
   { name: "Upload Data", icon: UploadCloud },
   { name: "Product Analytics", icon: BarChart3 },
+  { name: "Opportunities", icon: Target },
   { name: "Voice of Customer", icon: MessageSquareText },
   { name: "AI Analyst", icon: Sparkles },
   { name: "Experiments", icon: FlaskConical },
@@ -394,6 +397,8 @@ function App() {
             <UploadData />
           ) : activePage === "Product Analytics" ? (
             <ProductAnalytics />
+          ) : activePage === "Opportunities" ? (
+            <ProductOpportunities />
           ) : activePage === "Voice of Customer" ? (
             <VoiceOfCustomer />
           ) : activePage === "AI Analyst" ? (
