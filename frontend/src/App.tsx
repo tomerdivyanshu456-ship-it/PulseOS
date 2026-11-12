@@ -37,6 +37,7 @@ import ProductAnalytics from "./ProductAnalytics";
 import ProductOpportunities from "./ProductOpportunities";
 import VoiceOfCustomer from "./VoiceOfCustomer";
 import AIAnalyst from "./AIAnalyst";
+import ExperimentIntelligence from "./ExperimentIntelligence";
 import "./App.css";
 
 const navigation = [
@@ -403,6 +404,8 @@ function App() {
             <VoiceOfCustomer />
           ) : activePage === "AI Analyst" ? (
             <AIAnalyst />
+          ) : activePage === "Experiments" ? (
+            <ExperimentIntelligence />
           ) : (
             <div className="panel page-placeholder">
               <Sparkles size={32} />
