@@ -16,7 +16,7 @@ def _available_dimensions(events):
     for column in events.columns:
         if column.lower() in EXCLUDED_DIMENSIONS:
             continue
-        if not (pd.api.types.is_object_dtype(events[column]) or pd.api.types.is_categorical_dtype(events[column]) or pd.api.types.is_bool_dtype(events[column])):
+        if not (pd.api.types.is_object_dtype(events[column]) or isinstance(events[column].dtype, pd.CategoricalDtype) or pd.api.types.is_bool_dtype(events[column])):
             continue
         values = events[column].dropna().astype(str).str.strip()
         values = values[values.ne("")]
