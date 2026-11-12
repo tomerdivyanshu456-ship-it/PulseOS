@@ -631,3 +631,29 @@ export async function getRootCauseDiagnostics(): Promise<RootCauseDiagnosticsRes
   const response = await api.get("/api/diagnostics/root-causes");
   return response.data;
 }
+
+export interface ProductAnomaliesResponse {
+  status: "ready";
+  period: { start_date: string; end_date: string };
+  days_analyzed: number;
+  metrics_analyzed: string[];
+  anomaly_count: number;
+  anomalies: Array<{
+    date: string;
+    metric: string;
+    label: string;
+    value: number;
+    anomaly_score: number;
+    direction: "spike" | "drop";
+    baseline_median: number;
+  }>;
+  daily_metrics: Array<{ date: string; event_count: number; active_users: number; purchase_count: number; revenue?: number }>;
+  data_gaps: string[];
+  methodology: string;
+  limitations: string[];
+}
+
+export async function getProductAnomalies(): Promise<ProductAnomaliesResponse> {
+  const response = await api.get("/api/ml/product-anomalies");
+  return response.data;
+}
