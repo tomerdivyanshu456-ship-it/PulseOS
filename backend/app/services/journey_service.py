@@ -96,6 +96,7 @@ def calculate_journey_intelligence(steps=None, dimension=None):
             "methodology": "At least two distinct event types are required to analyse a journey.",
         }
 
+    dimensions = _available_dimensions(events)
     use_sessions = "session_id" in events.columns
     events["_unit"] = events.apply(lambda row: _unit_key(row, use_sessions), axis=1)
     events = events.sort_values(["_unit", "timestamp"], kind="mergesort")
@@ -136,7 +137,6 @@ def calculate_journey_intelligence(steps=None, dimension=None):
         for path, count in path_counts.most_common(8)
     ]
 
-    dimensions = _available_dimensions(events)
     selected_dimension = dimension or None
     segment_funnels = []
     if selected_dimension:
