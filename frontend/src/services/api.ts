@@ -26,6 +26,22 @@ export interface AnalyticsOverview {
     date: string;
     active_users: number;
   }>;
+  retention_cohorts: Array<{
+    cohort: string;
+    cohort_size: number;
+    weeks: Array<{
+      week: number;
+      active_users: number;
+      retention_rate: number;
+    }>;
+  }>;
+  event_adoption: Array<{
+    event_name: string;
+    active_users: number;
+    event_count: number;
+    user_adoption_rate: number;
+  }>;
+  adoption_note: string;
 }
 
 export async function getHealth() {
