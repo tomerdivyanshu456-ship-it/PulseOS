@@ -3,10 +3,12 @@ from io import BytesIO
 
 import pytest
 from fastapi import HTTPException
+from fastapi.testclient import TestClient
 from starlette.datastructures import UploadFile
 
 from app.api.routes.datasets import read_upload_limited
 from app.security import credentials_are_valid, validate_production_config
+from app.main import app
 
 
 def test_admin_credentials_are_compared_and_username_is_fixed():
@@ -43,3 +45,15 @@ def test_upload_reader_rejects_file_over_limit():
     with pytest.raises(HTTPException) as error:
         asyncio.run(read_upload_limited(upload, 8))
     assert error.value.status_code == 413
+
+
+def test_workspace_api_requires_admin_auth_when_configured(monkeypatch):
+    monkeypatch.setenv("PULSEOS_ENV", "development")
+    monkeypatch.setenv("PULSEOS_ADMIN_PASSWORD", "local-test-password")
+    client = TestClient(app)
+
+    assert client.get("/api/datasets").status_code == 401
+    assert client.get("/api/health").status_code == 200
+    verified = client.get("/api/auth/verify", auth=("admin", "local-test-password"))
+    assert verified.status_code == 200
+    assert verified.json() == {"authenticated": True}
