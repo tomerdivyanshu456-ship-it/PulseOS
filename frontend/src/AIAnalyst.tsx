@@ -204,7 +204,7 @@ function AIAnalyst() {
           {result.priority_matrix && result.priority_matrix.length > 0 && (
             <section className="panel analyst-priority-panel">
               <div className="analyst-section-title"><Target size={17} /> Priority matrix</div>
-              <p className="analyst-priority-intro">Issues are positioned by estimated severity and evidence strength. This is a triage aid, not a measure of business impact.</p>
+              <p className="analyst-priority-intro">Review-only view: issues are positioned by review severity and review volume. Cross-source opportunity ranking also considers related behavioural signals. Neither score measures business impact.</p>
               <div className="analyst-matrix-layout">
                 <div className="analyst-matrix-y-label">Evidence strength</div>
                 <div className="analyst-matrix">
