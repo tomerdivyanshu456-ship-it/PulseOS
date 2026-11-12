@@ -13,6 +13,7 @@ from app.api.routes.segments import router as segments_router
 from app.api.routes.journeys import router as journeys_router
 from app.api.routes.diagnostics import router as diagnostics_router
 from app.api.routes.ml_intelligence import router as ml_intelligence_router
+from app.api.routes.anomalies import router as anomalies_router
 
 app = FastAPI(
     title="PulseOS API",
@@ -47,6 +48,7 @@ app.include_router(segments_router)
 app.include_router(journeys_router)
 app.include_router(diagnostics_router)
 app.include_router(ml_intelligence_router)
+app.include_router(anomalies_router)
 
 
 @app.get("/")
