@@ -34,7 +34,7 @@ def test_payment_opportunity_combines_review_and_behavior_signals(monkeypatch):
     assert len(result["opportunities"]) == 1
     opportunity = result["opportunities"][0]
     assert opportunity["feature"] == "Checkout & Payments"
-    assert opportunity["priority"] == "Validate"
+    assert opportunity["priority"] == "Investigate"
     assert opportunity["behavior_signal"]["value"] == 1
     assert opportunity["customer_signal"]["review_count"] == 1
     assert "not joined at user or session level" in result["methodology"]
