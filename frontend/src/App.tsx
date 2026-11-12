@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 
 import {
   LayoutDashboard,
@@ -35,6 +35,9 @@ import {
 import {
   getAnalytics,
   getHealth,
+  getAuthConfig,
+  authenticate,
+  clearAuth,
   getDatasets,
   getActiveDatasets,
   setActiveDataset,
@@ -56,6 +59,7 @@ import RootCauseExplorer from "./RootCauseExplorer";
 import ProductAnomalies from "./ProductAnomalies";
 import CustomerChurn from "./CustomerChurn";
 import "./App.css";
+import "./Auth.css";
 
 const navigation = [
   { name: "Overview", icon: LayoutDashboard },
@@ -82,7 +86,38 @@ const currencyFormatter = new Intl.NumberFormat("en-IN", {
 });
 
 function App() {
+  const [authState, setAuthState] = useState<"loading" | "unavailable" | "required" | "authenticated" | "disabled">("loading");
+  const [loginPassword, setLoginPassword] = useState("");
+  const [loginError, setLoginError] = useState("");
+  const [loginLoading, setLoginLoading] = useState(false);
   const [status, setStatus] = useState("Connecting...");
+
+  useEffect(() => {
+    getAuthConfig()
+      .then((config) => setAuthState(config.auth_required ? "required" : "disabled"))
+      .catch(() => setAuthState("unavailable"));
+  }, []);
+
+  async function handleLogin(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setLoginLoading(true);
+    setLoginError("");
+    try {
+      await authenticate(loginPassword);
+      setLoginPassword("");
+      setAuthState("authenticated");
+    } catch {
+      setLoginError("Sign-in failed. Check the password and try again.");
+    } finally {
+      setLoginLoading(false);
+    }
+  }
+
+  function handleLogout() {
+    clearAuth();
+    setLoginPassword("");
+    setAuthState("required");
+  }
   const [activePage, setActivePage] = useState("Overview");
   const [analytics, setAnalytics] = useState<AnalyticsOverview | null>(null);
   const [analyticsLoading, setAnalyticsLoading] = useState(false);
@@ -98,11 +133,12 @@ function App() {
   }
 
   useEffect(() => {
+    if (authState !== "authenticated" && authState !== "disabled") return;
     const refresh = () => refreshDataSources().catch(() => setSourceError("Could not load active data sources."));
     refresh();
     window.addEventListener("pulseos:datasets-changed", refresh);
     return () => window.removeEventListener("pulseos:datasets-changed", refresh);
-  }, []);
+  }, [authState]);
 
   async function changeDataSource(kind: "events" | "reviews" | "documents", id: string) {
     const selected = id ? datasets.find((item) => item.id === id) || null : null;
@@ -118,13 +154,15 @@ function App() {
   const dataContextKey = [activeDatasets.events?.id || "none", activeDatasets.reviews?.id || "none", activeDatasets.documents?.id || "none"].join(":");
 
   useEffect(() => {
+    if (authState !== "authenticated" && authState !== "disabled") return;
     getHealth()
       .then((data) => setStatus(data.status))
       .catch(() => setStatus("Offline"));
-  }, []);
+  }, [authState]);
 
   // Refresh when the user returns to Overview after uploading a dataset.
   useEffect(() => {
+    if (authState !== "authenticated" && authState !== "disabled") return;
     if (activePage !== "Overview") return;
 
     let cancelled = false;
@@ -162,7 +200,7 @@ function App() {
     return () => {
       cancelled = true;
     };
-  }, [activePage, dataContextKey]);
+  }, [activePage, dataContextKey, authState]);
 
   const hasAnalytics = analytics !== null;
   const metrics = hasAnalytics
@@ -193,6 +231,31 @@ function App() {
         },
       ]
     : [];
+
+  if (authState === "loading") {
+    return <main className="auth-screen"><div className="auth-card"><div className="auth-brand">Pulse<span>OS</span></div><p>Connecting to your workspace…</p></div></main>;
+  }
+
+  if (authState === "unavailable") {
+    return <main className="auth-screen"><div className="auth-card"><div className="auth-brand">Pulse<span>OS</span></div><h1>Backend unavailable</h1><p>PulseOS could not load its authentication configuration. Check that the API is running, then refresh this page.</p></div></main>;
+  }
+
+  if (authState === "required") {
+    return (
+      <main className="auth-screen">
+        <form className="auth-card" onSubmit={handleLogin}>
+          <div className="auth-brand">Pulse<span>OS</span></div>
+          <p className="auth-eyebrow">PRIVATE WORKSPACE</p>
+          <h1>Sign in to PulseOS</h1>
+          <p>Enter the workspace administrator password to access datasets and product insights.</p>
+          <label htmlFor="pulseos-password">Administrator password</label>
+          <input id="pulseos-password" type="password" autoComplete="current-password" value={loginPassword} onChange={(event) => setLoginPassword(event.target.value)} required autoFocus />
+          {loginError && <div className="auth-error" role="alert">{loginError}</div>}
+          <button type="submit" disabled={loginLoading || !loginPassword}>{loginLoading ? "Signing in…" : "Sign in"}</button>
+        </form>
+      </main>
+    );
+  }
 
   return (
     <div className="app-shell">
@@ -269,6 +332,7 @@ function App() {
             <button className="icon-button" aria-label="Notifications">
               <Bell size={19} />
             </button>
+            {authState === "authenticated" && <button className="auth-signout" type="button" onClick={handleLogout}>Sign out</button>}
             <div className="avatar small-avatar">DT</div>
           </div>
         </header>
