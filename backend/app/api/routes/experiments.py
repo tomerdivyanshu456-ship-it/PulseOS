@@ -77,6 +77,13 @@ class ExperimentAnalysisRequest(BaseModel):
 
     @field_validator("confidence_level")
     @classmethod
+    def finite_analysis_confidence(cls, value):
+        if not math.isfinite(value):
+            raise ValueError("Confidence level must be finite.")
+        return value
+
+    @field_validator("confidence_level")
+    @classmethod
     def finite_confidence(cls, value):
         if not math.isfinite(value):
             raise ValueError("Confidence level must be finite.")
