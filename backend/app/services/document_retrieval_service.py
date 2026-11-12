@@ -167,10 +167,26 @@ def synthesize_document_answer(question, passages, max_sentences=6):
             selected = []
 
     if not selected:
+        # The retrieval stage has already ranked passages against the query.
+        # Preserve the top source passage verbatim when sentence-level TF-IDF
+        # finds no shared terms; do not fabricate a paraphrase.
+        fallback = passages[0]
+        fallback_text = fallback.get("text", "").strip()
+        if not fallback_text:
+            return {
+                "status": "insufficient_evidence",
+                "text": "I found document passages, but none contained readable text to answer this question.",
+                "citations": [],
+                "method": "extractive",
+            }
         return {
-            "status": "insufficient_evidence",
-            "text": "I found document passages, but none contained enough text matching this question to form a supported answer. Try asking about a specific section or topic.",
-            "citations": [],
+            "status": "ready",
+            "text": fallback_text,
+            "citations": [{
+                "document_name": fallback.get("document_name", "Selected document"),
+                "chunk_index": fallback.get("chunk_index"),
+                "locator": fallback.get("locator", f"Chunk {fallback.get('chunk_index', '?')}"),
+            }],
             "method": "extractive",
         }
 
