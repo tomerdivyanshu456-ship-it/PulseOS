@@ -77,7 +77,7 @@ function FunnelJourneyIntelligence() {
             <span className="upload-eyebrow">FUNNEL & JOURNEY INTELLIGENCE</span>
             <h2>Find where users progress, hesitate and leave.</h2>
             <p>Build an ordered funnel from your tracked events, then inspect the most common paths through your product.</p>
-            <small>Observed period: {data.period.start_date} to {data.period.end_date} · Analysis unit: {data.unit}</small>
+            <small>Observed period: {data.period?.start_date || "—"} to {data.period?.end_date || "—"} · Analysis unit: {data.unit}</small>
           </section>
 
           <section className="panel journey-builder">
@@ -118,7 +118,7 @@ function FunnelJourneyIntelligence() {
           </section>
 
           <section className="journey-summary-grid">
-            <article className="panel journey-summary-card"><Users size={17} /><span>Units analysed</span><strong>{data.total_units.toLocaleString()}</strong><small>{data.unit} in the uploaded dataset</small></article>
+            <article className="panel journey-summary-card"><Users size={17} /><span>Units analysed</span><strong>{(data.total_units ?? 0).toLocaleString()}</strong><small>{data.unit} in the uploaded dataset</small></article>
             <article className="panel journey-summary-card"><Activity size={17} /><span>Entry units</span><strong>{(data.funnel[0]?.units_reached || 0).toLocaleString()}</strong><small>Reached the first selected event</small></article>
             <article className="panel journey-summary-card"><Route size={17} /><span>Completed funnel</span><strong>{(data.funnel[data.funnel.length - 1]?.conversion_from_entry || 0).toFixed(1)}%</strong><small>Of units reaching the entry step</small></article>
           </section>
