@@ -1,0 +1,10 @@
+.auth-screen{min-height:100vh;display:grid;place-items:center;padding:24px;background:#f7f8fc;color:#20283b;font-family:Inter,sans-serif}
+.auth-card{width:min(100%,420px);display:grid;gap:14px;padding:36px;border:1px solid #e5e8f0;border-radius:18px;background:#fff;box-shadow:0 18px 55px rgba(25,35,60,.08)}
+.auth-brand{color:#20283b;font-size:28px;font-weight:800;letter-spacing:-1.2px}.auth-brand span{color:#786be9}
+.auth-eyebrow{margin:12px 0 -8px;color:#786be9;font-size:10px;font-weight:800;letter-spacing:1.5px}
+.auth-card h1{margin:0;font-size:25px}.auth-card p{margin:0;color:#697386;font-size:13px;line-height:1.6}
+.auth-card label{margin-top:8px;font-size:12px;font-weight:700}.auth-card input{width:100%;min-height:44px;padding:0 12px;border:1px solid #d9deea;border-radius:9px;color:#20283b;font:inherit}
+.auth-card input:focus{outline:3px solid rgba(120,107,233,.16);border-color:#786be9}
+.auth-card button{min-height:45px;border:0;border-radius:9px;background:#7165ed;color:#fff;font-weight:700}.auth-card button:disabled{cursor:not-allowed;opacity:.6}
+.auth-error{color:#b42318;font-size:12px}.auth-signout{border:1px solid #d9deea;border-radius:8px;padding:8px 12px;background:#fff;color:#354052;font-size:12px;font-weight:600}
+@media(max-width:760px){.auth-card{padding:26px}}
