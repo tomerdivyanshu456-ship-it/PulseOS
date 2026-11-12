@@ -166,11 +166,12 @@ def test_experiment_api_endpoints_and_validation(monkeypatch, tmp_path):
     assert updated.status_code == 200
     assert updated.json()["status"] == "running"
 
-    event_data = _event_rows(experiment_id, 5000, 5000, 500, 750)
+    event_data = _event_rows(experiment_id, 5000, 5000, 500, 750, control_errors=50, variant_errors=50)
     monkeypatch.setattr(experiment_service, "get_latest_dataset", lambda _: event_data)
     decision = client.post(f"/api/experiments/{experiment_id}/decision", json={
         "exposure_event": "experiment_exposed",
         "conversion_event": "purchase",
+        "guardrails": [{"name": "Checkout errors", "event_name": "checkout_error", "max_increase": 0.02}],
     })
     assert decision.status_code == 200
     assert decision.json()["recommendation"] == "Ship"
@@ -224,11 +225,12 @@ def test_event_decision_recommends_ship_when_sample_and_positive_interval_reache
     isolated_database, monkeypatch
 ):
     saved = _decision_experiment()
-    events = _event_rows(saved["id"], 5000, 5000, 500, 750)
+    events = _event_rows(saved["id"], 5000, 5000, 500, 750, control_errors=50, variant_errors=50)
     monkeypatch.setattr(experiment_service, "get_latest_dataset", lambda _: events)
 
     result = experiment_service.analyze_experiment_from_events(
-        saved["id"], "experiment_exposed", "purchase"
+        saved["id"], "experiment_exposed", "purchase",
+        [{"name": "Checkout errors", "event_name": "checkout_error", "max_increase": 0.02}],
     )
 
     assert result["recommendation"] == "Ship"
