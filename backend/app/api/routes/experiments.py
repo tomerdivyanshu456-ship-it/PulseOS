@@ -47,6 +47,13 @@ class ExperimentCreateRequest(BaseModel):
     daily_eligible_users: int = Field(default=1000, ge=1)
     status: Literal["draft", "running", "completed", "archived"] = "draft"
 
+    @field_validator("baseline_rate", "minimum_detectable_effect", "confidence_level", "power")
+    @classmethod
+    def finite_create_values(cls, value):
+        if not math.isfinite(value):
+            raise ValueError("Input values must be finite numbers.")
+        return value
+
 
 class StatusRequest(BaseModel):
     status: Literal["draft", "running", "completed", "archived"]
@@ -67,6 +74,13 @@ class ExperimentAnalysisRequest(BaseModel):
     confidence_level: float = 0.95
     planned_sample_size_per_arm: int | None = Field(default=None, gt=0)
     guardrails: list[GuardrailResult] = Field(default_factory=list)
+
+    @field_validator("confidence_level")
+    @classmethod
+    def finite_confidence(cls, value):
+        if not math.isfinite(value):
+            raise ValueError("Confidence level must be finite.")
+        return value
 
     @model_validator(mode="after")
     def validate_arm_counts(self):
@@ -114,10 +128,6 @@ def set_experiment_status(experiment_id: str, payload: StatusRequest):
 @router.post("/analyze")
 def experiment_analysis(payload: ExperimentAnalysisRequest):
     data = payload.model_dump()
-    if data["control_conversions"] > data["control_users"]:
-        raise HTTPException(status_code=422, detail="Control conversions cannot exceed control users.")
-    if data["variant_conversions"] > data["variant_users"]:
-        raise HTTPException(status_code=422, detail="Variant conversions cannot exceed variant users.")
     try:
         return analyze_experiment(data)
     except ValueError as exc:
