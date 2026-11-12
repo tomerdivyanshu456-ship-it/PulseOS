@@ -22,6 +22,8 @@ PulseOS is a portfolio project built around a practical product workflow: **meas
 | **Cohort & Segments** | How do engagement and purchasing metrics differ across user attributes? |
 | **Funnel & Journeys** | Where do users drop off in an ordered journey, and what paths do they take? |
 | **Root Cause Explorer** | Which funnel, feedback and segment signals are worth investigating first? |
+| **Anomaly Detection** | Which daily product activity metrics are unusual relative to recent history? |
+| **Customer Churn Prediction** | Which behavioural patterns distinguish users who become inactive in a defined follow-up window? |
 
 The platform is designed as decision support. It distinguishes observed metrics, heuristic rankings and experimental evidence rather than presenting correlations or keyword matches as proven causes.
 
@@ -30,7 +32,7 @@ The platform is designed as decision support. It distinguishes observed metrics,
 - **Frontend:** React 19, TypeScript, Vite, Recharts
 - **Backend:** Python, FastAPI, Pandas
 - **Storage:** SQLite
-- **Analytics / ML:** NumPy, scikit-learn and lightweight CPU-friendly text analysis
+- **Analytics / ML:** NumPy, scikit-learn, TF-IDF/KMeans, Isolation Forest, Logistic Regression and Random Forest
 - **Tests:** Pytest
 
 **Local-first constraints:** no paid API keys, GPU, Docker or hosted inference service required.
@@ -130,7 +132,7 @@ In the app, open **Upload Data** and upload:
 - `data/sample_user_events.csv` as the behavioural events dataset.
 - `data/sample_customer_reviews.csv` as the customer reviews dataset.
 
-The synthetic event dataset includes user, event, timestamp, session, product and categorical attributes (platform, plan, region and acquisition channel). This supports the core analytics, funnel and segment demonstrations. The review dataset contains ratings, review text, dates and product categories.
+The synthetic event datasets include user, event, timestamp, session, product and categorical attributes (platform, plan, region and acquisition channel). The churn-specific file includes a constructed historical inactivity outcome for demonstration; do not interpret its labels or model metrics as real customer behaviour. The review dataset contains ratings, review text, dates and product categories.
 
 For event-backed experiment decisions, use a separate experiment dataset with the exposure fields described below; the general demo events file is not tagged as an experiment.
 
@@ -184,7 +186,7 @@ Each eligible user needs a tagged exposure event (default: `experiment_exposed`)
 - **Health scorecard:** the overall index averages available pillars only; missing pillars are not treated as zero. Starter thresholds are illustrative defaults, not industry benchmarks.
 - **Experiment planning:** sample-size estimates use a normal approximation for two independent binary proportions, two-sided confidence, specified power and equal allocation. Duration estimates are planning approximations.
 - **Experiment decisions:** observed arm rates and approximate confidence intervals support a Ship / Iterate / Stop recommendation. Instrumentation, stable assignment, adequate sample size and guardrails matter; this is not proof of causality or an automated deployment action.
-- **Strategy scoring:** impact, evidence confidence and effort are transparent heuristics for prioritisation, not predicted business outcomes.
+- **Strategy scoring:** impact, evidence confidence and effort are transparent heuristics for prioritisation, not predicted business outcomes.\n- **Anomaly detection:** independent Isolation Forest models flag unusual daily metrics; contamination is a modelling assumption and flags are not proof of incidents.\n- **Churn prediction:** churn is operationalised as no recorded event in the 7 calendar days after a 7-day observation window. User-level features use only the observation window; a stratified holdout evaluates Logistic Regression and Random Forest. This is an inactivity proxy, not confirmed cancellation, and holdout scores are retrospective rather than live customer risk predictions.
 
 ## Quality checks
 
