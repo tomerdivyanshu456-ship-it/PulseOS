@@ -197,7 +197,7 @@ function VoiceOfCustomer() {
         <div className="panel-heading">
           <div>
             <h3>Recurring customer pain points</h3>
-            <p>TF-IDF terms grouped into themes from negative reviews</p>
+            <p>Customer issues grouped into readable themes and ranked for investigation</p>
           </div>
           <span className="chart-tag">{data.topics.length} themes</span>
         </div>
@@ -209,11 +209,35 @@ function VoiceOfCustomer() {
               <article className="voc-topic-card" key={`${topic.label}-${index}`}>
                 <div className="voc-topic-number">THEME 0{index + 1}</div>
                 <h4>{topic.label}</h4>
+                <div className="voc-priority-row">
+                  <span className={"voc-priority voc-priority-" + topic.priority.toLowerCase().replaceAll(" ", "-")}>
+                    {topic.priority}
+                  </span>
+                  <strong>{topic.priority_score}/100</strong>
+                </div>
+                <div className="voc-priority-track">
+                  <span style={{ width: topic.priority_score + "%" }} />
+                </div>
+                <div className="voc-topic-stats">
+                  <span>{topic.review_count} review(s)</span>
+                  <span>Avg. rating {topic.average_rating.toFixed(1)}/5</span>
+                </div>
+                <p className="voc-evidence-level">{topic.evidence_level}</p>
                 <div className="voc-keywords">
                   {topic.keywords.map((keyword) => <span key={keyword}>{keyword}</span>)}
                 </div>
-                <p className="voc-topic-count">{topic.review_count} review(s) associated with this theme</p>
-                <blockquote>“{topic.evidence}”</blockquote>
+                <div className="voc-recommendation">
+                  <strong>Suggested investigation</strong>
+                  <p>{topic.recommendation}</p>
+                </div>
+                <div className="voc-topic-evidence">
+                  <strong>Supporting feedback</strong>
+                  {topic.evidence.map((item, evidenceIndex) => (
+                    <blockquote key={evidenceIndex}>
+                      <span>{item.rating} ★</span> “{item.review_text}”
+                    </blockquote>
+                  ))}
+                </div>
               </article>
             ))}
           </div>
@@ -245,7 +269,7 @@ function VoiceOfCustomer() {
 
       <div className="voc-method-note">
         <strong>Methodology and limitations</strong>
-        <p>{data.methodology.sentiment} {data.methodology.topics} These are lightweight, explainable techniques; sentiment labels and topic groupings should be reviewed against the original feedback before making product decisions.</p>
+        <p>{data.methodology.sentiment} {data.methodology.topics} {data.methodology.prioritisation} These are lightweight, explainable heuristics. Treat themes based on very few reviews as early signals, not proven trends, and validate them against customer evidence before making product decisions.</p>
       </div>
     </div>
   );
