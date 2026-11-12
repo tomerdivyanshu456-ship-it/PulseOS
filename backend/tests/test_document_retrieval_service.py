@@ -126,3 +126,37 @@ def test_extractive_answer_declines_when_no_sentence_matches():
 
     assert result["status"] == "insufficient_evidence"
     assert result["citations"] == []
+
+
+
+def test_broad_document_summary_returns_unranked_overview_chunks(monkeypatch, tmp_path):
+    document = tmp_path / "resume.txt"
+    document.write_text(
+        "Divyanshu Tomer\\nB.Tech Chemical Engineering at BIT Mesra.\\n"
+        "Business Analyst Intern: worked with SQL and Python.\\n"
+        "Projects include customer churn prediction and product analytics.",
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(document_retrieval_service, "DOCUMENT_DIR", tmp_path)
+    monkeypatch.setattr(
+        document_retrieval_service,
+        "get_dataset_record",
+        lambda _kind: {
+            "id": "doc-summary",
+            "stored_filename": "resume.txt",
+            "original_filename": "Divyanshu_Tomer_intern.pdf",
+        },
+    )
+
+    result = document_retrieval_service.retrieve_document_evidence(
+        "Summarise the key requirements in this document"
+    )
+
+    assert result["status"] == "ready"
+    assert result["passages"]
+    assert result["passages"][0]["similarity"] == 0
+    answer = document_retrieval_service.synthesize_document_answer(
+        "Summarise the key requirements in this document", result["passages"]
+    )
+    assert answer["status"] == "ready"
+    assert "B.Tech Chemical Engineering" in answer["text"]
