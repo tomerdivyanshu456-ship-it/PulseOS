@@ -23,6 +23,7 @@ import {
 import {
   getVoiceOfCustomer,
   type VoiceOfCustomerOverview,
+  getReviewThemeClusters,
 } from "./services/api";
 import "./VoiceOfCustomer.css";
 
@@ -36,6 +37,10 @@ function VoiceOfCustomer() {
   const [data, setData] = useState<VoiceOfCustomerOverview | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [clusterCount, setClusterCount] = useState(4);
+  const [clusterResult, setClusterResult] = useState<Awaited<ReturnType<typeof getReviewThemeClusters>> | null>(null);
+  const [clusterLoading, setClusterLoading] = useState(false);
+  const [clusterError, setClusterError] = useState("");
 
   async function loadAnalysis() {
     setLoading(true);
@@ -241,6 +246,79 @@ function VoiceOfCustomer() {
               </article>
             ))}
           </div>
+        )}
+      </section>
+
+      <section className="panel voc-ml-clustering">
+        <div className="panel-heading">
+          <div>
+            <h3>ML-powered review theme discovery</h3>
+            <p>Discover groups of similar reviews using TF-IDF text features and KMeans clustering.</p>
+          </div>
+          <span className="chart-tag">Unsupervised ML</span>
+        </div>
+        <div className="voc-cluster-controls">
+          <label>
+            Number of clusters
+            <select value={clusterCount} onChange={(event) => setClusterCount(Number(event.target.value))}>
+              {[2, 3, 4, 5, 6, 7, 8].map((value) => <option key={value} value={value}>{value}</option>)}
+            </select>
+          </label>
+          <button className="voc-primary" disabled={clusterLoading} onClick={async () => {
+            setClusterLoading(true);
+            setClusterError("");
+            try {
+              setClusterResult(await getReviewThemeClusters(clusterCount));
+            } catch (err: unknown) {
+              const detail = typeof err === "object" && err !== null && "response" in err
+                && typeof err.response === "object" && err.response !== null
+                && "data" in err.response && typeof err.response.data === "object"
+                && err.response.data !== null && "detail" in err.response.data
+                && typeof err.response.data.detail === "string" ? err.response.data.detail : "Could not cluster reviews.";
+              setClusterError(detail);
+              setClusterResult(null);
+            } finally {
+              setClusterLoading(false);
+            }
+          }}>
+            {clusterLoading ? "Clustering reviews…" : "Run ML clustering"}
+          </button>
+        </div>
+        {clusterError && <p className="voc-cluster-error">{clusterError}</p>}
+        {clusterResult && (
+          <>
+            <div className="voc-cluster-summary">
+              <span><strong>{clusterResult.reviews_clustered}</strong> reviews clustered</span>
+              <span><strong>{clusterResult.clusters_created}</strong> groups discovered</span>
+              <span><strong>{clusterResult.silhouette_score ?? "N/A"}</strong> silhouette score</span>
+            </div>
+            <div className="voc-cluster-grid">
+              {clusterResult.clusters.map((cluster) => (
+                <article className="voc-cluster-card" key={cluster.cluster_id}>
+                  <div className="voc-cluster-card-top">
+                    <span>CLUSTER {cluster.cluster_id + 1}</span>
+                    <strong>{cluster.review_count} reviews · {cluster.share}%</strong>
+                  </div>
+                  <h4>{cluster.label}</h4>
+                  <p className="voc-cluster-rating">Average rating: {cluster.average_rating.toFixed(2)} / 5</p>
+                  <div className="voc-keywords">{cluster.keywords.map((keyword) => <span key={keyword}>{keyword}</span>)}</div>
+                  <div className="voc-topic-evidence">
+                    <strong>Representative reviews</strong>
+                    {cluster.examples.map((example, index) => (
+                      <blockquote key={index}><span>{example.rating} ★</span> “{example.review_text}”</blockquote>
+                    ))}
+                  </div>
+                </article>
+              ))}
+            </div>
+            <p className="voc-cluster-method">{clusterResult.methodology}</p>
+            <ul className="voc-cluster-limitations">
+              {clusterResult.limitations.map((limitation) => <li key={limitation}>{limitation}</li>)}
+            </ul>
+          </>
+        )}
+        {!clusterResult && !clusterError && (
+          <p className="voc-cluster-placeholder">Run clustering to discover themes from the currently uploaded reviews. This analysis is separate from the existing rule-based pain-point grouping.</p>
         )}
       </section>
 
