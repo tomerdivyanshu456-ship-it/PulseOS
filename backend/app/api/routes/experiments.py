@@ -19,16 +19,12 @@ class SampleSizeRequest(BaseModel):
     power: float = 0.80
     daily_eligible_users: int = Field(default=1000, ge=1)
 
-    @classmethod
-    def validate_finite(cls, value):
-        if not math.isfinite(value):
-            raise ValueError("Input values must be finite numbers.")
-        return value
-
     @field_validator("baseline_rate", "minimum_detectable_effect", "confidence_level", "power")
     @classmethod
     def finite_values(cls, value):
-        return cls.validate_finite(value)
+        if not math.isfinite(value):
+            raise ValueError("Input values must be finite numbers.")
+        return value
 
 
 class ExperimentPlanRequest(BaseModel):
