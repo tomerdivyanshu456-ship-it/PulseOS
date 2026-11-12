@@ -348,3 +348,35 @@ export async function analyzeExperiment(payload: {
   const response = await api.post("/api/experiments/analyze", payload);
   return response.data;
 }
+
+
+
+export interface ExperimentDecision {
+  experiment_id: string;
+  experiment_name: string;
+  recommendation: "Ship" | "Iterate" | "Stop";
+  reasons: string[];
+  analysis: ExperimentAnalysis;
+  events: {
+    exposure_event: string;
+    conversion_event: string;
+    source_rows: number;
+    tagged_exposure_rows: number;
+    exposed_users: number;
+    conflicting_assignment_users_excluded: number;
+  };
+  guardrail_note: string;
+  limitations: string[];
+}
+
+export async function getExperimentDecision(
+  id: string,
+  payload: {
+    exposure_event: string;
+    conversion_event: string;
+    guardrails?: Array<{ name: string; event_name: string; max_increase: number }>;
+  }
+): Promise<ExperimentDecision> {
+  const response = await api.post(`/api/experiments/${id}/decision`, payload);
+  return response.data;
+}

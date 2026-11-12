@@ -2,8 +2,10 @@
 import json
 import math
 import uuid
+import pandas as pd
 from datetime import datetime, timezone
 
+from app.services.analytics_service import get_latest_dataset
 from app.services.dataset_service import get_connection
 
 
@@ -273,4 +275,180 @@ def analyze_experiment(payload):
             "Descriptive two-arm comparison. Arm intervals use Wilson score intervals; the difference interval "
             "is an unpooled normal approximation. This is not a pre-registered statistical analysis and does not prove causality."
         ),
+    }
+
+
+
+def analyze_experiment_from_events(experiment_id, exposure_event, conversion_event, guardrails=None):
+    """Build a user-level experiment comparison from explicitly tagged exposure events."""
+    exposure_event = str(exposure_event or "").strip().lower()
+    conversion_event = str(conversion_event or "").strip().lower()
+    if not exposure_event or not conversion_event:
+        raise ValueError("Exposure event and conversion event are required.")
+    if exposure_event == conversion_event:
+        raise ValueError("Exposure and conversion events must be different.")
+
+    _ensure_experiments_table()
+    with get_connection() as connection:
+        experiment = connection.execute(
+            "SELECT * FROM experiments WHERE id = ?", (experiment_id,)
+        ).fetchone()
+    if experiment is None:
+        raise LookupError("Experiment not found.")
+
+    events = get_latest_dataset("events").copy()
+    required = {"user_id", "event_name", "timestamp", "experiment_id", "experiment_variant"}
+    missing = sorted(required.difference(events.columns))
+    if missing:
+        raise ValueError(
+            "The uploaded events CSV needs these additional experiment columns: "
+            + ", ".join(missing)
+            + ". Tag each experiment exposure row with experiment_id and experiment_variant."
+        )
+
+    events["user_id"] = events["user_id"].astype(str).str.strip()
+    events["event_name"] = events["event_name"].astype(str).str.strip().str.lower()
+    events["timestamp"] = pd.to_datetime(events["timestamp"], errors="coerce", utc=True)
+    events = events.dropna(subset=["timestamp"])
+    events = events[events["user_id"].ne("")].copy()
+    if events.empty:
+        raise ValueError("The uploaded events CSV contains no valid user/timestamp records.")
+
+    tagged = events[
+        events["experiment_id"].astype(str).str.strip().eq(str(experiment_id))
+    ].copy()
+    if tagged.empty:
+        raise ValueError(
+            "No event rows match this experiment ID. Add tagged exposure rows for the selected experiment."
+        )
+
+    tagged["experiment_variant"] = (
+        tagged["experiment_variant"].astype(str).str.strip().str.lower()
+    )
+    exposure_rows = tagged[
+        tagged["event_name"].eq(exposure_event)
+        & tagged["experiment_variant"].isin(["control", "variant"])
+    ].copy()
+    if exposure_rows.empty:
+        raise ValueError(
+            f"No valid '{exposure_event}' exposure rows with control/variant assignments were found."
+        )
+
+    variant_counts = exposure_rows.groupby("user_id")["experiment_variant"].nunique()
+    conflicting_users = set(variant_counts[variant_counts > 1].index)
+    valid_exposures = exposure_rows[
+        ~exposure_rows["user_id"].isin(conflicting_users)
+    ].sort_values("timestamp").drop_duplicates("user_id", keep="first")
+    if valid_exposures.empty:
+        raise ValueError("No users have a consistent experiment assignment.")
+
+    exposure_map = valid_exposures.set_index("user_id")[["experiment_variant", "timestamp"]]
+    exposed_users = set(exposure_map.index)
+    if exposure_map["experiment_variant"].nunique() < 2:
+        raise ValueError("Both control and variant need at least one valid exposed user.")
+
+    def converted_users(event_name):
+        matching = events[
+            events["user_id"].isin(exposed_users)
+            & events["event_name"].eq(event_name)
+        ][["user_id", "timestamp"]].drop_duplicates()
+        if matching.empty:
+            return set()
+        joined = matching.join(exposure_map[["timestamp"]].rename(columns={"timestamp": "exposed_at"}), on="user_id")
+        return set(joined.loc[joined["timestamp"] >= joined["exposed_at"], "user_id"].unique())
+
+    conversion_users = converted_users(conversion_event)
+    counts = {}
+    for arm in ("control", "variant"):
+        arm_users = set(
+            exposure_map.index[exposure_map["experiment_variant"].eq(arm)]
+        )
+        counts[f"{arm}_users"] = len(arm_users)
+        counts[f"{arm}_conversions"] = len(arm_users.intersection(conversion_users))
+
+    guardrail_inputs = []
+    for item in guardrails or []:
+        name = str(item.get("name") or "").strip()
+        event_name = str(item.get("event_name") or "").strip().lower()
+        threshold = float(item.get("max_increase", 0))
+        if not name or not event_name:
+            raise ValueError("Each guardrail needs a name and an event name.")
+        if not math.isfinite(threshold) or not 0 <= threshold <= 1:
+            raise ValueError("Guardrail maximum increase must be between 0 and 1.")
+        affected_users = converted_users(event_name)
+        guardrail_inputs.append({
+            "name": name,
+            "control_rate": len(
+                affected_users.intersection(set(exposure_map.index[exposure_map["experiment_variant"].eq("control")]))
+            ) / counts["control_users"],
+            "variant_rate": len(
+                affected_users.intersection(set(exposure_map.index[exposure_map["experiment_variant"].eq("variant")]))
+            ) / counts["variant_users"],
+            "max_increase": threshold,
+        })
+
+    analysis = analyze_experiment({
+        **counts,
+        "confidence_level": float(experiment["confidence_level"]),
+        "planned_sample_size_per_arm": int(experiment["sample_size_per_arm"]),
+        "guardrails": guardrail_inputs,
+    })
+
+    lower, upper = analysis["difference_confidence_interval"]
+    guardrail_regressions = [
+        item for item in analysis["guardrails"] if item["status"] == "review"
+    ]
+    if guardrail_regressions:
+        recommendation = "Stop"
+        reasons = [
+            "At least one configured guardrail exceeded its allowed absolute increase; pause and investigate before rollout."
+        ]
+    elif upper < 0:
+        recommendation = "Stop"
+        reasons = [
+            "The approximate confidence interval for the primary-metric difference is entirely below zero."
+        ]
+    elif analysis["sample_size_reached"] and lower > 0 and guardrail_inputs:
+        recommendation = "Ship"
+        reasons = [
+            "The planned sample size has been reached in both arms.",
+            "The approximate confidence interval for the primary-metric lift is entirely above zero.",
+            "No configured guardrail exceeded its allowed increase.",
+        ]
+    else:
+        recommendation = "Iterate"
+        reasons = []
+        if not analysis["sample_size_reached"]:
+            reasons.append("The planned sample size has not yet been reached in both arms.")
+        if lower <= 0 <= upper:
+            reasons.append("The approximate confidence interval includes zero, so the primary-metric result is inconclusive.")
+        if not guardrail_inputs:
+            reasons.append("No guardrail event was supplied; configure at least one guardrail before considering rollout.")
+        if not reasons:
+            reasons.append("The evidence does not meet the configured criteria for rollout or stopping.")
+
+    return {
+        "experiment_id": experiment_id,
+        "experiment_name": experiment["name"],
+        "recommendation": recommendation,
+        "reasons": reasons,
+        "analysis": analysis,
+        "events": {
+            "exposure_event": exposure_event,
+            "conversion_event": conversion_event,
+            "source_rows": int(len(events)),
+            "tagged_exposure_rows": int(len(exposure_rows)),
+            "exposed_users": int(len(exposure_map)),
+            "conflicting_assignment_users_excluded": int(len(conflicting_users)),
+        },
+        "guardrail_note": (
+            "Guardrail flags compare observed user rates with user-specified absolute thresholds. "
+            "They are screening signals, not separate statistical tests."
+        ),
+        "limitations": [
+            "Only users with a tagged exposure event are included in the denominator.",
+            "Conversion and guardrail events are counted once per exposed user and must occur at or after exposure.",
+            "The analysis assumes stable user-level assignment and complete event instrumentation.",
+            "The recommendation is a decision aid, not proof of causality or an automatic deployment command.",
+        ],
     }

@@ -165,3 +165,125 @@ def test_experiment_api_endpoints_and_validation(monkeypatch, tmp_path):
     updated = client.patch(f"/api/experiments/{experiment_id}/status", json={"status": "running"})
     assert updated.status_code == 200
     assert updated.json()["status"] == "running"
+
+    event_data = _event_rows(experiment_id, 5000, 5000, 500, 750, control_errors=50, variant_errors=50)
+    monkeypatch.setattr(experiment_service, "get_latest_dataset", lambda _: event_data)
+    decision = client.post(f"/api/experiments/{experiment_id}/decision", json={
+        "exposure_event": "experiment_exposed",
+        "conversion_event": "purchase",
+        "guardrails": [{"name": "Checkout errors", "event_name": "checkout_error", "max_increase": 0.02}],
+    })
+    assert decision.status_code == 200
+    assert decision.json()["recommendation"] == "Ship"
+
+
+def _decision_experiment():
+    return experiment_service.create_experiment({
+        "name": "Event-backed checkout test",
+        "hypothesis": "A clearer checkout will increase completed purchases.",
+        "primary_metric": "Purchase conversion rate",
+        "baseline_rate": 0.10,
+        "minimum_detectable_effect": 0.02,
+        "daily_eligible_users": 1000,
+    })
+
+
+def _event_rows(experiment_id, control_users, variant_users,
+                control_conversions, variant_conversions, control_errors=0,
+                variant_errors=0):
+    import pandas as pd
+
+    rows = []
+    for arm, total, conversions in (
+        ("control", control_users, control_conversions),
+        ("variant", variant_users, variant_conversions),
+    ):
+        for index in range(total):
+            user_id = f"{arm}-{index}"
+            rows.append({
+                "user_id": user_id, "event_name": "experiment_exposed",
+                "timestamp": "2026-01-01T10:00:00Z",
+                "experiment_id": experiment_id, "experiment_variant": arm,
+            })
+            if index < conversions:
+                rows.append({
+                    "user_id": user_id, "event_name": "purchase",
+                    "timestamp": "2026-01-01T10:05:00Z",
+                    "experiment_id": "", "experiment_variant": "",
+                })
+            error_count = control_errors if arm == "control" else variant_errors
+            if index < error_count:
+                rows.append({
+                    "user_id": user_id, "event_name": "checkout_error",
+                    "timestamp": "2026-01-01T10:06:00Z",
+                    "experiment_id": "", "experiment_variant": "",
+                })
+    return pd.DataFrame(rows)
+
+
+def test_event_decision_recommends_ship_when_sample_and_positive_interval_reached(
+    isolated_database, monkeypatch
+):
+    saved = _decision_experiment()
+    events = _event_rows(saved["id"], 5000, 5000, 500, 750, control_errors=50, variant_errors=50)
+    monkeypatch.setattr(experiment_service, "get_latest_dataset", lambda _: events)
+
+    result = experiment_service.analyze_experiment_from_events(
+        saved["id"], "experiment_exposed", "purchase",
+        [{"name": "Checkout errors", "event_name": "checkout_error", "max_increase": 0.02}],
+    )
+
+    assert result["recommendation"] == "Ship"
+    assert result["analysis"]["sample_size_reached"] is True
+    assert result["analysis"]["difference_confidence_interval"][0] > 0
+    assert result["events"]["exposed_users"] == 10000
+
+
+def test_event_decision_recommends_iterate_for_inconclusive_underpowered_result(
+    isolated_database, monkeypatch
+):
+    saved = _decision_experiment()
+    events = _event_rows(saved["id"], 100, 100, 10, 11)
+    monkeypatch.setattr(experiment_service, "get_latest_dataset", lambda _: events)
+
+    result = experiment_service.analyze_experiment_from_events(
+        saved["id"], "experiment_exposed", "purchase"
+    )
+
+    assert result["recommendation"] == "Iterate"
+    assert result["analysis"]["sample_size_reached"] is False
+
+
+def test_event_decision_stops_for_guardrail_regression(isolated_database, monkeypatch):
+    saved = _decision_experiment()
+    events = _event_rows(
+        saved["id"], 1000, 1000, 100, 110,
+        control_errors=10, variant_errors=100,
+    )
+    monkeypatch.setattr(experiment_service, "get_latest_dataset", lambda _: events)
+
+    result = experiment_service.analyze_experiment_from_events(
+        saved["id"], "experiment_exposed", "purchase",
+        [{"name": "Checkout errors", "event_name": "checkout_error", "max_increase": 0.02}],
+    )
+
+    assert result["recommendation"] == "Stop"
+    assert result["analysis"]["guardrails"][0]["status"] == "review"
+
+
+def test_event_decision_rejects_missing_experiment_tracking_columns(
+    isolated_database, monkeypatch
+):
+    import pandas as pd
+
+    saved = _decision_experiment()
+    events = pd.DataFrame([{
+        "user_id": "u1", "event_name": "experiment_exposed",
+        "timestamp": "2026-01-01T10:00:00Z",
+    }])
+    monkeypatch.setattr(experiment_service, "get_latest_dataset", lambda _: events)
+
+    with pytest.raises(ValueError, match="additional experiment columns"):
+        experiment_service.analyze_experiment_from_events(
+            saved["id"], "experiment_exposed", "purchase"
+        )

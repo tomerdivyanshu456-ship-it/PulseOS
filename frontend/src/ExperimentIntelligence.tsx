@@ -4,7 +4,8 @@ import {
   analyzeExperiment, createExperiment, getExperiments, getProductOpportunities,
   generateExperimentPlan, updateExperimentStatus,
   type Experiment, type ExperimentAnalysis, type ExperimentDraft,
-  type ProductOpportunitiesResponse,
+  type ProductOpportunitiesResponse, type ExperimentDecision,
+  getExperimentDecision,
 } from "./services/api";
 import "./ExperimentIntelligence.css";
 
@@ -31,6 +32,14 @@ function ExperimentIntelligence() {
   const [draft, setDraft] = useState<ExperimentDraft>(initialDraft);
   const [selectedId, setSelectedId] = useState("");
   const [analysis, setAnalysis] = useState<ExperimentAnalysis | null>(null);
+  const [eventDecision, setEventDecision] = useState<ExperimentDecision | null>(null);
+  const [decisionLoading, setDecisionLoading] = useState(false);
+  const [decisionInputs, setDecisionInputs] = useState({
+    exposure_event: "experiment_exposed",
+    conversion_event: "purchase",
+    guardrail_event: "",
+    guardrail_max_increase: 0,
+  });
   const [guardrailInputs, setGuardrailInputs] = useState<Record<string, { control: number; variant: number; maxIncrease: number }>>({});
   const [counts, setCounts] = useState({ control_users: 1000, control_conversions: 100, variant_users: 1000, variant_conversions: 110 });
   const [loading, setLoading] = useState(true);
@@ -64,7 +73,7 @@ function ExperimentIntelligence() {
   async function chooseOpportunity(id: string) {
     const item = opportunities.find((op) => op.id === id);
     setDraft((current) => ({ ...current, opportunity_id: id, opportunity_title: item?.title ?? "" }));
-    setAnalysis(null);
+    setAnalysis(null); setEventDecision(null);
     if (!item) return;
     try {
       const plan = await generateExperimentPlan(item);
@@ -116,6 +125,33 @@ function ExperimentIntelligence() {
       });
       setAnalysis(result);
     } catch (err) { setError(errorMessage(err, "Could not analyse the entered results.")); }
+  }
+
+  async function runEventDecision() {
+    if (!selected) {
+      setError("Select a saved experiment before generating a decision.");
+      return;
+    }
+    setDecisionLoading(true); setError(""); setEventDecision(null);
+    try {
+      const guardrails = decisionInputs.guardrail_event.trim()
+        ? [{
+            name: "Configured guardrail",
+            event_name: decisionInputs.guardrail_event.trim(),
+            max_increase: decisionInputs.guardrail_max_increase / 100,
+          }]
+        : [];
+      const result = await getExperimentDecision(selected.id, {
+        exposure_event: decisionInputs.exposure_event,
+        conversion_event: decisionInputs.conversion_event,
+        guardrails,
+      });
+      setEventDecision(result);
+    } catch (err) {
+      setError(errorMessage(err, "Could not generate a decision from uploaded event data."));
+    } finally {
+      setDecisionLoading(false);
+    }
   }
 
   if (loading) return <div className="panel loading-panel">Preparing experiment workspace…</div>;
@@ -214,6 +250,46 @@ function ExperimentIntelligence() {
     <section className="panel experiment-analysis-panel">
       <div className="experiment-section-heading"><div><span className="upload-eyebrow">RESULT ANALYSIS</span><h3>Compare control and variant</h3></div><Play size={17} /></div>
       {selected && <p className="experiment-selected-label">Selected: <strong>{selected.name}</strong> · Planned sample {selected.sample_size_per_arm.toLocaleString("en-IN")} users per arm</p>}
+      <div className="experiment-event-decision">
+        <div>
+          <span className="upload-eyebrow">EVENT-DRIVEN DECISION</span>
+          <h4>Use uploaded events to recommend Ship, Iterate or Stop</h4>
+          <p>Reads the latest events CSV. Exposure rows must include this experiment's ID and a control/variant assignment; conversion events are attributed to exposed users after exposure. Configure at least one guardrail event before a Ship recommendation is possible.</p>
+          {selected && <small className="experiment-id-note">Experiment ID for instrumentation: {selected.id}</small>}
+        </div>
+        <div className="experiment-event-inputs">
+          <label>Exposure event
+            <input value={decisionInputs.exposure_event} onChange={(event) => setDecisionInputs((current) => ({ ...current, exposure_event: event.target.value }))} />
+          </label>
+          <label>Primary conversion event
+            <input value={decisionInputs.conversion_event} onChange={(event) => setDecisionInputs((current) => ({ ...current, conversion_event: event.target.value }))} />
+          </label>
+          <label>Guardrail event (required for Ship)
+            <input value={decisionInputs.guardrail_event} onChange={(event) => setDecisionInputs((current) => ({ ...current, guardrail_event: event.target.value }))} placeholder="e.g. checkout_error" />
+          </label>
+          <label>Allowed guardrail increase (pp)
+            <input type="number" min="0" max="100" step="0.1" value={decisionInputs.guardrail_max_increase} onChange={(event) => setDecisionInputs((current) => ({ ...current, guardrail_max_increase: Math.min(100, Math.max(0, Number(event.target.value) || 0)) }))} />
+          </label>
+        </div>
+        <button className="experiment-secondary-button" disabled={!selected || decisionLoading || !decisionInputs.exposure_event.trim() || !decisionInputs.conversion_event.trim()} onClick={() => void runEventDecision()}>
+          {decisionLoading ? "Reading event data…" : "Generate event-based decision"} <Play size={13} />
+        </button>
+        {eventDecision && <div className="experiment-decision-result">
+          <div className={`experiment-decision-banner decision-${eventDecision.recommendation.toLowerCase()}`}>
+            <span>RECOMMENDATION</span><strong>{eventDecision.recommendation}</strong>
+          </div>
+          <ul>{eventDecision.reasons.map((reason) => <li key={reason}>{reason}</li>)}</ul>
+          <div className="experiment-decision-stats">
+            <span>Control <strong>{pct(eventDecision.analysis.control.conversion_rate)}</strong> ({eventDecision.analysis.control.users.toLocaleString("en-IN")} users)</span>
+            <span>Variant <strong>{pct(eventDecision.analysis.variant.conversion_rate)}</strong> ({eventDecision.analysis.variant.users.toLocaleString("en-IN")} users)</span>
+            <span>Absolute lift <strong>{(eventDecision.analysis.absolute_lift * 100).toFixed(2)} pp</strong></span>
+            <span>{Math.round((selected?.confidence_level ?? 0.95) * 100)}% interval <strong>{(eventDecision.analysis.difference_confidence_interval[0] * 100).toFixed(2)} to {(eventDecision.analysis.difference_confidence_interval[1] * 100).toFixed(2)} pp</strong></span>
+          </div>
+          <small>{eventDecision.events.exposed_users.toLocaleString("en-IN")} exposed users · {eventDecision.events.conflicting_assignment_users_excluded} conflicting assignments excluded · Planned sample {eventDecision.analysis.sample_size_reached ? "reached" : "not reached"}</small>
+          {eventDecision.analysis.guardrails.length > 0 && <p>{eventDecision.guardrail_note}</p>}
+          <div className="experiment-decision-limitations"><strong>Limitations</strong>{eventDecision.limitations.map((item) => <small key={item}>{item}</small>)}</div>
+        </div>}
+      </div>
       <div className="experiment-results-inputs">
         {(["control", "variant"] as const).map((arm) => <div className="experiment-arm" key={arm}>
           <h4>{arm === "control" ? "Control" : "Variant"}</h4>
