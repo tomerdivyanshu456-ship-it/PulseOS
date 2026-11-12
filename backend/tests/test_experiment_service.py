@@ -165,7 +165,3 @@ def test_experiment_api_endpoints_and_validation(monkeypatch, tmp_path):
     updated = client.patch(f"/api/experiments/{experiment_id}/status", json={"status": "running"})
     assert updated.status_code == 200
     assert updated.json()["status"] == "running"
-
-
-def test_invalid_status_returns_none_for_unknown_record(isolated_database):
-    assert experiment_service.update_experiment_status("not-found", "unknown") if False else True
