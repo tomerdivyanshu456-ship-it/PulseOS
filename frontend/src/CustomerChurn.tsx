@@ -7,7 +7,7 @@ function CustomerChurn() {
   const [data, setData] = useState<CustomerChurnResponse | null>(null);
   const [datasets, setDatasets] = useState<UploadedDataset[]>([]);
   const [selectedDatasetId, setSelectedDatasetId] = useState("");
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   async function loadDatasetOptions() {
