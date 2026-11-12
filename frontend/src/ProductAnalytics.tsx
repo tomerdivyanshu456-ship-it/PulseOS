@@ -115,6 +115,47 @@ function ProductAnalytics() {
 
       <section className="panel product-analytics-section">
         <div className="product-analytics-section-heading">
+          <div>
+            <h3>Feature intelligence</h3>
+            <p>See which product areas reach users and how deeply those users engage.</p>
+          </div>
+          <Layers3 size={19} />
+        </div>
+        {data.feature_intelligence.features.length > 0 ? (
+          <div className="feature-intelligence-list">
+            {data.feature_intelligence.features.map((feature) => (
+              <article className="feature-intelligence-item" key={feature.feature}>
+                <div className="feature-intelligence-topline">
+                  <div>
+                    <strong>{feature.feature}</strong>
+                    <span>{feature.reach_label}</span>
+                  </div>
+                  <b>{feature.adoption_rate}%</b>
+                </div>
+                <div className="feature-adoption-track">
+                  <div style={{ width: `${feature.adoption_rate}%` }} />
+                </div>
+                <p>{feature.interpretation}</p>
+                <div className="feature-intelligence-stats">
+                  <span><b>{feature.active_users}</b> users</span>
+                  <span><b>{feature.event_count}</b> events</span>
+                  <span><b>{feature.events_per_active_user}</b> events / active user</span>
+                  <span><b>{feature.repeat_usage_rate}%</b> repeat usage</span>
+                </div>
+              </article>
+            ))}
+          </div>
+        ) : (
+          <div className="analytics-insufficient-data">
+            <strong>No events matched the starter feature taxonomy.</strong>
+            <p>Use event names such as product_viewed, add_to_cart, checkout_started or payment_succeeded, or customise the event-to-feature mapping in the backend.</p>
+          </div>
+        )}
+        <p className="product-analytics-footnote">{data.feature_intelligence.mapping_note}</p>
+      </section>
+
+      <section className="panel product-analytics-section">
+        <div className="product-analytics-section-heading">
           <div><h3>Event adoption</h3><p>Share of unique users who triggered each event at least once.</p></div>
           <Activity size={19} />
         </div>
