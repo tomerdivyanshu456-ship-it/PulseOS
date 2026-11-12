@@ -12,7 +12,7 @@ PulseOS is a portfolio project built around a practical product workflow: **meas
 |---|---|
 | **Overview & Product Analytics** | How are active users, conversion, revenue, funnels and retention changing in the uploaded data? |
 | **Voice of Customer** | What are customers complaining about, and how does review sentiment distribute? |
-| **AI Analyst** | What evidence in the available datasets supports an analytical question? |
+| **AI Analyst** | What evidence in the available datasets supports an analytical question, including passages retrieved from the active PDF/DOCX? |
 | **Product Opportunities** | Which customer complaint themes may warrant behavioural investigation? |
 | **Feature Intelligence** | Which features are being adopted and reused? |
 | **Experiment Intelligence** | How should a hypothesis, primary metric, guardrails and test plan be defined? |
@@ -26,6 +26,15 @@ PulseOS is a portfolio project built around a practical product workflow: **meas
 | **Customer Churn Prediction** | Which behavioural patterns distinguish users who become inactive in a defined follow-up window? |
 
 The platform is designed as decision support. It distinguishes observed metrics, heuristic rankings and experimental evidence rather than presenting correlations or keyword matches as proven causes.
+
+## Document retrieval (local RAG foundation)
+
+- PDF and DOCX uploads are text-extracted and stored locally.
+- The AI Analyst searches only the currently selected Documents source.
+- A local TF-IDF unigram/bigram model ranks overlapping text chunks by cosine similarity and returns the original passage, filename, chunk locator and retrieval score.
+- This is a retrieval-grounded evidence workflow, not a generative LLM. PulseOS does not claim that a generated summary or answer is produced from the document.
+- The current extraction pipeline does not preserve PDF page offsets, so citations use chunk numbers. Scanned PDFs without embedded text are not searchable because OCR is not enabled.
+- Retrieval scores indicate lexical similarity, not confidence, truth or causal evidence.
 
 ## Technology
 
