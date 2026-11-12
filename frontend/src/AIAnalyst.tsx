@@ -47,11 +47,14 @@ function AIAnalyst() {
     try {
       const response = await askAnalyst(trimmed, nextHistory);
       setResult(response);
-      setHistory((current): AnalystConversationTurn[] => [
-        ...current,
-        { role: "user", content: trimmed },
-        { role: "assistant", content: response.answer },
-      ].slice(-8));
+      setHistory((current) => {
+        const updated: AnalystConversationTurn[] = [
+          ...current,
+          { role: "user" as const, content: trimmed },
+          { role: "assistant" as const, content: response.answer },
+        ];
+        return updated.slice(-8);
+      });
       setTranscript((current) => [
         ...current,
         { role: "assistant", content: response.answer },
