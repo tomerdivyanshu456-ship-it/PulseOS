@@ -212,7 +212,7 @@ function AIAnalyst() {
                   <div className="analyst-matrix-quadrant q-top-right"><span>Investigate first</span></div>
                   <div className="analyst-matrix-quadrant q-bottom-left"><span>Monitor</span></div>
                   <div className="analyst-matrix-quadrant q-bottom-right"><span>Gather more evidence</span></div>
-                  {result.priority_matrix.map((item) => (
+                  {result.priority_matrix.map((item, index) => (
                     <div
                       className="analyst-matrix-dot"
                       key={item.label}
@@ -220,19 +220,20 @@ function AIAnalyst() {
                         left: `${Math.max(5, Math.min(95, item.severity_score))}%`,
                         bottom: `${Math.max(5, Math.min(95, item.evidence_strength))}%`,
                       }}
-                      title={`${item.label}: severity ${item.severity_score}/100, evidence ${item.evidence_strength}/100`}
+                      title={`${index + 1}. ${item.label}: severity ${item.severity_score}/100, evidence ${item.evidence_strength}/100`}
+                      aria-label={`${index + 1}. ${item.label}`}
                     >
-                      <span>{item.label}</span>
+                      {index + 1}
                     </div>
                   ))}
                 </div>
               </div>
               <div className="analyst-matrix-x-label">Issue severity →</div>
               <div className="analyst-priority-list">
-                {result.priority_matrix.map((item) => (
+                {result.priority_matrix.map((item, index) => (
                   <div className="analyst-priority-item" key={item.label}>
                     <div>
-                      <strong>{item.label}</strong>
+                      <strong><span className="analyst-priority-index">{index + 1}</span>{item.label}</strong>
                       <span>{item.review_count} negative review(s) · {item.average_rating}/5 rating · {item.evidence_label}</span>
                     </div>
                     <div className="analyst-priority-scores">
