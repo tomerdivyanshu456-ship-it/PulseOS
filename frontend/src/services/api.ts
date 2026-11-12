@@ -677,7 +677,8 @@ export interface CustomerChurnResponse {
   retained_users: number;
   train_users: number;
   holdout_users: number;
-  model_comparison: Array<{ model: string; metrics: ChurnModelMetrics; cross_validation: null | { folds: number; f1_mean: number; f1_std: number; roc_auc_mean: number; roc_auc_std: number } }> ;\n  confusion_matrix: { labels: string[]; true_negative: number; false_positive: number; false_negative: number; true_positive: number };
+  model_comparison: Array<{ model: string; metrics: ChurnModelMetrics; cross_validation: null | { folds: number; f1_mean: number; f1_std: number; roc_auc_mean: number; roc_auc_std: number } }>;
+  confusion_matrix: { labels: string[]; true_negative: number; false_positive: number; false_negative: number; true_positive: number };
   holdout_predictions: Array<{
     user_id: string;
     actual_churn: number;
