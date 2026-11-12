@@ -78,6 +78,25 @@ def retrieve_document_evidence(question, top_k=5):
     # A zero similarity is retained so the UI does not misrepresent relevance.
     if not selected and broad_document_question:
         selected = [(index, 0.0) for index in range(min(len(chunks), max(1, min(int(top_k), 8))))]
+
+    # Route CV questions about internships, responsibilities or duties to the
+    # Experience section even when the wording differs from the source text.
+    experience_question = bool(re.search(
+        r"\\b(internship|intern|responsibilit(?:y|ies)|duties|employment history|previous role)\\b",
+        question,
+        re.IGNORECASE,
+    ))
+    if not selected and experience_question:
+        section_pattern = re.compile(
+            r"(?im)^\\s*(?:#{1,3}\\s*)?(?:(?:professional|work)\\s+)?experience\\s*:?\\s*$"
+        )
+        section_indices = [
+            index for index, chunk in enumerate(chunks)
+            if section_pattern.search(chunk)
+            or re.search(r"(?i)\\b(business analyst intern|internship|intern)\\b", chunk)
+        ]
+        selected = [(index, 0.0) for index in section_indices[:max(1, min(int(top_k), 8))]]
+
     passages = []
     for index, score in selected:
         passages.append({
@@ -131,15 +150,18 @@ def synthesize_document_answer(question, passages, max_sentences=6):
     # Section questions (e.g. "describe experience section") should return
     # the contents of that named section rather than only matching its heading.
     section_match = re.search(
-        r"\b(education|experience|work experience|projects|skills|certifications|summary|objective)\b",
+        r"\\b(education|experience|work experience|projects|skills|certifications|summary|objective|internship|intern|responsibilit(?:y|ies)|duties|employment history)\\b",
         question,
         re.IGNORECASE,
     )
     selected = []
     if section_match:
         target = section_match.group(1).lower()
+        if target in {"internship", "intern", "responsibility", "responsibilities", "duties", "employment history"}:
+            target = "experience"
         heading_pattern = re.compile(
-            r"^\s*(?:#{1,3}\s*)?" + re.escape(target) + r"\s*:?[\s]*$",
+            r"^\\s*(?:#{1,3}\\s*)?(?:(?:professional|work)\\s+)?"
+            + re.escape(target) + r"\\s*:?\\s*$",
             re.IGNORECASE,
         )
         heading_index = next(
