@@ -42,7 +42,11 @@ def calculate_sample_size(baseline_rate, minimum_detectable_effect,
                           daily_eligible_users=1000):
     """Normal-approximation estimate for equal-sized, independent binary arms."""
     values = (baseline_rate, minimum_detectable_effect, confidence_level, power)
-    if not all(math.isfinite(float(value)) for value in values):
+    try:
+        finite = all(math.isfinite(float(value)) for value in values)
+    except (TypeError, ValueError, OverflowError) as exc:
+        raise ValueError("Inputs must be finite numbers.") from exc
+    if not finite:
         raise ValueError("Inputs must be finite numbers.")
     if not 0 < baseline_rate < 1:
         raise ValueError("Baseline conversion must be between 0 and 1 (exclusive).")
@@ -54,7 +58,7 @@ def calculate_sample_size(baseline_rate, minimum_detectable_effect,
         raise ValueError("Confidence level must be 0.90, 0.95 or 0.99.")
     if power not in (0.80, 0.90):
         raise ValueError("Power must be 0.80 or 0.90.")
-    if isinstance(daily_eligible_users, bool) or int(daily_eligible_users) < 1:
+    if isinstance(daily_eligible_users, bool) or not float(daily_eligible_users).is_integer() or int(daily_eligible_users) < 1:
         raise ValueError("Daily eligible users must be a positive integer.")
     z_alpha = {0.90: 1.644854, 0.95: 1.959964, 0.99: 2.575829}[confidence_level]
     z_power = {0.80: 0.841621, 0.90: 1.281552}[power]
@@ -194,7 +198,8 @@ def update_experiment_status(experiment_id, status):
 
 
 def wilson_interval(successes, trials, confidence_level=0.95):
-    if isinstance(successes, bool) or isinstance(trials, bool):
+    if (isinstance(successes, bool) or isinstance(trials, bool)
+            or not isinstance(successes, int) or not isinstance(trials, int)):
         raise ValueError("Counts must be integers.")
     if trials <= 0 or successes < 0 or successes > trials:
         raise ValueError("Each arm needs valid counts with 0 <= conversions <= users.")
