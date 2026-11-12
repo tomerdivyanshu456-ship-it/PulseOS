@@ -16,7 +16,7 @@ def _analytics():
 def _customer():
     return {
         "total_reviews": 100,
-        "average_rating": 4.0,
+        "average_rating": 5.0,
         "sentiment_distribution": [
             {"sentiment": "Positive", "count": 70},
             {"sentiment": "Neutral", "count": 10},
@@ -79,7 +79,7 @@ def test_partial_data_reweights_only_available_pillars(monkeypatch):
 
     assert result["status"] == "partial"
     assert result["score_coverage"]["available_pillars"] == 3
-    assert result["overall_score"] == 83.3
+    assert result["overall_score"] == 66.7
 
 
 def test_health_pillar_status_boundaries():
