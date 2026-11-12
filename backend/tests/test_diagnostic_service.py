@@ -46,8 +46,9 @@ def test_diagnostics_handle_missing_sources(monkeypatch):
 
 
 def test_diagnostics_flag_segment_conversion_disparity(monkeypatch):
-    monkeypatch.setattr(diagnostic_service, "calculate_journey_intelligence", lambda: {
+    monkeypatch.setattr(diagnostic_service, "calculate_journey_intelligence", lambda dimension=None: {
         "unit": "users",
+        "dimensions": [{"key": "platform", "label": "Platform", "values": 2}],
         "funnel": [],
         "segment_funnels": [
             {"segment": "A", "units": 20, "funnel": [{"units_reached": 20}, {"units_reached": 5}]},
