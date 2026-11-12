@@ -126,19 +126,48 @@ export interface AnalystEvidence {
   sentiment: string;
 }
 
+export interface AnalystRecommendation {
+  title: string;
+  action: string;
+  rationale: string;
+  validation: string;
+}
+
+export interface AnalystConversationTurn {
+  role: "user" | "assistant";
+  content: string;
+}
+
 export interface AnalystResponse {
   question: string;
   answer: string;
   findings: AnalystFinding[];
   evidence: AnalystEvidence[];
-  sources: Array<{
-    name: string;
-    detail: string;
-  }>;
+  sources: Array<{ name: string; detail: string }>;
   limitations: string[];
+  recommendations: AnalystRecommendation[];
+  funnel_analysis: null | {
+    unit: string;
+    method: string;
+    reliability_note: string;
+    stages: Array<{ stage: string; count: number }>;
+    conversion_rates: {
+      view_to_cart: number;
+      cart_to_purchase: number;
+      view_to_purchase: number;
+    };
+    drop_offs: {
+      view_to_cart: number;
+      cart_to_purchase: number;
+    };
+  };
+  context_used: boolean;
 }
 
-export async function askAnalyst(question: string): Promise<AnalystResponse> {
-  const response = await api.post("/api/analyst/ask", { question });
+export async function askAnalyst(
+  question: string,
+  history: AnalystConversationTurn[] = []
+): Promise<AnalystResponse> {
+  const response = await api.post("/api/analyst/ask", { question, history });
   return response.data;
 }
