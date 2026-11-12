@@ -219,6 +219,7 @@ def calculate_product_analytics():
         })
 
     # Repeat usage is measured across distinct active calendar days.
+    total_users = int(df["user_id"].nunique())
     active_days_per_user = df.groupby("user_id")["timestamp"].apply(
         lambda values: values.dt.date.nunique()
     )
@@ -237,7 +238,6 @@ def calculate_product_analytics():
         .reset_index()
         .sort_values(["active_users", "event_count"], ascending=False)
     )
-    total_users = int(df["user_id"].nunique())
     adoption_rows = [
         {
             "event_name": str(row.event_name),
