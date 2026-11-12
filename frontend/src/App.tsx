@@ -15,6 +15,7 @@ import {
   IndianRupee,
   Target,
   Lightbulb,
+  Gauge,
 } from "lucide-react";
 import {
   Area,
@@ -40,6 +41,7 @@ import VoiceOfCustomer from "./VoiceOfCustomer";
 import AIAnalyst from "./AIAnalyst";
 import ExperimentIntelligence from "./ExperimentIntelligence";
 import ProductStrategy from "./ProductStrategy";
+import ProductHealthScorecard from "./ProductHealthScorecard";
 import "./App.css";
 
 const navigation = [
@@ -51,6 +53,7 @@ const navigation = [
   { name: "AI Analyst", icon: Sparkles },
   { name: "Experiments", icon: FlaskConical },
   { name: "Strategy & Insights", icon: Lightbulb },
+  { name: "Health Scorecard", icon: Gauge },
 ];
 
 const numberFormatter = new Intl.NumberFormat("en-IN");
@@ -411,6 +414,8 @@ function App() {
             <ExperimentIntelligence />
           ) : activePage === "Strategy & Insights" ? (
             <ProductStrategy />
+          ) : activePage === "Health Scorecard" ? (
+            <ProductHealthScorecard />
           ) : (
             <div className="panel page-placeholder">
               <Sparkles size={32} />

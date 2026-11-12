@@ -149,3 +149,12 @@ Each eligible user must have one tagged exposure event (default event name: `exp
 - The expected metric and success measurement are suggested validation criteria, not guaranteed outcomes. No revenue uplift or causal impact is inferred.
 - Reviews and behavioural events are not joined at user/session level. Theme matching is hypothesis generation only.
 - The module is deterministic and local-first; no paid LLM API, GPU or external inference service is required.
+
+
+## Product Health Scorecard methodology
+
+- The scorecard presents four dimensions when their underlying evidence is available: engagement, conversion, customer sentiment and experiment coverage.
+- Engagement combines repeat active-day user rate (70%) and DAU/MAU stickiness (30%). Conversion scales the user-level view-to-purchase rate against a 5% starter target. Customer sentiment combines positive-review share (70%) and average rating (30%). Experiment coverage is the share of identified product opportunities linked to at least one saved experiment.
+- The overall diagnostic index is the equal-weight average of available pillars. Missing pillars are omitted and the coverage count is displayed; missing data is not treated as a zero score.
+- Starter thresholds (30% repeat-user rate, 20% DAU/MAU, 5% conversion and 70% positive reviews) are illustrative configuration defaults, not industry benchmarks. Calibrate them to product type, business model and historical baseline before operational use.
+- The scorecard is descriptive decision support. It does not infer causal impact, predict revenue, or measure experiment quality. Review sentiment uses the existing keyword lexicon with rating-based fallback. Experiment coverage measures linkage, not experiment completion or statistical validity.
