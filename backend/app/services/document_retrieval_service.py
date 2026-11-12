@@ -89,3 +89,105 @@ def retrieve_document_evidence(question, top_k=5):
             "Only the currently selected Documents source is searched.",
         ],
     }
+
+
+
+def synthesize_document_answer(question, passages, max_sentences=6):
+    """Create a transparent extractive answer from retrieved source text.
+
+    This deliberately does not paraphrase or invent facts: selected source
+    lines are returned verbatim with chunk-level citations.
+    """
+    if not passages:
+        return None
+
+    lines = []
+    for passage in passages:
+        for raw_line in passage.get("text", "").splitlines():
+            line = re.sub(r"^\\s*(?:[•*\\-]|\\d+[.)])\\s*", "", raw_line).strip()
+            if len(line) >= 18:
+                lines.append({
+                    "text": line,
+                    "document_name": passage.get("document_name", "Selected document"),
+                    "chunk_index": passage.get("chunk_index"),
+                    "locator": passage.get("locator", f"Chunk {passage.get('chunk_index', '?')}"),
+                })
+
+    if not lines:
+        return None
+
+    # Section questions (e.g. "describe experience section") should return
+    # the contents of that named section rather than only matching its heading.
+    section_match = re.search(
+        r"\\b(education|experience|work experience|projects|skills|certifications|summary|objective)\\b",
+        question,
+        re.IGNORECASE,
+    )
+    selected = []
+    if section_match:
+        target = section_match.group(1).lower()
+        heading_pattern = re.compile(
+            r"^\\s*(?:#{1,3}\\s*)?" + re.escape(target) + r"\\s*:?[\\s]*$",
+            re.IGNORECASE,
+        )
+        heading_index = next(
+            (i for i, item in enumerate(lines) if heading_pattern.match(item["text"])),
+            None,
+        )
+        if heading_index is not None:
+            stop_heading = re.compile(
+                r"^\\s*(?:#{1,3}\\s*)?(education|experience|work experience|projects|skills|certifications|summary|objective)\\s*:?[\\s]*$",
+                re.IGNORECASE,
+            )
+            for item in lines[heading_index + 1:]:
+                if stop_heading.match(item["text"]):
+                    break
+                if len(item["text"]) >= 24:
+                    selected.append(item)
+                if len(selected) >= max_sentences:
+                    break
+
+    if not selected:
+        candidates = [item for item in lines if not re.match(r"^[A-Z][A-Z &/+-]{2,}$", item["text"])]
+        if not candidates:
+            candidates = lines
+        try:
+            vectorizer = TfidfVectorizer(stop_words="english", ngram_range=(1, 2))
+            matrix = vectorizer.fit_transform(
+                [item["text"] for item in candidates] + [question]
+            )
+            scores = cosine_similarity(matrix[-1], matrix[:-1]).ravel()
+            ranked = sorted(
+                range(len(candidates)),
+                key=lambda index: (-float(scores[index]), index),
+            )
+            selected_indices = [index for index in ranked if scores[index] > 0][:max_sentences]
+            selected = [candidates[index] for index in sorted(selected_indices)]
+        except ValueError:
+            selected = []
+
+    if not selected:
+        return {
+            "status": "insufficient_evidence",
+            "text": "I found document passages, but none contained enough text matching this question to form a supported answer. Try asking about a specific section or topic.",
+            "citations": [],
+            "method": "extractive",
+        }
+
+    citations = []
+    seen = set()
+    for item in selected:
+        key = (item["document_name"], item["chunk_index"], item["locator"])
+        if key not in seen:
+            seen.add(key)
+            citations.append({
+                "document_name": item["document_name"],
+                "chunk_index": item["chunk_index"],
+                "locator": item["locator"],
+            })
+    return {
+        "status": "ready",
+        "text": "\\n".join(f"• {item['text']}" for item in selected),
+        "citations": citations,
+        "method": "extractive",
+    }
