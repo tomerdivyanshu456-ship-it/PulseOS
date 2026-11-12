@@ -441,3 +441,35 @@ export async function prioritiseProductStrategy(
   });
   return response.data;
 }
+
+
+export interface ProductHealthPillar {
+  id: string;
+  title: string;
+  score: number;
+  status: "healthy" | "needs_attention" | "at_risk";
+  summary: string;
+  metrics: Array<{ label: string; value: number; unit: string }>;
+  source: string;
+  benchmark: string;
+  caveat: string;
+}
+
+export interface ProductHealthScorecardResponse {
+  status: "ready" | "partial" | "no_data";
+  overall_score: number | null;
+  overall_label: string;
+  score_coverage: { available_pillars: number; total_pillars: number };
+  period: { start_date: string; end_date: string } | null;
+  pillars: ProductHealthPillar[];
+  strongest_areas: Array<{ title: string; score: number }>;
+  areas_to_investigate: Array<{ title: string; score: number }>;
+  data_gaps: string[];
+  sources: { events: boolean; reviews: boolean; experiments: boolean };
+  methodology: string;
+}
+
+export async function getProductHealthScorecard(): Promise<ProductHealthScorecardResponse> {
+  const response = await api.get("/api/health-scorecard");
+  return response.data;
+}
