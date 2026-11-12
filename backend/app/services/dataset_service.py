@@ -56,11 +56,11 @@ def _read_tabular(contents, filename):
     try:
         if suffix == ".csv":
             return pd.read_csv(BytesIO(contents))
-        if suffix in (".xlsx", ".xls"):
+        if suffix == ".xlsx":
             return pd.read_excel(BytesIO(contents))
     except Exception as exc:
         raise ValueError(f"Could not read the file: {exc}") from exc
-    raise ValueError("Supported tabular formats are CSV, XLSX and XLS.")
+    raise ValueError("Supported tabular formats are CSV and XLSX.")
 
 
 def _normalise_header(value):
@@ -148,11 +148,15 @@ def save_dataset(contents, filename, dataset_type, mapping=None):
     df = _read_tabular(contents, filename)
     mapping = mapping or {}
     rename = {}
+    selected_sources = []
     for canonical in REQUIRED_COLUMNS[dataset_type]:
         source = mapping.get(canonical) or canonical
         if source not in df.columns:
             raise ValueError(f"Please map a source column to {canonical}.")
+        selected_sources.append(source)
         rename[source] = canonical
+    if len(set(selected_sources)) != len(selected_sources):
+        raise ValueError("Each required field must use a different source column.")
     df = df.rename(columns=rename)
     errors = validate_dataset(df, dataset_type)
     if errors:
