@@ -172,7 +172,14 @@ function App() {
 
     getAnalytics()
       .then((data) => {
-        if (!cancelled) setAnalytics(data);
+        if (cancelled) return;
+        // Do not let an incomplete or unexpected API payload crash the entire app.
+        if (!data || !data.metrics || typeof data.metrics.daily_active_users !== "number") {
+          setAnalytics(null);
+          setAnalyticsError("The analytics API returned incomplete data. Upload and activate an events CSV, then refresh the Overview.");
+          return;
+        }
+        setAnalytics(data);
       })
       .catch((error: unknown) => {
         if (cancelled) return;
@@ -190,7 +197,9 @@ function App() {
           "detail" in error.response.data &&
           typeof error.response.data.detail === "string"
             ? error.response.data.detail
-            : "Unable to load product analytics. Check that the backend is running.";
+            : error instanceof Error && error.message
+              ? error.message
+              : "Unable to load product analytics. Check that the backend is running.";
 
         setAnalyticsError(message);
       })
