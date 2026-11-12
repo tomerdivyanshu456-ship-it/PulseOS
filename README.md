@@ -125,7 +125,7 @@ For production, configure these variables in the hosting provider:
 - `PULSEOS_DATA_DIR`: absolute path to a persistent mounted volume. SQLite metadata, uploaded CSV files and extracted documents are stored here.
 - `VITE_API_BASE_URL`: public HTTPS API base URL, set at frontend build time.
 
-Production startup fails if the administrator password or explicit HTTPS CORS origins are missing. The health and authentication-configuration endpoints remain public; dataset, analytics, ML and experiment APIs require administrator authentication. CORS is not an authentication mechanism. Terminate TLS at the hosting platform or a trusted reverse proxy, restrict API access at the network edge where possible, and back up the persistent volume.
+Production startup fails if the administrator password or explicit HTTPS CORS origins are missing. The health and authentication-configuration endpoints remain public; dataset, analytics, ML and experiment APIs require administrator authentication. CORS is not an authentication mechanism. API request bodies are capped at 21 MB before multipart parsing; individual tabular uploads are capped at 20 MB and PDF/DOCX uploads at 15 MB. XLSX/DOCX archives are also checked for excessive expanded size. Terminate TLS at the hosting platform or a trusted reverse proxy, apply edge rate limiting, restrict API access at the network edge where possible, and back up the persistent volume.
 
 This is single-admin access control, not multi-user authentication or tenant isolation. Do not host confidential customer data for unrelated users. A multi-user SaaS needs individual accounts, roles, tenant-scoped records/storage, audit logs, and managed database/object storage.
 
