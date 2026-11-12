@@ -158,6 +158,20 @@ export async function getDatasets(): Promise<UploadedDataset[]> {
   return response.data.datasets;
 }
 
+export type ActiveDatasetMap = Record<"events" | "reviews" | "documents", UploadedDataset | null>;
+
+export async function getActiveDatasets(): Promise<ActiveDatasetMap> {
+  const response = await api.get("/api/datasets/active");
+  return response.data.active_datasets;
+}
+
+export async function setActiveDataset(datasetType: "events" | "reviews" | "documents", datasetId: string | null) {
+  const response = await api.put(`/api/datasets/active/${datasetType}`, null, {
+    params: datasetId ? { dataset_id: datasetId } : {},
+  });
+  return response.data;
+}
+
 export async function deleteDataset(datasetId: string) {
   const response = await api.delete(`/api/datasets/${datasetId}`);
   return response.data;
