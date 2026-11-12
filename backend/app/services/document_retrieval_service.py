@@ -83,7 +83,7 @@ def retrieve_document_evidence(question, top_k=5):
         "passages": passages,
         "methodology": "Local TF-IDF unigram/bigram cosine retrieval over overlapping text chunks. Similarity ranks lexical relevance; it is not a confidence or factuality score.",
         "limitations": [
-            "This version retrieves text but does not use a generative language model to synthesize an answer.",
+            "Answers are extractive: relevant source lines are selected verbatim; no generative language model paraphrases or invents content.",
             "PDF page-level offsets are not retained by the current document extraction pipeline; citations identify chunk numbers instead.",
             "Scanned PDFs without an embedded text layer are not searchable because OCR is not enabled.",
             "Only the currently selected Documents source is searched.",
