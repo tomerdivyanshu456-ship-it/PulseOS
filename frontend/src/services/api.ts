@@ -657,3 +657,40 @@ export async function getProductAnomalies(): Promise<ProductAnomaliesResponse> {
   const response = await api.get("/api/ml/product-anomalies");
   return response.data;
 }
+
+
+export interface ChurnModelMetrics {
+  accuracy: number;
+  precision: number;
+  recall: number;
+  f1: number;
+  roc_auc: number;
+}
+
+export interface CustomerChurnResponse {
+  status: "ready";
+  target_definition: string;
+  observation_window: { start_date: string; end_date: string };
+  outcome_window: { start_date: string; end_date: string };
+  cohort_size: number;
+  churned_users: number;
+  retained_users: number;
+  train_users: number;
+  holdout_users: number;
+  model_comparison: Array<{ model: string; metrics: ChurnModelMetrics }>;
+  holdout_predictions: Array<{
+    user_id: string;
+    actual_churn: number;
+    predicted_churn_probability: number;
+    predicted_label: number;
+    risk_band: "High" | "Medium" | "Low";
+  }>;
+  features_used: string[];
+  methodology: string;
+  limitations: string[];
+}
+
+export async function getCustomerChurn(): Promise<CustomerChurnResponse> {
+  const response = await api.get("/api/ml/customer-churn");
+  return response.data;
+}
