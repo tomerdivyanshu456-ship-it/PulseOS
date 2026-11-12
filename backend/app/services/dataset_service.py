@@ -109,10 +109,13 @@ def set_active_dataset(dataset_type, dataset_id):
 
 
 def get_active_datasets():
-    return {
-        kind: get_dataset_record(kind)
-        for kind in ("events", "reviews", "documents")
-    }
+    result = {}
+    for kind in ("events", "reviews", "documents"):
+        try:
+            result[kind] = get_dataset_record(kind)
+        except ValueError:
+            result[kind] = None
+    return result
 
 
 def _read_tabular(contents, filename):
