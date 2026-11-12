@@ -105,7 +105,7 @@ def set_active_dataset(dataset_type, dataset_id):
                dataset_id = excluded.dataset_id, updated_at = excluded.updated_at""",
             (dataset_type, dataset_id, datetime.now(timezone.utc).isoformat()),
         )
-    return get_dataset_record(dataset_type)
+    return get_dataset_record(dataset_type) if dataset_id is not None else None
 
 
 def get_active_datasets():
