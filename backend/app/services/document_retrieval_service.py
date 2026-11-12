@@ -60,14 +60,22 @@ def _load_embedding_model(model_name=DEFAULT_EMBEDDING_MODEL):
 def _semantic_scores(question, chunks):
     """Return cosine scores, or raise so the caller can use lexical fallback."""
     model = _load_embedding_model()
-    embeddings = model.encode(
-        chunks + [question],
+    # Keep document embeddings bounded in memory; the query is encoded separately.
+    document_embeddings = model.encode(
+        chunks,
         convert_to_numpy=True,
         normalize_embeddings=True,
         show_progress_bar=False,
         batch_size=16,
     )
-    return embeddings[:-1] @ embeddings[-1]
+    question_embedding = model.encode(
+        [question],
+        convert_to_numpy=True,
+        normalize_embeddings=True,
+        show_progress_bar=False,
+        batch_size=1,
+    )[0]
+    return document_embeddings @ question_embedding
 
 
 def _tfidf_scores(question, chunks):
