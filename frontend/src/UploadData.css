@@ -287,3 +287,13 @@
 .mapping-preview .preview-table { margin-top:8px; max-height:180px; }
 .mapping-panel .upload-button { display:flex; align-items:center; justify-content:center; gap:8px; cursor:pointer; }
 .document-preview { max-height:420px; overflow:auto; padding:16px; border:1px solid #eef0f5; border-radius:8px; background:#fafaff; color:#59647a; white-space:pre-wrap; overflow-wrap:anywhere; font:inherit; font-size:11px; line-height:1.7; }
+
+/* Keep wide schemas understandable without forcing a 50-column preview. */
+.column-map-summary { display:flex; flex-wrap:wrap; gap:8px 16px; margin:10px 0 14px; color:#68748a; font-size:10px; }
+.column-map-summary strong { color:#293248; }
+.column-toggle { margin-top:8px; padding:6px 0; border:0; background:transparent; color:#7164dc; font-size:10px; font-weight:600; cursor:pointer; }
+.unmapped-columns { margin-top:12px; padding-top:10px; border-top:1px solid #e8e6fa; color:#68748a; font-size:10px; }
+.unmapped-columns summary { cursor:pointer; font-weight:600; }
+.unmapped-columns > div { display:flex; flex-wrap:wrap; gap:6px; margin-top:9px; }
+.unmapped-columns span { max-width:100%; padding:4px 7px; border-radius:5px; background:#f0efff; color:#6258b8; overflow-wrap:anywhere; }
+.mapping-preview .preview-table { max-height:180px; }
