@@ -52,7 +52,8 @@ def answer_product_question(question, history=None):
 
     sources, findings, evidence, limitations, recommendations = [], [], [], [], []
     document_result = retrieve_document_evidence(question)
-    document_evidence = document_result.get("passages", [])\n    document_answer = synthesize_document_answer(question, document_evidence)
+    document_evidence = document_result.get("passages", [])
+    document_answer = synthesize_document_answer(question, document_evidence)
     if document_evidence:
         sources.append({
             "name": "Selected product document",
@@ -90,7 +91,7 @@ def answer_product_question(question, history=None):
                 "limitations": list(dict.fromkeys(limitations)),
                 "recommendations": [], "priority_matrix": [],
                 "funnel_analysis": None, "context_used": bool(history),
-                "document_evidence": document_evidence,\n        "document_answer": document_answer,
+                "document_evidence": document_evidence,
                 "document_answer": document_answer,
             }
         return {
