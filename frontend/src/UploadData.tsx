@@ -138,6 +138,7 @@ function UploadData() {
       setMessage(`${result.data.filename} uploaded. Text extraction completed (${result.data.rows.toLocaleString()} words).`);
       setDocumentFile(null);
       await loadDatasets();
+      window.dispatchEvent(new Event("pulseos:datasets-changed"));
     } catch (err: any) {
       setError(err.response?.data?.detail || "Document upload failed.");
     } finally {
@@ -164,6 +165,7 @@ function UploadData() {
       if (preview?.filename === dataset.original_filename) setPreview(null);
       setMessage(dataset.original_filename + " deleted.");
       await loadDatasets();
+      window.dispatchEvent(new Event("pulseos:datasets-changed"));
     } catch (err: any) {
       setError(err.response?.data?.detail || "Could not delete this uploaded file.");
     }
