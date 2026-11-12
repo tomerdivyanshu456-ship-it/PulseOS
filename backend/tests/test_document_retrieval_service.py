@@ -160,3 +160,56 @@ def test_broad_document_summary_returns_unranked_overview_chunks(monkeypatch, tm
     )
     assert answer["status"] == "ready"
     assert "B.Tech Chemical Engineering" in answer["text"]
+
+
+
+def test_internship_responsibility_question_retrieves_experience_section(monkeypatch, tmp_path):
+    document = tmp_path / "resume.txt"
+    document.write_text(
+        "EDUCATION\nB.Tech Chemical Engineering.\n\n"
+        "EXPERIENCE\nBusiness Analyst Intern at Gyana Deep Products.\n"
+        "Analysed sales and inventory data using SQL and Python.\n"
+        "Built KPI dashboards and supported business expansion.\n\n"
+        "PROJECTS\nCustomer churn prediction.",
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(document_retrieval_service, "DOCUMENT_DIR", tmp_path)
+    monkeypatch.setattr(
+        document_retrieval_service,
+        "get_dataset_record",
+        lambda _kind: {
+            "id": "doc-cv",
+            "stored_filename": "resume.txt",
+            "original_filename": "resume.pdf",
+        },
+    )
+
+    question = "What were my responsibilities during my internship?"
+    retrieved = document_retrieval_service.retrieve_document_evidence(question)
+    answer = document_retrieval_service.synthesize_document_answer(
+        question, retrieved["passages"]
+    )
+
+    assert retrieved["status"] == "ready"
+    assert answer["status"] == "ready"
+    assert "Business Analyst Intern" in answer["text"]
+    assert "Analysed sales and inventory data" in answer["text"]
+    assert "Customer churn prediction" not in answer["text"]
+    assert answer["citations"][0]["locator"].startswith("Chunk ")
+
+
+def test_internship_question_does_not_invent_experience_when_section_missing():
+    passages = [{
+        "document_name": "resume.pdf",
+        "chunk_index": 1,
+        "locator": "Chunk 1",
+        "similarity": 0.0,
+        "text": "EDUCATION\nB.Tech Chemical Engineering.\n\nPROJECTS\nBuilt a churn model.",
+    }]
+
+    result = document_retrieval_service.synthesize_document_answer(
+        "What were my responsibilities during my internship?", passages
+    )
+
+    assert result["status"] == "insufficient_evidence"
+    assert result["citations"] == []
