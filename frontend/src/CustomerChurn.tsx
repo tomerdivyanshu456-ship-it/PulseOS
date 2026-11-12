@@ -50,7 +50,7 @@ function CustomerChurn() {
       <div className="churn-toolbar">
         <div className="churn-dataset-picker">
           <label htmlFor="churn-dataset">Analyse this Events dataset</label>
-          <select id="churn-dataset" value={selectedDatasetId} onChange={(event) => { const id = event.target.value; setSelectedDatasetId(id); setData(null); setError(""); void setActiveDataset("events", id || null); }}>
+          <select id="churn-dataset" value={selectedDatasetId} onChange={(event) => { const id = event.target.value; setSelectedDatasetId(id); setData(null); setError(""); void setActiveDataset("events", id || null).then(() => window.dispatchEvent(new Event("pulseos:datasets-changed"))); }}>
             <option value="">Choose an uploaded events dataset…</option>
             {datasets.map((dataset) => <option key={dataset.id} value={dataset.id}>{dataset.original_filename} · {dataset.row_count.toLocaleString()} rows</option>)}
           </select>
