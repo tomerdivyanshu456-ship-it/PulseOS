@@ -90,11 +90,27 @@ def retrieve_document_evidence(question, top_k=5):
         section_pattern = re.compile(
             r"(?im)^\s*(?:#{1,3}\s*)?(?:(?:professional|work)\s+)?experience\s*:?\s*$"
         )
-        section_indices = [
+        section_indices = []
+        heading_positions = [
             index for index, chunk in enumerate(chunks)
             if section_pattern.search(chunk)
-            or re.search(r"(?i)\b(business analyst intern|internship|intern)\b", chunk)
         ]
+        if heading_positions:
+            for heading_index in heading_positions:
+                section_indices.append(heading_index)
+                for index in range(heading_index + 1, len(chunks)):
+                    if re.search(
+                        r"(?im)^\s*(?:#{1,3}\s*)?(?:education|projects|skills|certifications|summary|objective)\s*:?\s*$",
+                        chunks[index],
+                    ):
+                        break
+                    section_indices.append(index)
+        else:
+            section_indices = [
+                index for index, chunk in enumerate(chunks)
+                if re.search(r"(?i)\b(business analyst intern|internship|intern)\b", chunk)
+            ]
+        section_indices = list(dict.fromkeys(section_indices))
         selected = [(index, 0.0) for index in section_indices[:max(1, min(int(top_k), 8))]]
 
     passages = []
