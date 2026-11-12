@@ -201,6 +201,50 @@ function AIAnalyst() {
             </section>
           )}
 
+          {result.priority_matrix && result.priority_matrix.length > 0 && (
+            <section className="panel analyst-priority-panel">
+              <div className="analyst-section-title"><Target size={17} /> Priority matrix</div>
+              <p className="analyst-priority-intro">Issues are positioned by estimated severity and evidence strength. This is a triage aid, not a measure of business impact.</p>
+              <div className="analyst-matrix-layout">
+                <div className="analyst-matrix-y-label">Evidence strength</div>
+                <div className="analyst-matrix">
+                  <div className="analyst-matrix-quadrant q-top-left"><span>Validate severity</span></div>
+                  <div className="analyst-matrix-quadrant q-top-right"><span>Investigate first</span></div>
+                  <div className="analyst-matrix-quadrant q-bottom-left"><span>Monitor</span></div>
+                  <div className="analyst-matrix-quadrant q-bottom-right"><span>Gather more evidence</span></div>
+                  {result.priority_matrix.map((item) => (
+                    <div
+                      className="analyst-matrix-dot"
+                      key={item.label}
+                      style={{
+                        left: `${Math.max(5, Math.min(95, item.severity_score))}%`,
+                        bottom: `${Math.max(5, Math.min(95, item.evidence_strength))}%`,
+                      }}
+                      title={`${item.label}: severity ${item.severity_score}/100, evidence ${item.evidence_strength}/100`}
+                    >
+                      <span>{item.label}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="analyst-matrix-x-label">Issue severity →</div>
+              <div className="analyst-priority-list">
+                {result.priority_matrix.map((item) => (
+                  <div className="analyst-priority-item" key={item.label}>
+                    <div>
+                      <strong>{item.label}</strong>
+                      <span>{item.review_count} negative review(s) · {item.average_rating}/5 rating · {item.evidence_label}</span>
+                    </div>
+                    <div className="analyst-priority-scores">
+                      <b>{item.priority_score}/100</b>
+                      <small>{item.quadrant}</small>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
           <article className="panel analyst-answer">
             <div className="analyst-section-title"><Sparkles size={17} /> Analyst response</div>
             <p>{result.answer}</p>
