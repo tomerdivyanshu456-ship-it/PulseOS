@@ -274,3 +274,16 @@
     flex-direction: column;
   }
 }
+
+
+.processing-note { display:flex; align-items:center; gap:8px; color:#7164dc; font-size:11px; margin:12px 0; }
+.mapping-panel { margin-top:16px; padding:14px; border:1px solid #e8e6fa; border-radius:9px; background:#fcfbff; }
+.mapping-heading { display:flex; justify-content:space-between; gap:8px; margin-bottom:13px; color:#293248; font-size:12px; }
+.mapping-heading span { color:#8791a4; font-size:10px; }
+.mapping-field { display:flex; flex-direction:column; gap:6px; margin:11px 0; color:#59647a; font-size:11px; font-weight:600; }
+.mapping-field select { width:100%; padding:9px 10px; border:1px solid #dfe2ec; border-radius:6px; background:white; color:#293248; font-size:11px; }
+.mapping-field small { color:#929bad; font-weight:400; font-size:9px; }
+.mapping-preview { margin:14px 0; color:#59647a; font-size:11px; }
+.mapping-preview .preview-table { margin-top:8px; max-height:180px; }
+.mapping-panel .upload-button { display:flex; align-items:center; justify-content:center; gap:8px; cursor:pointer; }
+.document-preview { max-height:420px; overflow:auto; padding:16px; border:1px solid #eef0f5; border-radius:8px; background:#fafaff; color:#59647a; white-space:pre-wrap; overflow-wrap:anywhere; font:11px/1.7 inherit; }
