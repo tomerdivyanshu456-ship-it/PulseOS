@@ -10,7 +10,8 @@ PulseOS is a portfolio-grade, locally runnable SaaS-style MVP for Product Analys
 - **Voice of Customer:** review sentiment and complaint-theme analysis from a separate customer review dataset.
 - **AI Analyst:** constrained, evidence-backed questions, cross-source investigation recommendations, and explicit evidence limitations.
 - **Product Opportunity Detection:** maps customer complaint themes to related behavioural signals using transparent keyword heuristics.
-- **Experiment Intelligence:** turns opportunities into editable hypotheses, defines primary/secondary/guardrail metrics, designs a simple A/B test, estimates sample size and duration, tracks experiments in SQLite, compares observed control/variant results, and generates event-backed Ship / Iterate / Stop recommendations.\n- **AI Product Strategy & Insights:** synthesises existing opportunity, customer, behavioural and experiment evidence into a ranked investigation roadmap, with transparent impact/confidence/effort scoring, editable effort estimates, recommended actions and success metrics. The module is deterministic and runs without a paid LLM API.
+- **Experiment Intelligence:** turns opportunities into editable hypotheses, defines primary/secondary/guardrail metrics, designs a simple A/B test, estimates sample size and duration, tracks experiments in SQLite, compares observed control/variant results, and generates event-backed Ship / Iterate / Stop recommendations.
+- **AI Product Strategy & Insights:** synthesises existing opportunity, customer, behavioural and experiment evidence into a ranked investigation roadmap, with transparent impact/confidence/effort scoring, editable effort estimates, recommended actions and success metrics. The module is deterministic and runs without a paid LLM API.
 
 ## Stack
 
