@@ -1,8 +1,2135 @@
-
-user_id,event_name,timestamp,session_id,product_id,revenue
-U101,product_viewed,2026-11-01 10:00:00,S01,P01,0
-U101,add_to_cart,2026-11-01 10:05:00,S01,P01,0
-U101,purchase,2026-11-01 10:15:00,S01,P01,499
-U102,product_viewed,2026-11-01 11:00:00,S02,P02,0
-U102,add_to_cart,2026-11-01 11:10:00,S02,P02,0
-U103,product_viewed,2026-11-01 12:00:00,S03,P01,0
+user_id,event_name,timestamp,session_id,product_id,revenue,platform,plan,region,acquisition_channel
+U001,product_viewed,2026-11-01 10:07:00,S0001,P01,0,Android,Free,North,Organic
+U001,search_performed,2026-11-01 10:09:00,S0001,P01,0,Android,Free,North,Organic
+U001,add_to_cart,2026-11-01 10:12:00,S0001,P01,0,Android,Free,North,Organic
+U001,checkout_started,2026-11-01 10:16:00,S0001,P01,0,Android,Free,North,Organic
+U001,purchase,2026-11-01 10:21:00,S0001,P01,299,Android,Free,North,Organic
+U003,product_viewed,2026-11-01 16:33:00,S0002,P03,0,Web,Premium,West,Referral
+U003,search_performed,2026-11-01 16:35:00,S0002,P03,0,Web,Premium,West,Referral
+U003,add_to_cart,2026-11-01 16:38:00,S0002,P03,0,Web,Premium,West,Referral
+U003,checkout_started,2026-11-01 16:42:00,S0002,P03,0,Web,Premium,West,Referral
+U004,product_viewed,2026-11-01 19:46:00,S0003,P04,0,Android,Free,East,Organic
+U004,search_performed,2026-11-01 19:48:00,S0003,P04,0,Android,Free,East,Organic
+U004,purchase,2026-11-01 20:00:00,S0003,P04,999,Android,Free,East,Organic
+U006,product_viewed,2026-11-01 13:12:00,S0004,P02,0,Web,Premium,South,Referral
+U006,search_performed,2026-11-01 13:14:00,S0004,P02,0,Web,Premium,South,Referral
+U006,add_to_cart,2026-11-01 13:17:00,S0004,P02,0,Web,Premium,South,Referral
+U006,checkout_started,2026-11-01 13:21:00,S0004,P02,0,Web,Premium,South,Referral
+U006,wishlist_added,2026-11-01 13:30:00,S0004,P02,0,Web,Premium,South,Referral
+U007,product_viewed,2026-11-01 16:25:00,S0005,P03,0,Android,Free,West,Organic
+U007,search_performed,2026-11-01 16:27:00,S0005,P03,0,Android,Free,West,Organic
+U007,add_to_cart,2026-11-01 16:30:00,S0005,P03,0,Android,Free,West,Organic
+U007,checkout_started,2026-11-01 16:34:00,S0005,P03,0,Android,Free,West,Organic
+U009,product_viewed,2026-11-01 10:51:00,S0006,P01,0,Web,Premium,North,Referral
+U009,search_performed,2026-11-01 10:53:00,S0006,P01,0,Web,Premium,North,Referral
+U009,add_to_cart,2026-11-01 10:56:00,S0006,P01,0,Web,Premium,North,Referral
+U010,product_viewed,2026-11-01 13:04:00,S0007,P02,0,Android,Free,South,Organic
+U010,add_to_cart,2026-11-01 13:09:00,S0007,P02,0,Android,Free,South,Organic
+U010,checkout_started,2026-11-01 13:13:00,S0007,P02,0,Android,Free,South,Organic
+U011,product_viewed,2026-11-01 16:17:00,S0008,P03,0,iOS,Basic,West,Paid Search
+U011,search_performed,2026-11-01 16:19:00,S0008,P03,0,iOS,Basic,West,Paid Search
+U011,add_to_cart,2026-11-01 16:22:00,S0008,P03,0,iOS,Basic,West,Paid Search
+U011,checkout_started,2026-11-01 16:26:00,S0008,P03,0,iOS,Basic,West,Paid Search
+U011,purchase,2026-11-01 16:31:00,S0008,P03,799,iOS,Basic,West,Paid Search
+U012,product_viewed,2026-11-01 19:30:00,S0009,P04,0,Web,Premium,East,Referral
+U012,search_performed,2026-11-01 19:32:00,S0009,P04,0,Web,Premium,East,Referral
+U012,checkout_started,2026-11-01 19:39:00,S0009,P04,0,Web,Premium,East,Referral
+U012,purchase,2026-11-01 19:44:00,S0009,P04,999,Web,Premium,East,Referral
+U012,wishlist_added,2026-11-01 19:48:00,S0009,P04,0,Web,Premium,East,Referral
+U014,product_viewed,2026-11-01 13:56:00,S0010,P02,0,iOS,Basic,South,Paid Search
+U014,search_performed,2026-11-01 13:58:00,S0010,P02,0,iOS,Basic,South,Paid Search
+U014,add_to_cart,2026-11-01 14:01:00,S0010,P02,0,iOS,Basic,South,Paid Search
+U015,product_viewed,2026-11-01 16:09:00,S0011,P03,0,Web,Premium,West,Referral
+U015,add_to_cart,2026-11-01 16:14:00,S0011,P03,0,Web,Premium,West,Referral
+U015,checkout_started,2026-11-01 16:18:00,S0011,P03,0,Web,Premium,West,Referral
+U015,purchase,2026-11-01 16:23:00,S0011,P03,799,Web,Premium,West,Referral
+U017,product_viewed,2026-11-01 10:35:00,S0012,P01,0,iOS,Basic,North,Paid Search
+U017,search_performed,2026-11-01 10:37:00,S0012,P01,0,iOS,Basic,North,Paid Search
+U017,add_to_cart,2026-11-01 10:40:00,S0012,P01,0,iOS,Basic,North,Paid Search
+U017,checkout_started,2026-11-01 10:44:00,S0012,P01,0,iOS,Basic,North,Paid Search
+U018,product_viewed,2026-11-01 13:48:00,S0013,P02,0,Web,Premium,South,Referral
+U018,search_performed,2026-11-01 13:50:00,S0013,P02,0,Web,Premium,South,Referral
+U018,add_to_cart,2026-11-01 13:53:00,S0013,P02,0,Web,Premium,South,Referral
+U018,checkout_started,2026-11-01 13:57:00,S0013,P02,0,Web,Premium,South,Referral
+U018,purchase,2026-11-01 14:02:00,S0013,P02,499,Web,Premium,South,Referral
+U018,wishlist_added,2026-11-01 14:06:00,S0013,P02,0,Web,Premium,South,Referral
+U020,product_viewed,2026-11-01 19:14:00,S0014,P04,0,iOS,Basic,East,Paid Search
+U020,checkout_started,2026-11-01 19:23:00,S0014,P04,0,iOS,Basic,East,Paid Search
+U021,product_viewed,2026-11-01 10:27:00,S0015,P01,0,Web,Premium,North,Referral
+U021,search_performed,2026-11-01 10:29:00,S0015,P01,0,Web,Premium,North,Referral
+U021,add_to_cart,2026-11-01 10:32:00,S0015,P01,0,Web,Premium,North,Referral
+U021,checkout_started,2026-11-01 10:36:00,S0015,P01,0,Web,Premium,North,Referral
+U022,product_viewed,2026-11-01 13:40:00,S0016,P02,0,Android,Free,South,Organic
+U022,search_performed,2026-11-01 13:42:00,S0016,P02,0,Android,Free,South,Organic
+U022,add_to_cart,2026-11-01 13:45:00,S0016,P02,0,Android,Free,South,Organic
+U022,checkout_started,2026-11-01 13:49:00,S0016,P02,0,Android,Free,South,Organic
+U022,purchase,2026-11-01 13:54:00,S0016,P02,499,Android,Free,South,Organic
+U023,product_viewed,2026-11-01 16:53:00,S0017,P03,0,iOS,Basic,West,Paid Search
+U023,search_performed,2026-11-01 16:55:00,S0017,P03,0,iOS,Basic,West,Paid Search
+U023,add_to_cart,2026-11-01 16:58:00,S0017,P03,0,iOS,Basic,West,Paid Search
+U023,checkout_started,2026-11-01 17:02:00,S0017,P03,0,iOS,Basic,West,Paid Search
+U025,product_viewed,2026-11-01 10:19:00,S0018,P01,0,Android,Free,North,Organic
+U025,add_to_cart,2026-11-01 10:24:00,S0018,P01,0,Android,Free,North,Organic
+U025,checkout_started,2026-11-01 10:28:00,S0018,P01,0,Android,Free,North,Organic
+U025,purchase,2026-11-01 10:33:00,S0018,P01,299,Android,Free,North,Organic
+U026,product_viewed,2026-11-01 13:32:00,S0019,P02,0,iOS,Basic,South,Paid Search
+U026,search_performed,2026-11-01 13:34:00,S0019,P02,0,iOS,Basic,South,Paid Search
+U026,add_to_cart,2026-11-01 13:37:00,S0019,P02,0,iOS,Basic,South,Paid Search
+U026,checkout_started,2026-11-01 13:41:00,S0019,P02,0,iOS,Basic,South,Paid Search
+U026,purchase,2026-11-01 13:46:00,S0019,P02,499,iOS,Basic,South,Paid Search
+U028,product_viewed,2026-11-01 19:58:00,S0020,P04,0,Android,Free,East,Organic
+U028,search_performed,2026-11-01 20:00:00,S0020,P04,0,Android,Free,East,Organic
+U028,checkout_started,2026-11-01 20:07:00,S0020,P04,0,Android,Free,East,Organic
+U029,product_viewed,2026-11-01 10:11:00,S0021,P01,0,iOS,Basic,North,Paid Search
+U029,search_performed,2026-11-01 10:13:00,S0021,P01,0,iOS,Basic,North,Paid Search
+U029,add_to_cart,2026-11-01 10:16:00,S0021,P01,0,iOS,Basic,North,Paid Search
+U029,purchase,2026-11-01 10:25:00,S0021,P01,299,iOS,Basic,North,Paid Search
+U031,product_viewed,2026-11-01 16:37:00,S0022,P03,0,Android,Free,West,Organic
+U031,search_performed,2026-11-01 16:39:00,S0022,P03,0,Android,Free,West,Organic
+U031,add_to_cart,2026-11-01 16:42:00,S0022,P03,0,Android,Free,West,Organic
+U031,checkout_started,2026-11-01 16:46:00,S0022,P03,0,Android,Free,West,Organic
+U032,product_viewed,2026-11-01 19:50:00,S0023,P04,0,iOS,Basic,East,Paid Search
+U032,search_performed,2026-11-01 19:52:00,S0023,P04,0,iOS,Basic,East,Paid Search
+U032,checkout_started,2026-11-01 19:59:00,S0023,P04,0,iOS,Basic,East,Paid Search
+U032,purchase,2026-11-01 20:04:00,S0023,P04,999,iOS,Basic,East,Paid Search
+U033,product_viewed,2026-11-01 10:03:00,S0024,P01,0,Web,Premium,North,Referral
+U033,search_performed,2026-11-01 10:05:00,S0024,P01,0,Web,Premium,North,Referral
+U033,add_to_cart,2026-11-01 10:08:00,S0024,P01,0,Web,Premium,North,Referral
+U033,checkout_started,2026-11-01 10:12:00,S0024,P01,0,Web,Premium,North,Referral
+U033,purchase,2026-11-01 10:17:00,S0024,P01,299,Web,Premium,North,Referral
+U034,product_viewed,2026-11-01 13:16:00,S0025,P02,0,Android,Free,South,Organic
+U034,search_performed,2026-11-01 13:18:00,S0025,P02,0,Android,Free,South,Organic
+U034,add_to_cart,2026-11-01 13:21:00,S0025,P02,0,Android,Free,South,Organic
+U036,product_viewed,2026-11-01 19:42:00,S0026,P04,0,Web,Premium,East,Referral
+U036,search_performed,2026-11-01 19:44:00,S0026,P04,0,Web,Premium,East,Referral
+U036,checkout_started,2026-11-01 19:51:00,S0026,P04,0,Web,Premium,East,Referral
+U036,purchase,2026-11-01 19:56:00,S0026,P04,999,Web,Premium,East,Referral
+U036,wishlist_added,2026-11-01 20:00:00,S0026,P04,0,Web,Premium,East,Referral
+U037,product_viewed,2026-11-01 10:55:00,S0027,P01,0,Android,Free,North,Organic
+U037,search_performed,2026-11-01 10:57:00,S0027,P01,0,Android,Free,North,Organic
+U037,add_to_cart,2026-11-01 11:00:00,S0027,P01,0,Android,Free,North,Organic
+U037,checkout_started,2026-11-01 11:04:00,S0027,P01,0,Android,Free,North,Organic
+U039,product_viewed,2026-11-01 16:21:00,S0028,P03,0,Web,Premium,West,Referral
+U039,search_performed,2026-11-01 16:23:00,S0028,P03,0,Web,Premium,West,Referral
+U039,add_to_cart,2026-11-01 16:26:00,S0028,P03,0,Web,Premium,West,Referral
+U039,purchase,2026-11-01 16:35:00,S0028,P03,799,Web,Premium,West,Referral
+U040,product_viewed,2026-11-01 19:34:00,S0029,P04,0,Android,Free,East,Organic
+U040,checkout_started,2026-11-01 19:43:00,S0029,P04,0,Android,Free,East,Organic
+U040,purchase,2026-11-01 19:48:00,S0029,P04,999,Android,Free,East,Organic
+U042,product_viewed,2026-11-01 13:00:00,S0030,P02,0,Web,Premium,South,Referral
+U042,search_performed,2026-11-01 13:02:00,S0030,P02,0,Web,Premium,South,Referral
+U042,add_to_cart,2026-11-01 13:05:00,S0030,P02,0,Web,Premium,South,Referral
+U042,checkout_started,2026-11-01 13:09:00,S0030,P02,0,Web,Premium,South,Referral
+U042,wishlist_added,2026-11-01 13:18:00,S0030,P02,0,Web,Premium,South,Referral
+U043,product_viewed,2026-11-01 16:13:00,S0031,P03,0,Android,Free,West,Organic
+U043,search_performed,2026-11-01 16:15:00,S0031,P03,0,Android,Free,West,Organic
+U043,add_to_cart,2026-11-01 16:18:00,S0031,P03,0,Android,Free,West,Organic
+U043,checkout_started,2026-11-01 16:22:00,S0031,P03,0,Android,Free,West,Organic
+U043,purchase,2026-11-01 16:27:00,S0031,P03,799,Android,Free,West,Organic
+U044,product_viewed,2026-11-01 19:26:00,S0032,P04,0,iOS,Basic,East,Paid Search
+U044,search_performed,2026-11-01 19:28:00,S0032,P04,0,iOS,Basic,East,Paid Search
+U045,product_viewed,2026-11-01 10:39:00,S0033,P01,0,Web,Premium,North,Referral
+U045,add_to_cart,2026-11-01 10:44:00,S0033,P01,0,Web,Premium,North,Referral
+U045,checkout_started,2026-11-01 10:48:00,S0033,P01,0,Web,Premium,North,Referral
+U047,product_viewed,2026-11-01 16:05:00,S0034,P03,0,iOS,Basic,West,Paid Search
+U047,search_performed,2026-11-01 16:07:00,S0034,P03,0,iOS,Basic,West,Paid Search
+U047,add_to_cart,2026-11-01 16:10:00,S0034,P03,0,iOS,Basic,West,Paid Search
+U047,checkout_started,2026-11-01 16:14:00,S0034,P03,0,iOS,Basic,West,Paid Search
+U047,purchase,2026-11-01 16:19:00,S0034,P03,799,iOS,Basic,West,Paid Search
+U048,product_viewed,2026-11-01 19:18:00,S0035,P04,0,Web,Premium,East,Referral
+U048,search_performed,2026-11-01 19:20:00,S0035,P04,0,Web,Premium,East,Referral
+U048,checkout_started,2026-11-01 19:27:00,S0035,P04,0,Web,Premium,East,Referral
+U048,wishlist_added,2026-11-01 19:36:00,S0035,P04,0,Web,Premium,East,Referral
+U050,product_viewed,2026-11-01 13:44:00,S0036,P02,0,iOS,Basic,South,Paid Search
+U050,add_to_cart,2026-11-01 13:49:00,S0036,P02,0,iOS,Basic,South,Paid Search
+U050,checkout_started,2026-11-01 13:53:00,S0036,P02,0,iOS,Basic,South,Paid Search
+U050,purchase,2026-11-01 13:58:00,S0036,P02,499,iOS,Basic,South,Paid Search
+U051,product_viewed,2026-11-01 16:57:00,S0037,P03,0,Web,Premium,West,Referral
+U051,search_performed,2026-11-01 16:59:00,S0037,P03,0,Web,Premium,West,Referral
+U051,add_to_cart,2026-11-01 17:02:00,S0037,P03,0,Web,Premium,West,Referral
+U051,checkout_started,2026-11-01 17:06:00,S0037,P03,0,Web,Premium,West,Referral
+U053,product_viewed,2026-11-01 10:23:00,S0038,P01,0,iOS,Basic,North,Paid Search
+U053,search_performed,2026-11-01 10:25:00,S0038,P01,0,iOS,Basic,North,Paid Search
+U053,add_to_cart,2026-11-01 10:28:00,S0038,P01,0,iOS,Basic,North,Paid Search
+U053,checkout_started,2026-11-01 10:32:00,S0038,P01,0,iOS,Basic,North,Paid Search
+U053,purchase,2026-11-01 10:37:00,S0038,P01,299,iOS,Basic,North,Paid Search
+U054,product_viewed,2026-11-01 13:36:00,S0039,P02,0,Web,Premium,South,Referral
+U054,search_performed,2026-11-01 13:38:00,S0039,P02,0,Web,Premium,South,Referral
+U054,add_to_cart,2026-11-01 13:41:00,S0039,P02,0,Web,Premium,South,Referral
+U054,purchase,2026-11-01 13:50:00,S0039,P02,499,Web,Premium,South,Referral
+U054,wishlist_added,2026-11-01 13:54:00,S0039,P02,0,Web,Premium,South,Referral
+U055,product_viewed,2026-11-01 16:49:00,S0040,P03,0,Android,Free,West,Organic
+U055,add_to_cart,2026-11-01 16:54:00,S0040,P03,0,Android,Free,West,Organic
+U055,checkout_started,2026-11-01 16:58:00,S0040,P03,0,Android,Free,West,Organic
+U056,product_viewed,2026-11-01 19:02:00,S0041,P04,0,iOS,Basic,East,Paid Search
+U056,search_performed,2026-11-01 19:04:00,S0041,P04,0,iOS,Basic,East,Paid Search
+U056,checkout_started,2026-11-01 19:11:00,S0041,P04,0,iOS,Basic,East,Paid Search
+U058,product_viewed,2026-11-01 13:28:00,S0042,P02,0,Android,Free,South,Organic
+U058,search_performed,2026-11-01 13:30:00,S0042,P02,0,Android,Free,South,Organic
+U058,add_to_cart,2026-11-01 13:33:00,S0042,P02,0,Android,Free,South,Organic
+U058,checkout_started,2026-11-01 13:37:00,S0042,P02,0,Android,Free,South,Organic
+U059,product_viewed,2026-11-01 16:41:00,S0043,P03,0,iOS,Basic,West,Paid Search
+U059,search_performed,2026-11-01 16:43:00,S0043,P03,0,iOS,Basic,West,Paid Search
+U059,add_to_cart,2026-11-01 16:46:00,S0043,P03,0,iOS,Basic,West,Paid Search
+U001,product_viewed,2026-11-02 11:14:00,S0044,P01,0,Android,Free,North,Organic
+U001,search_performed,2026-11-02 11:16:00,S0044,P01,0,Android,Free,North,Organic
+U001,add_to_cart,2026-11-02 11:19:00,S0044,P01,0,Android,Free,North,Organic
+U001,checkout_started,2026-11-02 11:23:00,S0044,P01,0,Android,Free,North,Organic
+U001,purchase,2026-11-02 11:28:00,S0044,P01,299,Android,Free,North,Organic
+U002,product_viewed,2026-11-02 14:27:00,S0045,P02,0,iOS,Basic,South,Paid Search
+U002,search_performed,2026-11-02 14:29:00,S0045,P02,0,iOS,Basic,South,Paid Search
+U002,add_to_cart,2026-11-02 14:32:00,S0045,P02,0,iOS,Basic,South,Paid Search
+U002,purchase,2026-11-02 14:41:00,S0045,P02,499,iOS,Basic,South,Paid Search
+U004,product_viewed,2026-11-02 20:53:00,S0046,P04,0,Android,Free,East,Organic
+U004,add_to_cart,2026-11-02 20:58:00,S0046,P04,0,Android,Free,East,Organic
+U004,checkout_started,2026-11-02 21:02:00,S0046,P04,0,Android,Free,East,Organic
+U004,feature_used,2026-11-02 21:13:00,S0046,P04,0,Android,Free,East,Organic
+U005,product_viewed,2026-11-02 11:06:00,S0047,P01,0,iOS,Basic,North,Paid Search
+U005,search_performed,2026-11-02 11:08:00,S0047,P01,0,iOS,Basic,North,Paid Search
+U005,add_to_cart,2026-11-02 11:11:00,S0047,P01,0,iOS,Basic,North,Paid Search
+U005,checkout_started,2026-11-02 11:15:00,S0047,P01,0,iOS,Basic,North,Paid Search
+U005,purchase,2026-11-02 11:20:00,S0047,P01,299,iOS,Basic,North,Paid Search
+U005,wishlist_added,2026-11-02 11:24:00,S0047,P01,0,iOS,Basic,North,Paid Search
+U007,product_viewed,2026-11-02 17:32:00,S0048,P03,0,Android,Free,West,Organic
+U007,search_performed,2026-11-02 17:34:00,S0048,P03,0,Android,Free,West,Organic
+U008,product_viewed,2026-11-02 20:45:00,S0049,P04,0,iOS,Basic,East,Paid Search
+U008,search_performed,2026-11-02 20:47:00,S0049,P04,0,iOS,Basic,East,Paid Search
+U008,add_to_cart,2026-11-02 20:50:00,S0049,P04,0,iOS,Basic,East,Paid Search
+U008,checkout_started,2026-11-02 20:54:00,S0049,P04,0,iOS,Basic,East,Paid Search
+U008,purchase,2026-11-02 20:59:00,S0049,P04,999,iOS,Basic,East,Paid Search
+U008,feature_used,2026-11-02 21:05:00,S0049,P04,0,iOS,Basic,East,Paid Search
+U009,product_viewed,2026-11-02 11:58:00,S0050,P01,0,Web,Premium,North,Referral
+U009,add_to_cart,2026-11-02 12:03:00,S0050,P01,0,Web,Premium,North,Referral
+U009,checkout_started,2026-11-02 12:07:00,S0050,P01,0,Web,Premium,North,Referral
+U009,purchase,2026-11-02 12:12:00,S0050,P01,299,Web,Premium,North,Referral
+U010,product_viewed,2026-11-02 14:11:00,S0051,P02,0,Android,Free,South,Organic
+U010,search_performed,2026-11-02 14:13:00,S0051,P02,0,Android,Free,South,Organic
+U010,add_to_cart,2026-11-02 14:16:00,S0051,P02,0,Android,Free,South,Organic
+U010,checkout_started,2026-11-02 14:20:00,S0051,P02,0,Android,Free,South,Organic
+U012,product_viewed,2026-11-02 20:37:00,S0052,P04,0,Web,Premium,East,Referral
+U012,search_performed,2026-11-02 20:39:00,S0052,P04,0,Web,Premium,East,Referral
+U012,add_to_cart,2026-11-02 20:42:00,S0052,P04,0,Web,Premium,East,Referral
+U012,purchase,2026-11-02 20:51:00,S0052,P04,999,Web,Premium,East,Referral
+U012,feature_used,2026-11-02 20:57:00,S0052,P04,0,Web,Premium,East,Referral
+U013,product_viewed,2026-11-02 11:50:00,S0053,P01,0,Android,Free,North,Organic
+U013,search_performed,2026-11-02 11:52:00,S0053,P01,0,Android,Free,North,Organic
+U013,add_to_cart,2026-11-02 11:55:00,S0053,P01,0,Android,Free,North,Organic
+U013,checkout_started,2026-11-02 11:59:00,S0053,P01,0,Android,Free,North,Organic
+U015,product_viewed,2026-11-02 17:16:00,S0054,P03,0,Web,Premium,West,Referral
+U015,search_performed,2026-11-02 17:18:00,S0054,P03,0,Web,Premium,West,Referral
+U015,checkout_started,2026-11-02 17:25:00,S0054,P03,0,Web,Premium,West,Referral
+U015,purchase,2026-11-02 17:30:00,S0054,P03,799,Web,Premium,West,Referral
+U016,product_viewed,2026-11-02 20:29:00,S0055,P04,0,Android,Free,East,Organic
+U016,search_performed,2026-11-02 20:31:00,S0055,P04,0,Android,Free,East,Organic
+U016,add_to_cart,2026-11-02 20:34:00,S0055,P04,0,Android,Free,East,Organic
+U016,checkout_started,2026-11-02 20:38:00,S0055,P04,0,Android,Free,East,Organic
+U016,purchase,2026-11-02 20:43:00,S0055,P04,999,Android,Free,East,Organic
+U016,feature_used,2026-11-02 20:49:00,S0055,P04,0,Android,Free,East,Organic
+U018,product_viewed,2026-11-02 14:55:00,S0056,P02,0,Web,Premium,South,Referral
+U018,search_performed,2026-11-02 14:57:00,S0056,P02,0,Web,Premium,South,Referral
+U018,add_to_cart,2026-11-02 15:00:00,S0056,P02,0,Web,Premium,South,Referral
+U018,checkout_started,2026-11-02 15:04:00,S0056,P02,0,Web,Premium,South,Referral
+U019,product_viewed,2026-11-02 17:08:00,S0057,P03,0,Android,Free,West,Organic
+U019,checkout_started,2026-11-02 17:17:00,S0057,P03,0,Android,Free,West,Organic
+U019,purchase,2026-11-02 17:22:00,S0057,P03,799,Android,Free,West,Organic
+U020,product_viewed,2026-11-02 20:21:00,S0058,P04,0,iOS,Basic,East,Paid Search
+U020,search_performed,2026-11-02 20:23:00,S0058,P04,0,iOS,Basic,East,Paid Search
+U020,add_to_cart,2026-11-02 20:26:00,S0058,P04,0,iOS,Basic,East,Paid Search
+U020,checkout_started,2026-11-02 20:30:00,S0058,P04,0,iOS,Basic,East,Paid Search
+U020,feature_used,2026-11-02 20:41:00,S0058,P04,0,iOS,Basic,East,Paid Search
+U021,product_viewed,2026-11-02 11:34:00,S0059,P01,0,Web,Premium,North,Referral
+U021,search_performed,2026-11-02 11:36:00,S0059,P01,0,Web,Premium,North,Referral
+U021,add_to_cart,2026-11-02 11:39:00,S0059,P01,0,Web,Premium,North,Referral
+U021,checkout_started,2026-11-02 11:43:00,S0059,P01,0,Web,Premium,North,Referral
+U023,product_viewed,2026-11-02 17:00:00,S0060,P03,0,iOS,Basic,West,Paid Search
+U023,search_performed,2026-11-02 17:02:00,S0060,P03,0,iOS,Basic,West,Paid Search
+U023,checkout_started,2026-11-02 17:09:00,S0060,P03,0,iOS,Basic,West,Paid Search
+U023,purchase,2026-11-02 17:14:00,S0060,P03,799,iOS,Basic,West,Paid Search
+U023,wishlist_added,2026-11-02 17:18:00,S0060,P03,0,iOS,Basic,West,Paid Search
+U024,product_viewed,2026-11-02 20:13:00,S0061,P04,0,Web,Premium,East,Referral
+U024,add_to_cart,2026-11-02 20:18:00,S0061,P04,0,Web,Premium,East,Referral
+U024,checkout_started,2026-11-02 20:22:00,S0061,P04,0,Web,Premium,East,Referral
+U024,feature_used,2026-11-02 20:33:00,S0061,P04,0,Web,Premium,East,Referral
+U026,product_viewed,2026-11-02 14:39:00,S0062,P02,0,iOS,Basic,South,Paid Search
+U026,search_performed,2026-11-02 14:41:00,S0062,P02,0,iOS,Basic,South,Paid Search
+U026,add_to_cart,2026-11-02 14:44:00,S0062,P02,0,iOS,Basic,South,Paid Search
+U026,checkout_started,2026-11-02 14:48:00,S0062,P02,0,iOS,Basic,South,Paid Search
+U026,purchase,2026-11-02 14:53:00,S0062,P02,499,iOS,Basic,South,Paid Search
+U027,product_viewed,2026-11-02 17:52:00,S0063,P03,0,Web,Premium,West,Referral
+U027,search_performed,2026-11-02 17:54:00,S0063,P03,0,Web,Premium,West,Referral
+U029,product_viewed,2026-11-02 11:18:00,S0064,P01,0,iOS,Basic,North,Paid Search
+U029,add_to_cart,2026-11-02 11:23:00,S0064,P01,0,iOS,Basic,North,Paid Search
+U029,checkout_started,2026-11-02 11:27:00,S0064,P01,0,iOS,Basic,North,Paid Search
+U029,purchase,2026-11-02 11:32:00,S0064,P01,299,iOS,Basic,North,Paid Search
+U029,wishlist_added,2026-11-02 11:36:00,S0064,P01,0,iOS,Basic,North,Paid Search
+U030,product_viewed,2026-11-02 14:31:00,S0065,P02,0,Web,Premium,South,Referral
+U030,search_performed,2026-11-02 14:33:00,S0065,P02,0,Web,Premium,South,Referral
+U030,add_to_cart,2026-11-02 14:36:00,S0065,P02,0,Web,Premium,South,Referral
+U030,checkout_started,2026-11-02 14:40:00,S0065,P02,0,Web,Premium,South,Referral
+U030,purchase,2026-11-02 14:45:00,S0065,P02,499,Web,Premium,South,Referral
+U031,product_viewed,2026-11-02 17:44:00,S0066,P03,0,Android,Free,West,Organic
+U031,search_performed,2026-11-02 17:46:00,S0066,P03,0,Android,Free,West,Organic
+U031,checkout_started,2026-11-02 17:53:00,S0066,P03,0,Android,Free,West,Organic
+U032,product_viewed,2026-11-02 20:57:00,S0067,P04,0,iOS,Basic,East,Paid Search
+U032,search_performed,2026-11-02 20:59:00,S0067,P04,0,iOS,Basic,East,Paid Search
+U032,add_to_cart,2026-11-02 21:02:00,S0067,P04,0,iOS,Basic,East,Paid Search
+U032,feature_used,2026-11-02 21:17:00,S0067,P04,0,iOS,Basic,East,Paid Search
+U034,product_viewed,2026-11-02 14:23:00,S0068,P02,0,Android,Free,South,Organic
+U034,add_to_cart,2026-11-02 14:28:00,S0068,P02,0,Android,Free,South,Organic
+U034,checkout_started,2026-11-02 14:32:00,S0068,P02,0,Android,Free,South,Organic
+U035,product_viewed,2026-11-02 17:36:00,S0069,P03,0,iOS,Basic,West,Paid Search
+U035,search_performed,2026-11-02 17:38:00,S0069,P03,0,iOS,Basic,West,Paid Search
+U035,checkout_started,2026-11-02 17:45:00,S0069,P03,0,iOS,Basic,West,Paid Search
+U035,wishlist_added,2026-11-02 17:54:00,S0069,P03,0,iOS,Basic,West,Paid Search
+U037,product_viewed,2026-11-02 11:02:00,S0070,P01,0,Android,Free,North,Organic
+U037,search_performed,2026-11-02 11:04:00,S0070,P01,0,Android,Free,North,Organic
+U037,add_to_cart,2026-11-02 11:07:00,S0070,P01,0,Android,Free,North,Organic
+U037,purchase,2026-11-02 11:16:00,S0070,P01,299,Android,Free,North,Organic
+U038,product_viewed,2026-11-02 14:15:00,S0071,P02,0,iOS,Basic,South,Paid Search
+U038,search_performed,2026-11-02 14:17:00,S0071,P02,0,iOS,Basic,South,Paid Search
+U038,add_to_cart,2026-11-02 14:20:00,S0071,P02,0,iOS,Basic,South,Paid Search
+U038,checkout_started,2026-11-02 14:24:00,S0071,P02,0,iOS,Basic,South,Paid Search
+U040,product_viewed,2026-11-02 20:41:00,S0072,P04,0,Android,Free,East,Organic
+U040,search_performed,2026-11-02 20:43:00,S0072,P04,0,Android,Free,East,Organic
+U040,add_to_cart,2026-11-02 20:46:00,S0072,P04,0,Android,Free,East,Organic
+U040,checkout_started,2026-11-02 20:50:00,S0072,P04,0,Android,Free,East,Organic
+U040,purchase,2026-11-02 20:55:00,S0072,P04,999,Android,Free,East,Organic
+U040,feature_used,2026-11-02 21:01:00,S0072,P04,0,Android,Free,East,Organic
+U041,product_viewed,2026-11-02 11:54:00,S0073,P01,0,iOS,Basic,North,Paid Search
+U041,search_performed,2026-11-02 11:56:00,S0073,P01,0,iOS,Basic,North,Paid Search
+U041,add_to_cart,2026-11-02 11:59:00,S0073,P01,0,iOS,Basic,North,Paid Search
+U041,checkout_started,2026-11-02 12:03:00,S0073,P01,0,iOS,Basic,North,Paid Search
+U041,wishlist_added,2026-11-02 12:12:00,S0073,P01,0,iOS,Basic,North,Paid Search
+U042,product_viewed,2026-11-02 14:07:00,S0074,P02,0,Web,Premium,South,Referral
+U042,search_performed,2026-11-02 14:09:00,S0074,P02,0,Web,Premium,South,Referral
+U042,add_to_cart,2026-11-02 14:12:00,S0074,P02,0,Web,Premium,South,Referral
+U043,product_viewed,2026-11-02 17:20:00,S0075,P03,0,Android,Free,West,Organic
+U043,search_performed,2026-11-02 17:22:00,S0075,P03,0,Android,Free,West,Organic
+U043,checkout_started,2026-11-02 17:29:00,S0075,P03,0,Android,Free,West,Organic
+U043,purchase,2026-11-02 17:34:00,S0075,P03,799,Android,Free,West,Organic
+U045,product_viewed,2026-11-02 11:46:00,S0076,P01,0,Web,Premium,North,Referral
+U045,search_performed,2026-11-02 11:48:00,S0076,P01,0,Web,Premium,North,Referral
+U045,add_to_cart,2026-11-02 11:51:00,S0076,P01,0,Web,Premium,North,Referral
+U045,checkout_started,2026-11-02 11:55:00,S0076,P01,0,Web,Premium,North,Referral
+U046,product_viewed,2026-11-02 14:59:00,S0077,P02,0,Android,Free,South,Organic
+U046,search_performed,2026-11-02 15:01:00,S0077,P02,0,Android,Free,South,Organic
+U046,add_to_cart,2026-11-02 15:04:00,S0077,P02,0,Android,Free,South,Organic
+U046,checkout_started,2026-11-02 15:08:00,S0077,P02,0,Android,Free,South,Organic
+U048,product_viewed,2026-11-02 20:25:00,S0078,P04,0,Web,Premium,East,Referral
+U048,search_performed,2026-11-02 20:27:00,S0078,P04,0,Web,Premium,East,Referral
+U048,add_to_cart,2026-11-02 20:30:00,S0078,P04,0,Web,Premium,East,Referral
+U048,checkout_started,2026-11-02 20:34:00,S0078,P04,0,Web,Premium,East,Referral
+U048,feature_used,2026-11-02 20:45:00,S0078,P04,0,Web,Premium,East,Referral
+U049,product_viewed,2026-11-02 11:38:00,S0079,P01,0,Android,Free,North,Organic
+U049,add_to_cart,2026-11-02 11:43:00,S0079,P01,0,Android,Free,North,Organic
+U049,checkout_started,2026-11-02 11:47:00,S0079,P01,0,Android,Free,North,Organic
+U051,product_viewed,2026-11-02 17:04:00,S0080,P03,0,Web,Premium,West,Referral
+U051,search_performed,2026-11-02 17:06:00,S0080,P03,0,Web,Premium,West,Referral
+U051,checkout_started,2026-11-02 17:13:00,S0080,P03,0,Web,Premium,West,Referral
+U051,purchase,2026-11-02 17:18:00,S0080,P03,799,Web,Premium,West,Referral
+U052,product_viewed,2026-11-02 20:17:00,S0081,P04,0,Android,Free,East,Organic
+U052,search_performed,2026-11-02 20:19:00,S0081,P04,0,Android,Free,East,Organic
+U052,add_to_cart,2026-11-02 20:22:00,S0081,P04,0,Android,Free,East,Organic
+U052,feature_used,2026-11-02 20:37:00,S0081,P04,0,Android,Free,East,Organic
+U053,product_viewed,2026-11-02 11:30:00,S0082,P01,0,iOS,Basic,North,Paid Search
+U053,search_performed,2026-11-02 11:32:00,S0082,P01,0,iOS,Basic,North,Paid Search
+U053,add_to_cart,2026-11-02 11:35:00,S0082,P01,0,iOS,Basic,North,Paid Search
+U053,checkout_started,2026-11-02 11:39:00,S0082,P01,0,iOS,Basic,North,Paid Search
+U053,wishlist_added,2026-11-02 11:48:00,S0082,P01,0,iOS,Basic,North,Paid Search
+U054,product_viewed,2026-11-02 14:43:00,S0083,P02,0,Web,Premium,South,Referral
+U054,add_to_cart,2026-11-02 14:48:00,S0083,P02,0,Web,Premium,South,Referral
+U054,checkout_started,2026-11-02 14:52:00,S0083,P02,0,Web,Premium,South,Referral
+U054,purchase,2026-11-02 14:57:00,S0083,P02,499,Web,Premium,South,Referral
+U056,product_viewed,2026-11-02 20:09:00,S0084,P04,0,iOS,Basic,East,Paid Search
+U056,search_performed,2026-11-02 20:11:00,S0084,P04,0,iOS,Basic,East,Paid Search
+U056,add_to_cart,2026-11-02 20:14:00,S0084,P04,0,iOS,Basic,East,Paid Search
+U056,checkout_started,2026-11-02 20:18:00,S0084,P04,0,iOS,Basic,East,Paid Search
+U056,feature_used,2026-11-02 20:29:00,S0084,P04,0,iOS,Basic,East,Paid Search
+U057,product_viewed,2026-11-02 11:22:00,S0085,P01,0,Web,Premium,North,Referral
+U057,search_performed,2026-11-02 11:24:00,S0085,P01,0,Web,Premium,North,Referral
+U057,add_to_cart,2026-11-02 11:27:00,S0085,P01,0,Web,Premium,North,Referral
+U057,purchase,2026-11-02 11:36:00,S0085,P01,299,Web,Premium,North,Referral
+U059,product_viewed,2026-11-02 17:48:00,S0086,P03,0,iOS,Basic,West,Paid Search
+U059,checkout_started,2026-11-02 17:57:00,S0086,P03,0,iOS,Basic,West,Paid Search
+U059,wishlist_added,2026-11-02 18:06:00,S0086,P03,0,iOS,Basic,West,Paid Search
+U060,product_viewed,2026-11-02 20:01:00,S0087,P04,0,Web,Premium,East,Referral
+U060,search_performed,2026-11-02 20:03:00,S0087,P04,0,Web,Premium,East,Referral
+U060,add_to_cart,2026-11-02 20:06:00,S0087,P04,0,Web,Premium,East,Referral
+U060,checkout_started,2026-11-02 20:10:00,S0087,P04,0,Web,Premium,East,Referral
+U060,feature_used,2026-11-02 20:21:00,S0087,P04,0,Web,Premium,East,Referral
+U002,product_viewed,2026-11-03 15:34:00,S0088,P02,0,iOS,Basic,South,Paid Search
+U002,search_performed,2026-11-03 15:36:00,S0088,P02,0,iOS,Basic,South,Paid Search
+U002,checkout_started,2026-11-03 15:43:00,S0088,P02,0,iOS,Basic,South,Paid Search
+U002,purchase,2026-11-03 15:48:00,S0088,P02,499,iOS,Basic,South,Paid Search
+U003,product_viewed,2026-11-03 18:47:00,S0089,P03,0,Web,Premium,West,Referral
+U003,add_to_cart,2026-11-03 18:52:00,S0089,P03,0,Web,Premium,West,Referral
+U003,checkout_started,2026-11-03 18:56:00,S0089,P03,0,Web,Premium,West,Referral
+U005,product_viewed,2026-11-03 12:13:00,S0090,P01,0,iOS,Basic,North,Paid Search
+U005,search_performed,2026-11-03 12:15:00,S0090,P01,0,iOS,Basic,North,Paid Search
+U005,add_to_cart,2026-11-03 12:18:00,S0090,P01,0,iOS,Basic,North,Paid Search
+U005,purchase,2026-11-03 12:27:00,S0090,P01,299,iOS,Basic,North,Paid Search
+U006,product_viewed,2026-11-03 15:26:00,S0091,P02,0,Web,Premium,South,Referral
+U006,search_performed,2026-11-03 15:28:00,S0091,P02,0,Web,Premium,South,Referral
+U006,checkout_started,2026-11-03 15:35:00,S0091,P02,0,Web,Premium,South,Referral
+U006,purchase,2026-11-03 15:40:00,S0091,P02,499,Web,Premium,South,Referral
+U007,product_viewed,2026-11-03 18:39:00,S0092,P03,0,Android,Free,West,Organic
+U007,search_performed,2026-11-03 18:41:00,S0092,P03,0,Android,Free,West,Organic
+U007,add_to_cart,2026-11-03 18:44:00,S0092,P03,0,Android,Free,West,Organic
+U007,checkout_started,2026-11-03 18:48:00,S0092,P03,0,Android,Free,West,Organic
+U008,product_viewed,2026-11-03 09:52:00,S0093,P04,0,iOS,Basic,East,Paid Search
+U008,add_to_cart,2026-11-03 09:57:00,S0093,P04,0,iOS,Basic,East,Paid Search
+U008,checkout_started,2026-11-03 10:01:00,S0093,P04,0,iOS,Basic,East,Paid Search
+U010,product_viewed,2026-11-03 15:18:00,S0094,P02,0,Android,Free,South,Organic
+U010,search_performed,2026-11-03 15:20:00,S0094,P02,0,Android,Free,South,Organic
+U010,wishlist_added,2026-11-03 15:36:00,S0094,P02,0,Android,Free,South,Organic
+U011,product_viewed,2026-11-03 18:31:00,S0095,P03,0,iOS,Basic,West,Paid Search
+U011,search_performed,2026-11-03 18:33:00,S0095,P03,0,iOS,Basic,West,Paid Search
+U011,add_to_cart,2026-11-03 18:36:00,S0095,P03,0,iOS,Basic,West,Paid Search
+U011,checkout_started,2026-11-03 18:40:00,S0095,P03,0,iOS,Basic,West,Paid Search
+U013,product_viewed,2026-11-03 12:57:00,S0096,P01,0,Android,Free,North,Organic
+U013,add_to_cart,2026-11-03 13:02:00,S0096,P01,0,Android,Free,North,Organic
+U013,checkout_started,2026-11-03 13:06:00,S0096,P01,0,Android,Free,North,Organic
+U013,purchase,2026-11-03 13:11:00,S0096,P01,299,Android,Free,North,Organic
+U014,product_viewed,2026-11-03 15:10:00,S0097,P02,0,iOS,Basic,South,Paid Search
+U014,search_performed,2026-11-03 15:12:00,S0097,P02,0,iOS,Basic,South,Paid Search
+U014,checkout_started,2026-11-03 15:19:00,S0097,P02,0,iOS,Basic,South,Paid Search
+U016,product_viewed,2026-11-03 09:36:00,S0098,P04,0,Android,Free,East,Organic
+U016,search_performed,2026-11-03 09:38:00,S0098,P04,0,Android,Free,East,Organic
+U016,add_to_cart,2026-11-03 09:41:00,S0098,P04,0,Android,Free,East,Organic
+U016,checkout_started,2026-11-03 09:45:00,S0098,P04,0,Android,Free,East,Organic
+U016,purchase,2026-11-03 09:50:00,S0098,P04,999,Android,Free,East,Organic
+U016,wishlist_added,2026-11-03 09:54:00,S0098,P04,0,Android,Free,East,Organic
+U017,product_viewed,2026-11-03 12:49:00,S0099,P01,0,iOS,Basic,North,Paid Search
+U017,search_performed,2026-11-03 12:51:00,S0099,P01,0,iOS,Basic,North,Paid Search
+U017,add_to_cart,2026-11-03 12:54:00,S0099,P01,0,iOS,Basic,North,Paid Search
+U017,checkout_started,2026-11-03 12:58:00,S0099,P01,0,iOS,Basic,North,Paid Search
+U018,product_viewed,2026-11-03 15:02:00,S0100,P02,0,Web,Premium,South,Referral
+U018,checkout_started,2026-11-03 15:11:00,S0100,P02,0,Web,Premium,South,Referral
+U019,product_viewed,2026-11-03 18:15:00,S0101,P03,0,Android,Free,West,Organic
+U019,search_performed,2026-11-03 18:17:00,S0101,P03,0,Android,Free,West,Organic
+U019,add_to_cart,2026-11-03 18:20:00,S0101,P03,0,Android,Free,West,Organic
+U019,checkout_started,2026-11-03 18:24:00,S0101,P03,0,Android,Free,West,Organic
+U019,purchase,2026-11-03 18:29:00,S0101,P03,799,Android,Free,West,Organic
+U021,product_viewed,2026-11-03 12:41:00,S0102,P01,0,Web,Premium,North,Referral
+U021,search_performed,2026-11-03 12:43:00,S0102,P01,0,Web,Premium,North,Referral
+U021,add_to_cart,2026-11-03 12:46:00,S0102,P01,0,Web,Premium,North,Referral
+U021,checkout_started,2026-11-03 12:50:00,S0102,P01,0,Web,Premium,North,Referral
+U022,product_viewed,2026-11-03 15:54:00,S0103,P02,0,Android,Free,South,Organic
+U022,search_performed,2026-11-03 15:56:00,S0103,P02,0,Android,Free,South,Organic
+U022,checkout_started,2026-11-03 16:03:00,S0103,P02,0,Android,Free,South,Organic
+U022,wishlist_added,2026-11-03 16:12:00,S0103,P02,0,Android,Free,South,Organic
+U024,product_viewed,2026-11-03 09:20:00,S0104,P04,0,Web,Premium,East,Referral
+U024,search_performed,2026-11-03 09:22:00,S0104,P04,0,Web,Premium,East,Referral
+U024,add_to_cart,2026-11-03 09:25:00,S0104,P04,0,Web,Premium,East,Referral
+U024,checkout_started,2026-11-03 09:29:00,S0104,P04,0,Web,Premium,East,Referral
+U025,product_viewed,2026-11-03 12:33:00,S0105,P01,0,Android,Free,North,Organic
+U025,search_performed,2026-11-03 12:35:00,S0105,P01,0,Android,Free,North,Organic
+U025,add_to_cart,2026-11-03 12:38:00,S0105,P01,0,Android,Free,North,Organic
+U027,product_viewed,2026-11-03 18:59:00,S0106,P03,0,Web,Premium,West,Referral
+U027,search_performed,2026-11-03 19:01:00,S0106,P03,0,Web,Premium,West,Referral
+U027,add_to_cart,2026-11-03 19:04:00,S0106,P03,0,Web,Premium,West,Referral
+U027,checkout_started,2026-11-03 19:08:00,S0106,P03,0,Web,Premium,West,Referral
+U027,purchase,2026-11-03 19:13:00,S0106,P03,799,Web,Premium,West,Referral
+U028,product_viewed,2026-11-03 09:12:00,S0107,P04,0,Android,Free,East,Organic
+U028,add_to_cart,2026-11-03 09:17:00,S0107,P04,0,Android,Free,East,Organic
+U028,checkout_started,2026-11-03 09:21:00,S0107,P04,0,Android,Free,East,Organic
+U028,wishlist_added,2026-11-03 09:30:00,S0107,P04,0,Android,Free,East,Organic
+U029,product_viewed,2026-11-03 12:25:00,S0108,P01,0,iOS,Basic,North,Paid Search
+U029,search_performed,2026-11-03 12:27:00,S0108,P01,0,iOS,Basic,North,Paid Search
+U029,add_to_cart,2026-11-03 12:30:00,S0108,P01,0,iOS,Basic,North,Paid Search
+U029,checkout_started,2026-11-03 12:34:00,S0108,P01,0,iOS,Basic,North,Paid Search
+U030,product_viewed,2026-11-03 15:38:00,S0109,P02,0,Web,Premium,South,Referral
+U030,search_performed,2026-11-03 15:40:00,S0109,P02,0,Web,Premium,South,Referral
+U030,purchase,2026-11-03 15:52:00,S0109,P02,499,Web,Premium,South,Referral
+U032,product_viewed,2026-11-03 09:04:00,S0110,P04,0,iOS,Basic,East,Paid Search
+U032,search_performed,2026-11-03 09:06:00,S0110,P04,0,iOS,Basic,East,Paid Search
+U032,add_to_cart,2026-11-03 09:09:00,S0110,P04,0,iOS,Basic,East,Paid Search
+U032,checkout_started,2026-11-03 09:13:00,S0110,P04,0,iOS,Basic,East,Paid Search
+U033,product_viewed,2026-11-03 12:17:00,S0111,P01,0,Web,Premium,North,Referral
+U033,add_to_cart,2026-11-03 12:22:00,S0111,P01,0,Web,Premium,North,Referral
+U033,checkout_started,2026-11-03 12:26:00,S0111,P01,0,Web,Premium,North,Referral
+U033,purchase,2026-11-03 12:31:00,S0111,P01,299,Web,Premium,North,Referral
+U035,product_viewed,2026-11-03 18:43:00,S0112,P03,0,iOS,Basic,West,Paid Search
+U035,search_performed,2026-11-03 18:45:00,S0112,P03,0,iOS,Basic,West,Paid Search
+U035,add_to_cart,2026-11-03 18:48:00,S0112,P03,0,iOS,Basic,West,Paid Search
+U036,product_viewed,2026-11-03 09:56:00,S0113,P04,0,Web,Premium,East,Referral
+U036,search_performed,2026-11-03 09:58:00,S0113,P04,0,Web,Premium,East,Referral
+U036,add_to_cart,2026-11-03 10:01:00,S0113,P04,0,Web,Premium,East,Referral
+U036,checkout_started,2026-11-03 10:05:00,S0113,P04,0,Web,Premium,East,Referral
+U038,product_viewed,2026-11-03 15:22:00,S0114,P02,0,iOS,Basic,South,Paid Search
+U038,checkout_started,2026-11-03 15:31:00,S0114,P02,0,iOS,Basic,South,Paid Search
+U039,product_viewed,2026-11-03 18:35:00,S0115,P03,0,Web,Premium,West,Referral
+U039,search_performed,2026-11-03 18:37:00,S0115,P03,0,Web,Premium,West,Referral
+U039,add_to_cart,2026-11-03 18:40:00,S0115,P03,0,Web,Premium,West,Referral
+U039,checkout_started,2026-11-03 18:44:00,S0115,P03,0,Web,Premium,West,Referral
+U040,product_viewed,2026-11-03 09:48:00,S0116,P04,0,Android,Free,East,Organic
+U040,search_performed,2026-11-03 09:50:00,S0116,P04,0,Android,Free,East,Organic
+U040,add_to_cart,2026-11-03 09:53:00,S0116,P04,0,Android,Free,East,Organic
+U040,purchase,2026-11-03 10:02:00,S0116,P04,999,Android,Free,East,Organic
+U040,wishlist_added,2026-11-03 10:06:00,S0116,P04,0,Android,Free,East,Organic
+U041,product_viewed,2026-11-03 12:01:00,S0117,P01,0,iOS,Basic,North,Paid Search
+U041,search_performed,2026-11-03 12:03:00,S0117,P01,0,iOS,Basic,North,Paid Search
+U041,add_to_cart,2026-11-03 12:06:00,S0117,P01,0,iOS,Basic,North,Paid Search
+U041,checkout_started,2026-11-03 12:10:00,S0117,P01,0,iOS,Basic,North,Paid Search
+U041,purchase,2026-11-03 12:15:00,S0117,P01,299,iOS,Basic,North,Paid Search
+U043,product_viewed,2026-11-03 18:27:00,S0118,P03,0,Android,Free,West,Organic
+U043,add_to_cart,2026-11-03 18:32:00,S0118,P03,0,Android,Free,West,Organic
+U043,checkout_started,2026-11-03 18:36:00,S0118,P03,0,Android,Free,West,Organic
+U044,product_viewed,2026-11-03 09:40:00,S0119,P04,0,iOS,Basic,East,Paid Search
+U044,search_performed,2026-11-03 09:42:00,S0119,P04,0,iOS,Basic,East,Paid Search
+U044,add_to_cart,2026-11-03 09:45:00,S0119,P04,0,iOS,Basic,East,Paid Search
+U044,checkout_started,2026-11-03 09:49:00,S0119,P04,0,iOS,Basic,East,Paid Search
+U044,purchase,2026-11-03 09:54:00,S0119,P04,999,iOS,Basic,East,Paid Search
+U046,product_viewed,2026-11-03 15:06:00,S0120,P02,0,Android,Free,South,Organic
+U046,search_performed,2026-11-03 15:08:00,S0120,P02,0,Android,Free,South,Organic
+U046,checkout_started,2026-11-03 15:15:00,S0120,P02,0,Android,Free,South,Organic
+U046,wishlist_added,2026-11-03 15:24:00,S0120,P02,0,Android,Free,South,Organic
+U047,product_viewed,2026-11-03 18:19:00,S0121,P03,0,iOS,Basic,West,Paid Search
+U047,search_performed,2026-11-03 18:21:00,S0121,P03,0,iOS,Basic,West,Paid Search
+U047,add_to_cart,2026-11-03 18:24:00,S0121,P03,0,iOS,Basic,West,Paid Search
+U047,checkout_started,2026-11-03 18:28:00,S0121,P03,0,iOS,Basic,West,Paid Search
+U047,purchase,2026-11-03 18:33:00,S0121,P03,799,iOS,Basic,West,Paid Search
+U049,product_viewed,2026-11-03 12:45:00,S0122,P01,0,Android,Free,North,Organic
+U049,search_performed,2026-11-03 12:47:00,S0122,P01,0,Android,Free,North,Organic
+U049,add_to_cart,2026-11-03 12:50:00,S0122,P01,0,Android,Free,North,Organic
+U049,checkout_started,2026-11-03 12:54:00,S0122,P01,0,Android,Free,North,Organic
+U050,product_viewed,2026-11-03 15:58:00,S0123,P02,0,iOS,Basic,South,Paid Search
+U050,search_performed,2026-11-03 16:00:00,S0123,P02,0,iOS,Basic,South,Paid Search
+U051,product_viewed,2026-11-03 18:11:00,S0124,P03,0,Web,Premium,West,Referral
+U051,search_performed,2026-11-03 18:13:00,S0124,P03,0,Web,Premium,West,Referral
+U051,add_to_cart,2026-11-03 18:16:00,S0124,P03,0,Web,Premium,West,Referral
+U051,checkout_started,2026-11-03 18:20:00,S0124,P03,0,Web,Premium,West,Referral
+U051,purchase,2026-11-03 18:25:00,S0124,P03,799,Web,Premium,West,Referral
+U052,product_viewed,2026-11-03 09:24:00,S0125,P04,0,Android,Free,East,Organic
+U052,search_performed,2026-11-03 09:26:00,S0125,P04,0,Android,Free,East,Organic
+U052,add_to_cart,2026-11-03 09:29:00,S0125,P04,0,Android,Free,East,Organic
+U052,checkout_started,2026-11-03 09:33:00,S0125,P04,0,Android,Free,East,Organic
+U052,wishlist_added,2026-11-03 09:42:00,S0125,P04,0,Android,Free,East,Organic
+U054,product_viewed,2026-11-03 15:50:00,S0126,P02,0,Web,Premium,South,Referral
+U054,search_performed,2026-11-03 15:52:00,S0126,P02,0,Web,Premium,South,Referral
+U054,checkout_started,2026-11-03 15:59:00,S0126,P02,0,Web,Premium,South,Referral
+U054,purchase,2026-11-03 16:04:00,S0126,P02,499,Web,Premium,South,Referral
+U055,product_viewed,2026-11-03 18:03:00,S0127,P03,0,Android,Free,West,Organic
+U055,search_performed,2026-11-03 18:05:00,S0127,P03,0,Android,Free,West,Organic
+U055,add_to_cart,2026-11-03 18:08:00,S0127,P03,0,Android,Free,West,Organic
+U055,purchase,2026-11-03 18:17:00,S0127,P03,799,Android,Free,West,Organic
+U057,product_viewed,2026-11-03 12:29:00,S0128,P01,0,Web,Premium,North,Referral
+U057,search_performed,2026-11-03 12:31:00,S0128,P01,0,Web,Premium,North,Referral
+U057,add_to_cart,2026-11-03 12:34:00,S0128,P01,0,Web,Premium,North,Referral
+U057,checkout_started,2026-11-03 12:38:00,S0128,P01,0,Web,Premium,North,Referral
+U058,product_viewed,2026-11-03 15:42:00,S0129,P02,0,Android,Free,South,Organic
+U058,checkout_started,2026-11-03 15:51:00,S0129,P02,0,Android,Free,South,Organic
+U058,purchase,2026-11-03 15:56:00,S0129,P02,499,Android,Free,South,Organic
+U058,wishlist_added,2026-11-03 16:00:00,S0129,P02,0,Android,Free,South,Organic
+U060,product_viewed,2026-11-03 09:08:00,S0130,P04,0,Web,Premium,East,Referral
+U060,search_performed,2026-11-03 09:10:00,S0130,P04,0,Web,Premium,East,Referral
+U060,add_to_cart,2026-11-03 09:13:00,S0130,P04,0,Web,Premium,East,Referral
+U001,product_viewed,2026-11-04 13:28:00,S0131,P01,0,Android,Free,North,Organic
+U001,search_performed,2026-11-04 13:30:00,S0131,P01,0,Android,Free,North,Organic
+U001,checkout_started,2026-11-04 13:37:00,S0131,P01,0,Android,Free,North,Organic
+U003,product_viewed,2026-11-04 19:54:00,S0132,P03,0,Web,Premium,West,Referral
+U003,search_performed,2026-11-04 19:56:00,S0132,P03,0,Web,Premium,West,Referral
+U003,add_to_cart,2026-11-04 19:59:00,S0132,P03,0,Web,Premium,West,Referral
+U003,purchase,2026-11-04 20:08:00,S0132,P03,799,Web,Premium,West,Referral
+U003,wishlist_added,2026-11-04 20:12:00,S0132,P03,0,Web,Premium,West,Referral
+U003,feature_used,2026-11-04 20:14:00,S0132,P03,0,Web,Premium,West,Referral
+U004,product_viewed,2026-11-04 10:07:00,S0133,P04,0,Android,Free,East,Organic
+U004,search_performed,2026-11-04 10:09:00,S0133,P04,0,Android,Free,East,Organic
+U004,add_to_cart,2026-11-04 10:12:00,S0133,P04,0,Android,Free,East,Organic
+U004,checkout_started,2026-11-04 10:16:00,S0133,P04,0,Android,Free,East,Organic
+U005,product_viewed,2026-11-04 13:20:00,S0134,P01,0,iOS,Basic,North,Paid Search
+U005,search_performed,2026-11-04 13:22:00,S0134,P01,0,iOS,Basic,North,Paid Search
+U005,checkout_started,2026-11-04 13:29:00,S0134,P01,0,iOS,Basic,North,Paid Search
+U006,product_viewed,2026-11-04 16:33:00,S0135,P02,0,Web,Premium,South,Referral
+U006,search_performed,2026-11-04 16:35:00,S0135,P02,0,Web,Premium,South,Referral
+U006,add_to_cart,2026-11-04 16:38:00,S0135,P02,0,Web,Premium,South,Referral
+U006,checkout_started,2026-11-04 16:42:00,S0135,P02,0,Web,Premium,South,Referral
+U006,purchase,2026-11-04 16:47:00,S0135,P02,499,Web,Premium,South,Referral
+U008,product_viewed,2026-11-04 10:59:00,S0136,P04,0,iOS,Basic,East,Paid Search
+U008,search_performed,2026-11-04 11:01:00,S0136,P04,0,iOS,Basic,East,Paid Search
+U008,add_to_cart,2026-11-04 11:04:00,S0136,P04,0,iOS,Basic,East,Paid Search
+U009,product_viewed,2026-11-04 13:12:00,S0137,P01,0,Web,Premium,North,Referral
+U009,search_performed,2026-11-04 13:14:00,S0137,P01,0,Web,Premium,North,Referral
+U009,checkout_started,2026-11-04 13:21:00,S0137,P01,0,Web,Premium,North,Referral
+U009,purchase,2026-11-04 13:26:00,S0137,P01,299,Web,Premium,North,Referral
+U009,wishlist_added,2026-11-04 13:30:00,S0137,P01,0,Web,Premium,North,Referral
+U011,product_viewed,2026-11-04 19:38:00,S0138,P03,0,iOS,Basic,West,Paid Search
+U011,search_performed,2026-11-04 19:40:00,S0138,P03,0,iOS,Basic,West,Paid Search
+U011,add_to_cart,2026-11-04 19:43:00,S0138,P03,0,iOS,Basic,West,Paid Search
+U011,checkout_started,2026-11-04 19:47:00,S0138,P03,0,iOS,Basic,West,Paid Search
+U011,feature_used,2026-11-04 19:58:00,S0138,P03,0,iOS,Basic,West,Paid Search
+U012,product_viewed,2026-11-04 10:51:00,S0139,P04,0,Web,Premium,East,Referral
+U012,add_to_cart,2026-11-04 10:56:00,S0139,P04,0,Web,Premium,East,Referral
+U012,checkout_started,2026-11-04 11:00:00,S0139,P04,0,Web,Premium,East,Referral
+U014,product_viewed,2026-11-04 16:17:00,S0140,P02,0,iOS,Basic,South,Paid Search
+U014,search_performed,2026-11-04 16:19:00,S0140,P02,0,iOS,Basic,South,Paid Search
+U014,add_to_cart,2026-11-04 16:22:00,S0140,P02,0,iOS,Basic,South,Paid Search
+U014,checkout_started,2026-11-04 16:26:00,S0140,P02,0,iOS,Basic,South,Paid Search
+U015,product_viewed,2026-11-04 19:30:00,S0141,P03,0,Web,Premium,West,Referral
+U015,search_performed,2026-11-04 19:32:00,S0141,P03,0,Web,Premium,West,Referral
+U015,add_to_cart,2026-11-04 19:35:00,S0141,P03,0,Web,Premium,West,Referral
+U015,checkout_started,2026-11-04 19:39:00,S0141,P03,0,Web,Premium,West,Referral
+U015,wishlist_added,2026-11-04 19:48:00,S0141,P03,0,Web,Premium,West,Referral
+U015,feature_used,2026-11-04 19:50:00,S0141,P03,0,Web,Premium,West,Referral
+U016,product_viewed,2026-11-04 10:43:00,S0142,P04,0,Android,Free,East,Organic
+U016,search_performed,2026-11-04 10:45:00,S0142,P04,0,Android,Free,East,Organic
+U016,add_to_cart,2026-11-04 10:48:00,S0142,P04,0,Android,Free,East,Organic
+U016,checkout_started,2026-11-04 10:52:00,S0142,P04,0,Android,Free,East,Organic
+U016,purchase,2026-11-04 10:57:00,S0142,P04,999,Android,Free,East,Organic
+U017,product_viewed,2026-11-04 13:56:00,S0143,P01,0,iOS,Basic,North,Paid Search
+U017,checkout_started,2026-11-04 14:05:00,S0143,P01,0,iOS,Basic,North,Paid Search
+U017,purchase,2026-11-04 14:10:00,S0143,P01,299,iOS,Basic,North,Paid Search
+U019,product_viewed,2026-11-04 19:22:00,S0144,P03,0,Android,Free,West,Organic
+U019,search_performed,2026-11-04 19:24:00,S0144,P03,0,Android,Free,West,Organic
+U019,add_to_cart,2026-11-04 19:27:00,S0144,P03,0,Android,Free,West,Organic
+U019,checkout_started,2026-11-04 19:31:00,S0144,P03,0,Android,Free,West,Organic
+U019,feature_used,2026-11-04 19:42:00,S0144,P03,0,Android,Free,West,Organic
+U020,product_viewed,2026-11-04 10:35:00,S0145,P04,0,iOS,Basic,East,Paid Search
+U020,search_performed,2026-11-04 10:37:00,S0145,P04,0,iOS,Basic,East,Paid Search
+U020,add_to_cart,2026-11-04 10:40:00,S0145,P04,0,iOS,Basic,East,Paid Search
+U020,checkout_started,2026-11-04 10:44:00,S0145,P04,0,iOS,Basic,East,Paid Search
+U020,purchase,2026-11-04 10:49:00,S0145,P04,999,iOS,Basic,East,Paid Search
+U022,product_viewed,2026-11-04 16:01:00,S0146,P02,0,Android,Free,South,Organic
+U022,add_to_cart,2026-11-04 16:06:00,S0146,P02,0,Android,Free,South,Organic
+U022,checkout_started,2026-11-04 16:10:00,S0146,P02,0,Android,Free,South,Organic
+U023,product_viewed,2026-11-04 19:14:00,S0147,P03,0,iOS,Basic,West,Paid Search
+U023,search_performed,2026-11-04 19:16:00,S0147,P03,0,iOS,Basic,West,Paid Search
+U023,add_to_cart,2026-11-04 19:19:00,S0147,P03,0,iOS,Basic,West,Paid Search
+U023,purchase,2026-11-04 19:28:00,S0147,P03,799,iOS,Basic,West,Paid Search
+U023,feature_used,2026-11-04 19:34:00,S0147,P03,0,iOS,Basic,West,Paid Search
+U025,product_viewed,2026-11-04 13:40:00,S0148,P01,0,Android,Free,North,Organic
+U025,search_performed,2026-11-04 13:42:00,S0148,P01,0,Android,Free,North,Organic
+U025,checkout_started,2026-11-04 13:49:00,S0148,P01,0,Android,Free,North,Organic
+U026,product_viewed,2026-11-04 16:53:00,S0149,P02,0,iOS,Basic,South,Paid Search
+U026,search_performed,2026-11-04 16:55:00,S0149,P02,0,iOS,Basic,South,Paid Search
+U026,add_to_cart,2026-11-04 16:58:00,S0149,P02,0,iOS,Basic,South,Paid Search
+U026,checkout_started,2026-11-04 17:02:00,S0149,P02,0,iOS,Basic,South,Paid Search
+U027,product_viewed,2026-11-04 19:06:00,S0150,P03,0,Web,Premium,West,Referral
+U027,add_to_cart,2026-11-04 19:11:00,S0150,P03,0,Web,Premium,West,Referral
+U027,checkout_started,2026-11-04 19:15:00,S0150,P03,0,Web,Premium,West,Referral
+U027,purchase,2026-11-04 19:20:00,S0150,P03,799,Web,Premium,West,Referral
+U027,wishlist_added,2026-11-04 19:24:00,S0150,P03,0,Web,Premium,West,Referral
+U027,feature_used,2026-11-04 19:26:00,S0150,P03,0,Web,Premium,West,Referral
+U028,product_viewed,2026-11-04 10:19:00,S0151,P04,0,Android,Free,East,Organic
+U028,search_performed,2026-11-04 10:21:00,S0151,P04,0,Android,Free,East,Organic
+U028,add_to_cart,2026-11-04 10:24:00,S0151,P04,0,Android,Free,East,Organic
+U030,product_viewed,2026-11-04 16:45:00,S0152,P02,0,Web,Premium,South,Referral
+U030,search_performed,2026-11-04 16:47:00,S0152,P02,0,Web,Premium,South,Referral
+U030,add_to_cart,2026-11-04 16:50:00,S0152,P02,0,Web,Premium,South,Referral
+U030,checkout_started,2026-11-04 16:54:00,S0152,P02,0,Web,Premium,South,Referral
+U030,purchase,2026-11-04 16:59:00,S0152,P02,499,Web,Premium,South,Referral
+U031,product_viewed,2026-11-04 19:58:00,S0153,P03,0,Android,Free,West,Organic
+U031,search_performed,2026-11-04 20:00:00,S0153,P03,0,Android,Free,West,Organic
+U031,add_to_cart,2026-11-04 20:03:00,S0153,P03,0,Android,Free,West,Organic
+U031,checkout_started,2026-11-04 20:07:00,S0153,P03,0,Android,Free,West,Organic
+U031,purchase,2026-11-04 20:12:00,S0153,P03,799,Android,Free,West,Organic
+U031,feature_used,2026-11-04 20:18:00,S0153,P03,0,Android,Free,West,Organic
+U033,product_viewed,2026-11-04 13:24:00,S0154,P01,0,Web,Premium,North,Referral
+U033,search_performed,2026-11-04 13:26:00,S0154,P01,0,Web,Premium,North,Referral
+U033,wishlist_added,2026-11-04 13:42:00,S0154,P01,0,Web,Premium,North,Referral
+U034,product_viewed,2026-11-04 16:37:00,S0155,P02,0,Android,Free,South,Organic
+U034,search_performed,2026-11-04 16:39:00,S0155,P02,0,Android,Free,South,Organic
+U034,add_to_cart,2026-11-04 16:42:00,S0155,P02,0,Android,Free,South,Organic
+U034,checkout_started,2026-11-04 16:46:00,S0155,P02,0,Android,Free,South,Organic
+U034,purchase,2026-11-04 16:51:00,S0155,P02,499,Android,Free,South,Organic
+U036,product_viewed,2026-11-04 10:03:00,S0156,P04,0,Web,Premium,East,Referral
+U036,search_performed,2026-11-04 10:05:00,S0156,P04,0,Web,Premium,East,Referral
+U036,add_to_cart,2026-11-04 10:08:00,S0156,P04,0,Web,Premium,East,Referral
+U036,checkout_started,2026-11-04 10:12:00,S0156,P04,0,Web,Premium,East,Referral
+U037,product_viewed,2026-11-04 13:16:00,S0157,P01,0,Android,Free,North,Organic
+U037,checkout_started,2026-11-04 13:25:00,S0157,P01,0,Android,Free,North,Organic
+U037,purchase,2026-11-04 13:30:00,S0157,P01,299,Android,Free,North,Organic
+U038,product_viewed,2026-11-04 16:29:00,S0158,P02,0,iOS,Basic,South,Paid Search
+U038,search_performed,2026-11-04 16:31:00,S0158,P02,0,iOS,Basic,South,Paid Search
+U038,add_to_cart,2026-11-04 16:34:00,S0158,P02,0,iOS,Basic,South,Paid Search
+U038,purchase,2026-11-04 16:43:00,S0158,P02,499,iOS,Basic,South,Paid Search
+U039,product_viewed,2026-11-04 19:42:00,S0159,P03,0,Web,Premium,West,Referral
+U039,search_performed,2026-11-04 19:44:00,S0159,P03,0,Web,Premium,West,Referral
+U039,add_to_cart,2026-11-04 19:47:00,S0159,P03,0,Web,Premium,West,Referral
+U039,checkout_started,2026-11-04 19:51:00,S0159,P03,0,Web,Premium,West,Referral
+U039,wishlist_added,2026-11-04 20:00:00,S0159,P03,0,Web,Premium,West,Referral
+U039,feature_used,2026-11-04 20:02:00,S0159,P03,0,Web,Premium,West,Referral
+U041,product_viewed,2026-11-04 13:08:00,S0160,P01,0,iOS,Basic,North,Paid Search
+U041,search_performed,2026-11-04 13:10:00,S0160,P01,0,iOS,Basic,North,Paid Search
+U041,checkout_started,2026-11-04 13:17:00,S0160,P01,0,iOS,Basic,North,Paid Search
+U041,purchase,2026-11-04 13:22:00,S0160,P01,299,iOS,Basic,North,Paid Search
+U042,product_viewed,2026-11-04 16:21:00,S0161,P02,0,Web,Premium,South,Referral
+U042,add_to_cart,2026-11-04 16:26:00,S0161,P02,0,Web,Premium,South,Referral
+U042,checkout_started,2026-11-04 16:30:00,S0161,P02,0,Web,Premium,South,Referral
+U044,product_viewed,2026-11-04 10:47:00,S0162,P04,0,iOS,Basic,East,Paid Search
+U044,search_performed,2026-11-04 10:49:00,S0162,P04,0,iOS,Basic,East,Paid Search
+U044,add_to_cart,2026-11-04 10:52:00,S0162,P04,0,iOS,Basic,East,Paid Search
+U044,checkout_started,2026-11-04 10:56:00,S0162,P04,0,iOS,Basic,East,Paid Search
+U044,purchase,2026-11-04 11:01:00,S0162,P04,999,iOS,Basic,East,Paid Search
+U045,product_viewed,2026-11-04 13:00:00,S0163,P01,0,Web,Premium,North,Referral
+U045,search_performed,2026-11-04 13:02:00,S0163,P01,0,Web,Premium,North,Referral
+U045,checkout_started,2026-11-04 13:09:00,S0163,P01,0,Web,Premium,North,Referral
+U045,purchase,2026-11-04 13:14:00,S0163,P01,299,Web,Premium,North,Referral
+U045,wishlist_added,2026-11-04 13:18:00,S0163,P01,0,Web,Premium,North,Referral
+U047,product_viewed,2026-11-04 19:26:00,S0164,P03,0,iOS,Basic,West,Paid Search
+U047,add_to_cart,2026-11-04 19:31:00,S0164,P03,0,iOS,Basic,West,Paid Search
+U047,checkout_started,2026-11-04 19:35:00,S0164,P03,0,iOS,Basic,West,Paid Search
+U047,feature_used,2026-11-04 19:46:00,S0164,P03,0,iOS,Basic,West,Paid Search
+U048,product_viewed,2026-11-04 10:39:00,S0165,P04,0,Web,Premium,East,Referral
+U048,search_performed,2026-11-04 10:41:00,S0165,P04,0,Web,Premium,East,Referral
+U048,add_to_cart,2026-11-04 10:44:00,S0165,P04,0,Web,Premium,East,Referral
+U048,purchase,2026-11-04 10:53:00,S0165,P04,999,Web,Premium,East,Referral
+U049,product_viewed,2026-11-04 13:52:00,S0166,P01,0,Android,Free,North,Organic
+U049,search_performed,2026-11-04 13:54:00,S0166,P01,0,Android,Free,North,Organic
+U049,checkout_started,2026-11-04 14:01:00,S0166,P01,0,Android,Free,North,Organic
+U050,product_viewed,2026-11-04 16:05:00,S0167,P02,0,iOS,Basic,South,Paid Search
+U050,search_performed,2026-11-04 16:07:00,S0167,P02,0,iOS,Basic,South,Paid Search
+U050,add_to_cart,2026-11-04 16:10:00,S0167,P02,0,iOS,Basic,South,Paid Search
+U050,checkout_started,2026-11-04 16:14:00,S0167,P02,0,iOS,Basic,South,Paid Search
+U052,product_viewed,2026-11-04 10:31:00,S0168,P04,0,Android,Free,East,Organic
+U052,add_to_cart,2026-11-04 10:36:00,S0168,P04,0,Android,Free,East,Organic
+U052,checkout_started,2026-11-04 10:40:00,S0168,P04,0,Android,Free,East,Organic
+U052,purchase,2026-11-04 10:45:00,S0168,P04,999,Android,Free,East,Organic
+U053,product_viewed,2026-11-04 13:44:00,S0169,P01,0,iOS,Basic,North,Paid Search
+U053,search_performed,2026-11-04 13:46:00,S0169,P01,0,iOS,Basic,North,Paid Search
+U055,product_viewed,2026-11-04 19:10:00,S0170,P03,0,Android,Free,West,Organic
+U055,search_performed,2026-11-04 19:12:00,S0170,P03,0,Android,Free,West,Organic
+U055,add_to_cart,2026-11-04 19:15:00,S0170,P03,0,Android,Free,West,Organic
+U055,checkout_started,2026-11-04 19:19:00,S0170,P03,0,Android,Free,West,Organic
+U055,purchase,2026-11-04 19:24:00,S0170,P03,799,Android,Free,West,Organic
+U055,feature_used,2026-11-04 19:30:00,S0170,P03,0,Android,Free,West,Organic
+U056,product_viewed,2026-11-04 10:23:00,S0171,P04,0,iOS,Basic,East,Paid Search
+U056,search_performed,2026-11-04 10:25:00,S0171,P04,0,iOS,Basic,East,Paid Search
+U056,add_to_cart,2026-11-04 10:28:00,S0171,P04,0,iOS,Basic,East,Paid Search
+U056,checkout_started,2026-11-04 10:32:00,S0171,P04,0,iOS,Basic,East,Paid Search
+U058,product_viewed,2026-11-04 16:49:00,S0172,P02,0,Android,Free,South,Organic
+U058,search_performed,2026-11-04 16:51:00,S0172,P02,0,Android,Free,South,Organic
+U058,add_to_cart,2026-11-04 16:54:00,S0172,P02,0,Android,Free,South,Organic
+U058,purchase,2026-11-04 17:03:00,S0172,P02,499,Android,Free,South,Organic
+U059,product_viewed,2026-11-04 19:02:00,S0173,P03,0,iOS,Basic,West,Paid Search
+U059,search_performed,2026-11-04 19:04:00,S0173,P03,0,iOS,Basic,West,Paid Search
+U059,add_to_cart,2026-11-04 19:07:00,S0173,P03,0,iOS,Basic,West,Paid Search
+U059,checkout_started,2026-11-04 19:11:00,S0173,P03,0,iOS,Basic,West,Paid Search
+U059,purchase,2026-11-04 19:16:00,S0173,P03,799,iOS,Basic,West,Paid Search
+U059,feature_used,2026-11-04 19:22:00,S0173,P03,0,iOS,Basic,West,Paid Search
+U060,product_viewed,2026-11-04 10:15:00,S0174,P04,0,Web,Premium,East,Referral
+U060,search_performed,2026-11-04 10:17:00,S0174,P04,0,Web,Premium,East,Referral
+U060,add_to_cart,2026-11-04 10:20:00,S0174,P04,0,Web,Premium,East,Referral
+U060,checkout_started,2026-11-04 10:24:00,S0174,P04,0,Web,Premium,East,Referral
+U001,product_viewed,2026-11-05 14:35:00,S0175,P01,0,Android,Free,North,Organic
+U001,add_to_cart,2026-11-05 14:40:00,S0175,P01,0,Android,Free,North,Organic
+U002,product_viewed,2026-11-05 17:48:00,S0176,P02,0,iOS,Basic,South,Paid Search
+U002,search_performed,2026-11-05 17:50:00,S0176,P02,0,iOS,Basic,South,Paid Search
+U002,add_to_cart,2026-11-05 17:53:00,S0176,P02,0,iOS,Basic,South,Paid Search
+U002,checkout_started,2026-11-05 17:57:00,S0176,P02,0,iOS,Basic,South,Paid Search
+U002,wishlist_added,2026-11-05 18:06:00,S0176,P02,0,iOS,Basic,South,Paid Search
+U003,product_viewed,2026-11-05 20:01:00,S0177,P03,0,Web,Premium,West,Referral
+U003,search_performed,2026-11-05 20:03:00,S0177,P03,0,Web,Premium,West,Referral
+U003,add_to_cart,2026-11-05 20:06:00,S0177,P03,0,Web,Premium,West,Referral
+U003,checkout_started,2026-11-05 20:10:00,S0177,P03,0,Web,Premium,West,Referral
+U003,purchase,2026-11-05 20:15:00,S0177,P03,799,Web,Premium,West,Referral
+U004,product_viewed,2026-11-05 11:14:00,S0178,P04,0,Android,Free,East,Organic
+U004,search_performed,2026-11-05 11:16:00,S0178,P04,0,Android,Free,East,Organic
+U004,checkout_started,2026-11-05 11:23:00,S0178,P04,0,Android,Free,East,Organic
+U006,product_viewed,2026-11-05 17:40:00,S0179,P02,0,Web,Premium,South,Referral
+U006,add_to_cart,2026-11-05 17:45:00,S0179,P02,0,Web,Premium,South,Referral
+U006,purchase,2026-11-05 17:54:00,S0179,P02,499,Web,Premium,South,Referral
+U007,product_viewed,2026-11-05 20:53:00,S0180,P03,0,Android,Free,West,Organic
+U007,search_performed,2026-11-05 20:55:00,S0180,P03,0,Android,Free,West,Organic
+U007,add_to_cart,2026-11-05 20:58:00,S0180,P03,0,Android,Free,West,Organic
+U007,checkout_started,2026-11-05 21:02:00,S0180,P03,0,Android,Free,West,Organic
+U007,purchase,2026-11-05 21:07:00,S0180,P03,799,Android,Free,West,Organic
+U009,product_viewed,2026-11-05 14:19:00,S0181,P01,0,Web,Premium,North,Referral
+U009,search_performed,2026-11-05 14:21:00,S0181,P01,0,Web,Premium,North,Referral
+U009,add_to_cart,2026-11-05 14:24:00,S0181,P01,0,Web,Premium,North,Referral
+U009,checkout_started,2026-11-05 14:28:00,S0181,P01,0,Web,Premium,North,Referral
+U010,product_viewed,2026-11-05 17:32:00,S0182,P02,0,Android,Free,South,Organic
+U010,search_performed,2026-11-05 17:34:00,S0182,P02,0,Android,Free,South,Organic
+U010,add_to_cart,2026-11-05 17:37:00,S0182,P02,0,Android,Free,South,Organic
+U010,checkout_started,2026-11-05 17:41:00,S0182,P02,0,Android,Free,South,Organic
+U010,purchase,2026-11-05 17:46:00,S0182,P02,499,Android,Free,South,Organic
+U012,product_viewed,2026-11-05 11:58:00,S0183,P04,0,Web,Premium,East,Referral
+U012,search_performed,2026-11-05 12:00:00,S0183,P04,0,Web,Premium,East,Referral
+U012,checkout_started,2026-11-05 12:07:00,S0183,P04,0,Web,Premium,East,Referral
+U013,product_viewed,2026-11-05 14:11:00,S0184,P01,0,Android,Free,North,Organic
+U013,search_performed,2026-11-05 14:13:00,S0184,P01,0,Android,Free,North,Organic
+U013,add_to_cart,2026-11-05 14:16:00,S0184,P01,0,Android,Free,North,Organic
+U013,checkout_started,2026-11-05 14:20:00,S0184,P01,0,Android,Free,North,Organic
+U013,purchase,2026-11-05 14:25:00,S0184,P01,299,Android,Free,North,Organic
+U014,product_viewed,2026-11-05 17:24:00,S0185,P02,0,iOS,Basic,South,Paid Search
+U014,search_performed,2026-11-05 17:26:00,S0185,P02,0,iOS,Basic,South,Paid Search
+U014,add_to_cart,2026-11-05 17:29:00,S0185,P02,0,iOS,Basic,South,Paid Search
+U014,checkout_started,2026-11-05 17:33:00,S0185,P02,0,iOS,Basic,South,Paid Search
+U014,purchase,2026-11-05 17:38:00,S0185,P02,499,iOS,Basic,South,Paid Search
+U014,wishlist_added,2026-11-05 17:42:00,S0185,P02,0,iOS,Basic,South,Paid Search
+U015,product_viewed,2026-11-05 20:37:00,S0186,P03,0,Web,Premium,West,Referral
+U015,search_performed,2026-11-05 20:39:00,S0186,P03,0,Web,Premium,West,Referral
+U015,add_to_cart,2026-11-05 20:42:00,S0186,P03,0,Web,Premium,West,Referral
+U015,checkout_started,2026-11-05 20:46:00,S0186,P03,0,Web,Premium,West,Referral
+U017,product_viewed,2026-11-05 14:03:00,S0187,P01,0,iOS,Basic,North,Paid Search
+U017,search_performed,2026-11-05 14:05:00,S0187,P01,0,iOS,Basic,North,Paid Search
+U017,add_to_cart,2026-11-05 14:08:00,S0187,P01,0,iOS,Basic,North,Paid Search
+U017,checkout_started,2026-11-05 14:12:00,S0187,P01,0,iOS,Basic,North,Paid Search
+U017,purchase,2026-11-05 14:17:00,S0187,P01,299,iOS,Basic,North,Paid Search
+U018,product_viewed,2026-11-05 17:16:00,S0188,P02,0,Web,Premium,South,Referral
+U018,search_performed,2026-11-05 17:18:00,S0188,P02,0,Web,Premium,South,Referral
+U018,add_to_cart,2026-11-05 17:21:00,S0188,P02,0,Web,Premium,South,Referral
+U018,checkout_started,2026-11-05 17:25:00,S0188,P02,0,Web,Premium,South,Referral
+U020,product_viewed,2026-11-05 11:42:00,S0189,P04,0,iOS,Basic,East,Paid Search
+U020,search_performed,2026-11-05 11:44:00,S0189,P04,0,iOS,Basic,East,Paid Search
+U020,checkout_started,2026-11-05 11:51:00,S0189,P04,0,iOS,Basic,East,Paid Search
+U020,purchase,2026-11-05 11:56:00,S0189,P04,999,iOS,Basic,East,Paid Search
+U020,wishlist_added,2026-11-05 12:00:00,S0189,P04,0,iOS,Basic,East,Paid Search
+U021,product_viewed,2026-11-05 14:55:00,S0190,P01,0,Web,Premium,North,Referral
+U021,add_to_cart,2026-11-05 15:00:00,S0190,P01,0,Web,Premium,North,Referral
+U021,purchase,2026-11-05 15:09:00,S0190,P01,299,Web,Premium,North,Referral
+U023,product_viewed,2026-11-05 20:21:00,S0191,P03,0,iOS,Basic,West,Paid Search
+U023,search_performed,2026-11-05 20:23:00,S0191,P03,0,iOS,Basic,West,Paid Search
+U023,add_to_cart,2026-11-05 20:26:00,S0191,P03,0,iOS,Basic,West,Paid Search
+U023,checkout_started,2026-11-05 20:30:00,S0191,P03,0,iOS,Basic,West,Paid Search
+U024,product_viewed,2026-11-05 11:34:00,S0192,P04,0,Web,Premium,East,Referral
+U024,search_performed,2026-11-05 11:36:00,S0192,P04,0,Web,Premium,East,Referral
+U024,checkout_started,2026-11-05 11:43:00,S0192,P04,0,Web,Premium,East,Referral
+U024,purchase,2026-11-05 11:48:00,S0192,P04,999,Web,Premium,East,Referral
+U025,product_viewed,2026-11-05 14:47:00,S0193,P01,0,Android,Free,North,Organic
+U025,search_performed,2026-11-05 14:49:00,S0193,P01,0,Android,Free,North,Organic
+U025,add_to_cart,2026-11-05 14:52:00,S0193,P01,0,Android,Free,North,Organic
+U025,checkout_started,2026-11-05 14:56:00,S0193,P01,0,Android,Free,North,Organic
+U026,product_viewed,2026-11-05 17:00:00,S0194,P02,0,iOS,Basic,South,Paid Search
+U026,add_to_cart,2026-11-05 17:05:00,S0194,P02,0,iOS,Basic,South,Paid Search
+U026,wishlist_added,2026-11-05 17:18:00,S0194,P02,0,iOS,Basic,South,Paid Search
+U028,product_viewed,2026-11-05 11:26:00,S0195,P04,0,Android,Free,East,Organic
+U028,search_performed,2026-11-05 11:28:00,S0195,P04,0,Android,Free,East,Organic
+U028,checkout_started,2026-11-05 11:35:00,S0195,P04,0,Android,Free,East,Organic
+U028,purchase,2026-11-05 11:40:00,S0195,P04,999,Android,Free,East,Organic
+U029,product_viewed,2026-11-05 14:39:00,S0196,P01,0,iOS,Basic,North,Paid Search
+U029,search_performed,2026-11-05 14:41:00,S0196,P01,0,iOS,Basic,North,Paid Search
+U029,add_to_cart,2026-11-05 14:44:00,S0196,P01,0,iOS,Basic,North,Paid Search
+U029,checkout_started,2026-11-05 14:48:00,S0196,P01,0,iOS,Basic,North,Paid Search
+U031,product_viewed,2026-11-05 20:05:00,S0197,P03,0,Android,Free,West,Organic
+U031,add_to_cart,2026-11-05 20:10:00,S0197,P03,0,Android,Free,West,Organic
+U031,purchase,2026-11-05 20:19:00,S0197,P03,799,Android,Free,West,Organic
+U032,product_viewed,2026-11-05 11:18:00,S0198,P04,0,iOS,Basic,East,Paid Search
+U032,search_performed,2026-11-05 11:20:00,S0198,P04,0,iOS,Basic,East,Paid Search
+U032,checkout_started,2026-11-05 11:27:00,S0198,P04,0,iOS,Basic,East,Paid Search
+U032,wishlist_added,2026-11-05 11:36:00,S0198,P04,0,iOS,Basic,East,Paid Search
+U034,product_viewed,2026-11-05 17:44:00,S0199,P02,0,Android,Free,South,Organic
+U034,search_performed,2026-11-05 17:46:00,S0199,P02,0,Android,Free,South,Organic
+U034,add_to_cart,2026-11-05 17:49:00,S0199,P02,0,Android,Free,South,Organic
+U034,checkout_started,2026-11-05 17:53:00,S0199,P02,0,Android,Free,South,Organic
+U034,purchase,2026-11-05 17:58:00,S0199,P02,499,Android,Free,South,Organic
+U035,product_viewed,2026-11-05 20:57:00,S0200,P03,0,iOS,Basic,West,Paid Search
+U035,search_performed,2026-11-05 20:59:00,S0200,P03,0,iOS,Basic,West,Paid Search
+U035,add_to_cart,2026-11-05 21:02:00,S0200,P03,0,iOS,Basic,West,Paid Search
+U035,checkout_started,2026-11-05 21:06:00,S0200,P03,0,iOS,Basic,West,Paid Search
+U035,purchase,2026-11-05 21:11:00,S0200,P03,799,iOS,Basic,West,Paid Search
+U036,product_viewed,2026-11-05 11:10:00,S0201,P04,0,Web,Premium,East,Referral
+U037,product_viewed,2026-11-05 14:23:00,S0202,P01,0,Android,Free,North,Organic
+U037,search_performed,2026-11-05 14:25:00,S0202,P01,0,Android,Free,North,Organic
+U037,add_to_cart,2026-11-05 14:28:00,S0202,P01,0,Android,Free,North,Organic
+U037,checkout_started,2026-11-05 14:32:00,S0202,P01,0,Android,Free,North,Organic
+U039,product_viewed,2026-11-05 20:49:00,S0203,P03,0,Web,Premium,West,Referral
+U039,search_performed,2026-11-05 20:51:00,S0203,P03,0,Web,Premium,West,Referral
+U039,add_to_cart,2026-11-05 20:54:00,S0203,P03,0,Web,Premium,West,Referral
+U039,checkout_started,2026-11-05 20:58:00,S0203,P03,0,Web,Premium,West,Referral
+U040,product_viewed,2026-11-05 11:02:00,S0204,P04,0,Android,Free,East,Organic
+U040,search_performed,2026-11-05 11:04:00,S0204,P04,0,Android,Free,East,Organic
+U040,checkout_started,2026-11-05 11:11:00,S0204,P04,0,Android,Free,East,Organic
+U042,product_viewed,2026-11-05 17:28:00,S0205,P02,0,Web,Premium,South,Referral
+U042,search_performed,2026-11-05 17:30:00,S0205,P02,0,Web,Premium,South,Referral
+U042,add_to_cart,2026-11-05 17:33:00,S0205,P02,0,Web,Premium,South,Referral
+U042,checkout_started,2026-11-05 17:37:00,S0205,P02,0,Web,Premium,South,Referral
+U042,purchase,2026-11-05 17:42:00,S0205,P02,499,Web,Premium,South,Referral
+U043,product_viewed,2026-11-05 20:41:00,S0206,P03,0,Android,Free,West,Organic
+U043,search_performed,2026-11-05 20:43:00,S0206,P03,0,Android,Free,West,Organic
+U043,add_to_cart,2026-11-05 20:46:00,S0206,P03,0,Android,Free,West,Organic
+U043,checkout_started,2026-11-05 20:50:00,S0206,P03,0,Android,Free,West,Organic
+U045,product_viewed,2026-11-05 14:07:00,S0207,P01,0,Web,Premium,North,Referral
+U045,search_performed,2026-11-05 14:09:00,S0207,P01,0,Web,Premium,North,Referral
+U045,add_to_cart,2026-11-05 14:12:00,S0207,P01,0,Web,Premium,North,Referral
+U045,checkout_started,2026-11-05 14:16:00,S0207,P01,0,Web,Premium,North,Referral
+U045,purchase,2026-11-05 14:21:00,S0207,P01,299,Web,Premium,North,Referral
+U046,product_viewed,2026-11-05 17:20:00,S0208,P02,0,Android,Free,South,Organic
+U046,add_to_cart,2026-11-05 17:25:00,S0208,P02,0,Android,Free,South,Organic
+U047,product_viewed,2026-11-05 20:33:00,S0209,P03,0,iOS,Basic,West,Paid Search
+U047,search_performed,2026-11-05 20:35:00,S0209,P03,0,iOS,Basic,West,Paid Search
+U047,add_to_cart,2026-11-05 20:38:00,S0209,P03,0,iOS,Basic,West,Paid Search
+U047,checkout_started,2026-11-05 20:42:00,S0209,P03,0,iOS,Basic,West,Paid Search
+U048,product_viewed,2026-11-05 11:46:00,S0210,P04,0,Web,Premium,East,Referral
+U048,search_performed,2026-11-05 11:48:00,S0210,P04,0,Web,Premium,East,Referral
+U048,checkout_started,2026-11-05 11:55:00,S0210,P04,0,Web,Premium,East,Referral
+U048,purchase,2026-11-05 12:00:00,S0210,P04,999,Web,Premium,East,Referral
+U050,product_viewed,2026-11-05 17:12:00,S0211,P02,0,iOS,Basic,South,Paid Search
+U050,search_performed,2026-11-05 17:14:00,S0211,P02,0,iOS,Basic,South,Paid Search
+U050,add_to_cart,2026-11-05 17:17:00,S0211,P02,0,iOS,Basic,South,Paid Search
+U050,checkout_started,2026-11-05 17:21:00,S0211,P02,0,iOS,Basic,South,Paid Search
+U050,wishlist_added,2026-11-05 17:30:00,S0211,P02,0,iOS,Basic,South,Paid Search
+U051,product_viewed,2026-11-05 20:25:00,S0212,P03,0,Web,Premium,West,Referral
+U051,add_to_cart,2026-11-05 20:30:00,S0212,P03,0,Web,Premium,West,Referral
+U053,product_viewed,2026-11-05 14:51:00,S0213,P01,0,iOS,Basic,North,Paid Search
+U053,search_performed,2026-11-05 14:53:00,S0213,P01,0,iOS,Basic,North,Paid Search
+U053,add_to_cart,2026-11-05 14:56:00,S0213,P01,0,iOS,Basic,North,Paid Search
+U053,checkout_started,2026-11-05 15:00:00,S0213,P01,0,iOS,Basic,North,Paid Search
+U054,product_viewed,2026-11-05 17:04:00,S0214,P02,0,Web,Premium,South,Referral
+U054,search_performed,2026-11-05 17:06:00,S0214,P02,0,Web,Premium,South,Referral
+U054,add_to_cart,2026-11-05 17:09:00,S0214,P02,0,Web,Premium,South,Referral
+U054,checkout_started,2026-11-05 17:13:00,S0214,P02,0,Web,Premium,South,Referral
+U056,product_viewed,2026-11-05 11:30:00,S0215,P04,0,iOS,Basic,East,Paid Search
+U056,purchase,2026-11-05 11:44:00,S0215,P04,999,iOS,Basic,East,Paid Search
+U056,wishlist_added,2026-11-05 11:48:00,S0215,P04,0,iOS,Basic,East,Paid Search
+U057,product_viewed,2026-11-05 14:43:00,S0216,P01,0,Web,Premium,North,Referral
+U057,search_performed,2026-11-05 14:45:00,S0216,P01,0,Web,Premium,North,Referral
+U057,add_to_cart,2026-11-05 14:48:00,S0216,P01,0,Web,Premium,North,Referral
+U057,checkout_started,2026-11-05 14:52:00,S0216,P01,0,Web,Premium,North,Referral
+U058,product_viewed,2026-11-05 17:56:00,S0217,P02,0,Android,Free,South,Organic
+U058,search_performed,2026-11-05 17:58:00,S0217,P02,0,Android,Free,South,Organic
+U058,add_to_cart,2026-11-05 18:01:00,S0217,P02,0,Android,Free,South,Organic
+U058,checkout_started,2026-11-05 18:05:00,S0217,P02,0,Android,Free,South,Organic
+U059,product_viewed,2026-11-05 20:09:00,S0218,P03,0,iOS,Basic,West,Paid Search
+U059,search_performed,2026-11-05 20:11:00,S0218,P03,0,iOS,Basic,West,Paid Search
+U059,add_to_cart,2026-11-05 20:14:00,S0218,P03,0,iOS,Basic,West,Paid Search
+U059,checkout_started,2026-11-05 20:18:00,S0218,P03,0,iOS,Basic,West,Paid Search
+U059,purchase,2026-11-05 20:23:00,S0218,P03,799,iOS,Basic,West,Paid Search
+U001,product_viewed,2026-11-06 15:42:00,S0219,P01,0,Android,Free,North,Organic
+U001,search_performed,2026-11-06 15:44:00,S0219,P01,0,Android,Free,North,Organic
+U001,add_to_cart,2026-11-06 15:47:00,S0219,P01,0,Android,Free,North,Organic
+U001,checkout_started,2026-11-06 15:51:00,S0219,P01,0,Android,Free,North,Organic
+U001,wishlist_added,2026-11-06 16:00:00,S0219,P01,0,Android,Free,North,Organic
+U002,product_viewed,2026-11-06 18:55:00,S0220,P02,0,iOS,Basic,South,Paid Search
+U002,search_performed,2026-11-06 18:57:00,S0220,P02,0,iOS,Basic,South,Paid Search
+U002,add_to_cart,2026-11-06 19:00:00,S0220,P02,0,iOS,Basic,South,Paid Search
+U002,checkout_started,2026-11-06 19:04:00,S0220,P02,0,iOS,Basic,South,Paid Search
+U002,feature_used,2026-11-06 19:15:00,S0220,P02,0,iOS,Basic,South,Paid Search
+U004,product_viewed,2026-11-06 12:21:00,S0221,P04,0,Android,Free,East,Organic
+U004,search_performed,2026-11-06 12:23:00,S0221,P04,0,Android,Free,East,Organic
+U004,add_to_cart,2026-11-06 12:26:00,S0221,P04,0,Android,Free,East,Organic
+U004,purchase,2026-11-06 12:35:00,S0221,P04,999,Android,Free,East,Organic
+U005,product_viewed,2026-11-06 15:34:00,S0222,P01,0,iOS,Basic,North,Paid Search
+U005,add_to_cart,2026-11-06 15:39:00,S0222,P01,0,iOS,Basic,North,Paid Search
+U005,checkout_started,2026-11-06 15:43:00,S0222,P01,0,iOS,Basic,North,Paid Search
+U007,product_viewed,2026-11-06 09:00:00,S0223,P03,0,Android,Free,West,Organic
+U007,search_performed,2026-11-06 09:02:00,S0223,P03,0,Android,Free,West,Organic
+U007,checkout_started,2026-11-06 09:09:00,S0223,P03,0,Android,Free,West,Organic
+U007,purchase,2026-11-06 09:14:00,S0223,P03,799,Android,Free,West,Organic
+U007,wishlist_added,2026-11-06 09:18:00,S0223,P03,0,Android,Free,West,Organic
+U008,product_viewed,2026-11-06 12:13:00,S0224,P04,0,iOS,Basic,East,Paid Search
+U008,search_performed,2026-11-06 12:15:00,S0224,P04,0,iOS,Basic,East,Paid Search
+U008,add_to_cart,2026-11-06 12:18:00,S0224,P04,0,iOS,Basic,East,Paid Search
+U008,checkout_started,2026-11-06 12:22:00,S0224,P04,0,iOS,Basic,East,Paid Search
+U010,product_viewed,2026-11-06 18:39:00,S0225,P02,0,Android,Free,South,Organic
+U010,add_to_cart,2026-11-06 18:44:00,S0225,P02,0,Android,Free,South,Organic
+U010,checkout_started,2026-11-06 18:48:00,S0225,P02,0,Android,Free,South,Organic
+U010,purchase,2026-11-06 18:53:00,S0225,P02,499,Android,Free,South,Organic
+U010,feature_used,2026-11-06 18:59:00,S0225,P02,0,Android,Free,South,Organic
+U011,product_viewed,2026-11-06 09:52:00,S0226,P03,0,iOS,Basic,West,Paid Search
+U011,search_performed,2026-11-06 09:54:00,S0226,P03,0,iOS,Basic,West,Paid Search
+U011,checkout_started,2026-11-06 10:01:00,S0226,P03,0,iOS,Basic,West,Paid Search
+U011,purchase,2026-11-06 10:06:00,S0226,P03,799,iOS,Basic,West,Paid Search
+U012,product_viewed,2026-11-06 12:05:00,S0227,P04,0,Web,Premium,East,Referral
+U012,search_performed,2026-11-06 12:07:00,S0227,P04,0,Web,Premium,East,Referral
+U012,add_to_cart,2026-11-06 12:10:00,S0227,P04,0,Web,Premium,East,Referral
+U012,checkout_started,2026-11-06 12:14:00,S0227,P04,0,Web,Premium,East,Referral
+U013,product_viewed,2026-11-06 15:18:00,S0228,P01,0,Android,Free,North,Organic
+U013,search_performed,2026-11-06 15:20:00,S0228,P01,0,Android,Free,North,Organic
+U013,add_to_cart,2026-11-06 15:23:00,S0228,P01,0,Android,Free,North,Organic
+U013,checkout_started,2026-11-06 15:27:00,S0228,P01,0,Android,Free,North,Organic
+U013,wishlist_added,2026-11-06 15:36:00,S0228,P01,0,Android,Free,North,Organic
+U015,product_viewed,2026-11-06 09:44:00,S0229,P03,0,Web,Premium,West,Referral
+U015,checkout_started,2026-11-06 09:53:00,S0229,P03,0,Web,Premium,West,Referral
+U016,product_viewed,2026-11-06 12:57:00,S0230,P04,0,Android,Free,East,Organic
+U016,search_performed,2026-11-06 12:59:00,S0230,P04,0,Android,Free,East,Organic
+U016,add_to_cart,2026-11-06 13:02:00,S0230,P04,0,Android,Free,East,Organic
+U016,checkout_started,2026-11-06 13:06:00,S0230,P04,0,Android,Free,East,Organic
+U018,product_viewed,2026-11-06 18:23:00,S0231,P02,0,Web,Premium,South,Referral
+U018,search_performed,2026-11-06 18:25:00,S0231,P02,0,Web,Premium,South,Referral
+U018,add_to_cart,2026-11-06 18:28:00,S0231,P02,0,Web,Premium,South,Referral
+U018,checkout_started,2026-11-06 18:32:00,S0231,P02,0,Web,Premium,South,Referral
+U018,purchase,2026-11-06 18:37:00,S0231,P02,499,Web,Premium,South,Referral
+U018,feature_used,2026-11-06 18:43:00,S0231,P02,0,Web,Premium,South,Referral
+U019,product_viewed,2026-11-06 09:36:00,S0232,P03,0,Android,Free,West,Organic
+U019,search_performed,2026-11-06 09:38:00,S0232,P03,0,Android,Free,West,Organic
+U019,wishlist_added,2026-11-06 09:54:00,S0232,P03,0,Android,Free,West,Organic
+U021,product_viewed,2026-11-06 15:02:00,S0233,P01,0,Web,Premium,North,Referral
+U021,search_performed,2026-11-06 15:04:00,S0233,P01,0,Web,Premium,North,Referral
+U021,add_to_cart,2026-11-06 15:07:00,S0233,P01,0,Web,Premium,North,Referral
+U021,checkout_started,2026-11-06 15:11:00,S0233,P01,0,Web,Premium,North,Referral
+U021,purchase,2026-11-06 15:16:00,S0233,P01,299,Web,Premium,North,Referral
+U022,product_viewed,2026-11-06 18:15:00,S0234,P02,0,Android,Free,South,Organic
+U022,search_performed,2026-11-06 18:17:00,S0234,P02,0,Android,Free,South,Organic
+U022,add_to_cart,2026-11-06 18:20:00,S0234,P02,0,Android,Free,South,Organic
+U022,checkout_started,2026-11-06 18:24:00,S0234,P02,0,Android,Free,South,Organic
+U022,feature_used,2026-11-06 18:35:00,S0234,P02,0,Android,Free,South,Organic
+U023,product_viewed,2026-11-06 09:28:00,S0235,P03,0,iOS,Basic,West,Paid Search
+U023,search_performed,2026-11-06 09:30:00,S0235,P03,0,iOS,Basic,West,Paid Search
+U023,checkout_started,2026-11-06 09:37:00,S0235,P03,0,iOS,Basic,West,Paid Search
+U024,product_viewed,2026-11-06 12:41:00,S0236,P04,0,Web,Premium,East,Referral
+U024,search_performed,2026-11-06 12:43:00,S0236,P04,0,Web,Premium,East,Referral
+U024,add_to_cart,2026-11-06 12:46:00,S0236,P04,0,Web,Premium,East,Referral
+U024,purchase,2026-11-06 12:55:00,S0236,P04,999,Web,Premium,East,Referral
+U026,product_viewed,2026-11-06 18:07:00,S0237,P02,0,iOS,Basic,South,Paid Search
+U026,search_performed,2026-11-06 18:09:00,S0237,P02,0,iOS,Basic,South,Paid Search
+U026,add_to_cart,2026-11-06 18:12:00,S0237,P02,0,iOS,Basic,South,Paid Search
+U026,checkout_started,2026-11-06 18:16:00,S0237,P02,0,iOS,Basic,South,Paid Search
+U026,feature_used,2026-11-06 18:27:00,S0237,P02,0,iOS,Basic,South,Paid Search
+U027,product_viewed,2026-11-06 09:20:00,S0238,P03,0,Web,Premium,West,Referral
+U027,search_performed,2026-11-06 09:22:00,S0238,P03,0,Web,Premium,West,Referral
+U027,checkout_started,2026-11-06 09:29:00,S0238,P03,0,Web,Premium,West,Referral
+U029,product_viewed,2026-11-06 15:46:00,S0239,P01,0,iOS,Basic,North,Paid Search
+U029,search_performed,2026-11-06 15:48:00,S0239,P01,0,iOS,Basic,North,Paid Search
+U029,add_to_cart,2026-11-06 15:51:00,S0239,P01,0,iOS,Basic,North,Paid Search
+U030,product_viewed,2026-11-06 18:59:00,S0240,P02,0,Web,Premium,South,Referral
+U030,add_to_cart,2026-11-06 19:04:00,S0240,P02,0,Web,Premium,South,Referral
+U030,checkout_started,2026-11-06 19:08:00,S0240,P02,0,Web,Premium,South,Referral
+U030,feature_used,2026-11-06 19:19:00,S0240,P02,0,Web,Premium,South,Referral
+U032,product_viewed,2026-11-06 12:25:00,S0241,P04,0,iOS,Basic,East,Paid Search
+U032,search_performed,2026-11-06 12:27:00,S0241,P04,0,iOS,Basic,East,Paid Search
+U032,add_to_cart,2026-11-06 12:30:00,S0241,P04,0,iOS,Basic,East,Paid Search
+U032,checkout_started,2026-11-06 12:34:00,S0241,P04,0,iOS,Basic,East,Paid Search
+U032,purchase,2026-11-06 12:39:00,S0241,P04,999,iOS,Basic,East,Paid Search
+U033,product_viewed,2026-11-06 15:38:00,S0242,P01,0,Web,Premium,North,Referral
+U033,search_performed,2026-11-06 15:40:00,S0242,P01,0,Web,Premium,North,Referral
+U033,add_to_cart,2026-11-06 15:43:00,S0242,P01,0,Web,Premium,North,Referral
+U033,checkout_started,2026-11-06 15:47:00,S0242,P01,0,Web,Premium,North,Referral
+U034,product_viewed,2026-11-06 18:51:00,S0243,P02,0,Android,Free,South,Organic
+U034,search_performed,2026-11-06 18:53:00,S0243,P02,0,Android,Free,South,Organic
+U034,add_to_cart,2026-11-06 18:56:00,S0243,P02,0,Android,Free,South,Organic
+U034,feature_used,2026-11-06 19:11:00,S0243,P02,0,Android,Free,South,Organic
+U035,product_viewed,2026-11-06 09:04:00,S0244,P03,0,iOS,Basic,West,Paid Search
+U035,checkout_started,2026-11-06 09:13:00,S0244,P03,0,iOS,Basic,West,Paid Search
+U035,purchase,2026-11-06 09:18:00,S0244,P03,799,iOS,Basic,West,Paid Search
+U037,product_viewed,2026-11-06 15:30:00,S0245,P01,0,Android,Free,North,Organic
+U037,search_performed,2026-11-06 15:32:00,S0245,P01,0,Android,Free,North,Organic
+U037,add_to_cart,2026-11-06 15:35:00,S0245,P01,0,Android,Free,North,Organic
+U037,checkout_started,2026-11-06 15:39:00,S0245,P01,0,Android,Free,North,Organic
+U037,wishlist_added,2026-11-06 15:48:00,S0245,P01,0,Android,Free,North,Organic
+U038,product_viewed,2026-11-06 18:43:00,S0246,P02,0,iOS,Basic,South,Paid Search
+U038,search_performed,2026-11-06 18:45:00,S0246,P02,0,iOS,Basic,South,Paid Search
+U038,add_to_cart,2026-11-06 18:48:00,S0246,P02,0,iOS,Basic,South,Paid Search
+U038,checkout_started,2026-11-06 18:52:00,S0246,P02,0,iOS,Basic,South,Paid Search
+U038,purchase,2026-11-06 18:57:00,S0246,P02,499,iOS,Basic,South,Paid Search
+U038,feature_used,2026-11-06 19:03:00,S0246,P02,0,iOS,Basic,South,Paid Search
+U040,product_viewed,2026-11-06 12:09:00,S0247,P04,0,Android,Free,East,Organic
+U040,add_to_cart,2026-11-06 12:14:00,S0247,P04,0,Android,Free,East,Organic
+U040,checkout_started,2026-11-06 12:18:00,S0247,P04,0,Android,Free,East,Organic
+U041,product_viewed,2026-11-06 15:22:00,S0248,P01,0,iOS,Basic,North,Paid Search
+U041,search_performed,2026-11-06 15:24:00,S0248,P01,0,iOS,Basic,North,Paid Search
+U041,add_to_cart,2026-11-06 15:27:00,S0248,P01,0,iOS,Basic,North,Paid Search
+U041,checkout_started,2026-11-06 15:31:00,S0248,P01,0,iOS,Basic,North,Paid Search
+U043,product_viewed,2026-11-06 09:48:00,S0249,P03,0,Android,Free,West,Organic
+U043,search_performed,2026-11-06 09:50:00,S0249,P03,0,Android,Free,West,Organic
+U043,checkout_started,2026-11-06 09:57:00,S0249,P03,0,Android,Free,West,Organic
+U043,wishlist_added,2026-11-06 10:06:00,S0249,P03,0,Android,Free,West,Organic
+U044,product_viewed,2026-11-06 12:01:00,S0250,P04,0,iOS,Basic,East,Paid Search
+U044,search_performed,2026-11-06 12:03:00,S0250,P04,0,iOS,Basic,East,Paid Search
+U044,add_to_cart,2026-11-06 12:06:00,S0250,P04,0,iOS,Basic,East,Paid Search
+U045,product_viewed,2026-11-06 15:14:00,S0251,P01,0,Web,Premium,North,Referral
+U045,add_to_cart,2026-11-06 15:19:00,S0251,P01,0,Web,Premium,North,Referral
+U045,checkout_started,2026-11-06 15:23:00,S0251,P01,0,Web,Premium,North,Referral
+U045,purchase,2026-11-06 15:28:00,S0251,P01,299,Web,Premium,North,Referral
+U046,product_viewed,2026-11-06 18:27:00,S0252,P02,0,Android,Free,South,Organic
+U046,search_performed,2026-11-06 18:29:00,S0252,P02,0,Android,Free,South,Organic
+U046,add_to_cart,2026-11-06 18:32:00,S0252,P02,0,Android,Free,South,Organic
+U046,checkout_started,2026-11-06 18:36:00,S0252,P02,0,Android,Free,South,Organic
+U046,purchase,2026-11-06 18:41:00,S0252,P02,499,Android,Free,South,Organic
+U046,feature_used,2026-11-06 18:47:00,S0252,P02,0,Android,Free,South,Organic
+U048,product_viewed,2026-11-06 12:53:00,S0253,P04,0,Web,Premium,East,Referral
+U048,search_performed,2026-11-06 12:55:00,S0253,P04,0,Web,Premium,East,Referral
+U048,add_to_cart,2026-11-06 12:58:00,S0253,P04,0,Web,Premium,East,Referral
+U048,checkout_started,2026-11-06 13:02:00,S0253,P04,0,Web,Premium,East,Referral
+U049,product_viewed,2026-11-06 15:06:00,S0254,P01,0,Android,Free,North,Organic
+U049,search_performed,2026-11-06 15:08:00,S0254,P01,0,Android,Free,North,Organic
+U049,add_to_cart,2026-11-06 15:11:00,S0254,P01,0,Android,Free,North,Organic
+U049,purchase,2026-11-06 15:20:00,S0254,P01,299,Android,Free,North,Organic
+U049,wishlist_added,2026-11-06 15:24:00,S0254,P01,0,Android,Free,North,Organic
+U051,product_viewed,2026-11-06 09:32:00,S0255,P03,0,Web,Premium,West,Referral
+U051,search_performed,2026-11-06 09:34:00,S0255,P03,0,Web,Premium,West,Referral
+U051,checkout_started,2026-11-06 09:41:00,S0255,P03,0,Web,Premium,West,Referral
+U052,product_viewed,2026-11-06 12:45:00,S0256,P04,0,Android,Free,East,Organic
+U052,search_performed,2026-11-06 12:47:00,S0256,P04,0,Android,Free,East,Organic
+U052,add_to_cart,2026-11-06 12:50:00,S0256,P04,0,Android,Free,East,Organic
+U052,checkout_started,2026-11-06 12:54:00,S0256,P04,0,Android,Free,East,Organic
+U052,purchase,2026-11-06 12:59:00,S0256,P04,999,Android,Free,East,Organic
+U054,product_viewed,2026-11-06 18:11:00,S0257,P02,0,Web,Premium,South,Referral
+U054,search_performed,2026-11-06 18:13:00,S0257,P02,0,Web,Premium,South,Referral
+U054,add_to_cart,2026-11-06 18:16:00,S0257,P02,0,Web,Premium,South,Referral
+U054,feature_used,2026-11-06 18:31:00,S0257,P02,0,Web,Premium,South,Referral
+U055,product_viewed,2026-11-06 09:24:00,S0258,P03,0,Android,Free,West,Organic
+U055,checkout_started,2026-11-06 09:33:00,S0258,P03,0,Android,Free,West,Organic
+U055,wishlist_added,2026-11-06 09:42:00,S0258,P03,0,Android,Free,West,Organic
+U056,product_viewed,2026-11-06 12:37:00,S0259,P04,0,iOS,Basic,East,Paid Search
+U056,search_performed,2026-11-06 12:39:00,S0259,P04,0,iOS,Basic,East,Paid Search
+U056,add_to_cart,2026-11-06 12:42:00,S0259,P04,0,iOS,Basic,East,Paid Search
+U056,checkout_started,2026-11-06 12:46:00,S0259,P04,0,iOS,Basic,East,Paid Search
+U056,purchase,2026-11-06 12:51:00,S0259,P04,999,iOS,Basic,East,Paid Search
+U057,product_viewed,2026-11-06 15:50:00,S0260,P01,0,Web,Premium,North,Referral
+U057,search_performed,2026-11-06 15:52:00,S0260,P01,0,Web,Premium,North,Referral
+U057,add_to_cart,2026-11-06 15:55:00,S0260,P01,0,Web,Premium,North,Referral
+U057,checkout_started,2026-11-06 15:59:00,S0260,P01,0,Web,Premium,North,Referral
+U059,product_viewed,2026-11-06 09:16:00,S0261,P03,0,iOS,Basic,West,Paid Search
+U059,search_performed,2026-11-06 09:18:00,S0261,P03,0,iOS,Basic,West,Paid Search
+U059,purchase,2026-11-06 09:30:00,S0261,P03,799,iOS,Basic,West,Paid Search
+U060,product_viewed,2026-11-06 12:29:00,S0262,P04,0,Web,Premium,East,Referral
+U060,add_to_cart,2026-11-06 12:34:00,S0262,P04,0,Web,Premium,East,Referral
+U060,checkout_started,2026-11-06 12:38:00,S0262,P04,0,Web,Premium,East,Referral
+U060,purchase,2026-11-06 12:43:00,S0262,P04,999,Web,Premium,East,Referral
+U002,product_viewed,2026-11-07 19:02:00,S0263,P02,0,iOS,Basic,South,Paid Search
+U002,search_performed,2026-11-07 19:04:00,S0263,P02,0,iOS,Basic,South,Paid Search
+U003,product_viewed,2026-11-07 10:15:00,S0264,P03,0,Web,Premium,West,Referral
+U003,search_performed,2026-11-07 10:17:00,S0264,P03,0,Web,Premium,West,Referral
+U003,add_to_cart,2026-11-07 10:20:00,S0264,P03,0,Web,Premium,West,Referral
+U003,checkout_started,2026-11-07 10:24:00,S0264,P03,0,Web,Premium,West,Referral
+U005,product_viewed,2026-11-07 16:41:00,S0265,P01,0,iOS,Basic,North,Paid Search
+U005,search_performed,2026-11-07 16:43:00,S0265,P01,0,iOS,Basic,North,Paid Search
+U005,add_to_cart,2026-11-07 16:46:00,S0265,P01,0,iOS,Basic,North,Paid Search
+U005,checkout_started,2026-11-07 16:50:00,S0265,P01,0,iOS,Basic,North,Paid Search
+U006,product_viewed,2026-11-07 19:54:00,S0266,P02,0,Web,Premium,South,Referral
+U006,search_performed,2026-11-07 19:56:00,S0266,P02,0,Web,Premium,South,Referral
+U006,checkout_started,2026-11-07 20:03:00,S0266,P02,0,Web,Premium,South,Referral
+U006,wishlist_added,2026-11-07 20:12:00,S0266,P02,0,Web,Premium,South,Referral
+U008,product_viewed,2026-11-07 13:20:00,S0267,P04,0,iOS,Basic,East,Paid Search
+U008,search_performed,2026-11-07 13:22:00,S0267,P04,0,iOS,Basic,East,Paid Search
+U008,add_to_cart,2026-11-07 13:25:00,S0267,P04,0,iOS,Basic,East,Paid Search
+U008,checkout_started,2026-11-07 13:29:00,S0267,P04,0,iOS,Basic,East,Paid Search
+U008,purchase,2026-11-07 13:34:00,S0267,P04,999,iOS,Basic,East,Paid Search
+U009,product_viewed,2026-11-07 16:33:00,S0268,P01,0,Web,Premium,North,Referral
+U009,add_to_cart,2026-11-07 16:38:00,S0268,P01,0,Web,Premium,North,Referral
+U009,checkout_started,2026-11-07 16:42:00,S0268,P01,0,Web,Premium,North,Referral
+U010,product_viewed,2026-11-07 19:46:00,S0269,P02,0,Android,Free,South,Organic
+U010,search_performed,2026-11-07 19:48:00,S0269,P02,0,Android,Free,South,Organic
+U010,checkout_started,2026-11-07 19:55:00,S0269,P02,0,Android,Free,South,Organic
+U011,product_viewed,2026-11-07 10:59:00,S0270,P03,0,iOS,Basic,West,Paid Search
+U011,search_performed,2026-11-07 11:01:00,S0270,P03,0,iOS,Basic,West,Paid Search
+U011,add_to_cart,2026-11-07 11:04:00,S0270,P03,0,iOS,Basic,West,Paid Search
+U011,checkout_started,2026-11-07 11:08:00,S0270,P03,0,iOS,Basic,West,Paid Search
+U011,purchase,2026-11-07 11:13:00,S0270,P03,799,iOS,Basic,West,Paid Search
+U013,product_viewed,2026-11-07 16:25:00,S0271,P01,0,Android,Free,North,Organic
+U013,search_performed,2026-11-07 16:27:00,S0271,P01,0,Android,Free,North,Organic
+U013,add_to_cart,2026-11-07 16:30:00,S0271,P01,0,Android,Free,North,Organic
+U013,checkout_started,2026-11-07 16:34:00,S0271,P01,0,Android,Free,North,Organic
+U014,product_viewed,2026-11-07 19:38:00,S0272,P02,0,iOS,Basic,South,Paid Search
+U014,checkout_started,2026-11-07 19:47:00,S0272,P02,0,iOS,Basic,South,Paid Search
+U014,purchase,2026-11-07 19:52:00,S0272,P02,499,iOS,Basic,South,Paid Search
+U016,product_viewed,2026-11-07 13:04:00,S0273,P04,0,Android,Free,East,Organic
+U016,search_performed,2026-11-07 13:06:00,S0273,P04,0,Android,Free,East,Organic
+U016,add_to_cart,2026-11-07 13:09:00,S0273,P04,0,Android,Free,East,Organic
+U016,checkout_started,2026-11-07 13:13:00,S0273,P04,0,Android,Free,East,Organic
+U017,product_viewed,2026-11-07 16:17:00,S0274,P01,0,iOS,Basic,North,Paid Search
+U017,search_performed,2026-11-07 16:19:00,S0274,P01,0,iOS,Basic,North,Paid Search
+U017,add_to_cart,2026-11-07 16:22:00,S0274,P01,0,iOS,Basic,North,Paid Search
+U019,product_viewed,2026-11-07 10:43:00,S0275,P03,0,Android,Free,West,Organic
+U019,add_to_cart,2026-11-07 10:48:00,S0275,P03,0,Android,Free,West,Organic
+U019,checkout_started,2026-11-07 10:52:00,S0275,P03,0,Android,Free,West,Organic
+U020,product_viewed,2026-11-07 13:56:00,S0276,P04,0,iOS,Basic,East,Paid Search
+U020,search_performed,2026-11-07 13:58:00,S0276,P04,0,iOS,Basic,East,Paid Search
+U020,add_to_cart,2026-11-07 14:01:00,S0276,P04,0,iOS,Basic,East,Paid Search
+U020,checkout_started,2026-11-07 14:05:00,S0276,P04,0,iOS,Basic,East,Paid Search
+U021,product_viewed,2026-11-07 16:09:00,S0277,P01,0,Web,Premium,North,Referral
+U021,search_performed,2026-11-07 16:11:00,S0277,P01,0,Web,Premium,North,Referral
+U021,add_to_cart,2026-11-07 16:14:00,S0277,P01,0,Web,Premium,North,Referral
+U021,checkout_started,2026-11-07 16:18:00,S0277,P01,0,Web,Premium,North,Referral
+U021,purchase,2026-11-07 16:23:00,S0277,P01,299,Web,Premium,North,Referral
+U022,product_viewed,2026-11-07 19:22:00,S0278,P02,0,Android,Free,South,Organic
+U022,search_performed,2026-11-07 19:24:00,S0278,P02,0,Android,Free,South,Organic
+U022,purchase,2026-11-07 19:36:00,S0278,P02,499,Android,Free,South,Organic
+U024,product_viewed,2026-11-07 13:48:00,S0279,P04,0,Web,Premium,East,Referral
+U024,add_to_cart,2026-11-07 13:53:00,S0279,P04,0,Web,Premium,East,Referral
+U024,checkout_started,2026-11-07 13:57:00,S0279,P04,0,Web,Premium,East,Referral
+U024,wishlist_added,2026-11-07 14:06:00,S0279,P04,0,Web,Premium,East,Referral
+U025,product_viewed,2026-11-07 16:01:00,S0280,P01,0,Android,Free,North,Organic
+U025,search_performed,2026-11-07 16:03:00,S0280,P01,0,Android,Free,North,Organic
+U025,add_to_cart,2026-11-07 16:06:00,S0280,P01,0,Android,Free,North,Organic
+U025,checkout_started,2026-11-07 16:10:00,S0280,P01,0,Android,Free,North,Organic
+U025,purchase,2026-11-07 16:15:00,S0280,P01,299,Android,Free,North,Organic
+U027,product_viewed,2026-11-07 10:27:00,S0281,P03,0,Web,Premium,West,Referral
+U027,search_performed,2026-11-07 10:29:00,S0281,P03,0,Web,Premium,West,Referral
+U027,add_to_cart,2026-11-07 10:32:00,S0281,P03,0,Web,Premium,West,Referral
+U028,product_viewed,2026-11-07 13:40:00,S0282,P04,0,Android,Free,East,Organic
+U028,search_performed,2026-11-07 13:42:00,S0282,P04,0,Android,Free,East,Organic
+U028,add_to_cart,2026-11-07 13:45:00,S0282,P04,0,Android,Free,East,Organic
+U028,checkout_started,2026-11-07 13:49:00,S0282,P04,0,Android,Free,East,Organic
+U028,purchase,2026-11-07 13:54:00,S0282,P04,999,Android,Free,East,Organic
+U030,product_viewed,2026-11-07 19:06:00,S0283,P02,0,Web,Premium,South,Referral
+U030,search_performed,2026-11-07 19:08:00,S0283,P02,0,Web,Premium,South,Referral
+U030,checkout_started,2026-11-07 19:15:00,S0283,P02,0,Web,Premium,South,Referral
+U030,wishlist_added,2026-11-07 19:24:00,S0283,P02,0,Web,Premium,South,Referral
+U031,product_viewed,2026-11-07 10:19:00,S0284,P03,0,Android,Free,West,Organic
+U031,search_performed,2026-11-07 10:21:00,S0284,P03,0,Android,Free,West,Organic
+U031,add_to_cart,2026-11-07 10:24:00,S0284,P03,0,Android,Free,West,Organic
+U031,checkout_started,2026-11-07 10:28:00,S0284,P03,0,Android,Free,West,Organic
+U032,product_viewed,2026-11-07 13:32:00,S0285,P04,0,iOS,Basic,East,Paid Search
+U032,search_performed,2026-11-07 13:34:00,S0285,P04,0,iOS,Basic,East,Paid Search
+U032,add_to_cart,2026-11-07 13:37:00,S0285,P04,0,iOS,Basic,East,Paid Search
+U032,purchase,2026-11-07 13:46:00,S0285,P04,999,iOS,Basic,East,Paid Search
+U033,product_viewed,2026-11-07 16:45:00,S0286,P01,0,Web,Premium,North,Referral
+U033,search_performed,2026-11-07 16:47:00,S0286,P01,0,Web,Premium,North,Referral
+U033,add_to_cart,2026-11-07 16:50:00,S0286,P01,0,Web,Premium,North,Referral
+U033,checkout_started,2026-11-07 16:54:00,S0286,P01,0,Web,Premium,North,Referral
+U035,product_viewed,2026-11-07 10:11:00,S0287,P03,0,iOS,Basic,West,Paid Search
+U035,search_performed,2026-11-07 10:13:00,S0287,P03,0,iOS,Basic,West,Paid Search
+U035,add_to_cart,2026-11-07 10:16:00,S0287,P03,0,iOS,Basic,West,Paid Search
+U035,checkout_started,2026-11-07 10:20:00,S0287,P03,0,iOS,Basic,West,Paid Search
+U035,purchase,2026-11-07 10:25:00,S0287,P03,799,iOS,Basic,West,Paid Search
+U036,product_viewed,2026-11-07 13:24:00,S0288,P04,0,Web,Premium,East,Referral
+U036,search_performed,2026-11-07 13:26:00,S0288,P04,0,Web,Premium,East,Referral
+U036,add_to_cart,2026-11-07 13:29:00,S0288,P04,0,Web,Premium,East,Referral
+U036,checkout_started,2026-11-07 13:33:00,S0288,P04,0,Web,Premium,East,Referral
+U036,purchase,2026-11-07 13:38:00,S0288,P04,999,Web,Premium,East,Referral
+U036,wishlist_added,2026-11-07 13:42:00,S0288,P04,0,Web,Premium,East,Referral
+U038,product_viewed,2026-11-07 19:50:00,S0289,P02,0,iOS,Basic,South,Paid Search
+U038,search_performed,2026-11-07 19:52:00,S0289,P02,0,iOS,Basic,South,Paid Search
+U038,checkout_started,2026-11-07 19:59:00,S0289,P02,0,iOS,Basic,South,Paid Search
+U039,product_viewed,2026-11-07 10:03:00,S0290,P03,0,Web,Premium,West,Referral
+U039,add_to_cart,2026-11-07 10:08:00,S0290,P03,0,Web,Premium,West,Referral
+U039,checkout_started,2026-11-07 10:12:00,S0290,P03,0,Web,Premium,West,Referral
+U039,purchase,2026-11-07 10:17:00,S0290,P03,799,Web,Premium,West,Referral
+U041,product_viewed,2026-11-07 16:29:00,S0291,P01,0,iOS,Basic,North,Paid Search
+U041,search_performed,2026-11-07 16:31:00,S0291,P01,0,iOS,Basic,North,Paid Search
+U041,add_to_cart,2026-11-07 16:34:00,S0291,P01,0,iOS,Basic,North,Paid Search
+U041,checkout_started,2026-11-07 16:38:00,S0291,P01,0,iOS,Basic,North,Paid Search
+U042,product_viewed,2026-11-07 19:42:00,S0292,P02,0,Web,Premium,South,Referral
+U042,search_performed,2026-11-07 19:44:00,S0292,P02,0,Web,Premium,South,Referral
+U042,purchase,2026-11-07 19:56:00,S0292,P02,499,Web,Premium,South,Referral
+U042,wishlist_added,2026-11-07 20:00:00,S0292,P02,0,Web,Premium,South,Referral
+U043,product_viewed,2026-11-07 10:55:00,S0293,P03,0,Android,Free,West,Organic
+U043,search_performed,2026-11-07 10:57:00,S0293,P03,0,Android,Free,West,Organic
+U043,add_to_cart,2026-11-07 11:00:00,S0293,P03,0,Android,Free,West,Organic
+U043,checkout_started,2026-11-07 11:04:00,S0293,P03,0,Android,Free,West,Organic
+U043,purchase,2026-11-07 11:09:00,S0293,P03,799,Android,Free,West,Organic
+U044,product_viewed,2026-11-07 13:08:00,S0294,P04,0,iOS,Basic,East,Paid Search
+U044,add_to_cart,2026-11-07 13:13:00,S0294,P04,0,iOS,Basic,East,Paid Search
+U044,checkout_started,2026-11-07 13:17:00,S0294,P04,0,iOS,Basic,East,Paid Search
+U046,product_viewed,2026-11-07 19:34:00,S0295,P02,0,Android,Free,South,Organic
+U046,search_performed,2026-11-07 19:36:00,S0295,P02,0,Android,Free,South,Organic
+U046,checkout_started,2026-11-07 19:43:00,S0295,P02,0,Android,Free,South,Organic
+U046,purchase,2026-11-07 19:48:00,S0295,P02,499,Android,Free,South,Organic
+U047,product_viewed,2026-11-07 10:47:00,S0296,P03,0,iOS,Basic,West,Paid Search
+U047,search_performed,2026-11-07 10:49:00,S0296,P03,0,iOS,Basic,West,Paid Search
+U047,add_to_cart,2026-11-07 10:52:00,S0296,P03,0,iOS,Basic,West,Paid Search
+U049,product_viewed,2026-11-07 16:13:00,S0297,P01,0,Android,Free,North,Organic
+U049,add_to_cart,2026-11-07 16:18:00,S0297,P01,0,Android,Free,North,Organic
+U049,checkout_started,2026-11-07 16:22:00,S0297,P01,0,Android,Free,North,Organic
+U049,purchase,2026-11-07 16:27:00,S0297,P01,299,Android,Free,North,Organic
+U050,product_viewed,2026-11-07 19:26:00,S0298,P02,0,iOS,Basic,South,Paid Search
+U050,search_performed,2026-11-07 19:28:00,S0298,P02,0,iOS,Basic,South,Paid Search
+U050,checkout_started,2026-11-07 19:35:00,S0298,P02,0,iOS,Basic,South,Paid Search
+U050,purchase,2026-11-07 19:40:00,S0298,P02,499,iOS,Basic,South,Paid Search
+U052,product_viewed,2026-11-07 13:52:00,S0299,P04,0,Android,Free,East,Organic
+U052,search_performed,2026-11-07 13:54:00,S0299,P04,0,Android,Free,East,Organic
+U052,add_to_cart,2026-11-07 13:57:00,S0299,P04,0,Android,Free,East,Organic
+U053,product_viewed,2026-11-07 16:05:00,S0300,P01,0,iOS,Basic,North,Paid Search
+U053,search_performed,2026-11-07 16:07:00,S0300,P01,0,iOS,Basic,North,Paid Search
+U053,add_to_cart,2026-11-07 16:10:00,S0300,P01,0,iOS,Basic,North,Paid Search
+U053,checkout_started,2026-11-07 16:14:00,S0300,P01,0,iOS,Basic,North,Paid Search
+U053,purchase,2026-11-07 16:19:00,S0300,P01,299,iOS,Basic,North,Paid Search
+U054,product_viewed,2026-11-07 19:18:00,S0301,P02,0,Web,Premium,South,Referral
+U054,checkout_started,2026-11-07 19:27:00,S0301,P02,0,Web,Premium,South,Referral
+U054,wishlist_added,2026-11-07 19:36:00,S0301,P02,0,Web,Premium,South,Referral
+U055,product_viewed,2026-11-07 10:31:00,S0302,P03,0,Android,Free,West,Organic
+U055,search_performed,2026-11-07 10:33:00,S0302,P03,0,Android,Free,West,Organic
+U055,add_to_cart,2026-11-07 10:36:00,S0302,P03,0,Android,Free,West,Organic
+U055,checkout_started,2026-11-07 10:40:00,S0302,P03,0,Android,Free,West,Organic
+U057,product_viewed,2026-11-07 16:57:00,S0303,P01,0,Web,Premium,North,Referral
+U057,search_performed,2026-11-07 16:59:00,S0303,P01,0,Web,Premium,North,Referral
+U057,add_to_cart,2026-11-07 17:02:00,S0303,P01,0,Web,Premium,North,Referral
+U057,purchase,2026-11-07 17:11:00,S0303,P01,299,Web,Premium,North,Referral
+U058,product_viewed,2026-11-07 19:10:00,S0304,P02,0,Android,Free,South,Organic
+U058,search_performed,2026-11-07 19:12:00,S0304,P02,0,Android,Free,South,Organic
+U058,checkout_started,2026-11-07 19:19:00,S0304,P02,0,Android,Free,South,Organic
+U060,product_viewed,2026-11-07 13:36:00,S0305,P04,0,Web,Premium,East,Referral
+U060,search_performed,2026-11-07 13:38:00,S0305,P04,0,Web,Premium,East,Referral
+U060,add_to_cart,2026-11-07 13:41:00,S0305,P04,0,Web,Premium,East,Referral
+U060,checkout_started,2026-11-07 13:45:00,S0305,P04,0,Web,Premium,East,Referral
+U060,purchase,2026-11-07 13:50:00,S0305,P04,999,Web,Premium,East,Referral
+U060,wishlist_added,2026-11-07 13:54:00,S0305,P04,0,Web,Premium,East,Referral
+U001,product_viewed,2026-11-08 17:56:00,S0306,P01,0,Android,Free,North,Organic
+U001,search_performed,2026-11-08 17:58:00,S0306,P01,0,Android,Free,North,Organic
+U001,checkout_started,2026-11-08 18:05:00,S0306,P01,0,Android,Free,North,Organic
+U001,purchase,2026-11-08 18:10:00,S0306,P01,299,Android,Free,North,Organic
+U001,feature_used,2026-11-08 18:16:00,S0306,P01,0,Android,Free,North,Organic
+U003,product_viewed,2026-11-08 11:22:00,S0307,P03,0,Web,Premium,West,Referral
+U003,add_to_cart,2026-11-08 11:27:00,S0307,P03,0,Web,Premium,West,Referral
+U003,checkout_started,2026-11-08 11:31:00,S0307,P03,0,Web,Premium,West,Referral
+U004,product_viewed,2026-11-08 14:35:00,S0308,P04,0,Android,Free,East,Organic
+U004,search_performed,2026-11-08 14:37:00,S0308,P04,0,Android,Free,East,Organic
+U004,add_to_cart,2026-11-08 14:40:00,S0308,P04,0,Android,Free,East,Organic
+U004,checkout_started,2026-11-08 14:44:00,S0308,P04,0,Android,Free,East,Organic
+U004,purchase,2026-11-08 14:49:00,S0308,P04,999,Android,Free,East,Organic
+U006,product_viewed,2026-11-08 20:01:00,S0309,P02,0,Web,Premium,South,Referral
+U006,search_performed,2026-11-08 20:03:00,S0309,P02,0,Web,Premium,South,Referral
+U006,add_to_cart,2026-11-08 20:06:00,S0309,P02,0,Web,Premium,South,Referral
+U006,checkout_started,2026-11-08 20:10:00,S0309,P02,0,Web,Premium,South,Referral
+U007,product_viewed,2026-11-08 11:14:00,S0310,P03,0,Android,Free,West,Organic
+U007,search_performed,2026-11-08 11:16:00,S0310,P03,0,Android,Free,West,Organic
+U007,add_to_cart,2026-11-08 11:19:00,S0310,P03,0,Android,Free,West,Organic
+U007,checkout_started,2026-11-08 11:23:00,S0310,P03,0,Android,Free,West,Organic
+U008,product_viewed,2026-11-08 14:27:00,S0311,P04,0,iOS,Basic,East,Paid Search
+U008,add_to_cart,2026-11-08 14:32:00,S0311,P04,0,iOS,Basic,East,Paid Search
+U008,checkout_started,2026-11-08 14:36:00,S0311,P04,0,iOS,Basic,East,Paid Search
+U008,purchase,2026-11-08 14:41:00,S0311,P04,999,iOS,Basic,East,Paid Search
+U009,product_viewed,2026-11-08 17:40:00,S0312,P01,0,Web,Premium,North,Referral
+U009,search_performed,2026-11-08 17:42:00,S0312,P01,0,Web,Premium,North,Referral
+U009,checkout_started,2026-11-08 17:49:00,S0312,P01,0,Web,Premium,North,Referral
+U009,feature_used,2026-11-08 18:00:00,S0312,P01,0,Web,Premium,North,Referral
+U011,product_viewed,2026-11-08 11:06:00,S0313,P03,0,iOS,Basic,West,Paid Search
+U011,search_performed,2026-11-08 11:08:00,S0313,P03,0,iOS,Basic,West,Paid Search
+U011,add_to_cart,2026-11-08 11:11:00,S0313,P03,0,iOS,Basic,West,Paid Search
+U011,checkout_started,2026-11-08 11:15:00,S0313,P03,0,iOS,Basic,West,Paid Search
+U011,purchase,2026-11-08 11:20:00,S0313,P03,799,iOS,Basic,West,Paid Search
+U011,wishlist_added,2026-11-08 11:24:00,S0313,P03,0,iOS,Basic,West,Paid Search
+U012,product_viewed,2026-11-08 14:19:00,S0314,P04,0,Web,Premium,East,Referral
+U012,search_performed,2026-11-08 14:21:00,S0314,P04,0,Web,Premium,East,Referral
+U012,add_to_cart,2026-11-08 14:24:00,S0314,P04,0,Web,Premium,East,Referral
+U012,checkout_started,2026-11-08 14:28:00,S0314,P04,0,Web,Premium,East,Referral
+U012,purchase,2026-11-08 14:33:00,S0314,P04,999,Web,Premium,East,Referral
+U014,product_viewed,2026-11-08 20:45:00,S0315,P02,0,iOS,Basic,South,Paid Search
+U014,search_performed,2026-11-08 20:47:00,S0315,P02,0,iOS,Basic,South,Paid Search
+U014,add_to_cart,2026-11-08 20:50:00,S0315,P02,0,iOS,Basic,South,Paid Search
+U014,checkout_started,2026-11-08 20:54:00,S0315,P02,0,iOS,Basic,South,Paid Search
+U015,product_viewed,2026-11-08 11:58:00,S0316,P03,0,Web,Premium,West,Referral
+U015,search_performed,2026-11-08 12:00:00,S0316,P03,0,Web,Premium,West,Referral
+U015,add_to_cart,2026-11-08 12:03:00,S0316,P03,0,Web,Premium,West,Referral
+U015,purchase,2026-11-08 12:12:00,S0316,P03,799,Web,Premium,West,Referral
+U017,product_viewed,2026-11-08 17:24:00,S0317,P01,0,iOS,Basic,North,Paid Search
+U017,search_performed,2026-11-08 17:26:00,S0317,P01,0,iOS,Basic,North,Paid Search
+U017,checkout_started,2026-11-08 17:33:00,S0317,P01,0,iOS,Basic,North,Paid Search
+U017,wishlist_added,2026-11-08 17:42:00,S0317,P01,0,iOS,Basic,North,Paid Search
+U017,feature_used,2026-11-08 17:44:00,S0317,P01,0,iOS,Basic,North,Paid Search
+U018,product_viewed,2026-11-08 20:37:00,S0318,P02,0,Web,Premium,South,Referral
+U018,add_to_cart,2026-11-08 20:42:00,S0318,P02,0,Web,Premium,South,Referral
+U018,checkout_started,2026-11-08 20:46:00,S0318,P02,0,Web,Premium,South,Referral
+U018,purchase,2026-11-08 20:51:00,S0318,P02,499,Web,Premium,South,Referral
+U019,product_viewed,2026-11-08 11:50:00,S0319,P03,0,Android,Free,West,Organic
+U019,search_performed,2026-11-08 11:52:00,S0319,P03,0,Android,Free,West,Organic
+U019,add_to_cart,2026-11-08 11:55:00,S0319,P03,0,Android,Free,West,Organic
+U019,checkout_started,2026-11-08 11:59:00,S0319,P03,0,Android,Free,West,Organic
+U019,purchase,2026-11-08 12:04:00,S0319,P03,799,Android,Free,West,Organic
+U020,product_viewed,2026-11-08 14:03:00,S0320,P04,0,iOS,Basic,East,Paid Search
+U020,search_performed,2026-11-08 14:05:00,S0320,P04,0,iOS,Basic,East,Paid Search
+U020,add_to_cart,2026-11-08 14:08:00,S0320,P04,0,iOS,Basic,East,Paid Search
+U022,product_viewed,2026-11-08 20:29:00,S0321,P02,0,Android,Free,South,Organic
+U022,search_performed,2026-11-08 20:31:00,S0321,P02,0,Android,Free,South,Organic
+U022,add_to_cart,2026-11-08 20:34:00,S0321,P02,0,Android,Free,South,Organic
+U022,checkout_started,2026-11-08 20:38:00,S0321,P02,0,Android,Free,South,Organic
+U022,purchase,2026-11-08 20:43:00,S0321,P02,499,Android,Free,South,Organic
+U023,product_viewed,2026-11-08 11:42:00,S0322,P03,0,iOS,Basic,West,Paid Search
+U023,add_to_cart,2026-11-08 11:47:00,S0322,P03,0,iOS,Basic,West,Paid Search
+U023,checkout_started,2026-11-08 11:51:00,S0322,P03,0,iOS,Basic,West,Paid Search
+U023,wishlist_added,2026-11-08 12:00:00,S0322,P03,0,iOS,Basic,West,Paid Search
+U025,product_viewed,2026-11-08 17:08:00,S0323,P01,0,Android,Free,North,Organic
+U025,search_performed,2026-11-08 17:10:00,S0323,P01,0,Android,Free,North,Organic
+U025,purchase,2026-11-08 17:22:00,S0323,P01,299,Android,Free,North,Organic
+U025,feature_used,2026-11-08 17:28:00,S0323,P01,0,Android,Free,North,Organic
+U026,product_viewed,2026-11-08 20:21:00,S0324,P02,0,iOS,Basic,South,Paid Search
+U026,search_performed,2026-11-08 20:23:00,S0324,P02,0,iOS,Basic,South,Paid Search
+U026,add_to_cart,2026-11-08 20:26:00,S0324,P02,0,iOS,Basic,South,Paid Search
+U026,checkout_started,2026-11-08 20:30:00,S0324,P02,0,iOS,Basic,South,Paid Search
+U026,purchase,2026-11-08 20:35:00,S0324,P02,499,iOS,Basic,South,Paid Search
+U028,product_viewed,2026-11-08 14:47:00,S0325,P04,0,Android,Free,East,Organic
+U028,add_to_cart,2026-11-08 14:52:00,S0325,P04,0,Android,Free,East,Organic
+U028,checkout_started,2026-11-08 14:56:00,S0325,P04,0,Android,Free,East,Organic
+U029,product_viewed,2026-11-08 17:00:00,S0326,P01,0,iOS,Basic,North,Paid Search
+U029,search_performed,2026-11-08 17:02:00,S0326,P01,0,iOS,Basic,North,Paid Search
+U029,checkout_started,2026-11-08 17:09:00,S0326,P01,0,iOS,Basic,North,Paid Search
+U029,purchase,2026-11-08 17:14:00,S0326,P01,299,iOS,Basic,North,Paid Search
+U029,wishlist_added,2026-11-08 17:18:00,S0326,P01,0,iOS,Basic,North,Paid Search
+U029,feature_used,2026-11-08 17:20:00,S0326,P01,0,iOS,Basic,North,Paid Search
+U030,product_viewed,2026-11-08 20:13:00,S0327,P02,0,Web,Premium,South,Referral
+U030,search_performed,2026-11-08 20:15:00,S0327,P02,0,Web,Premium,South,Referral
+U030,add_to_cart,2026-11-08 20:18:00,S0327,P02,0,Web,Premium,South,Referral
+U031,product_viewed,2026-11-08 11:26:00,S0328,P03,0,Android,Free,West,Organic
+U031,search_performed,2026-11-08 11:28:00,S0328,P03,0,Android,Free,West,Organic
+U031,add_to_cart,2026-11-08 11:31:00,S0328,P03,0,Android,Free,West,Organic
+U031,checkout_started,2026-11-08 11:35:00,S0328,P03,0,Android,Free,West,Organic
+U033,product_viewed,2026-11-08 17:52:00,S0329,P01,0,Web,Premium,North,Referral
+U033,checkout_started,2026-11-08 18:01:00,S0329,P01,0,Web,Premium,North,Referral
+U033,purchase,2026-11-08 18:06:00,S0329,P01,299,Web,Premium,North,Referral
+U033,feature_used,2026-11-08 18:12:00,S0329,P01,0,Web,Premium,North,Referral
+U034,product_viewed,2026-11-08 20:05:00,S0330,P02,0,Android,Free,South,Organic
+U034,search_performed,2026-11-08 20:07:00,S0330,P02,0,Android,Free,South,Organic
+U034,add_to_cart,2026-11-08 20:10:00,S0330,P02,0,Android,Free,South,Organic
+U034,checkout_started,2026-11-08 20:14:00,S0330,P02,0,Android,Free,South,Organic
+U036,product_viewed,2026-11-08 14:31:00,S0331,P04,0,Web,Premium,East,Referral
+U036,search_performed,2026-11-08 14:33:00,S0331,P04,0,Web,Premium,East,Referral
+U036,add_to_cart,2026-11-08 14:36:00,S0331,P04,0,Web,Premium,East,Referral
+U036,checkout_started,2026-11-08 14:40:00,S0331,P04,0,Web,Premium,East,Referral
+U036,purchase,2026-11-08 14:45:00,S0331,P04,999,Web,Premium,East,Referral
+U037,product_viewed,2026-11-08 17:44:00,S0332,P01,0,Android,Free,North,Organic
+U037,search_performed,2026-11-08 17:46:00,S0332,P01,0,Android,Free,North,Organic
+U037,checkout_started,2026-11-08 17:53:00,S0332,P01,0,Android,Free,North,Organic
+U037,feature_used,2026-11-08 18:04:00,S0332,P01,0,Android,Free,North,Organic
+U039,product_viewed,2026-11-08 11:10:00,S0333,P03,0,Web,Premium,West,Referral
+U039,search_performed,2026-11-08 11:12:00,S0333,P03,0,Web,Premium,West,Referral
+U039,add_to_cart,2026-11-08 11:15:00,S0333,P03,0,Web,Premium,West,Referral
+U039,checkout_started,2026-11-08 11:19:00,S0333,P03,0,Web,Premium,West,Referral
+U039,purchase,2026-11-08 11:24:00,S0333,P03,799,Web,Premium,West,Referral
+U040,product_viewed,2026-11-08 14:23:00,S0334,P04,0,Android,Free,East,Organic
+U040,search_performed,2026-11-08 14:25:00,S0334,P04,0,Android,Free,East,Organic
+U040,add_to_cart,2026-11-08 14:28:00,S0334,P04,0,Android,Free,East,Organic
+U040,purchase,2026-11-08 14:37:00,S0334,P04,999,Android,Free,East,Organic
+U041,product_viewed,2026-11-08 17:36:00,S0335,P01,0,iOS,Basic,North,Paid Search
+U041,search_performed,2026-11-08 17:38:00,S0335,P01,0,iOS,Basic,North,Paid Search
+U041,checkout_started,2026-11-08 17:45:00,S0335,P01,0,iOS,Basic,North,Paid Search
+U041,wishlist_added,2026-11-08 17:54:00,S0335,P01,0,iOS,Basic,North,Paid Search
+U041,feature_used,2026-11-08 17:56:00,S0335,P01,0,iOS,Basic,North,Paid Search
+U042,product_viewed,2026-11-08 20:49:00,S0336,P02,0,Web,Premium,South,Referral
+U042,search_performed,2026-11-08 20:51:00,S0336,P02,0,Web,Premium,South,Referral
+U042,add_to_cart,2026-11-08 20:54:00,S0336,P02,0,Web,Premium,South,Referral
+U042,checkout_started,2026-11-08 20:58:00,S0336,P02,0,Web,Premium,South,Referral
+U044,product_viewed,2026-11-08 14:15:00,S0337,P04,0,iOS,Basic,East,Paid Search
+U044,search_performed,2026-11-08 14:17:00,S0337,P04,0,iOS,Basic,East,Paid Search
+U044,add_to_cart,2026-11-08 14:20:00,S0337,P04,0,iOS,Basic,East,Paid Search
+U044,checkout_started,2026-11-08 14:24:00,S0337,P04,0,iOS,Basic,East,Paid Search
+U045,product_viewed,2026-11-08 17:28:00,S0338,P01,0,Web,Premium,North,Referral
+U045,search_performed,2026-11-08 17:30:00,S0338,P01,0,Web,Premium,North,Referral
+U045,feature_used,2026-11-08 17:48:00,S0338,P01,0,Web,Premium,North,Referral
+U047,product_viewed,2026-11-08 11:54:00,S0339,P03,0,iOS,Basic,West,Paid Search
+U047,search_performed,2026-11-08 11:56:00,S0339,P03,0,iOS,Basic,West,Paid Search
+U047,add_to_cart,2026-11-08 11:59:00,S0339,P03,0,iOS,Basic,West,Paid Search
+U047,checkout_started,2026-11-08 12:03:00,S0339,P03,0,iOS,Basic,West,Paid Search
+U047,purchase,2026-11-08 12:08:00,S0339,P03,799,iOS,Basic,West,Paid Search
+U047,wishlist_added,2026-11-08 12:12:00,S0339,P03,0,iOS,Basic,West,Paid Search
+U048,product_viewed,2026-11-08 14:07:00,S0340,P04,0,Web,Premium,East,Referral
+U048,add_to_cart,2026-11-08 14:12:00,S0340,P04,0,Web,Premium,East,Referral
+U048,checkout_started,2026-11-08 14:16:00,S0340,P04,0,Web,Premium,East,Referral
+U050,product_viewed,2026-11-08 20:33:00,S0341,P02,0,iOS,Basic,South,Paid Search
+U050,search_performed,2026-11-08 20:35:00,S0341,P02,0,iOS,Basic,South,Paid Search
+U050,add_to_cart,2026-11-08 20:38:00,S0341,P02,0,iOS,Basic,South,Paid Search
+U050,purchase,2026-11-08 20:47:00,S0341,P02,499,iOS,Basic,South,Paid Search
+U051,product_viewed,2026-11-08 11:46:00,S0342,P03,0,Web,Premium,West,Referral
+U051,search_performed,2026-11-08 11:48:00,S0342,P03,0,Web,Premium,West,Referral
+U051,add_to_cart,2026-11-08 11:51:00,S0342,P03,0,Web,Premium,West,Referral
+U051,checkout_started,2026-11-08 11:55:00,S0342,P03,0,Web,Premium,West,Referral
+U052,product_viewed,2026-11-08 14:59:00,S0343,P04,0,Android,Free,East,Organic
+U052,search_performed,2026-11-08 15:01:00,S0343,P04,0,Android,Free,East,Organic
+U052,add_to_cart,2026-11-08 15:04:00,S0343,P04,0,Android,Free,East,Organic
+U052,checkout_started,2026-11-08 15:08:00,S0343,P04,0,Android,Free,East,Organic
+U053,product_viewed,2026-11-08 17:12:00,S0344,P01,0,iOS,Basic,North,Paid Search
+U053,checkout_started,2026-11-08 17:21:00,S0344,P01,0,iOS,Basic,North,Paid Search
+U053,purchase,2026-11-08 17:26:00,S0344,P01,299,iOS,Basic,North,Paid Search
+U053,wishlist_added,2026-11-08 17:30:00,S0344,P01,0,iOS,Basic,North,Paid Search
+U053,feature_used,2026-11-08 17:32:00,S0344,P01,0,iOS,Basic,North,Paid Search
+U055,product_viewed,2026-11-08 11:38:00,S0345,P03,0,Android,Free,West,Organic
+U055,search_performed,2026-11-08 11:40:00,S0345,P03,0,Android,Free,West,Organic
+U055,add_to_cart,2026-11-08 11:43:00,S0345,P03,0,Android,Free,West,Organic
+U056,product_viewed,2026-11-08 14:51:00,S0346,P04,0,iOS,Basic,East,Paid Search
+U056,search_performed,2026-11-08 14:53:00,S0346,P04,0,iOS,Basic,East,Paid Search
+U056,add_to_cart,2026-11-08 14:56:00,S0346,P04,0,iOS,Basic,East,Paid Search
+U056,checkout_started,2026-11-08 15:00:00,S0346,P04,0,iOS,Basic,East,Paid Search
+U058,product_viewed,2026-11-08 20:17:00,S0347,P02,0,Android,Free,South,Organic
+U058,add_to_cart,2026-11-08 20:22:00,S0347,P02,0,Android,Free,South,Organic
+U058,checkout_started,2026-11-08 20:26:00,S0347,P02,0,Android,Free,South,Organic
+U059,product_viewed,2026-11-08 11:30:00,S0348,P03,0,iOS,Basic,West,Paid Search
+U059,search_performed,2026-11-08 11:32:00,S0348,P03,0,iOS,Basic,West,Paid Search
+U059,add_to_cart,2026-11-08 11:35:00,S0348,P03,0,iOS,Basic,West,Paid Search
+U059,checkout_started,2026-11-08 11:39:00,S0348,P03,0,iOS,Basic,West,Paid Search
+U059,wishlist_added,2026-11-08 11:48:00,S0348,P03,0,iOS,Basic,West,Paid Search
+U001,product_viewed,2026-11-09 18:03:00,S0349,P01,0,Android,Free,North,Organic
+U001,search_performed,2026-11-09 18:05:00,S0349,P01,0,Android,Free,North,Organic
+U001,add_to_cart,2026-11-09 18:08:00,S0349,P01,0,Android,Free,North,Organic
+U001,checkout_started,2026-11-09 18:12:00,S0349,P01,0,Android,Free,North,Organic
+U001,purchase,2026-11-09 18:17:00,S0349,P01,299,Android,Free,North,Organic
+U002,product_viewed,2026-11-09 09:16:00,S0350,P02,0,iOS,Basic,South,Paid Search
+U002,add_to_cart,2026-11-09 09:21:00,S0350,P02,0,iOS,Basic,South,Paid Search
+U002,checkout_started,2026-11-09 09:25:00,S0350,P02,0,iOS,Basic,South,Paid Search
+U002,purchase,2026-11-09 09:30:00,S0350,P02,499,iOS,Basic,South,Paid Search
+U004,product_viewed,2026-11-09 15:42:00,S0351,P04,0,Android,Free,East,Organic
+U004,search_performed,2026-11-09 15:44:00,S0351,P04,0,Android,Free,East,Organic
+U004,checkout_started,2026-11-09 15:51:00,S0351,P04,0,Android,Free,East,Organic
+U004,wishlist_added,2026-11-09 16:00:00,S0351,P04,0,Android,Free,East,Organic
+U005,product_viewed,2026-11-09 18:55:00,S0352,P01,0,iOS,Basic,North,Paid Search
+U005,search_performed,2026-11-09 18:57:00,S0352,P01,0,iOS,Basic,North,Paid Search
+U005,add_to_cart,2026-11-09 19:00:00,S0352,P01,0,iOS,Basic,North,Paid Search
+U005,checkout_started,2026-11-09 19:04:00,S0352,P01,0,iOS,Basic,North,Paid Search
+U005,purchase,2026-11-09 19:09:00,S0352,P01,299,iOS,Basic,North,Paid Search
+U006,product_viewed,2026-11-09 09:08:00,S0353,P02,0,Web,Premium,South,Referral
+U006,search_performed,2026-11-09 09:10:00,S0353,P02,0,Web,Premium,South,Referral
+U006,add_to_cart,2026-11-09 09:13:00,S0353,P02,0,Web,Premium,South,Referral
+U006,checkout_started,2026-11-09 09:17:00,S0353,P02,0,Web,Premium,South,Referral
+U007,product_viewed,2026-11-09 12:21:00,S0354,P03,0,Android,Free,West,Organic
+U007,add_to_cart,2026-11-09 12:26:00,S0354,P03,0,Android,Free,West,Organic
+U007,checkout_started,2026-11-09 12:30:00,S0354,P03,0,Android,Free,West,Organic
+U009,product_viewed,2026-11-09 18:47:00,S0355,P01,0,Web,Premium,North,Referral
+U009,search_performed,2026-11-09 18:49:00,S0355,P01,0,Web,Premium,North,Referral
+U009,add_to_cart,2026-11-09 18:52:00,S0355,P01,0,Web,Premium,North,Referral
+U009,checkout_started,2026-11-09 18:56:00,S0355,P01,0,Web,Premium,North,Referral
+U009,purchase,2026-11-09 19:01:00,S0355,P01,299,Web,Premium,North,Referral
+U010,product_viewed,2026-11-09 09:00:00,S0356,P02,0,Android,Free,South,Organic
+U010,search_performed,2026-11-09 09:02:00,S0356,P02,0,Android,Free,South,Organic
+U010,add_to_cart,2026-11-09 09:05:00,S0356,P02,0,Android,Free,South,Organic
+U010,checkout_started,2026-11-09 09:09:00,S0356,P02,0,Android,Free,South,Organic
+U010,wishlist_added,2026-11-09 09:18:00,S0356,P02,0,Android,Free,South,Organic
+U012,product_viewed,2026-11-09 15:26:00,S0357,P04,0,Web,Premium,East,Referral
+U012,checkout_started,2026-11-09 15:35:00,S0357,P04,0,Web,Premium,East,Referral
+U012,purchase,2026-11-09 15:40:00,S0357,P04,999,Web,Premium,East,Referral
+U013,product_viewed,2026-11-09 18:39:00,S0358,P01,0,Android,Free,North,Organic
+U013,search_performed,2026-11-09 18:41:00,S0358,P01,0,Android,Free,North,Organic
+U013,add_to_cart,2026-11-09 18:44:00,S0358,P01,0,Android,Free,North,Organic
+U015,product_viewed,2026-11-09 12:05:00,S0359,P03,0,Web,Premium,West,Referral
+U015,search_performed,2026-11-09 12:07:00,S0359,P03,0,Web,Premium,West,Referral
+U015,add_to_cart,2026-11-09 12:10:00,S0359,P03,0,Web,Premium,West,Referral
+U015,checkout_started,2026-11-09 12:14:00,S0359,P03,0,Web,Premium,West,Referral
+U015,purchase,2026-11-09 12:19:00,S0359,P03,799,Web,Premium,West,Referral
+U016,product_viewed,2026-11-09 15:18:00,S0360,P04,0,Android,Free,East,Organic
+U016,search_performed,2026-11-09 15:20:00,S0360,P04,0,Android,Free,East,Organic
+U016,checkout_started,2026-11-09 15:27:00,S0360,P04,0,Android,Free,East,Organic
+U016,purchase,2026-11-09 15:32:00,S0360,P04,999,Android,Free,East,Organic
+U016,wishlist_added,2026-11-09 15:36:00,S0360,P04,0,Android,Free,East,Organic
+U017,product_viewed,2026-11-09 18:31:00,S0361,P01,0,iOS,Basic,North,Paid Search
+U017,add_to_cart,2026-11-09 18:36:00,S0361,P01,0,iOS,Basic,North,Paid Search
+U017,checkout_started,2026-11-09 18:40:00,S0361,P01,0,iOS,Basic,North,Paid Search
+U018,product_viewed,2026-11-09 09:44:00,S0362,P02,0,Web,Premium,South,Referral
+U018,search_performed,2026-11-09 09:46:00,S0362,P02,0,Web,Premium,South,Referral
+U018,add_to_cart,2026-11-09 09:49:00,S0362,P02,0,Web,Premium,South,Referral
+U020,product_viewed,2026-11-09 15:10:00,S0363,P04,0,iOS,Basic,East,Paid Search
+U020,search_performed,2026-11-09 15:12:00,S0363,P04,0,iOS,Basic,East,Paid Search
+U020,checkout_started,2026-11-09 15:19:00,S0363,P04,0,iOS,Basic,East,Paid Search
+U021,product_viewed,2026-11-09 18:23:00,S0364,P01,0,Web,Premium,North,Referral
+U021,search_performed,2026-11-09 18:25:00,S0364,P01,0,Web,Premium,North,Referral
+U021,add_to_cart,2026-11-09 18:28:00,S0364,P01,0,Web,Premium,North,Referral
+U021,checkout_started,2026-11-09 18:32:00,S0364,P01,0,Web,Premium,North,Referral
+U023,product_viewed,2026-11-09 12:49:00,S0365,P03,0,iOS,Basic,West,Paid Search
+U023,search_performed,2026-11-09 12:51:00,S0365,P03,0,iOS,Basic,West,Paid Search
+U023,add_to_cart,2026-11-09 12:54:00,S0365,P03,0,iOS,Basic,West,Paid Search
+U023,purchase,2026-11-09 13:03:00,S0365,P03,799,iOS,Basic,West,Paid Search
+U024,product_viewed,2026-11-09 15:02:00,S0366,P04,0,Web,Premium,East,Referral
+U024,search_performed,2026-11-09 15:04:00,S0366,P04,0,Web,Premium,East,Referral
+U024,checkout_started,2026-11-09 15:11:00,S0366,P04,0,Web,Premium,East,Referral
+U026,product_viewed,2026-11-09 09:28:00,S0367,P02,0,iOS,Basic,South,Paid Search
+U026,search_performed,2026-11-09 09:30:00,S0367,P02,0,iOS,Basic,South,Paid Search
+U026,add_to_cart,2026-11-09 09:33:00,S0367,P02,0,iOS,Basic,South,Paid Search
+U026,checkout_started,2026-11-09 09:37:00,S0367,P02,0,iOS,Basic,South,Paid Search
+U026,purchase,2026-11-09 09:42:00,S0367,P02,499,iOS,Basic,South,Paid Search
+U027,product_viewed,2026-11-09 12:41:00,S0368,P03,0,Web,Premium,West,Referral
+U027,add_to_cart,2026-11-09 12:46:00,S0368,P03,0,Web,Premium,West,Referral
+U027,checkout_started,2026-11-09 12:50:00,S0368,P03,0,Web,Premium,West,Referral
+U028,product_viewed,2026-11-09 15:54:00,S0369,P04,0,Android,Free,East,Organic
+U028,search_performed,2026-11-09 15:56:00,S0369,P04,0,Android,Free,East,Organic
+U028,wishlist_added,2026-11-09 16:12:00,S0369,P04,0,Android,Free,East,Organic
+U029,product_viewed,2026-11-09 18:07:00,S0370,P01,0,iOS,Basic,North,Paid Search
+U029,search_performed,2026-11-09 18:09:00,S0370,P01,0,iOS,Basic,North,Paid Search
+U029,add_to_cart,2026-11-09 18:12:00,S0370,P01,0,iOS,Basic,North,Paid Search
+U029,checkout_started,2026-11-09 18:16:00,S0370,P01,0,iOS,Basic,North,Paid Search
+U029,purchase,2026-11-09 18:21:00,S0370,P01,299,iOS,Basic,North,Paid Search
+U031,product_viewed,2026-11-09 12:33:00,S0371,P03,0,Android,Free,West,Organic
+U031,search_performed,2026-11-09 12:35:00,S0371,P03,0,Android,Free,West,Organic
+U031,add_to_cart,2026-11-09 12:38:00,S0371,P03,0,Android,Free,West,Organic
+U031,checkout_started,2026-11-09 12:42:00,S0371,P03,0,Android,Free,West,Organic
+U032,product_viewed,2026-11-09 15:46:00,S0372,P04,0,iOS,Basic,East,Paid Search
+U032,checkout_started,2026-11-09 15:55:00,S0372,P04,0,iOS,Basic,East,Paid Search
+U034,product_viewed,2026-11-09 09:12:00,S0373,P02,0,Android,Free,South,Organic
+U034,search_performed,2026-11-09 09:14:00,S0373,P02,0,Android,Free,South,Organic
+U034,add_to_cart,2026-11-09 09:17:00,S0373,P02,0,Android,Free,South,Organic
+U034,checkout_started,2026-11-09 09:21:00,S0373,P02,0,Android,Free,South,Organic
+U034,wishlist_added,2026-11-09 09:30:00,S0373,P02,0,Android,Free,South,Organic
+U035,product_viewed,2026-11-09 12:25:00,S0374,P03,0,iOS,Basic,West,Paid Search
+U035,search_performed,2026-11-09 12:27:00,S0374,P03,0,iOS,Basic,West,Paid Search
+U035,add_to_cart,2026-11-09 12:30:00,S0374,P03,0,iOS,Basic,West,Paid Search
+U035,checkout_started,2026-11-09 12:34:00,S0374,P03,0,iOS,Basic,West,Paid Search
+U037,product_viewed,2026-11-09 18:51:00,S0375,P01,0,Android,Free,North,Organic
+U037,add_to_cart,2026-11-09 18:56:00,S0375,P01,0,Android,Free,North,Organic
+U037,checkout_started,2026-11-09 19:00:00,S0375,P01,0,Android,Free,North,Organic
+U037,purchase,2026-11-09 19:05:00,S0375,P01,299,Android,Free,North,Organic
+U038,product_viewed,2026-11-09 09:04:00,S0376,P02,0,iOS,Basic,South,Paid Search
+U038,search_performed,2026-11-09 09:06:00,S0376,P02,0,iOS,Basic,South,Paid Search
+U038,add_to_cart,2026-11-09 09:09:00,S0376,P02,0,iOS,Basic,South,Paid Search
+U039,product_viewed,2026-11-09 12:17:00,S0377,P03,0,Web,Premium,West,Referral
+U039,search_performed,2026-11-09 12:19:00,S0377,P03,0,Web,Premium,West,Referral
+U039,add_to_cart,2026-11-09 12:22:00,S0377,P03,0,Web,Premium,West,Referral
+U039,checkout_started,2026-11-09 12:26:00,S0377,P03,0,Web,Premium,West,Referral
+U040,product_viewed,2026-11-09 15:30:00,S0378,P04,0,Android,Free,East,Organic
+U040,search_performed,2026-11-09 15:32:00,S0378,P04,0,Android,Free,East,Organic
+U040,checkout_started,2026-11-09 15:39:00,S0378,P04,0,Android,Free,East,Organic
+U040,purchase,2026-11-09 15:44:00,S0378,P04,999,Android,Free,East,Organic
+U040,wishlist_added,2026-11-09 15:48:00,S0378,P04,0,Android,Free,East,Organic
+U042,product_viewed,2026-11-09 09:56:00,S0379,P02,0,Web,Premium,South,Referral
+U042,add_to_cart,2026-11-09 10:01:00,S0379,P02,0,Web,Premium,South,Referral
+U042,checkout_started,2026-11-09 10:05:00,S0379,P02,0,Web,Premium,South,Referral
+U043,product_viewed,2026-11-09 12:09:00,S0380,P03,0,Android,Free,West,Organic
+U043,search_performed,2026-11-09 12:11:00,S0380,P03,0,Android,Free,West,Organic
+U043,add_to_cart,2026-11-09 12:14:00,S0380,P03,0,Android,Free,West,Organic
+U043,purchase,2026-11-09 12:23:00,S0380,P03,799,Android,Free,West,Organic
+U045,product_viewed,2026-11-09 18:35:00,S0381,P01,0,Web,Premium,North,Referral
+U045,search_performed,2026-11-09 18:37:00,S0381,P01,0,Web,Premium,North,Referral
+U045,add_to_cart,2026-11-09 18:40:00,S0381,P01,0,Web,Premium,North,Referral
+U045,checkout_started,2026-11-09 18:44:00,S0381,P01,0,Web,Premium,North,Referral
+U046,product_viewed,2026-11-09 09:48:00,S0382,P02,0,Android,Free,South,Organic
+U046,search_performed,2026-11-09 09:50:00,S0382,P02,0,Android,Free,South,Organic
+U046,add_to_cart,2026-11-09 09:53:00,S0382,P02,0,Android,Free,South,Organic
+U046,checkout_started,2026-11-09 09:57:00,S0382,P02,0,Android,Free,South,Organic
+U046,wishlist_added,2026-11-09 10:06:00,S0382,P02,0,Android,Free,South,Organic
+U048,product_viewed,2026-11-09 15:14:00,S0383,P04,0,Web,Premium,East,Referral
+U048,search_performed,2026-11-09 15:16:00,S0383,P04,0,Web,Premium,East,Referral
+U049,product_viewed,2026-11-09 18:27:00,S0384,P01,0,Android,Free,North,Organic
+U049,search_performed,2026-11-09 18:29:00,S0384,P01,0,Android,Free,North,Organic
+U049,add_to_cart,2026-11-09 18:32:00,S0384,P01,0,Android,Free,North,Organic
+U049,checkout_started,2026-11-09 18:36:00,S0384,P01,0,Android,Free,North,Organic
+U050,product_viewed,2026-11-09 09:40:00,S0385,P02,0,iOS,Basic,South,Paid Search
+U050,search_performed,2026-11-09 09:42:00,S0385,P02,0,iOS,Basic,South,Paid Search
+U050,add_to_cart,2026-11-09 09:45:00,S0385,P02,0,iOS,Basic,South,Paid Search
+U050,checkout_started,2026-11-09 09:49:00,S0385,P02,0,iOS,Basic,South,Paid Search
+U050,purchase,2026-11-09 09:54:00,S0385,P02,499,iOS,Basic,South,Paid Search
+U051,product_viewed,2026-11-09 12:53:00,S0386,P03,0,Web,Premium,West,Referral
+U051,search_performed,2026-11-09 12:55:00,S0386,P03,0,Web,Premium,West,Referral
+U051,add_to_cart,2026-11-09 12:58:00,S0386,P03,0,Web,Premium,West,Referral
+U051,checkout_started,2026-11-09 13:02:00,S0386,P03,0,Web,Premium,West,Referral
+U051,purchase,2026-11-09 13:07:00,S0386,P03,799,Web,Premium,West,Referral
+U053,product_viewed,2026-11-09 18:19:00,S0387,P01,0,iOS,Basic,North,Paid Search
+U053,search_performed,2026-11-09 18:21:00,S0387,P01,0,iOS,Basic,North,Paid Search
+U053,add_to_cart,2026-11-09 18:24:00,S0387,P01,0,iOS,Basic,North,Paid Search
+U054,product_viewed,2026-11-09 09:32:00,S0388,P02,0,Web,Premium,South,Referral
+U054,search_performed,2026-11-09 09:34:00,S0388,P02,0,Web,Premium,South,Referral
+U054,add_to_cart,2026-11-09 09:37:00,S0388,P02,0,Web,Premium,South,Referral
+U054,checkout_started,2026-11-09 09:41:00,S0388,P02,0,Web,Premium,South,Referral
+U054,purchase,2026-11-09 09:46:00,S0388,P02,499,Web,Premium,South,Referral
+U056,product_viewed,2026-11-09 15:58:00,S0389,P04,0,iOS,Basic,East,Paid Search
+U056,search_performed,2026-11-09 16:00:00,S0389,P04,0,iOS,Basic,East,Paid Search
+U056,checkout_started,2026-11-09 16:07:00,S0389,P04,0,iOS,Basic,East,Paid Search
+U057,product_viewed,2026-11-09 18:11:00,S0390,P01,0,Web,Premium,North,Referral
+U057,add_to_cart,2026-11-09 18:16:00,S0390,P01,0,Web,Premium,North,Referral
+U057,checkout_started,2026-11-09 18:20:00,S0390,P01,0,Web,Premium,North,Referral
+U057,purchase,2026-11-09 18:25:00,S0390,P01,299,Web,Premium,North,Referral
+U059,product_viewed,2026-11-09 12:37:00,S0391,P03,0,iOS,Basic,West,Paid Search
+U059,search_performed,2026-11-09 12:39:00,S0391,P03,0,iOS,Basic,West,Paid Search
+U059,add_to_cart,2026-11-09 12:42:00,S0391,P03,0,iOS,Basic,West,Paid Search
+U059,checkout_started,2026-11-09 12:46:00,S0391,P03,0,iOS,Basic,West,Paid Search
+U060,product_viewed,2026-11-09 15:50:00,S0392,P04,0,Web,Premium,East,Referral
+U060,search_performed,2026-11-09 15:52:00,S0392,P04,0,Web,Premium,East,Referral
+U060,checkout_started,2026-11-09 15:59:00,S0392,P04,0,Web,Premium,East,Referral
+U002,product_viewed,2026-11-10 10:23:00,S0393,P02,0,iOS,Basic,South,Paid Search
+U002,search_performed,2026-11-10 10:25:00,S0393,P02,0,iOS,Basic,South,Paid Search
+U002,add_to_cart,2026-11-10 10:28:00,S0393,P02,0,iOS,Basic,South,Paid Search
+U002,checkout_started,2026-11-10 10:32:00,S0393,P02,0,iOS,Basic,South,Paid Search
+U002,purchase,2026-11-10 10:37:00,S0393,P02,499,iOS,Basic,South,Paid Search
+U003,product_viewed,2026-11-10 13:36:00,S0394,P03,0,Web,Premium,West,Referral
+U003,search_performed,2026-11-10 13:38:00,S0394,P03,0,Web,Premium,West,Referral
+U003,checkout_started,2026-11-10 13:45:00,S0394,P03,0,Web,Premium,West,Referral
+U003,wishlist_added,2026-11-10 13:54:00,S0394,P03,0,Web,Premium,West,Referral
+U004,product_viewed,2026-11-10 16:49:00,S0395,P04,0,Android,Free,East,Organic
+U004,search_performed,2026-11-10 16:51:00,S0395,P04,0,Android,Free,East,Organic
+U004,add_to_cart,2026-11-10 16:54:00,S0395,P04,0,Android,Free,East,Organic
+U004,checkout_started,2026-11-10 16:58:00,S0395,P04,0,Android,Free,East,Organic
+U004,feature_used,2026-11-10 17:09:00,S0395,P04,0,Android,Free,East,Organic
+U005,product_viewed,2026-11-10 19:02:00,S0396,P01,0,iOS,Basic,North,Paid Search
+U005,search_performed,2026-11-10 19:04:00,S0396,P01,0,iOS,Basic,North,Paid Search
+U005,add_to_cart,2026-11-10 19:07:00,S0396,P01,0,iOS,Basic,North,Paid Search
+U005,checkout_started,2026-11-10 19:11:00,S0396,P01,0,iOS,Basic,North,Paid Search
+U005,purchase,2026-11-10 19:16:00,S0396,P01,299,iOS,Basic,North,Paid Search
+U007,product_viewed,2026-11-10 13:28:00,S0397,P03,0,Android,Free,West,Organic
+U007,search_performed,2026-11-10 13:30:00,S0397,P03,0,Android,Free,West,Organic
+U007,checkout_started,2026-11-10 13:37:00,S0397,P03,0,Android,Free,West,Organic
+U008,product_viewed,2026-11-10 16:41:00,S0398,P04,0,iOS,Basic,East,Paid Search
+U008,search_performed,2026-11-10 16:43:00,S0398,P04,0,iOS,Basic,East,Paid Search
+U008,add_to_cart,2026-11-10 16:46:00,S0398,P04,0,iOS,Basic,East,Paid Search
+U008,checkout_started,2026-11-10 16:50:00,S0398,P04,0,iOS,Basic,East,Paid Search
+U008,feature_used,2026-11-10 17:01:00,S0398,P04,0,iOS,Basic,East,Paid Search
+U010,product_viewed,2026-11-10 10:07:00,S0399,P02,0,Android,Free,South,Organic
+U010,search_performed,2026-11-10 10:09:00,S0399,P02,0,Android,Free,South,Organic
+U010,add_to_cart,2026-11-10 10:12:00,S0399,P02,0,Android,Free,South,Organic
+U010,checkout_started,2026-11-10 10:16:00,S0399,P02,0,Android,Free,South,Organic
+U011,product_viewed,2026-11-10 13:20:00,S0400,P03,0,iOS,Basic,West,Paid Search
+U013,product_viewed,2026-11-10 19:46:00,S0401,P01,0,Android,Free,North,Organic
+U013,search_performed,2026-11-10 19:48:00,S0401,P01,0,Android,Free,North,Organic
+U013,add_to_cart,2026-11-10 19:51:00,S0401,P01,0,Android,Free,North,Organic
+U013,checkout_started,2026-11-10 19:55:00,S0401,P01,0,Android,Free,North,Organic
+U013,purchase,2026-11-10 20:00:00,S0401,P01,299,Android,Free,North,Organic
+U014,product_viewed,2026-11-10 10:59:00,S0402,P02,0,iOS,Basic,South,Paid Search
+U014,search_performed,2026-11-10 11:01:00,S0402,P02,0,iOS,Basic,South,Paid Search
+U014,add_to_cart,2026-11-10 11:04:00,S0402,P02,0,iOS,Basic,South,Paid Search
+U014,checkout_started,2026-11-10 11:08:00,S0402,P02,0,iOS,Basic,South,Paid Search
+U015,product_viewed,2026-11-10 13:12:00,S0403,P03,0,Web,Premium,West,Referral
+U015,search_performed,2026-11-10 13:14:00,S0403,P03,0,Web,Premium,West,Referral
+U015,checkout_started,2026-11-10 13:21:00,S0403,P03,0,Web,Premium,West,Referral
+U015,wishlist_added,2026-11-10 13:30:00,S0403,P03,0,Web,Premium,West,Referral
+U016,product_viewed,2026-11-10 16:25:00,S0404,P04,0,Android,Free,East,Organic
+U016,add_to_cart,2026-11-10 16:30:00,S0404,P04,0,Android,Free,East,Organic
+U016,purchase,2026-11-10 16:39:00,S0404,P04,999,Android,Free,East,Organic
+U016,feature_used,2026-11-10 16:45:00,S0404,P04,0,Android,Free,East,Organic
+U018,product_viewed,2026-11-10 10:51:00,S0405,P02,0,Web,Premium,South,Referral
+U018,search_performed,2026-11-10 10:53:00,S0405,P02,0,Web,Premium,South,Referral
+U018,add_to_cart,2026-11-10 10:56:00,S0405,P02,0,Web,Premium,South,Referral
+U018,checkout_started,2026-11-10 11:00:00,S0405,P02,0,Web,Premium,South,Referral
+U019,product_viewed,2026-11-10 13:04:00,S0406,P03,0,Android,Free,West,Organic
+U019,search_performed,2026-11-10 13:06:00,S0406,P03,0,Android,Free,West,Organic
+U019,checkout_started,2026-11-10 13:13:00,S0406,P03,0,Android,Free,West,Organic
+U019,purchase,2026-11-10 13:18:00,S0406,P03,799,Android,Free,West,Organic
+U021,product_viewed,2026-11-10 19:30:00,S0407,P01,0,Web,Premium,North,Referral
+U021,add_to_cart,2026-11-10 19:35:00,S0407,P01,0,Web,Premium,North,Referral
+U021,wishlist_added,2026-11-10 19:48:00,S0407,P01,0,Web,Premium,North,Referral
+U022,product_viewed,2026-11-10 10:43:00,S0408,P02,0,Android,Free,South,Organic
+U022,search_performed,2026-11-10 10:45:00,S0408,P02,0,Android,Free,South,Organic
+U022,add_to_cart,2026-11-10 10:48:00,S0408,P02,0,Android,Free,South,Organic
+U022,checkout_started,2026-11-10 10:52:00,S0408,P02,0,Android,Free,South,Organic
+U024,product_viewed,2026-11-10 16:09:00,S0409,P04,0,Web,Premium,East,Referral
+U024,search_performed,2026-11-10 16:11:00,S0409,P04,0,Web,Premium,East,Referral
+U024,add_to_cart,2026-11-10 16:14:00,S0409,P04,0,Web,Premium,East,Referral
+U024,checkout_started,2026-11-10 16:18:00,S0409,P04,0,Web,Premium,East,Referral
+U024,feature_used,2026-11-10 16:29:00,S0409,P04,0,Web,Premium,East,Referral
+U025,product_viewed,2026-11-10 19:22:00,S0410,P01,0,Android,Free,North,Organic
+U025,search_performed,2026-11-10 19:24:00,S0410,P01,0,Android,Free,North,Organic
+U025,add_to_cart,2026-11-10 19:27:00,S0410,P01,0,Android,Free,North,Organic
+U025,checkout_started,2026-11-10 19:31:00,S0410,P01,0,Android,Free,North,Organic
+U026,product_viewed,2026-11-10 10:35:00,S0411,P02,0,iOS,Basic,South,Paid Search
+U026,add_to_cart,2026-11-10 10:40:00,S0411,P02,0,iOS,Basic,South,Paid Search
+U026,purchase,2026-11-10 10:49:00,S0411,P02,499,iOS,Basic,South,Paid Search
+U027,product_viewed,2026-11-10 13:48:00,S0412,P03,0,Web,Premium,West,Referral
+U027,search_performed,2026-11-10 13:50:00,S0412,P03,0,Web,Premium,West,Referral
+U027,checkout_started,2026-11-10 13:57:00,S0412,P03,0,Web,Premium,West,Referral
+U027,purchase,2026-11-10 14:02:00,S0412,P03,799,Web,Premium,West,Referral
+U027,wishlist_added,2026-11-10 14:06:00,S0412,P03,0,Web,Premium,West,Referral
+U029,product_viewed,2026-11-10 19:14:00,S0413,P01,0,iOS,Basic,North,Paid Search
+U029,search_performed,2026-11-10 19:16:00,S0413,P01,0,iOS,Basic,North,Paid Search
+U029,add_to_cart,2026-11-10 19:19:00,S0413,P01,0,iOS,Basic,North,Paid Search
+U029,checkout_started,2026-11-10 19:23:00,S0413,P01,0,iOS,Basic,North,Paid Search
+U030,product_viewed,2026-11-10 10:27:00,S0414,P02,0,Web,Premium,South,Referral
+U030,search_performed,2026-11-10 10:29:00,S0414,P02,0,Web,Premium,South,Referral
+U030,add_to_cart,2026-11-10 10:32:00,S0414,P02,0,Web,Premium,South,Referral
+U030,checkout_started,2026-11-10 10:36:00,S0414,P02,0,Web,Premium,South,Referral
+U030,purchase,2026-11-10 10:41:00,S0414,P02,499,Web,Premium,South,Referral
+U032,product_viewed,2026-11-10 16:53:00,S0415,P04,0,iOS,Basic,East,Paid Search
+U032,search_performed,2026-11-10 16:55:00,S0415,P04,0,iOS,Basic,East,Paid Search
+U032,add_to_cart,2026-11-10 16:58:00,S0415,P04,0,iOS,Basic,East,Paid Search
+U032,checkout_started,2026-11-10 17:02:00,S0415,P04,0,iOS,Basic,East,Paid Search
+U032,feature_used,2026-11-10 17:13:00,S0415,P04,0,iOS,Basic,East,Paid Search
+U033,product_viewed,2026-11-10 19:06:00,S0416,P01,0,Web,Premium,North,Referral
+U033,search_performed,2026-11-10 19:08:00,S0416,P01,0,Web,Premium,North,Referral
+U033,add_to_cart,2026-11-10 19:11:00,S0416,P01,0,Web,Premium,North,Referral
+U033,checkout_started,2026-11-10 19:15:00,S0416,P01,0,Web,Premium,North,Referral
+U033,purchase,2026-11-10 19:20:00,S0416,P01,299,Web,Premium,North,Referral
+U033,wishlist_added,2026-11-10 19:24:00,S0416,P01,0,Web,Premium,North,Referral
+U035,product_viewed,2026-11-10 13:32:00,S0417,P03,0,iOS,Basic,West,Paid Search
+U035,search_performed,2026-11-10 13:34:00,S0417,P03,0,iOS,Basic,West,Paid Search
+U035,checkout_started,2026-11-10 13:41:00,S0417,P03,0,iOS,Basic,West,Paid Search
+U036,product_viewed,2026-11-10 16:45:00,S0418,P04,0,Web,Premium,East,Referral
+U036,add_to_cart,2026-11-10 16:50:00,S0418,P04,0,Web,Premium,East,Referral
+U036,feature_used,2026-11-10 17:05:00,S0418,P04,0,Web,Premium,East,Referral
+U037,product_viewed,2026-11-10 19:58:00,S0419,P01,0,Android,Free,North,Organic
+U037,search_performed,2026-11-10 20:00:00,S0419,P01,0,Android,Free,North,Organic
+U037,add_to_cart,2026-11-10 20:03:00,S0419,P01,0,Android,Free,North,Organic
+U037,checkout_started,2026-11-10 20:07:00,S0419,P01,0,Android,Free,North,Organic
+U037,purchase,2026-11-10 20:12:00,S0419,P01,299,Android,Free,North,Organic
+U038,product_viewed,2026-11-10 10:11:00,S0420,P02,0,iOS,Basic,South,Paid Search
+U038,search_performed,2026-11-10 10:13:00,S0420,P02,0,iOS,Basic,South,Paid Search
+U038,add_to_cart,2026-11-10 10:16:00,S0420,P02,0,iOS,Basic,South,Paid Search
+U038,checkout_started,2026-11-10 10:20:00,S0420,P02,0,iOS,Basic,South,Paid Search
+U040,product_viewed,2026-11-10 16:37:00,S0421,P04,0,Android,Free,East,Organic
+U040,search_performed,2026-11-10 16:39:00,S0421,P04,0,Android,Free,East,Organic
+U040,add_to_cart,2026-11-10 16:42:00,S0421,P04,0,Android,Free,East,Organic
+U040,checkout_started,2026-11-10 16:46:00,S0421,P04,0,Android,Free,East,Organic
+U040,purchase,2026-11-10 16:51:00,S0421,P04,999,Android,Free,East,Organic
+U040,feature_used,2026-11-10 16:57:00,S0421,P04,0,Android,Free,East,Organic
+U041,product_viewed,2026-11-10 19:50:00,S0422,P01,0,iOS,Basic,North,Paid Search
+U041,add_to_cart,2026-11-10 19:55:00,S0422,P01,0,iOS,Basic,North,Paid Search
+U041,purchase,2026-11-10 20:04:00,S0422,P01,299,iOS,Basic,North,Paid Search
+U043,product_viewed,2026-11-10 13:16:00,S0423,P03,0,Android,Free,West,Organic
+U043,search_performed,2026-11-10 13:18:00,S0423,P03,0,Android,Free,West,Organic
+U043,checkout_started,2026-11-10 13:25:00,S0423,P03,0,Android,Free,West,Organic
+U044,product_viewed,2026-11-10 16:29:00,S0424,P04,0,iOS,Basic,East,Paid Search
+U044,search_performed,2026-11-10 16:31:00,S0424,P04,0,iOS,Basic,East,Paid Search
+U044,add_to_cart,2026-11-10 16:34:00,S0424,P04,0,iOS,Basic,East,Paid Search
+U044,checkout_started,2026-11-10 16:38:00,S0424,P04,0,iOS,Basic,East,Paid Search
+U044,purchase,2026-11-10 16:43:00,S0424,P04,999,iOS,Basic,East,Paid Search
+U044,feature_used,2026-11-10 16:49:00,S0424,P04,0,iOS,Basic,East,Paid Search
+U046,product_viewed,2026-11-10 10:55:00,S0425,P02,0,Android,Free,South,Organic
+U046,add_to_cart,2026-11-10 11:00:00,S0425,P02,0,Android,Free,South,Organic
+U047,product_viewed,2026-11-10 13:08:00,S0426,P03,0,iOS,Basic,West,Paid Search
+U047,search_performed,2026-11-10 13:10:00,S0426,P03,0,iOS,Basic,West,Paid Search
+U047,checkout_started,2026-11-10 13:17:00,S0426,P03,0,iOS,Basic,West,Paid Search
+U047,purchase,2026-11-10 13:22:00,S0426,P03,799,iOS,Basic,West,Paid Search
+U048,product_viewed,2026-11-10 16:21:00,S0427,P04,0,Web,Premium,East,Referral
+U048,search_performed,2026-11-10 16:23:00,S0427,P04,0,Web,Premium,East,Referral
+U048,add_to_cart,2026-11-10 16:26:00,S0427,P04,0,Web,Premium,East,Referral
+U048,checkout_started,2026-11-10 16:30:00,S0427,P04,0,Web,Premium,East,Referral
+U048,purchase,2026-11-10 16:35:00,S0427,P04,999,Web,Premium,East,Referral
+U048,feature_used,2026-11-10 16:41:00,S0427,P04,0,Web,Premium,East,Referral
+U049,product_viewed,2026-11-10 19:34:00,S0428,P01,0,Android,Free,North,Organic
+U049,search_performed,2026-11-10 19:36:00,S0428,P01,0,Android,Free,North,Organic
+U049,add_to_cart,2026-11-10 19:39:00,S0428,P01,0,Android,Free,North,Organic
+U049,checkout_started,2026-11-10 19:43:00,S0428,P01,0,Android,Free,North,Organic
+U051,product_viewed,2026-11-10 13:00:00,S0429,P03,0,Web,Premium,West,Referral
+U051,purchase,2026-11-10 13:14:00,S0429,P03,799,Web,Premium,West,Referral
+U051,wishlist_added,2026-11-10 13:18:00,S0429,P03,0,Web,Premium,West,Referral
+U052,product_viewed,2026-11-10 16:13:00,S0430,P04,0,Android,Free,East,Organic
+U052,search_performed,2026-11-10 16:15:00,S0430,P04,0,Android,Free,East,Organic
+U052,add_to_cart,2026-11-10 16:18:00,S0430,P04,0,Android,Free,East,Organic
+U052,checkout_started,2026-11-10 16:22:00,S0430,P04,0,Android,Free,East,Organic
+U052,feature_used,2026-11-10 16:33:00,S0430,P04,0,Android,Free,East,Organic
+U054,product_viewed,2026-11-10 10:39:00,S0431,P02,0,Web,Premium,South,Referral
+U054,search_performed,2026-11-10 10:41:00,S0431,P02,0,Web,Premium,South,Referral
+U054,add_to_cart,2026-11-10 10:44:00,S0431,P02,0,Web,Premium,South,Referral
+U054,checkout_started,2026-11-10 10:48:00,S0431,P02,0,Web,Premium,South,Referral
+U054,purchase,2026-11-10 10:53:00,S0431,P02,499,Web,Premium,South,Referral
+U055,product_viewed,2026-11-10 13:52:00,S0432,P03,0,Android,Free,West,Organic
+U055,search_performed,2026-11-10 13:54:00,S0432,P03,0,Android,Free,West,Organic
+U055,checkout_started,2026-11-10 14:01:00,S0432,P03,0,Android,Free,West,Organic
+U055,purchase,2026-11-10 14:06:00,S0432,P03,799,Android,Free,West,Organic
+U057,product_viewed,2026-11-10 19:18:00,S0433,P01,0,Web,Premium,North,Referral
+U057,search_performed,2026-11-10 19:20:00,S0433,P01,0,Web,Premium,North,Referral
+U057,add_to_cart,2026-11-10 19:23:00,S0433,P01,0,Web,Premium,North,Referral
+U057,checkout_started,2026-11-10 19:27:00,S0433,P01,0,Web,Premium,North,Referral
+U057,wishlist_added,2026-11-10 19:36:00,S0433,P01,0,Web,Premium,North,Referral
+U058,product_viewed,2026-11-10 10:31:00,S0434,P02,0,Android,Free,South,Organic
+U058,search_performed,2026-11-10 10:33:00,S0434,P02,0,Android,Free,South,Organic
+U058,add_to_cart,2026-11-10 10:36:00,S0434,P02,0,Android,Free,South,Organic
+U058,checkout_started,2026-11-10 10:40:00,S0434,P02,0,Android,Free,South,Organic
+U058,purchase,2026-11-10 10:45:00,S0434,P02,499,Android,Free,South,Organic
+U059,product_viewed,2026-11-10 13:44:00,S0435,P03,0,iOS,Basic,West,Paid Search
+U059,search_performed,2026-11-10 13:46:00,S0435,P03,0,iOS,Basic,West,Paid Search
+U059,checkout_started,2026-11-10 13:53:00,S0435,P03,0,iOS,Basic,West,Paid Search
+U060,product_viewed,2026-11-10 16:57:00,S0436,P04,0,Web,Premium,East,Referral
+U060,search_performed,2026-11-10 16:59:00,S0436,P04,0,Web,Premium,East,Referral
+U060,add_to_cart,2026-11-10 17:02:00,S0436,P04,0,Web,Premium,East,Referral
+U060,checkout_started,2026-11-10 17:06:00,S0436,P04,0,Web,Premium,East,Referral
+U060,feature_used,2026-11-10 17:17:00,S0436,P04,0,Web,Premium,East,Referral
+U001,product_viewed,2026-11-11 20:17:00,S0437,P01,0,Android,Free,North,Organic
+U001,search_performed,2026-11-11 20:19:00,S0437,P01,0,Android,Free,North,Organic
+U001,add_to_cart,2026-11-11 20:22:00,S0437,P01,0,Android,Free,North,Organic
+U001,checkout_started,2026-11-11 20:26:00,S0437,P01,0,Android,Free,North,Organic
+U002,product_viewed,2026-11-11 11:30:00,S0438,P02,0,iOS,Basic,South,Paid Search
+U002,search_performed,2026-11-11 11:32:00,S0438,P02,0,iOS,Basic,South,Paid Search
+U002,checkout_started,2026-11-11 11:39:00,S0438,P02,0,iOS,Basic,South,Paid Search
+U002,purchase,2026-11-11 11:44:00,S0438,P02,499,iOS,Basic,South,Paid Search
+U002,wishlist_added,2026-11-11 11:48:00,S0438,P02,0,iOS,Basic,South,Paid Search
+U003,product_viewed,2026-11-11 14:43:00,S0439,P03,0,Web,Premium,West,Referral
+U003,search_performed,2026-11-11 14:45:00,S0439,P03,0,Web,Premium,West,Referral
+U003,add_to_cart,2026-11-11 14:48:00,S0439,P03,0,Web,Premium,West,Referral
+U003,checkout_started,2026-11-11 14:52:00,S0439,P03,0,Web,Premium,West,Referral
+U003,purchase,2026-11-11 14:57:00,S0439,P03,799,Web,Premium,West,Referral
+U005,product_viewed,2026-11-11 20:09:00,S0440,P01,0,iOS,Basic,North,Paid Search
+U005,add_to_cart,2026-11-11 20:14:00,S0440,P01,0,iOS,Basic,North,Paid Search
+U005,checkout_started,2026-11-11 20:18:00,S0440,P01,0,iOS,Basic,North,Paid Search
+U006,product_viewed,2026-11-11 11:22:00,S0441,P02,0,Web,Premium,South,Referral
+U006,search_performed,2026-11-11 11:24:00,S0441,P02,0,Web,Premium,South,Referral
+U006,checkout_started,2026-11-11 11:31:00,S0441,P02,0,Web,Premium,South,Referral
+U006,purchase,2026-11-11 11:36:00,S0441,P02,499,Web,Premium,South,Referral
+U008,product_viewed,2026-11-11 17:48:00,S0442,P04,0,iOS,Basic,East,Paid Search
+U008,search_performed,2026-11-11 17:50:00,S0442,P04,0,iOS,Basic,East,Paid Search
+U008,add_to_cart,2026-11-11 17:53:00,S0442,P04,0,iOS,Basic,East,Paid Search
+U008,checkout_started,2026-11-11 17:57:00,S0442,P04,0,iOS,Basic,East,Paid Search
+U008,wishlist_added,2026-11-11 18:06:00,S0442,P04,0,iOS,Basic,East,Paid Search
+U009,product_viewed,2026-11-11 20:01:00,S0443,P01,0,Web,Premium,North,Referral
+U009,search_performed,2026-11-11 20:03:00,S0443,P01,0,Web,Premium,North,Referral
+U009,add_to_cart,2026-11-11 20:06:00,S0443,P01,0,Web,Premium,North,Referral
+U009,purchase,2026-11-11 20:15:00,S0443,P01,299,Web,Premium,North,Referral
+U011,product_viewed,2026-11-11 14:27:00,S0444,P03,0,iOS,Basic,West,Paid Search
+U011,search_performed,2026-11-11 14:29:00,S0444,P03,0,iOS,Basic,West,Paid Search
+U011,add_to_cart,2026-11-11 14:32:00,S0444,P03,0,iOS,Basic,West,Paid Search
+U011,checkout_started,2026-11-11 14:36:00,S0444,P03,0,iOS,Basic,West,Paid Search
+U012,product_viewed,2026-11-11 17:40:00,S0445,P04,0,Web,Premium,East,Referral
+U012,search_performed,2026-11-11 17:42:00,S0445,P04,0,Web,Premium,East,Referral
+U012,add_to_cart,2026-11-11 17:45:00,S0445,P04,0,Web,Premium,East,Referral
+U012,checkout_started,2026-11-11 17:49:00,S0445,P04,0,Web,Premium,East,Referral
+U013,product_viewed,2026-11-11 20:53:00,S0446,P01,0,Android,Free,North,Organic
+U013,search_performed,2026-11-11 20:55:00,S0446,P01,0,Android,Free,North,Organic
+U013,add_to_cart,2026-11-11 20:58:00,S0446,P01,0,Android,Free,North,Organic
+U013,checkout_started,2026-11-11 21:02:00,S0446,P01,0,Android,Free,North,Organic
+U013,purchase,2026-11-11 21:07:00,S0446,P01,299,Android,Free,North,Organic
+U014,product_viewed,2026-11-11 11:06:00,S0447,P02,0,iOS,Basic,South,Paid Search
+U014,search_performed,2026-11-11 11:08:00,S0447,P02,0,iOS,Basic,South,Paid Search
+U014,wishlist_added,2026-11-11 11:24:00,S0447,P02,0,iOS,Basic,South,Paid Search
+U016,product_viewed,2026-11-11 17:32:00,S0448,P04,0,Android,Free,East,Organic
+U016,search_performed,2026-11-11 17:34:00,S0448,P04,0,Android,Free,East,Organic
+U016,add_to_cart,2026-11-11 17:37:00,S0448,P04,0,Android,Free,East,Organic
+U016,checkout_started,2026-11-11 17:41:00,S0448,P04,0,Android,Free,East,Organic
+U016,purchase,2026-11-11 17:46:00,S0448,P04,999,Android,Free,East,Organic
+U017,product_viewed,2026-11-11 20:45:00,S0449,P01,0,iOS,Basic,North,Paid Search
+U017,search_performed,2026-11-11 20:47:00,S0449,P01,0,iOS,Basic,North,Paid Search
+U017,add_to_cart,2026-11-11 20:50:00,S0449,P01,0,iOS,Basic,North,Paid Search
+U017,checkout_started,2026-11-11 20:54:00,S0449,P01,0,iOS,Basic,North,Paid Search
+U017,purchase,2026-11-11 20:59:00,S0449,P01,299,iOS,Basic,North,Paid Search
+U019,product_viewed,2026-11-11 14:11:00,S0450,P03,0,Android,Free,West,Organic
+U019,search_performed,2026-11-11 14:13:00,S0450,P03,0,Android,Free,West,Organic
+U019,add_to_cart,2026-11-11 14:16:00,S0450,P03,0,Android,Free,West,Organic
+U020,product_viewed,2026-11-11 17:24:00,S0451,P04,0,iOS,Basic,East,Paid Search
+U020,add_to_cart,2026-11-11 17:29:00,S0451,P04,0,iOS,Basic,East,Paid Search
+U020,checkout_started,2026-11-11 17:33:00,S0451,P04,0,iOS,Basic,East,Paid Search
+U020,purchase,2026-11-11 17:38:00,S0451,P04,999,iOS,Basic,East,Paid Search
+U020,wishlist_added,2026-11-11 17:42:00,S0451,P04,0,iOS,Basic,East,Paid Search
+U022,product_viewed,2026-11-11 11:50:00,S0452,P02,0,Android,Free,South,Organic
+U022,search_performed,2026-11-11 11:52:00,S0452,P02,0,Android,Free,South,Organic
+U022,checkout_started,2026-11-11 11:59:00,S0452,P02,0,Android,Free,South,Organic
+U023,product_viewed,2026-11-11 14:03:00,S0453,P03,0,iOS,Basic,West,Paid Search
+U023,search_performed,2026-11-11 14:05:00,S0453,P03,0,iOS,Basic,West,Paid Search
+U023,add_to_cart,2026-11-11 14:08:00,S0453,P03,0,iOS,Basic,West,Paid Search
+U023,checkout_started,2026-11-11 14:12:00,S0453,P03,0,iOS,Basic,West,Paid Search
+U023,purchase,2026-11-11 14:17:00,S0453,P03,799,iOS,Basic,West,Paid Search
+U024,product_viewed,2026-11-11 17:16:00,S0454,P04,0,Web,Premium,East,Referral
+U024,search_performed,2026-11-11 17:18:00,S0454,P04,0,Web,Premium,East,Referral
+U024,add_to_cart,2026-11-11 17:21:00,S0454,P04,0,Web,Premium,East,Referral
+U024,purchase,2026-11-11 17:30:00,S0454,P04,999,Web,Premium,East,Referral
+U025,product_viewed,2026-11-11 20:29:00,S0455,P01,0,Android,Free,North,Organic
+U025,add_to_cart,2026-11-11 20:34:00,S0455,P01,0,Android,Free,North,Organic
+U025,checkout_started,2026-11-11 20:38:00,S0455,P01,0,Android,Free,North,Organic
+U027,product_viewed,2026-11-11 14:55:00,S0456,P03,0,Web,Premium,West,Referral
+U027,search_performed,2026-11-11 14:57:00,S0456,P03,0,Web,Premium,West,Referral
+U027,add_to_cart,2026-11-11 15:00:00,S0456,P03,0,Web,Premium,West,Referral
+U027,checkout_started,2026-11-11 15:04:00,S0456,P03,0,Web,Premium,West,Referral
+U027,purchase,2026-11-11 15:09:00,S0456,P03,799,Web,Premium,West,Referral
+U028,product_viewed,2026-11-11 17:08:00,S0457,P04,0,Android,Free,East,Organic
+U028,search_performed,2026-11-11 17:10:00,S0457,P04,0,Android,Free,East,Organic
+U028,add_to_cart,2026-11-11 17:13:00,S0457,P04,0,Android,Free,East,Organic
+U028,checkout_started,2026-11-11 17:17:00,S0457,P04,0,Android,Free,East,Organic
+U030,product_viewed,2026-11-11 11:34:00,S0458,P02,0,Web,Premium,South,Referral
+U030,checkout_started,2026-11-11 11:43:00,S0458,P02,0,Web,Premium,South,Referral
+U030,purchase,2026-11-11 11:48:00,S0458,P02,499,Web,Premium,South,Referral
+U031,product_viewed,2026-11-11 14:47:00,S0459,P03,0,Android,Free,West,Organic
+U031,search_performed,2026-11-11 14:49:00,S0459,P03,0,Android,Free,West,Organic
+U031,add_to_cart,2026-11-11 14:52:00,S0459,P03,0,Android,Free,West,Organic
+U031,checkout_started,2026-11-11 14:56:00,S0459,P03,0,Android,Free,West,Organic
+U031,purchase,2026-11-11 15:01:00,S0459,P03,799,Android,Free,West,Organic
+U033,product_viewed,2026-11-11 20:13:00,S0460,P01,0,Web,Premium,North,Referral
+U033,search_performed,2026-11-11 20:15:00,S0460,P01,0,Web,Premium,North,Referral
+U033,add_to_cart,2026-11-11 20:18:00,S0460,P01,0,Web,Premium,North,Referral
+U033,checkout_started,2026-11-11 20:22:00,S0460,P01,0,Web,Premium,North,Referral
+U034,product_viewed,2026-11-11 11:26:00,S0461,P02,0,Android,Free,South,Organic
+U034,search_performed,2026-11-11 11:28:00,S0461,P02,0,Android,Free,South,Organic
+U034,purchase,2026-11-11 11:40:00,S0461,P02,499,Android,Free,South,Organic
+U035,product_viewed,2026-11-11 14:39:00,S0462,P03,0,iOS,Basic,West,Paid Search
+U035,add_to_cart,2026-11-11 14:44:00,S0462,P03,0,iOS,Basic,West,Paid Search
+U035,checkout_started,2026-11-11 14:48:00,S0462,P03,0,iOS,Basic,West,Paid Search
+U036,product_viewed,2026-11-11 17:52:00,S0463,P04,0,Web,Premium,East,Referral
+U036,search_performed,2026-11-11 17:54:00,S0463,P04,0,Web,Premium,East,Referral
+U036,add_to_cart,2026-11-11 17:57:00,S0463,P04,0,Web,Premium,East,Referral
+U036,checkout_started,2026-11-11 18:01:00,S0463,P04,0,Web,Premium,East,Referral
+U038,product_viewed,2026-11-11 11:18:00,S0464,P02,0,iOS,Basic,South,Paid Search
+U038,search_performed,2026-11-11 11:20:00,S0464,P02,0,iOS,Basic,South,Paid Search
+U038,checkout_started,2026-11-11 11:27:00,S0464,P02,0,iOS,Basic,South,Paid Search
+U038,purchase,2026-11-11 11:32:00,S0464,P02,499,iOS,Basic,South,Paid Search
+U038,wishlist_added,2026-11-11 11:36:00,S0464,P02,0,iOS,Basic,South,Paid Search
+U039,product_viewed,2026-11-11 14:31:00,S0465,P03,0,Web,Premium,West,Referral
+U039,search_performed,2026-11-11 14:33:00,S0465,P03,0,Web,Premium,West,Referral
+U039,add_to_cart,2026-11-11 14:36:00,S0465,P03,0,Web,Premium,West,Referral
+U041,product_viewed,2026-11-11 20:57:00,S0466,P01,0,iOS,Basic,North,Paid Search
+U041,search_performed,2026-11-11 20:59:00,S0466,P01,0,iOS,Basic,North,Paid Search
+U041,add_to_cart,2026-11-11 21:02:00,S0466,P01,0,iOS,Basic,North,Paid Search
+U041,checkout_started,2026-11-11 21:06:00,S0466,P01,0,iOS,Basic,North,Paid Search
+U041,purchase,2026-11-11 21:11:00,S0466,P01,299,iOS,Basic,North,Paid Search
+U042,product_viewed,2026-11-11 11:10:00,S0467,P02,0,Web,Premium,South,Referral
+U042,search_performed,2026-11-11 11:12:00,S0467,P02,0,Web,Premium,South,Referral
+U042,checkout_started,2026-11-11 11:19:00,S0467,P02,0,Web,Premium,South,Referral
+U044,product_viewed,2026-11-11 17:36:00,S0468,P04,0,iOS,Basic,East,Paid Search
+U044,search_performed,2026-11-11 17:38:00,S0468,P04,0,iOS,Basic,East,Paid Search
+U044,add_to_cart,2026-11-11 17:41:00,S0468,P04,0,iOS,Basic,East,Paid Search
+U044,purchase,2026-11-11 17:50:00,S0468,P04,999,iOS,Basic,East,Paid Search
+U044,wishlist_added,2026-11-11 17:54:00,S0468,P04,0,iOS,Basic,East,Paid Search
+U045,product_viewed,2026-11-11 20:49:00,S0469,P01,0,Web,Premium,North,Referral
+U045,add_to_cart,2026-11-11 20:54:00,S0469,P01,0,Web,Premium,North,Referral
+U045,checkout_started,2026-11-11 20:58:00,S0469,P01,0,Web,Premium,North,Referral
+U045,purchase,2026-11-11 21:03:00,S0469,P01,299,Web,Premium,North,Referral
+U046,product_viewed,2026-11-11 11:02:00,S0470,P02,0,Android,Free,South,Organic
+U046,search_performed,2026-11-11 11:04:00,S0470,P02,0,Android,Free,South,Organic
+U046,checkout_started,2026-11-11 11:11:00,S0470,P02,0,Android,Free,South,Organic
+U047,product_viewed,2026-11-11 14:15:00,S0471,P03,0,iOS,Basic,West,Paid Search
+U047,search_performed,2026-11-11 14:17:00,S0471,P03,0,iOS,Basic,West,Paid Search
+U047,add_to_cart,2026-11-11 14:20:00,S0471,P03,0,iOS,Basic,West,Paid Search
+U047,checkout_started,2026-11-11 14:24:00,S0471,P03,0,iOS,Basic,West,Paid Search
+U049,product_viewed,2026-11-11 20:41:00,S0472,P01,0,Android,Free,North,Organic
+U049,search_performed,2026-11-11 20:43:00,S0472,P01,0,Android,Free,North,Organic
+U049,add_to_cart,2026-11-11 20:46:00,S0472,P01,0,Android,Free,North,Organic
+U050,product_viewed,2026-11-11 11:54:00,S0473,P02,0,iOS,Basic,South,Paid Search
+U050,checkout_started,2026-11-11 12:03:00,S0473,P02,0,iOS,Basic,South,Paid Search
+U050,wishlist_added,2026-11-11 12:12:00,S0473,P02,0,iOS,Basic,South,Paid Search
+U052,product_viewed,2026-11-11 17:20:00,S0474,P04,0,Android,Free,East,Organic
+U052,search_performed,2026-11-11 17:22:00,S0474,P04,0,Android,Free,East,Organic
+U052,add_to_cart,2026-11-11 17:25:00,S0474,P04,0,Android,Free,East,Organic
+U052,checkout_started,2026-11-11 17:29:00,S0474,P04,0,Android,Free,East,Organic
+U052,purchase,2026-11-11 17:34:00,S0474,P04,999,Android,Free,East,Organic
+U053,product_viewed,2026-11-11 20:33:00,S0475,P01,0,iOS,Basic,North,Paid Search
+U053,search_performed,2026-11-11 20:35:00,S0475,P01,0,iOS,Basic,North,Paid Search
+U053,add_to_cart,2026-11-11 20:38:00,S0475,P01,0,iOS,Basic,North,Paid Search
+U053,checkout_started,2026-11-11 20:42:00,S0475,P01,0,iOS,Basic,North,Paid Search
+U055,product_viewed,2026-11-11 14:59:00,S0476,P03,0,Android,Free,West,Organic
+U055,add_to_cart,2026-11-11 15:04:00,S0476,P03,0,Android,Free,West,Organic
+U055,checkout_started,2026-11-11 15:08:00,S0476,P03,0,Android,Free,West,Organic
+U055,purchase,2026-11-11 15:13:00,S0476,P03,799,Android,Free,West,Organic
+U056,product_viewed,2026-11-11 17:12:00,S0477,P04,0,iOS,Basic,East,Paid Search
+U056,search_performed,2026-11-11 17:14:00,S0477,P04,0,iOS,Basic,East,Paid Search
+U056,add_to_cart,2026-11-11 17:17:00,S0477,P04,0,iOS,Basic,East,Paid Search
+U056,checkout_started,2026-11-11 17:21:00,S0477,P04,0,iOS,Basic,East,Paid Search
+U056,wishlist_added,2026-11-11 17:30:00,S0477,P04,0,iOS,Basic,East,Paid Search
+U057,product_viewed,2026-11-11 20:25:00,S0478,P01,0,Web,Premium,North,Referral
+U057,search_performed,2026-11-11 20:27:00,S0478,P01,0,Web,Premium,North,Referral
+U057,add_to_cart,2026-11-11 20:30:00,S0478,P01,0,Web,Premium,North,Referral
+U057,checkout_started,2026-11-11 20:34:00,S0478,P01,0,Web,Premium,North,Referral
+U058,product_viewed,2026-11-11 11:38:00,S0479,P02,0,Android,Free,South,Organic
+U058,search_performed,2026-11-11 11:40:00,S0479,P02,0,Android,Free,South,Organic
+U058,checkout_started,2026-11-11 11:47:00,S0479,P02,0,Android,Free,South,Organic
+U058,purchase,2026-11-11 11:52:00,S0479,P02,499,Android,Free,South,Organic
+U060,product_viewed,2026-11-11 17:04:00,S0480,P04,0,Web,Premium,East,Referral
+U060,add_to_cart,2026-11-11 17:09:00,S0480,P04,0,Web,Premium,East,Referral
+U060,checkout_started,2026-11-11 17:13:00,S0480,P04,0,Web,Premium,East,Referral
+U001,product_viewed,2026-11-12 09:24:00,S0481,P01,0,Android,Free,North,Organic
+U001,search_performed,2026-11-12 09:26:00,S0481,P01,0,Android,Free,North,Organic
+U001,checkout_started,2026-11-12 09:33:00,S0481,P01,0,Android,Free,North,Organic
+U001,wishlist_added,2026-11-12 09:42:00,S0481,P01,0,Android,Free,North,Organic
+U003,product_viewed,2026-11-12 15:50:00,S0482,P03,0,Web,Premium,West,Referral
+U003,search_performed,2026-11-12 15:52:00,S0482,P03,0,Web,Premium,West,Referral
+U003,add_to_cart,2026-11-12 15:55:00,S0482,P03,0,Web,Premium,West,Referral
+U003,checkout_started,2026-11-12 15:59:00,S0482,P03,0,Web,Premium,West,Referral
+U003,purchase,2026-11-12 16:04:00,S0482,P03,799,Web,Premium,West,Referral
+U003,feature_used,2026-11-12 16:10:00,S0482,P03,0,Web,Premium,West,Referral
+U004,product_viewed,2026-11-12 18:03:00,S0483,P04,0,Android,Free,East,Organic
+U004,add_to_cart,2026-11-12 18:08:00,S0483,P04,0,Android,Free,East,Organic
+U004,checkout_started,2026-11-12 18:12:00,S0483,P04,0,Android,Free,East,Organic
+U006,product_viewed,2026-11-12 12:29:00,S0484,P02,0,Web,Premium,South,Referral
+U006,search_performed,2026-11-12 12:31:00,S0484,P02,0,Web,Premium,South,Referral
+U006,add_to_cart,2026-11-12 12:34:00,S0484,P02,0,Web,Premium,South,Referral
+U006,checkout_started,2026-11-12 12:38:00,S0484,P02,0,Web,Premium,South,Referral
+U006,purchase,2026-11-12 12:43:00,S0484,P02,499,Web,Premium,South,Referral
+U007,product_viewed,2026-11-12 15:42:00,S0485,P03,0,Android,Free,West,Organic
+U007,search_performed,2026-11-12 15:44:00,S0485,P03,0,Android,Free,West,Organic
+U007,add_to_cart,2026-11-12 15:47:00,S0485,P03,0,Android,Free,West,Organic
+U007,purchase,2026-11-12 15:56:00,S0485,P03,799,Android,Free,West,Organic
+U007,wishlist_added,2026-11-12 16:00:00,S0485,P03,0,Android,Free,West,Organic
+U007,feature_used,2026-11-12 16:02:00,S0485,P03,0,Android,Free,West,Organic
+U009,product_viewed,2026-11-12 09:08:00,S0486,P01,0,Web,Premium,North,Referral
+U009,checkout_started,2026-11-12 09:17:00,S0486,P01,0,Web,Premium,North,Referral
+U010,product_viewed,2026-11-12 12:21:00,S0487,P02,0,Android,Free,South,Organic
+U010,search_performed,2026-11-12 12:23:00,S0487,P02,0,Android,Free,South,Organic
+U010,add_to_cart,2026-11-12 12:26:00,S0487,P02,0,Android,Free,South,Organic
+U010,checkout_started,2026-11-12 12:30:00,S0487,P02,0,Android,Free,South,Organic
+U010,purchase,2026-11-12 12:35:00,S0487,P02,499,Android,Free,South,Organic
+U011,product_viewed,2026-11-12 15:34:00,S0488,P03,0,iOS,Basic,West,Paid Search
+U011,search_performed,2026-11-12 15:36:00,S0488,P03,0,iOS,Basic,West,Paid Search
+U011,add_to_cart,2026-11-12 15:39:00,S0488,P03,0,iOS,Basic,West,Paid Search
+U011,checkout_started,2026-11-12 15:43:00,S0488,P03,0,iOS,Basic,West,Paid Search
+U011,feature_used,2026-11-12 15:54:00,S0488,P03,0,iOS,Basic,West,Paid Search
+U012,product_viewed,2026-11-12 18:47:00,S0489,P04,0,Web,Premium,East,Referral
+U012,search_performed,2026-11-12 18:49:00,S0489,P04,0,Web,Premium,East,Referral
+U012,add_to_cart,2026-11-12 18:52:00,S0489,P04,0,Web,Premium,East,Referral
+U014,product_viewed,2026-11-12 12:13:00,S0490,P02,0,iOS,Basic,South,Paid Search
+U014,add_to_cart,2026-11-12 12:18:00,S0490,P02,0,iOS,Basic,South,Paid Search
+U014,checkout_started,2026-11-12 12:22:00,S0490,P02,0,iOS,Basic,South,Paid Search
+U014,purchase,2026-11-12 12:27:00,S0490,P02,499,iOS,Basic,South,Paid Search
+U015,product_viewed,2026-11-12 15:26:00,S0491,P03,0,Web,Premium,West,Referral
+U015,search_performed,2026-11-12 15:28:00,S0491,P03,0,Web,Premium,West,Referral
+U015,add_to_cart,2026-11-12 15:31:00,S0491,P03,0,Web,Premium,West,Referral
+U015,checkout_started,2026-11-12 15:35:00,S0491,P03,0,Web,Premium,West,Referral
+U015,feature_used,2026-11-12 15:46:00,S0491,P03,0,Web,Premium,West,Referral
+U017,product_viewed,2026-11-12 09:52:00,S0492,P01,0,iOS,Basic,North,Paid Search
+U017,search_performed,2026-11-12 09:54:00,S0492,P01,0,iOS,Basic,North,Paid Search
+U017,purchase,2026-11-12 10:06:00,S0492,P01,299,iOS,Basic,North,Paid Search
+U018,product_viewed,2026-11-12 12:05:00,S0493,P02,0,Web,Premium,South,Referral
+U018,search_performed,2026-11-12 12:07:00,S0493,P02,0,Web,Premium,South,Referral
+U018,add_to_cart,2026-11-12 12:10:00,S0493,P02,0,Web,Premium,South,Referral
+U018,checkout_started,2026-11-12 12:14:00,S0493,P02,0,Web,Premium,South,Referral
+U020,product_viewed,2026-11-12 18:31:00,S0494,P04,0,iOS,Basic,East,Paid Search
+U020,search_performed,2026-11-12 18:33:00,S0494,P04,0,iOS,Basic,East,Paid Search
+U020,add_to_cart,2026-11-12 18:36:00,S0494,P04,0,iOS,Basic,East,Paid Search
+U020,checkout_started,2026-11-12 18:40:00,S0494,P04,0,iOS,Basic,East,Paid Search
+U020,purchase,2026-11-12 18:45:00,S0494,P04,999,iOS,Basic,East,Paid Search
+U021,product_viewed,2026-11-12 09:44:00,S0495,P01,0,Web,Premium,North,Referral
+U021,search_performed,2026-11-12 09:46:00,S0495,P01,0,Web,Premium,North,Referral
+U021,checkout_started,2026-11-12 09:53:00,S0495,P01,0,Web,Premium,North,Referral
+U021,purchase,2026-11-12 09:58:00,S0495,P01,299,Web,Premium,North,Referral
+U022,product_viewed,2026-11-12 12:57:00,S0496,P02,0,Android,Free,South,Organic
+U022,search_performed,2026-11-12 12:59:00,S0496,P02,0,Android,Free,South,Organic
+U022,add_to_cart,2026-11-12 13:02:00,S0496,P02,0,Android,Free,South,Organic
+U023,product_viewed,2026-11-12 15:10:00,S0497,P03,0,iOS,Basic,West,Paid Search
+U023,search_performed,2026-11-12 15:12:00,S0497,P03,0,iOS,Basic,West,Paid Search
+U023,add_to_cart,2026-11-12 15:15:00,S0497,P03,0,iOS,Basic,West,Paid Search
+U023,checkout_started,2026-11-12 15:19:00,S0497,P03,0,iOS,Basic,West,Paid Search
+U023,feature_used,2026-11-12 15:30:00,S0497,P03,0,iOS,Basic,West,Paid Search
+U025,product_viewed,2026-11-12 09:36:00,S0498,P01,0,Android,Free,North,Organic
+U025,search_performed,2026-11-12 09:38:00,S0498,P01,0,Android,Free,North,Organic
+U025,checkout_started,2026-11-12 09:45:00,S0498,P01,0,Android,Free,North,Organic
+U025,wishlist_added,2026-11-12 09:54:00,S0498,P01,0,Android,Free,North,Organic
+U026,product_viewed,2026-11-12 12:49:00,S0499,P02,0,iOS,Basic,South,Paid Search
+U026,search_performed,2026-11-12 12:51:00,S0499,P02,0,iOS,Basic,South,Paid Search
+U026,add_to_cart,2026-11-12 12:54:00,S0499,P02,0,iOS,Basic,South,Paid Search
+U026,checkout_started,2026-11-12 12:58:00,S0499,P02,0,iOS,Basic,South,Paid Search
+U028,product_viewed,2026-11-12 18:15:00,S0500,P04,0,Android,Free,East,Organic
+U028,search_performed,2026-11-12 18:17:00,S0500,P04,0,Android,Free,East,Organic
+U028,add_to_cart,2026-11-12 18:20:00,S0500,P04,0,Android,Free,East,Organic
+U028,checkout_started,2026-11-12 18:24:00,S0500,P04,0,Android,Free,East,Organic
+U028,purchase,2026-11-12 18:29:00,S0500,P04,999,Android,Free,East,Organic
+U029,product_viewed,2026-11-12 09:28:00,S0501,P01,0,iOS,Basic,North,Paid Search
+U029,checkout_started,2026-11-12 09:37:00,S0501,P01,0,iOS,Basic,North,Paid Search
+U031,product_viewed,2026-11-12 15:54:00,S0502,P03,0,Android,Free,West,Organic
+U031,search_performed,2026-11-12 15:56:00,S0502,P03,0,Android,Free,West,Organic
+U031,add_to_cart,2026-11-12 15:59:00,S0502,P03,0,Android,Free,West,Organic
+U031,checkout_started,2026-11-12 16:03:00,S0502,P03,0,Android,Free,West,Organic
+U031,purchase,2026-11-12 16:08:00,S0502,P03,799,Android,Free,West,Organic
+U031,wishlist_added,2026-11-12 16:12:00,S0502,P03,0,Android,Free,West,Organic
+U031,feature_used,2026-11-12 16:14:00,S0502,P03,0,Android,Free,West,Organic
+U032,product_viewed,2026-11-12 18:07:00,S0503,P04,0,iOS,Basic,East,Paid Search
+U032,search_performed,2026-11-12 18:09:00,S0503,P04,0,iOS,Basic,East,Paid Search
+U032,add_to_cart,2026-11-12 18:12:00,S0503,P04,0,iOS,Basic,East,Paid Search
+U033,product_viewed,2026-11-12 09:20:00,S0504,P01,0,Web,Premium,North,Referral
+U033,search_performed,2026-11-12 09:22:00,S0504,P01,0,Web,Premium,North,Referral
+U033,checkout_started,2026-11-12 09:29:00,S0504,P01,0,Web,Premium,North,Referral
+U034,product_viewed,2026-11-12 12:33:00,S0505,P02,0,Android,Free,South,Organic
+U034,add_to_cart,2026-11-12 12:38:00,S0505,P02,0,Android,Free,South,Organic
+U034,checkout_started,2026-11-12 12:42:00,S0505,P02,0,Android,Free,South,Organic
+U034,purchase,2026-11-12 12:47:00,S0505,P02,499,Android,Free,South,Organic
+U036,product_viewed,2026-11-12 18:59:00,S0506,P04,0,Web,Premium,East,Referral
+U036,search_performed,2026-11-12 19:01:00,S0506,P04,0,Web,Premium,East,Referral
+U036,add_to_cart,2026-11-12 19:04:00,S0506,P04,0,Web,Premium,East,Referral
+U036,checkout_started,2026-11-12 19:08:00,S0506,P04,0,Web,Premium,East,Referral
+U037,product_viewed,2026-11-12 09:12:00,S0507,P01,0,Android,Free,North,Organic
+U037,search_performed,2026-11-12 09:14:00,S0507,P01,0,Android,Free,North,Organic
+U037,wishlist_added,2026-11-12 09:30:00,S0507,P01,0,Android,Free,North,Organic
+U039,product_viewed,2026-11-12 15:38:00,S0508,P03,0,Web,Premium,West,Referral
+U039,add_to_cart,2026-11-12 15:43:00,S0508,P03,0,Web,Premium,West,Referral
+U039,checkout_started,2026-11-12 15:47:00,S0508,P03,0,Web,Premium,West,Referral
+U039,feature_used,2026-11-12 15:58:00,S0508,P03,0,Web,Premium,West,Referral
+U040,product_viewed,2026-11-12 18:51:00,S0509,P04,0,Android,Free,East,Organic
+U040,search_performed,2026-11-12 18:53:00,S0509,P04,0,Android,Free,East,Organic
+U040,add_to_cart,2026-11-12 18:56:00,S0509,P04,0,Android,Free,East,Organic
+U040,checkout_started,2026-11-12 19:00:00,S0509,P04,0,Android,Free,East,Organic
+U042,product_viewed,2026-11-12 12:17:00,S0510,P02,0,Web,Premium,South,Referral
+U042,search_performed,2026-11-12 12:19:00,S0510,P02,0,Web,Premium,South,Referral
+U042,add_to_cart,2026-11-12 12:22:00,S0510,P02,0,Web,Premium,South,Referral
+U042,purchase,2026-11-12 12:31:00,S0510,P02,499,Web,Premium,South,Referral
+U043,product_viewed,2026-11-12 15:30:00,S0511,P03,0,Android,Free,West,Organic
+U043,search_performed,2026-11-12 15:32:00,S0511,P03,0,Android,Free,West,Organic
+U043,add_to_cart,2026-11-12 15:35:00,S0511,P03,0,Android,Free,West,Organic
+U043,checkout_started,2026-11-12 15:39:00,S0511,P03,0,Android,Free,West,Organic
+U043,wishlist_added,2026-11-12 15:48:00,S0511,P03,0,Android,Free,West,Organic
+U043,feature_used,2026-11-12 15:50:00,S0511,P03,0,Android,Free,West,Organic
+U044,product_viewed,2026-11-12 18:43:00,S0512,P04,0,iOS,Basic,East,Paid Search
+U044,add_to_cart,2026-11-12 18:48:00,S0512,P04,0,iOS,Basic,East,Paid Search
+U044,checkout_started,2026-11-12 18:52:00,S0512,P04,0,iOS,Basic,East,Paid Search
+U045,product_viewed,2026-11-12 09:56:00,S0513,P01,0,Web,Premium,North,Referral
+U045,search_performed,2026-11-12 09:58:00,S0513,P01,0,Web,Premium,North,Referral
+U045,checkout_started,2026-11-12 10:05:00,S0513,P01,0,Web,Premium,North,Referral
+U045,purchase,2026-11-12 10:10:00,S0513,P01,299,Web,Premium,North,Referral
+U047,product_viewed,2026-11-12 15:22:00,S0514,P03,0,iOS,Basic,West,Paid Search
+U047,search_performed,2026-11-12 15:24:00,S0514,P03,0,iOS,Basic,West,Paid Search
+U047,add_to_cart,2026-11-12 15:27:00,S0514,P03,0,iOS,Basic,West,Paid Search
+U047,feature_used,2026-11-12 15:42:00,S0514,P03,0,iOS,Basic,West,Paid Search
+U048,product_viewed,2026-11-12 18:35:00,S0515,P04,0,Web,Premium,East,Referral
+U048,search_performed,2026-11-12 18:37:00,S0515,P04,0,Web,Premium,East,Referral
+U048,add_to_cart,2026-11-12 18:40:00,S0515,P04,0,Web,Premium,East,Referral
+U048,checkout_started,2026-11-12 18:44:00,S0515,P04,0,Web,Premium,East,Referral
+U048,purchase,2026-11-12 18:49:00,S0515,P04,999,Web,Premium,East,Referral
+U050,product_viewed,2026-11-12 12:01:00,S0516,P02,0,iOS,Basic,South,Paid Search
+U050,search_performed,2026-11-12 12:03:00,S0516,P02,0,iOS,Basic,South,Paid Search
+U050,add_to_cart,2026-11-12 12:06:00,S0516,P02,0,iOS,Basic,South,Paid Search
+U050,checkout_started,2026-11-12 12:10:00,S0516,P02,0,iOS,Basic,South,Paid Search
+U051,product_viewed,2026-11-12 15:14:00,S0517,P03,0,Web,Premium,West,Referral
+U051,search_performed,2026-11-12 15:16:00,S0517,P03,0,Web,Premium,West,Referral
+U051,add_to_cart,2026-11-12 15:19:00,S0517,P03,0,Web,Premium,West,Referral
+U051,checkout_started,2026-11-12 15:23:00,S0517,P03,0,Web,Premium,West,Referral
+U051,feature_used,2026-11-12 15:34:00,S0517,P03,0,Web,Premium,West,Referral
+U053,product_viewed,2026-11-12 09:40:00,S0518,P01,0,iOS,Basic,North,Paid Search
+U053,search_performed,2026-11-12 09:42:00,S0518,P01,0,iOS,Basic,North,Paid Search
+U053,checkout_started,2026-11-12 09:49:00,S0518,P01,0,iOS,Basic,North,Paid Search
+U054,product_viewed,2026-11-12 12:53:00,S0519,P02,0,Web,Premium,South,Referral
+U054,add_to_cart,2026-11-12 12:58:00,S0519,P02,0,Web,Premium,South,Referral
+U054,checkout_started,2026-11-12 13:02:00,S0519,P02,0,Web,Premium,South,Referral
+U055,product_viewed,2026-11-12 15:06:00,S0520,P03,0,Android,Free,West,Organic
+U055,search_performed,2026-11-12 15:08:00,S0520,P03,0,Android,Free,West,Organic
+U055,add_to_cart,2026-11-12 15:11:00,S0520,P03,0,Android,Free,West,Organic
+U055,checkout_started,2026-11-12 15:15:00,S0520,P03,0,Android,Free,West,Organic
+U055,purchase,2026-11-12 15:20:00,S0520,P03,799,Android,Free,West,Organic
+U055,wishlist_added,2026-11-12 15:24:00,S0520,P03,0,Android,Free,West,Organic
+U055,feature_used,2026-11-12 15:26:00,S0520,P03,0,Android,Free,West,Organic
+U056,product_viewed,2026-11-12 18:19:00,S0521,P04,0,iOS,Basic,East,Paid Search
+U056,search_performed,2026-11-12 18:21:00,S0521,P04,0,iOS,Basic,East,Paid Search
+U056,add_to_cart,2026-11-12 18:24:00,S0521,P04,0,iOS,Basic,East,Paid Search
+U056,checkout_started,2026-11-12 18:28:00,S0521,P04,0,iOS,Basic,East,Paid Search
+U056,purchase,2026-11-12 18:33:00,S0521,P04,999,iOS,Basic,East,Paid Search
+U058,product_viewed,2026-11-12 12:45:00,S0522,P02,0,Android,Free,South,Organic
+U058,search_performed,2026-11-12 12:47:00,S0522,P02,0,Android,Free,South,Organic
+U058,add_to_cart,2026-11-12 12:50:00,S0522,P02,0,Android,Free,South,Organic
+U058,checkout_started,2026-11-12 12:54:00,S0522,P02,0,Android,Free,South,Organic
+U059,product_viewed,2026-11-12 15:58:00,S0523,P03,0,iOS,Basic,West,Paid Search
+U059,add_to_cart,2026-11-12 16:03:00,S0523,P03,0,iOS,Basic,West,Paid Search
+U059,checkout_started,2026-11-12 16:07:00,S0523,P03,0,iOS,Basic,West,Paid Search
+U059,purchase,2026-11-12 16:12:00,S0523,P03,799,iOS,Basic,West,Paid Search
+U059,feature_used,2026-11-12 16:18:00,S0523,P03,0,iOS,Basic,West,Paid Search
