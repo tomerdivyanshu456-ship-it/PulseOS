@@ -1,36 +1,71 @@
 # PulseOS
 
-**AI-powered Product Intelligence Platform** for customer feedback analysis, product analytics, user behaviour insights, opportunity discovery, and experiment intelligence.
+**Local-first Product Intelligence Platform** that helps product teams move from behavioural data and customer feedback to prioritised investigations and experiment decisions.
 
-PulseOS is a portfolio-grade, locally runnable SaaS-style MVP for Product Analyst, AI Product Manager, and Associate Product Manager roles.
+PulseOS is a portfolio project built around a practical product workflow: **measure product health → understand customer friction → find opportunities → investigate likely causes → design and evaluate experiments.**
 
-## MVP scope
+> **Demo data notice:** The files in `data/sample_*.csv` are synthetic examples created for demonstrating the application. They are not real customer records and should not be interpreted as actual business performance.
 
-- **Product analytics:** KPIs, conversion funnels, cohorts, retention, engagement, and feature adoption from behavioural event data.
-- **Voice of Customer:** review sentiment and complaint-theme analysis from a separate customer review dataset.
-- **AI Analyst:** constrained, evidence-backed questions, cross-source investigation recommendations, and explicit evidence limitations.
-- **Product Opportunity Detection:** maps customer complaint themes to related behavioural signals using transparent keyword heuristics.
-- **Experiment Intelligence:** turns opportunities into editable hypotheses, defines primary/secondary/guardrail metrics, designs a simple A/B test, estimates sample size and duration, tracks experiments in SQLite, compares observed control/variant results, and generates event-backed Ship / Iterate / Stop recommendations.
-- **AI Product Strategy & Insights:** synthesises existing opportunity, customer, behavioural and experiment evidence into a ranked investigation roadmap, with transparent impact/confidence/effort scoring, editable effort estimates, recommended actions and success metrics. The module is deterministic and runs without a paid LLM API.
+## Product capabilities
 
-## Stack
-
-| Layer | Technology |
+| Workspace | What it helps answer |
 |---|---|
-| Frontend | React, TypeScript, Vite, Recharts |
-| Backend | Python 3.11, FastAPI |
-| Database | SQLite |
-| Analytics | Pandas, NumPy, scikit-learn |
-| NLP | Lightweight CPU-friendly sentiment and topic tooling |
-| Tests | Pytest, HTTPX |
+| **Overview & Product Analytics** | How are active users, conversion, revenue, funnels and retention changing in the uploaded data? |
+| **Voice of Customer** | What are customers complaining about, and how does review sentiment distribute? |
+| **AI Analyst** | What evidence in the available datasets supports an analytical question? |
+| **Product Opportunities** | Which customer complaint themes may warrant behavioural investigation? |
+| **Feature Intelligence** | Which features are being adopted and reused? |
+| **Experiment Intelligence** | How should a hypothesis, primary metric, guardrails and test plan be defined? |
+| **Experiment Decision Intelligence** | Given tagged exposure and outcome events, should a test be shipped, iterated or stopped? |
+| **Strategy & Insights** | Which investigations should be prioritised, considering impact, evidence and effort? |
+| **Product Health Scorecard** | What does the available evidence say about engagement, conversion, sentiment and experiment coverage? |
+| **Cohort & Segments** | How do engagement and purchasing metrics differ across user attributes? |
+| **Funnel & Journeys** | Where do users drop off in an ordered journey, and what paths do they take? |
+| **Root Cause Explorer** | Which funnel, feedback and segment signals are worth investigating first? |
 
-No paid API keys, GPU, Docker, or additional infrastructure are required for the local MVP.
+The platform is designed as decision support. It distinguishes observed metrics, heuristic rankings and experimental evidence rather than presenting correlations or keyword matches as proven causes.
+
+## Technology
+
+- **Frontend:** React 19, TypeScript, Vite, Recharts
+- **Backend:** Python, FastAPI, Pandas
+- **Storage:** SQLite
+- **Analytics / ML:** NumPy, scikit-learn and lightweight CPU-friendly text analysis
+- **Tests:** Pytest
+
+**Local-first constraints:** no paid API keys, GPU, Docker or hosted inference service required.
+
+## Architecture
+
+```text
+CSV uploads
+   │
+   ▼
+FastAPI ingestion + validation
+   │
+   ├── Behavioural events ──► Analytics / cohorts / funnels / segments
+   │                              │
+   │                              ▼
+   │                       Opportunities / diagnostics
+   │                              │
+   │                              ▼
+   │                       Strategy / experiments
+   │
+   └── Customer reviews ───► Sentiment / complaint themes
+                                  │
+                                  └── Theme-level opportunity signals
+
+React + TypeScript workspace ◄──── JSON API
+SQLite stores dataset metadata and experiment records;
+uploaded CSV files are stored locally.
+```
+
+Customer reviews and behavioural events are separate sources. PulseOS does not join unrelated third-party review records to individual user or session IDs.
 
 ## Repository structure
 
 ```text
 PulseOS/
-├── frontend/
 ├── backend/
 │   ├── app/
 │   │   ├── api/routes/
@@ -38,44 +73,47 @@ PulseOS/
 │   │   └── main.py
 │   ├── tests/
 │   └── requirements.txt
+├── frontend/
+│   └── src/
 ├── data/
-│   ├── raw/
-│   └── processed/
+│   ├── raw/                 # Local uploads; not committed
+│   ├── processed/
+│   ├── sample_user_events.csv
+│   └── sample_customer_reviews.csv
 ├── docs/
 └── README.md
 ```
 
-## Dataset sources
-
-1. **Retailrocket E-commerce Dataset** — behavioural events (views, add-to-cart, transactions): [Kaggle](https://www.kaggle.com/datasets/retailrocket/ecommerce-dataset)
-2. **Amazon Reviews 2023** — separate review data for Voice of Customer analysis: [Hugging Face](https://huggingface.co/datasets/McAuley-Lab/Amazon-Reviews-2023)
-3. **Yelp Review Full** — alternative review benchmark: [Hugging Face](https://huggingface.co/datasets/Yelp/yelp_review_full)
-
-These are independent sources. Do not join unrelated review records to Retailrocket user or transaction identifiers.
-
-For an 8 GB RAM laptop, begin with 100k–200k event rows and 5k–10k review rows. Use chunked CSV processing where needed. Keep raw datasets out of Git.
-
-## Local setup
+## Run locally
 
 ### Prerequisites
 
-- Python 3.11
+- Python 3.11+
 - Node.js LTS
 - Git
 
-### Backend (PowerShell)
+### 1. Clone the repository
+
+```powershell
+git clone https://github.com/tomerdivyanshu456-ship-it/PulseOS.git
+cd PulseOS
+```
+
+### 2. Start the backend
 
 ```powershell
 cd backend
 python -m venv .venv
-.\\.venv\\Scripts\\Activate.ps1
+.\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
 uvicorn app.main:app --reload
 ```
 
 API documentation: http://127.0.0.1:8000/docs
 
-### Frontend (second terminal)
+### 3. Start the frontend
+
+Open a second PowerShell terminal:
 
 ```powershell
 cd frontend
@@ -83,78 +121,85 @@ npm install
 npm run dev
 ```
 
-Frontend: http://localhost:5173
+Open http://localhost:5173.
 
-### Run backend tests
+### 4. Load the included demo CSVs
 
-From the `backend` directory:
+In the app, open **Upload Data** and upload:
 
-```powershell
-python -m pytest
-```
+- `data/sample_user_events.csv` as the behavioural events dataset.
+- `data/sample_customer_reviews.csv` as the customer reviews dataset.
 
-### Build the frontend
+The synthetic event dataset includes user, event, timestamp, session, product and categorical attributes (platform, plan, region and acquisition channel). This supports the core analytics, funnel and segment demonstrations. The review dataset contains ratings, review text, dates and product categories.
 
-From the `frontend` directory:
+For event-backed experiment decisions, use a separate experiment dataset with the exposure fields described below; the general demo events file is not tagged as an experiment.
 
-```powershell
-npm run build
-```
+## CSV contracts
 
-## Experiment Intelligence methodology
+### Behavioural events
 
-- Hypotheses are generated from existing product-opportunity themes and are starting points for product investigation, not established explanations.
-- Customer-review and behavioural datasets remain separate. Theme-level matching does not link an individual review to a user or session and is not causal evidence.
-- The sample-size estimator uses a normal approximation for two independent binary proportions, a two-sided confidence level, specified power, and equal 50/50 allocation. It assumes independent eligible users and one preselected primary metric.
-- Duration is a rough planning estimate based on total eligible daily traffic. Plan for at least one complete weekly cycle and account for ramp-up, seasonality, instrumentation quality, and exclusions.
-- Result analysis reports observed arm rates, Wilson intervals for each arm, and an approximate unpooled interval for the difference. It is descriptive and does not replace a pre-registered statistical analysis or prove causality.
-- Guardrail comparisons use user-entered rates and thresholds. They are review flags, not automatic rollout decisions.
-- Event-backed decisions require explicit experiment exposure rows tagged with the saved experiment ID and an `experiment_variant` value of `control` or `variant`. The configured exposure event defines the eligible-user denominator; conversion and optional guardrail events are counted once per exposed user only when they occur at or after exposure.
-- The decision rules recommend **Ship** only when both arms reach the planned sample, the approximate primary-metric difference interval is entirely positive, and at least one configured guardrail threshold is not exceeded; **Stop** when the interval is entirely negative or a configured guardrail threshold is exceeded; otherwise **Iterate**. Guardrail thresholds are screening flags, not statistical tests.
-- The event-backed workflow assumes stable user-level assignment and complete instrumentation. It is a decision aid, not proof of causality or an automated deployment action.
+Required columns:
 
-### Event tracking contract for experiment decisions
+| Column | Required | Description |
+|---|---:|---|
+| `user_id` | Yes | Stable user identifier |
+| `event_name` | Yes | Event/action name |
+| `timestamp` | Yes | Parseable event timestamp |
+| `session_id` | No | Session identifier; enables session-level journey analysis |
+| `revenue` | No | Revenue value on purchase events |
+| Other categorical columns | No | Can be used for segment comparisons |
 
-The latest uploaded events CSV must retain the standard `user_id`, `event_name`, and `timestamp` columns and include two additional columns:
+### Customer reviews
+
+Required columns:
+
+| Column | Required | Description |
+|---|---:|---|
+| `review_id` | Yes | Review identifier |
+| `rating` | Yes | Numeric rating from 1 to 5 |
+| `review_text` | Yes | Review text |
+
+Optional fields such as `review_date` and `product_category` are useful for filtering and context.
+
+### Experiment decision events
+
+To analyse an experiment using event-level outcomes, include:
 
 | Column | Purpose |
 |---|---|
-| `experiment_id` | Saved PulseOS experiment ID, populated on exposure rows |
-| `experiment_variant` | `control` or `variant`, populated on exposure rows |
+| `experiment_id` | Saved PulseOS experiment identifier on exposure rows |
+| `experiment_variant` | `control` or `variant` on exposure rows |
 
-Each eligible user must have one tagged exposure event (default event name: `experiment_exposed`). The primary conversion event (default: `purchase`) must use the same `user_id` and occur at or after exposure. Configured guardrail events are also counted per exposed user; at least one guardrail event is required before a Ship recommendation is possible. Users with conflicting control/variant exposure assignments are excluded and reported. Existing event datasets without experiment tags continue to work for the other PulseOS analytics features, but cannot power event-backed experiment decisions.
+Each eligible user needs a tagged exposure event (default: `experiment_exposed`). The primary conversion event (default: `purchase`) must share the same `user_id` and occur at or after exposure. Conflicting variant assignments are excluded and reported.
 
-## Data integrity principles
+## Analytical methodology and limitations
 
-- Calculate displayed metrics from source data; do not hardcode production KPIs.
-- Label demo data clearly.
-- Show source, sample size, definitions, and assumptions for every metric.
-- Keep behavioural events and third-party reviews analytically separate.
-- Distinguish observed metrics, heuristic prioritisation, and causal evidence.
-- Define one primary experiment metric before launch; monitor guardrails and avoid stopping early based on interim results.
-- Document limitations and avoid unsupported causal claims.
+- **Descriptive metrics:** calculated from the uploaded event window. DAU is distinct active users on the latest recorded calendar day; MAU uses the available 30-day window.
+- **Funnel analysis:** configurable ordered event steps. When `session_id` is available, session-level units are used; otherwise analysis falls back to user-level units. This is not automatically a causal attribution model.
+- **Segments:** categorical dimensions are assigned to each user using their most frequently observed non-empty value (alphabetical tie-break). Segment comparisons are descriptive.
+- **Retention:** cohort and return-activity definitions are based on observed event dates and should be interpreted with the dataset's observation window in mind.
+- **Voice of Customer:** lightweight text/sentiment and complaint-theme methods are useful for triage, not substitutes for human qualitative research or a validated language model.
+- **Opportunity matching:** complaint themes and behavioural signals are matched at theme level. They are not linked at individual customer level.
+- **Root Cause Explorer:** ranks diagnostic hypotheses from observed funnel, review-theme and segment signals. These are investigation leads, not proven root causes.
+- **Health scorecard:** the overall index averages available pillars only; missing pillars are not treated as zero. Starter thresholds are illustrative defaults, not industry benchmarks.
+- **Experiment planning:** sample-size estimates use a normal approximation for two independent binary proportions, two-sided confidence, specified power and equal allocation. Duration estimates are planning approximations.
+- **Experiment decisions:** observed arm rates and approximate confidence intervals support a Ship / Iterate / Stop recommendation. Instrumentation, stable assignment, adequate sample size and guardrails matter; this is not proof of causality or an automated deployment action.
+- **Strategy scoring:** impact, evidence confidence and effort are transparent heuristics for prioritisation, not predicted business outcomes.
+
+## Quality checks
+
+Run backend tests from `backend/`:
+
+```powershell
+python -m pytest -q
+```
+
+Build the frontend from `frontend/`:
+
+```powershell
+npm.cmd run build
+```
 
 ## Project status
 
-**Working MVP in active development.** Implemented CSV ingestion, behavioural product metrics, conversion funnels, weekly retention cohorts, repeat-usage metrics, event adoption, Voice of Customer analysis, evidence-backed AI Analyst, cross-source product opportunity detection, Experiment Intelligence planning/tracking/result analysis with event-backed decision recommendations, and an evidence-led Product Strategy & Insights roadmap.
-
-
-## AI Product Strategy & Insights methodology
-
-- The strategy workspace reuses PulseOS product opportunities and saved experiments; it does not create a second source of truth.
-- Each recommendation includes customer evidence, any available theme-level behavioural signal, a recommended investigation action, a success metric and linked experiment coverage.
-- Impact score is a heuristic: 60% customer complaint severity, 25% relative behavioural reach among the current opportunities, and 15% existing opportunity priority.
-- Evidence confidence is based on the existing opportunity engine's review-volume evidence-strength score. It is not a statistical confidence interval.
-- Priority score = impact score × evidence confidence × (3 ÷ effort estimate). Effort is adjustable from 1 (very low) to 5 (very high); changing it re-ranks the roadmap.
-- The expected metric and success measurement are suggested validation criteria, not guaranteed outcomes. No revenue uplift or causal impact is inferred.
-- Reviews and behavioural events are not joined at user/session level. Theme matching is hypothesis generation only.
-- The module is deterministic and local-first; no paid LLM API, GPU or external inference service is required.
-
-
-## Product Health Scorecard methodology
-
-- The scorecard presents four dimensions when their underlying evidence is available: engagement, conversion, customer sentiment and experiment coverage.
-- Engagement combines repeat active-day user rate (70%) and DAU/MAU stickiness (30%). Conversion scales the user-level view-to-purchase rate against a 5% starter target. Customer sentiment combines positive-review share (70%) and average rating (30%). Experiment coverage is the share of identified product opportunities linked to at least one saved experiment.
-- The overall diagnostic index is the equal-weight average of available pillars. Missing pillars are omitted and the coverage count is displayed; missing data is not treated as a zero score.
-- Starter thresholds (30% repeat-user rate, 20% DAU/MAU, 5% conversion and 70% positive reviews) are illustrative configuration defaults, not industry benchmarks. Calibrate them to product type, business model and historical baseline before operational use.
-- The scorecard is descriptive decision support. It does not infer causal impact, predict revenue, or measure experiment quality. Review sentiment uses the existing keyword lexicon with rating-based fallback. Experiment coverage measures linkage, not experiment completion or statistical validity.
+PulseOS is a working local MVP with CSV ingestion, product analytics, customer feedback analysis, evidence-backed analysis workflows, cohort/segment and journey intelligence, experiment planning and event-backed decision support. It is intended as a demonstrable product analytics and product decision-support portfolio project; it is not positioned as a production multi-tenant SaaS or an autonomous causal inference system.
