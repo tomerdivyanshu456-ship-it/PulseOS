@@ -133,6 +133,17 @@ export interface AnalystRecommendation {
   validation: string;
 }
 
+export interface AnalystPriorityItem {
+  label: string;
+  review_count: number;
+  average_rating: number;
+  priority_score: number;
+  severity_score: number;
+  evidence_strength: number;
+  evidence_label: string;
+  quadrant: string;
+}
+
 export interface AnalystConversationTurn {
   role: "user" | "assistant";
   content: string;
@@ -146,6 +157,7 @@ export interface AnalystResponse {
   sources: Array<{ name: string; detail: string }>;
   limitations: string[];
   recommendations: AnalystRecommendation[];
+  priority_matrix: AnalystPriorityItem[];
   funnel_analysis: null | {
     unit: string;
     method: string;
