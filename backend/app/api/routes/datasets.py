@@ -14,8 +14,8 @@ router = APIRouter(prefix="/api/datasets", tags=["Datasets"])
 
 @router.post("/inspect")
 async def inspect_dataset(file: UploadFile = File(...)):
-    if not file.filename or Path(file.filename).suffix.lower() not in (".csv", ".xlsx", ".xls"):
-        raise HTTPException(status_code=400, detail="Please upload a CSV or Excel file.")
+    if not file.filename or Path(file.filename).suffix.lower() not in (".csv", ".xlsx"):
+        raise HTTPException(status_code=400, detail="Please upload a CSV or XLSX file.")
     try:
         return inspect_tabular(await file.read(), file.filename)
     except ValueError as exc:
