@@ -31,11 +31,26 @@ The platform is designed as decision support. It distinguishes observed metrics,
 
 - PDF and DOCX uploads are text-extracted and stored locally.
 - The AI Analyst searches only the currently selected Documents source.
-- A local TF-IDF unigram/bigram model ranks overlapping text chunks by cosine similarity.
+- Retrieval prefers optional local semantic embeddings from `sentence-transformers/all-MiniLM-L6-v2`, using cosine similarity over normalized sentence embeddings. If the optional dependency or model cannot load, PulseOS falls back to the original TF-IDF unigram/bigram cosine retrieval. Set `PULSEOS_SEMANTIC_SEARCH=false` to force TF-IDF.
 - The Analyst creates an extractive answer by selecting relevant source lines verbatim, with document filename and chunk-level citations. Section questions (such as "describe the experience section") attempt to return the named section rather than unrelated passages.
 - This is not a generative LLM: answers are not paraphrased or expanded, and the system does not invent missing details. If no source line matches, it reports insufficient evidence.
 - The current extraction pipeline does not preserve PDF page offsets, so citations use chunk numbers. Scanned PDFs without embedded text are not searchable because OCR is not enabled.
-- Retrieval scores indicate lexical similarity, not confidence, truth or causal evidence.
+- The model runs on CPU and is cached in-process. Its weights are downloaded on first use (internet is required for that initial download); subsequent inference is local. No API key or paid service is used.
+- Retrieval scores indicate semantic or lexical relevance, not confidence, truth or causal evidence.
+
+### Optional semantic-search installation
+
+The default installation remains lightweight and works without semantic dependencies. To enable MiniLM semantic retrieval in the backend virtual environment:
+
+```powershell
+pip install -r requirements-semantic.txt
+```
+
+To force TF-IDF only:
+
+```powershell
+$env:PULSEOS_SEMANTIC_SEARCH = "false"
+`
 
 ## Technology
 
@@ -43,6 +58,7 @@ The platform is designed as decision support. It distinguishes observed metrics,
 - **Backend:** Python, FastAPI, Pandas
 - **Storage:** SQLite
 - **Analytics / ML:** NumPy, scikit-learn, TF-IDF/KMeans, Isolation Forest, Logistic Regression and Random Forest
+- **Optional semantic retrieval:** Sentence Transformers, PyTorch and all-MiniLM-L6-v2 (CPU)
 - **Tests:** Pytest
 
 **Local-first constraints:** no paid API keys, GPU, Docker or hosted inference service required.
