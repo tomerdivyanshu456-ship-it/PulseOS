@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.routes.datasets import router as datasets_router
 from app.api.routes.analytics import router as analytics_router
+from app.api.routes.voice_of_customer import router as voice_of_customer_router
 
 app = FastAPI(
     title="PulseOS API",
@@ -27,6 +28,7 @@ app.add_middleware(
 # Register API routers
 app.include_router(datasets_router)
 app.include_router(analytics_router)
+app.include_router(voice_of_customer_router)
 
 
 @app.get("/")
