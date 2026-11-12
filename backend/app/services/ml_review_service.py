@@ -58,7 +58,7 @@ def cluster_review_themes(n_clusters=4):
         max_features=2000,
         min_df=1,
         sublinear_tf=True,
-        token_pattern=r"(?u)\\b[a-zA-Z][a-zA-Z]+\\b",
+        token_pattern=r"(?u)\b[a-zA-Z][a-zA-Z]+\b",
     )
     try:
         matrix = vectorizer.fit_transform(df["review_text"])
