@@ -1,7 +1,9 @@
+import os
 import secrets
+from urllib.parse import urlsplit
+
 from fastapi import Depends, HTTPException
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
-import os
 
 basic_auth = HTTPBasic(auto_error=False)
 
@@ -28,8 +30,19 @@ def validate_production_config():
     origins = [item.strip().rstrip("/") for item in os.getenv("PULSEOS_CORS_ORIGINS", "").split(",") if item.strip()]
     if not origins:
         raise RuntimeError("Production requires PULSEOS_CORS_ORIGINS with exact HTTPS frontend origins.")
-    if any(not item.startswith("https://") or "*" in item for item in origins):
-        raise RuntimeError("Production CORS origins must be explicit HTTPS origins; wildcards are not allowed.")
+    for origin in origins:
+        parsed = urlsplit(origin)
+        if (
+            parsed.scheme != "https"
+            or not parsed.netloc
+            or parsed.path not in ("", "/")
+            or parsed.query
+            or parsed.fragment
+            or parsed.username
+            or parsed.password
+            or "*" in origin
+        ):
+            raise RuntimeError("Production CORS origins must be exact HTTPS origins without paths or wildcards.")
 
 def require_auth(credentials: HTTPBasicCredentials | None = Depends(basic_auth)):
     expected = configured_admin_password()
