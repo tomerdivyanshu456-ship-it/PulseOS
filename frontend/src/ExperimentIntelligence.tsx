@@ -87,6 +87,7 @@ function ExperimentIntelligence() {
     try {
       const created = await createExperiment(draft);
       setExperiments((current) => [created, ...current]); setSelectedId(created.id);
+      setGuardrailInputs({});
       setNotice("Experiment saved to your local PulseOS workspace.");
     } catch (err) { setError(errorMessage(err, "Could not save this experiment. Check the required fields.")); }
     finally { setSaving(false); }
@@ -202,7 +203,7 @@ function ExperimentIntelligence() {
     <section className="panel experiment-list-panel">
       <div className="experiment-section-heading"><div><span className="upload-eyebrow">EXPERIMENT TRACKER</span><h3>Saved experiments</h3></div><span className="experiment-count">{experiments.length} total</span></div>
       {experiments.length ? <div className="experiment-table-wrap"><table className="experiment-table"><thead><tr><th>Experiment</th><th>Primary metric</th><th>Required / arm</th><th>Duration</th><th>Status</th><th>Update</th></tr></thead><tbody>
-        {experiments.map((item) => <tr key={item.id} className={selectedId === item.id ? "selected" : ""} onClick={() => { setSelectedId(item.id); setAnalysis(null); }}>
+        {experiments.map((item) => <tr key={item.id} className={selectedId === item.id ? "selected" : ""} onClick={() => { setSelectedId(item.id); setAnalysis(null); setGuardrailInputs({}); }}>
           <td><strong>{item.name}</strong><small>{item.opportunity_title || "Standalone experiment"}</small></td><td>{item.primary_metric}</td><td>{item.sample_size_per_arm.toLocaleString("en-IN")}</td><td>{item.duration_days} days*</td><td><span className={`experiment-status status-${item.status}`}>{item.status}</span></td>
           <td><select aria-label={`Update ${item.name} status`} value={item.status} onClick={(event) => event.stopPropagation()} onChange={(event) => { setSelectedId(item.id); void setStatus(item.id, event.target.value as Experiment["status"]); }}><option value="draft">Draft</option><option value="running">Running</option><option value="completed">Completed</option><option value="archived">Archived</option></select></td>
         </tr>)}
