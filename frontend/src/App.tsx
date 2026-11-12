@@ -432,6 +432,8 @@ function App() {
             <FunnelJourneyIntelligence />
           ) : activePage === "Root Cause Explorer" ? (
             <RootCauseExplorer />
+          ) : activePage === "Anomaly Detection" ? (
+            <ProductAnomalies />
           ) : (
             <div className="panel page-placeholder">
               <Sparkles size={32} />
