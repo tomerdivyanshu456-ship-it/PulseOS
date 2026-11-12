@@ -31,6 +31,7 @@ function ExperimentIntelligence() {
   const [draft, setDraft] = useState<ExperimentDraft>(initialDraft);
   const [selectedId, setSelectedId] = useState("");
   const [analysis, setAnalysis] = useState<ExperimentAnalysis | null>(null);
+  const [guardrailInputs, setGuardrailInputs] = useState<Record<string, { control: number; variant: number; maxIncrease: number }>>({});
   const [counts, setCounts] = useState({ control_users: 1000, control_conversions: 100, variant_users: 1000, variant_conversions: 110 });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -220,7 +221,9 @@ function ExperimentIntelligence() {
           <div><span>Absolute lift</span><strong>{analysis.absolute_lift >= 0 ? "+" : ""}{(analysis.absolute_lift * 100).toFixed(2)} pp</strong><small>{analysis.relative_lift_percent === null ? "Relative lift unavailable" : `${analysis.relative_lift_percent.toFixed(1)}% relative`}</small></div>
         </div>
         <div className="experiment-interval"><strong>Approx. difference interval ({Math.round((selected?.confidence_level ?? 0.95) * 100)}% confidence)</strong><span>{pct(analysis.difference_confidence_interval[0])} to {pct(analysis.difference_confidence_interval[1])}</span><small>{analysis.sample_size_reached === null ? "No planned sample attached" : analysis.sample_size_reached ? "Planned sample reached in both arms" : "Planned sample not yet reached in both arms"}</small></div>
-        <p className="experiment-interpretation">{analysis.interpretation}</p><p className="experiment-method-note">{analysis.methodology}</p>
+        <p className="experiment-interpretation">{analysis.interpretation}</p>
+        {analysis.guardrails.length > 0 && <div className="experiment-guardrail-output"><strong>Guardrail review</strong>{analysis.guardrails.map((item) => <div key={item.name}><span>{item.name}</span><b className={item.status === "review" ? "guardrail-risk" : "guardrail-ok"}>{item.status === "review" ? "Review regression" : "Within threshold"}</b><small>Change: {(item.absolute_change * 100).toFixed(2)} pp · Allowed: {(item.threshold * 100).toFixed(2)} pp</small></div>)}</div>}
+        <p className="experiment-method-note">{analysis.methodology}</p>
       </div>}
     </section>
 
