@@ -1,5 +1,3 @@
-import math
-
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
@@ -117,7 +115,7 @@ def predict_customer_churn():
 
     X = cohort[FEATURE_COLUMNS].astype(float)
     y = cohort["churned"].astype(int)
-    X_train, X_test, y_train, y_test, ids_train, ids_test = train_test_split(
+    X_train, X_test, y_train, y_test, _, ids_test = train_test_split(
         X, y, cohort["user_id"], test_size=0.25, random_state=42, stratify=y
     )
 
