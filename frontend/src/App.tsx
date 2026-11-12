@@ -18,6 +18,7 @@ import {
   Gauge,
   Route,
   AlertTriangle,
+  UserMinus,
 } from "lucide-react";
 import {
   Area,
@@ -48,6 +49,7 @@ import CohortSegmentIntelligence from "./CohortSegmentIntelligence";
 import FunnelJourneyIntelligence from "./FunnelJourneyIntelligence";
 import RootCauseExplorer from "./RootCauseExplorer";
 import ProductAnomalies from "./ProductAnomalies";
+import CustomerChurn from "./CustomerChurn";
 import "./App.css";
 
 const navigation = [
@@ -64,6 +66,7 @@ const navigation = [
   { name: "Funnel & Journeys", icon: Route },
   { name: "Root Cause Explorer", icon: Search },
   { name: "Anomaly Detection", icon: AlertTriangle },
+  { name: "Churn Prediction", icon: UserMinus },
 ];
 
 const numberFormatter = new Intl.NumberFormat("en-IN");
@@ -434,6 +437,8 @@ function App() {
             <RootCauseExplorer />
           ) : activePage === "Anomaly Detection" ? (
             <ProductAnomalies />
+          ) : activePage === "Churn Prediction" ? (
+            <CustomerChurn />
           ) : (
             <div className="panel page-placeholder">
               <Sparkles size={32} />
