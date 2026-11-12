@@ -2,6 +2,7 @@ import os
 from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.security import require_auth, validate_production_config
+from app.middleware import RequestSizeLimitMiddleware
 from app.api.routes.auth import router as auth_router
 
 from app.api.routes.datasets import router as datasets_router
@@ -36,6 +37,7 @@ cors_options = {
 }
 if os.getenv("PULSEOS_ENV", "development").strip().lower() != "production":
     cors_options["allow_origin_regex"] = r"https?://(localhost|127\.0\.0\.1):\d+"
+app.add_middleware(RequestSizeLimitMiddleware, max_bytes=21 * 1024 * 1024)
 app.add_middleware(CORSMiddleware, **cors_options)
 
 # Health and auth configuration remain public. All workspace APIs are protected
