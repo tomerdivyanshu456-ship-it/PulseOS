@@ -34,13 +34,17 @@ def test_predict_customer_churn_returns_holdout_metrics(monkeypatch):
     assert result["holdout_users"] == 15
     assert {item["model"] for item in result["model_comparison"]} == {"Majority-class baseline", "Logistic Regression", "Random Forest"}
     assert all(0 <= item["metrics"]["roc_auc"] <= 1 for item in result["model_comparison"])
-    assert all("predicted_churn_probability" in item for item in result["holdout_predictions"])\n    assert result["confusion_matrix"]["true_negative"] + result["confusion_matrix"]["false_positive"] + result["confusion_matrix"]["false_negative"] + result["confusion_matrix"]["true_positive"] == result["holdout_users"]\n    for model in result["model_comparison"][1:]:\n        assert model["cross_validation"]["folds"] == 5\n        assert 0 <= model["cross_validation"]["roc_auc_mean"] <= 1
+    assert all("predicted_churn_probability" in item for item in result["holdout_predictions"])
+    assert result["confusion_matrix"]["true_negative"] + result["confusion_matrix"]["false_positive"] + result["confusion_matrix"]["false_negative"] + result["confusion_matrix"]["true_positive"] == result["holdout_users"]
+    for model in result["model_comparison"][1:]:
+        assert model["cross_validation"]["folds"] == 5
+        assert 0 <= model["cross_validation"]["roc_auc_mean"] <= 1
 
 
 def test_predict_customer_churn_requires_fourteen_days(monkeypatch):
     monkeypatch.setattr(churn_service, "get_dataset_by_id", lambda _dataset_id, _dataset_type: _events(days=12))
     with pytest.raises(ValueError, match="At least 14 calendar days"):
-        churn_service.predict_customer_churn()
+        churn_service.predict_customer_churn("dataset-1")
 
 
 def test_predict_customer_churn_requires_both_classes(monkeypatch):
