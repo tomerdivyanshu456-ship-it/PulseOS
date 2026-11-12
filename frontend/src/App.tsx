@@ -247,6 +247,7 @@ function App() {
           </div>
           <div className="top-actions">
             <div className="workspace-source-selectors">
+              <button className="source-refresh-button" type="button" onClick={() => void refreshDataSources().catch(() => setSourceError("Could not refresh active data sources."))}>Refresh sources</button>
               {(["events", "reviews", "documents"] as const).map((kind) => (
                 <label key={kind} className="workspace-source-picker">
                   <span>{kind}</span>
