@@ -219,6 +219,7 @@ function AIAnalyst() {
                       style={{
                         left: `${Math.max(5, Math.min(95, item.severity_score))}%`,
                         bottom: `${Math.max(5, Math.min(95, item.evidence_strength))}%`,
+                        transform: `translate(calc(-50% + ${(index - (result.priority_matrix.length - 1) / 2) * 13}px), 50%)`,
                       }}
                       title={`${index + 1}. ${item.label}: severity ${item.severity_score}/100, evidence ${item.evidence_strength}/100`}
                       aria-label={`${index + 1}. ${item.label}`}
