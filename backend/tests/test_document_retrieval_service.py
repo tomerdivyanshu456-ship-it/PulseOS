@@ -132,8 +132,8 @@ def test_extractive_answer_declines_when_no_sentence_matches():
 def test_broad_document_summary_returns_unranked_overview_chunks(monkeypatch, tmp_path):
     document = tmp_path / "resume.txt"
     document.write_text(
-        "Divyanshu Tomer\\nB.Tech Chemical Engineering at BIT Mesra.\\n"
-        "Business Analyst Intern: worked with SQL and Python.\\n"
+        "Divyanshu Tomer\nB.Tech Chemical Engineering at BIT Mesra.\n"
+        "Business Analyst Intern: worked with SQL and Python.\n"
         "Projects include customer churn prediction and product analytics.",
         encoding="utf-8",
     )
