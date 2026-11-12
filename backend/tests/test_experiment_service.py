@@ -90,3 +90,31 @@ def test_analysis_reports_lift_intervals_and_guardrails():
 def test_wilson_interval_rejects_invalid_counts():
     with pytest.raises(ValueError):
         experiment_service.wilson_interval(11, 10)
+
+
+
+def test_analysis_rejects_conversions_greater_than_users():
+    with pytest.raises(ValueError):
+        experiment_service.analyze_experiment({
+            "control_users": 10, "control_conversions": 11,
+            "variant_users": 10, "variant_conversions": 2,
+        })
+
+
+def test_analysis_guardrail_flags_regression():
+    result = experiment_service.analyze_experiment({
+        "control_users": 100, "control_conversions": 10,
+        "variant_users": 100, "variant_conversions": 12,
+        "guardrails": [{
+            "name": "Error rate", "control_rate": 0.01,
+            "variant_rate": 0.04, "max_increase": 0.01,
+        }],
+    })
+    assert result["guardrails"][0]["status"] == "review"
+
+
+def test_sample_size_rejects_non_finite_values():
+    with pytest.raises(ValueError):
+        experiment_service.calculate_sample_size(
+            baseline_rate=float("nan"), minimum_detectable_effect=0.02
+        )
