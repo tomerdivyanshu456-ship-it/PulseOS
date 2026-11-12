@@ -47,4 +47,6 @@ def test_ai_analyst_includes_cross_source_opportunity(monkeypatch):
 
     assert any(item["title"] == "Cross-source opportunity: Checkout & Payments" for item in result["findings"])
     assert any(item["title"] == "Investigate Checkout & Payments" for item in result["recommendations"])
+    assert sum(item["title"] == "Top cross-source opportunity: Checkout & Payments" for item in result["findings"]) == 1
+    assert sum(item["title"] == "Investigate Checkout & Payments" for item in result["recommendations"]) == 1
     assert any("Cross-source opportunity detection" in item for item in result["limitations"])
