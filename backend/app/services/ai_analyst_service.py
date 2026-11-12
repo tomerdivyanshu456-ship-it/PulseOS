@@ -179,9 +179,13 @@ def answer_product_question(question, history=None):
             if len(top_topics) > 1:
                 issue_names = " and ".join(tie_names)
                 answer = f'{issue_names} are joint top priorities, each scoring {top_score}/100 in the current review sample. The scores are tied, so the available data does not justify choosing one over the other. Investigate both in parallel and collect evidence about frequency, severity and affected users before committing to fixes.'
+                tie_details = "; ".join(
+                    f'{topic["label"]}: {topic["review_count"]} negative review(s), average rating {topic["average_rating"]}/5'
+                    for topic in top_topics
+                )
                 findings.append({
                     "title": "Joint highest-priority issues",
-                    "detail": f'{issue_names} are tied at {top_score}/100. Each currently has {top_topics[0]["review_count"] if top_topics[0]["review_count"] == top_topics[1]["review_count"] else "its own"} supporting negative review count; compare the individual evidence before deciding sequencing.',
+                    "detail": f'{issue_names} are tied at {top_score}/100. {tie_details}. The available sample does not justify ranking one above the other.',
                     "type": "customer_feedback",
                 })
                 for topic in top_topics:
