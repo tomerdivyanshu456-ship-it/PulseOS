@@ -507,3 +507,44 @@ export async function getSegmentIntelligence(dimension?: string): Promise<Segmen
   });
   return response.data;
 }
+
+
+export interface JourneyIntelligenceResponse {
+  status: "ready" | "insufficient_events";
+  period?: { start_date: string; end_date: string };
+  unit: "sessions" | "users";
+  total_units?: number;
+  event_catalog: Array<{ event_name: string; event_count: number }>;
+  dimensions: Array<{ key: string; label: string; values: number }>;
+  selected_dimension: string | null;
+  steps: string[];
+  funnel: Array<{
+    step: number;
+    event_name: string;
+    units_reached: number;
+    drop_off_units: number;
+    conversion_from_previous: number;
+    drop_off_rate: number;
+    conversion_from_entry: number;
+  }>;
+  journey_paths: Array<{ path: string; units: number; share: number }>;
+  segment_funnels: Array<{
+    segment: string;
+    units: number;
+    funnel: Array<{ event_name: string; units_reached: number }>;
+  }>;
+  methodology: string;
+}
+
+export async function getJourneyIntelligence(
+  steps?: string[],
+  dimension?: string
+): Promise<JourneyIntelligenceResponse> {
+  const response = await api.get("/api/analytics/journeys", {
+    params: {
+      ...(steps && steps.length ? { steps: steps.join(",") } : {}),
+      ...(dimension ? { dimension } : {}),
+    },
+  });
+  return response.data;
+}
