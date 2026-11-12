@@ -60,6 +60,7 @@ import ProductAnomalies from "./ProductAnomalies";
 import CustomerChurn from "./CustomerChurn";
 import "./App.css";
 import "./Auth.css";
+import "./PulseTheme.css";
 
 const navigation = [
   { name: "Overview", icon: LayoutDashboard },
