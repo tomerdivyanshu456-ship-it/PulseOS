@@ -10,7 +10,7 @@ PulseOS is a portfolio-grade, locally runnable SaaS-style MVP for Product Analys
 - **Voice of Customer:** review sentiment and complaint-theme analysis from a separate customer review dataset.
 - **AI Analyst:** constrained, evidence-backed questions, cross-source investigation recommendations, and explicit evidence limitations.
 - **Product Opportunity Detection:** maps customer complaint themes to related behavioural signals using transparent keyword heuristics.
-- **Experiment Intelligence:** turns opportunities into editable hypotheses, defines primary/secondary/guardrail metrics, designs a simple A/B test, estimates sample size and duration, tracks experiments in SQLite, and compares observed control/variant results.
+- **Experiment Intelligence:** turns opportunities into editable hypotheses, defines primary/secondary/guardrail metrics, designs a simple A/B test, estimates sample size and duration, tracks experiments in SQLite, compares observed control/variant results, and generates event-backed Ship / Iterate / Stop recommendations.
 
 ## Stack
 
@@ -108,6 +108,20 @@ npm run build
 - Duration is a rough planning estimate based on total eligible daily traffic. Plan for at least one complete weekly cycle and account for ramp-up, seasonality, instrumentation quality, and exclusions.
 - Result analysis reports observed arm rates, Wilson intervals for each arm, and an approximate unpooled interval for the difference. It is descriptive and does not replace a pre-registered statistical analysis or prove causality.
 - Guardrail comparisons use user-entered rates and thresholds. They are review flags, not automatic rollout decisions.
+- Event-backed decisions require explicit experiment exposure rows tagged with the saved experiment ID and an `experiment_variant` value of `control` or `variant`. The configured exposure event defines the eligible-user denominator; conversion and optional guardrail events are counted once per exposed user only when they occur at or after exposure.
+- The decision rules recommend **Ship** only when both arms reach the planned sample, the approximate primary-metric difference interval is entirely positive, and no configured guardrail threshold is exceeded; **Stop** when the interval is entirely negative or a configured guardrail threshold is exceeded; otherwise **Iterate**. Guardrail thresholds are screening flags, not statistical tests.
+- The event-backed workflow assumes stable user-level assignment and complete instrumentation. It is a decision aid, not proof of causality or an automated deployment action.
+
+### Event tracking contract for experiment decisions
+
+The latest uploaded events CSV must retain the standard `user_id`, `event_name`, and `timestamp` columns and include two additional columns:
+
+| Column | Purpose |
+|---|---|
+| `experiment_id` | Saved PulseOS experiment ID, populated on exposure rows |
+| `experiment_variant` | `control` or `variant`, populated on exposure rows |
+
+Each eligible user must have one tagged exposure event (default event name: `experiment_exposed`). The primary conversion event (default: `purchase`) must use the same `user_id` and occur at or after exposure. Optional guardrail events are also counted per exposed user. Users with conflicting control/variant exposure assignments are excluded and reported. Existing event datasets without experiment tags continue to work for the other PulseOS analytics features, but cannot power event-backed experiment decisions.
 
 ## Data integrity principles
 
@@ -121,4 +135,4 @@ npm run build
 
 ## Project status
 
-**Working MVP in active development.** Implemented CSV ingestion, behavioural product metrics, conversion funnels, weekly retention cohorts, repeat-usage metrics, event adoption, Voice of Customer analysis, evidence-backed AI Analyst, cross-source product opportunity detection, and Experiment Intelligence planning/tracking/result analysis.
+**Working MVP in active development.** Implemented CSV ingestion, behavioural product metrics, conversion funnels, weekly retention cohorts, repeat-usage metrics, event adoption, Voice of Customer analysis, evidence-backed AI Analyst, cross-source product opportunity detection, and Experiment Intelligence planning/tracking/result analysis with event-backed decision recommendations.
