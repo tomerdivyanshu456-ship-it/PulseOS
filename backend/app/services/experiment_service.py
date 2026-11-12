@@ -58,7 +58,14 @@ def calculate_sample_size(baseline_rate, minimum_detectable_effect,
         raise ValueError("Confidence level must be 0.90, 0.95 or 0.99.")
     if power not in (0.80, 0.90):
         raise ValueError("Power must be 0.80 or 0.90.")
-    if isinstance(daily_eligible_users, bool) or not float(daily_eligible_users).is_integer() or int(daily_eligible_users) < 1:
+    try:
+        valid_daily_users = (not isinstance(daily_eligible_users, bool)
+                             and math.isfinite(float(daily_eligible_users))
+                             and float(daily_eligible_users).is_integer()
+                             and int(daily_eligible_users) >= 1)
+    except (TypeError, ValueError, OverflowError):
+        valid_daily_users = False
+    if not valid_daily_users:
         raise ValueError("Daily eligible users must be a positive integer.")
     z_alpha = {0.90: 1.644854, 0.95: 1.959964, 0.99: 2.575829}[confidence_level]
     z_power = {0.80: 0.841621, 0.90: 1.281552}[power]
@@ -230,7 +237,7 @@ def analyze_experiment(payload):
     se = math.sqrt(c_rate * (1 - c_rate) / cu + v_rate * (1 - v_rate) / vu)
     low, high = absolute - z * se, absolute + z * se
     planned = payload.get("planned_sample_size_per_arm")
-    if planned is not None and (isinstance(planned, bool) or int(planned) < 1):
+    if planned is not None and (isinstance(planned, bool) or not isinstance(planned, int) or planned < 1):
         raise ValueError("Planned sample size per arm must be a positive integer.")
     sample_reached = (cu >= planned and vu >= planned) if planned else None
     guardrail_results = []
