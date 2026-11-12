@@ -261,6 +261,24 @@ function AIAnalyst() {
             </section>
           )}
 
+          {result.document_answer && (
+            <article className="panel analyst-document-answer">
+              <div className="analyst-section-title"><FileText size={17} /> Answer from your document</div>
+              <p className="analyst-document-answer-text">{result.document_answer.text}</p>
+              {result.document_answer.citations.length > 0 && (
+                <div className="analyst-document-answer-citations">
+                  <strong>Sources</strong>
+                  {result.document_answer.citations.map((citation) => (
+                    <span key={citation.document_name + citation.chunk_index}>
+                      {citation.document_name} · {citation.locator}
+                    </span>
+                  ))}
+                </div>
+              )}
+              <p className="analyst-document-answer-method">Extractive answer · Source wording is preserved; no generative model or paraphrasing is used.</p>
+            </article>
+          )}
+
           <article className="panel analyst-answer">
             <div className="analyst-section-title"><Sparkles size={17} /> Analyst response</div>
             <p>{result.answer}</p>
