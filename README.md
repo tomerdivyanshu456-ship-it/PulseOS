@@ -1,28 +1,29 @@
 # PulseOS
 
-**AI-powered Product Intelligence Platform** for customer feedback analysis, product analytics, user behaviour insights, and experimentation.
+**AI-powered Product Intelligence Platform** for customer feedback analysis, product analytics, user behaviour insights, opportunity discovery, and experiment intelligence.
 
-PulseOS is being built as a portfolio-grade, locally runnable SaaS-style MVP for Product Analyst, AI Product Manager, and Associate Product Manager roles.
+PulseOS is a portfolio-grade, locally runnable SaaS-style MVP for Product Analyst, AI Product Manager, and Associate Product Manager roles.
 
 ## MVP scope
 
-- Product analytics from behavioural event data: KPIs, funnels, cohorts, and retention.
-- Voice of Customer analysis from a separate review dataset: sentiment and topic discovery.
-- A constrained, evidence-backed analytical question interface.
-- A/B experiment analysis as a follow-on module.
+- **Product analytics:** KPIs, conversion funnels, cohorts, retention, engagement, and feature adoption from behavioural event data.
+- **Voice of Customer:** review sentiment and complaint-theme analysis from a separate customer review dataset.
+- **AI Analyst:** constrained, evidence-backed questions, cross-source investigation recommendations, and explicit evidence limitations.
+- **Product Opportunity Detection:** maps customer complaint themes to related behavioural signals using transparent keyword heuristics.
+- **Experiment Intelligence:** turns opportunities into editable hypotheses, defines primary/secondary/guardrail metrics, designs a simple A/B test, estimates sample size and duration, tracks experiments in SQLite, and compares observed control/variant results.
 
 ## Stack
 
 | Layer | Technology |
 |---|---|
-| Frontend | React, TypeScript, Vite, Tailwind CSS, Recharts |
-| Backend | Python 3.11, FastAPI, SQLAlchemy |
+| Frontend | React, TypeScript, Vite, Recharts |
+| Backend | Python 3.11, FastAPI |
 | Database | SQLite |
 | Analytics | Pandas, NumPy, scikit-learn |
-| NLP | TF-IDF + lightweight sentiment tooling; optional small CPU model |
+| NLP | Lightweight CPU-friendly sentiment and topic tooling |
 | Tests | Pytest, HTTPX |
 
-No paid API keys or GPU are required for the planned MVP.
+No paid API keys, GPU, Docker, or additional infrastructure are required for the local MVP.
 
 ## Repository structure
 
@@ -33,7 +34,6 @@ PulseOS/
 │   ├── app/
 │   │   ├── api/routes/
 │   │   ├── services/
-│   │   ├── utils/
 │   │   └── main.py
 │   ├── tests/
 │   └── requirements.txt
@@ -41,7 +41,6 @@ PulseOS/
 │   ├── raw/
 │   └── processed/
 ├── docs/
-├── .gitignore
 └── README.md
 ```
 
@@ -62,14 +61,13 @@ For an 8 GB RAM laptop, begin with 100k–200k event rows and 5k–10k review ro
 - Python 3.11
 - Node.js LTS
 - Git
-- VS Code (recommended editor)
 
 ### Backend (PowerShell)
 
 ```powershell
 cd backend
 python -m venv .venv
-.\.venv\Scripts\Activate.ps1
+.\\.venv\\Scripts\\Activate.ps1
 pip install -r requirements.txt
 uvicorn app.main:app --reload
 ```
@@ -86,7 +84,6 @@ npm run dev
 
 Frontend: http://localhost:5173
 
-
 ### Run backend tests
 
 From the `backend` directory:
@@ -95,20 +92,22 @@ From the `backend` directory:
 python -m pytest
 ```
 
-## 14-day MVP roadmap
+### Build the frontend
 
-| Days | Deliverable |
-|---|---|
-| 1–2 | Setup, API health check, React-to-FastAPI connection |
-| 3 | SQLite schema and CSV ingestion |
-| 4–5 | Product KPIs and conversion funnel |
-| 6 | Cohort and retention analysis |
-| 7 | Overview dashboard |
-| 8–10 | Review preprocessing, sentiment, topic discovery |
-| 11 | Voice of Customer interface |
-| 12 | Constrained analytical question engine |
-| 13 | Tests and deployment attempt |
-| 14 | Documentation, demo, and polish |
+From the `frontend` directory:
+
+```powershell
+npm run build
+```
+
+## Experiment Intelligence methodology
+
+- Hypotheses are generated from existing product-opportunity themes and are starting points for product investigation, not established explanations.
+- Customer-review and behavioural datasets remain separate. Theme-level matching does not link an individual review to a user or session and is not causal evidence.
+- The sample-size estimator uses a normal approximation for two independent binary proportions, a two-sided confidence level, specified power, and equal 50/50 allocation. It assumes independent eligible users and one preselected primary metric.
+- Duration is a rough planning estimate based on total eligible daily traffic. Plan for at least one complete weekly cycle and account for ramp-up, seasonality, instrumentation quality, and exclusions.
+- Result analysis reports observed arm rates, Wilson intervals for each arm, and an approximate unpooled interval for the difference. It is descriptive and does not replace a pre-registered statistical analysis or prove causality.
+- Guardrail comparisons use user-entered rates and thresholds. They are review flags, not automatic rollout decisions.
 
 ## Data integrity principles
 
@@ -116,8 +115,10 @@ python -m pytest
 - Label demo data clearly.
 - Show source, sample size, definitions, and assumptions for every metric.
 - Keep behavioural events and third-party reviews analytically separate.
+- Distinguish observed metrics, heuristic prioritisation, and causal evidence.
+- Define one primary experiment metric before launch; monitor guardrails and avoid stopping early based on interim results.
 - Document limitations and avoid unsupported causal claims.
 
 ## Project status
 
-**Working MVP in active development.** Implemented CSV ingestion, behavioural product metrics, conversion funnels, weekly retention cohorts, repeat-usage metrics, event adoption, Voice of Customer analysis, and an evidence-backed AI Analyst with issue prioritisation.
+**Working MVP in active development.** Implemented CSV ingestion, behavioural product metrics, conversion funnels, weekly retention cohorts, repeat-usage metrics, event adoption, Voice of Customer analysis, evidence-backed AI Analyst, cross-source product opportunity detection, and Experiment Intelligence planning/tracking/result analysis.
