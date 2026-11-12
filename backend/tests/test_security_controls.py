@@ -8,6 +8,8 @@ from starlette.datastructures import UploadFile
 
 from app.api.routes.datasets import read_upload_limited
 from app.security import credentials_are_valid, validate_production_config
+from app.middleware import RequestSizeLimitMiddleware
+from fastapi import FastAPI, Request
 from app.main import app
 
 
@@ -23,7 +25,10 @@ def test_production_requires_long_password_and_explicit_https_origins(monkeypatc
     monkeypatch.setenv("PULSEOS_CORS_ORIGINS", "https://pulseos.example.com")
     validate_production_config()
     monkeypatch.setenv("PULSEOS_CORS_ORIGINS", "*")
-    with pytest.raises(RuntimeError, match="explicit HTTPS"):
+    with pytest.raises(RuntimeError, match="exact HTTPS"):
+        validate_production_config()
+    monkeypatch.setenv("PULSEOS_CORS_ORIGINS", "https://pulseos.example.com/path")
+    with pytest.raises(RuntimeError, match="exact HTTPS"):
         validate_production_config()
 
 
@@ -57,3 +62,16 @@ def test_workspace_api_requires_admin_auth_when_configured(monkeypatch):
     verified = client.get("/api/auth/verify", auth=("admin", "local-test-password"))
     assert verified.status_code == 200
     assert verified.json() == {"authenticated": True}
+
+
+def test_request_size_middleware_rejects_oversized_body_before_route():
+    test_app = FastAPI()
+    test_app.add_middleware(RequestSizeLimitMiddleware, max_bytes=8)
+
+    @test_app.post("/upload")
+    async def upload(request: Request):
+        return {"size": len(await request.body())}
+
+    response = TestClient(test_app).post("/upload", content=b"123456789")
+    assert response.status_code == 413
+    assert "server limit" in response.json()["detail"]
