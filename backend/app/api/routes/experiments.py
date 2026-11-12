@@ -75,13 +75,6 @@ class ExperimentAnalysisRequest(BaseModel):
     planned_sample_size_per_arm: int | None = Field(default=None, gt=0)
     guardrails: list[GuardrailResult] = Field(default_factory=list)
 
-    @field_validator("confidence_level")
-    @classmethod
-    def finite_confidence(cls, value):
-        if not math.isfinite(value):
-            raise ValueError("Confidence level must be finite.")
-        return value
-
     @model_validator(mode="after")
     def validate_arm_counts(self):
         if self.control_conversions > self.control_users:
