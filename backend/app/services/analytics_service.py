@@ -128,6 +128,42 @@ def calculate_product_analytics():
         if viewers > 0 else 0
     )
 
+    # Sequential funnel: require each stage to occur after the previous stage.
+    # Prefer session_id when available; otherwise use user_id as a weaker proxy.
+    sequence_key = "session_id" if "session_id" in recent_df.columns else "user_id"
+    sequential_counts = {"Product Viewed": 0, "Add To Cart": 0, "Purchase": 0}
+
+    sequence_df = recent_df.dropna(subset=[sequence_key]).copy()
+    for _, group in sequence_df.sort_values("timestamp").groupby(sequence_key):
+        names = group["event_name"].tolist()
+        view_positions = [i for i, name in enumerate(names) if name in event_aliases["product_viewed"]]
+        cart_positions = [i for i, name in enumerate(names) if name in event_aliases["add_to_cart"]]
+        purchase_positions = [i for i, name in enumerate(names) if name in event_aliases["purchase"]]
+
+        if view_positions:
+            sequential_counts["Product Viewed"] += 1
+            first_view = view_positions[0]
+            later_carts = [i for i in cart_positions if i > first_view]
+            if later_carts:
+                sequential_counts["Add To Cart"] += 1
+                first_cart = later_carts[0]
+                if any(i > first_cart for i in purchase_positions):
+                    sequential_counts["Purchase"] += 1
+
+    sequential_funnel = [
+        {"stage": stage, "count": count}
+        for stage, count in sequential_counts.items()
+    ]
+    sequential_funnel_meta = {
+        "unit": "sessions" if sequence_key == "session_id" else "users",
+        "method": "ordered_events_within_session" if sequence_key == "session_id" else "ordered_events_within_user",
+        "reliability_note": (
+            "Ordered progression is measured within session_id."
+            if sequence_key == "session_id"
+            else "session_id was unavailable; ordered progression is approximated within user_id and may combine separate visits."
+        ),
+    }
+
     # Revenue: sum revenue only for purchase events
     revenue = 0.0
 
@@ -162,6 +198,8 @@ def calculate_product_analytics():
             "total_events": int(len(df)),
         },
         "funnel": funnel,
+        "sequential_funnel": sequential_funnel,
+        "sequential_funnel_meta": sequential_funnel_meta,
         "daily_activity": [
             {
                 "date": date,
