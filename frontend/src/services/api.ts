@@ -473,3 +473,37 @@ export async function getProductHealthScorecard(): Promise<ProductHealthScorecar
   const response = await api.get("/api/health-scorecard");
   return response.data;
 }
+
+
+export interface SegmentIntelligenceRow {
+  segment: string;
+  users: number;
+  user_share: number;
+  events: number;
+  events_per_user: number;
+  repeat_users: number;
+  repeat_user_rate: number;
+  purchasing_users: number;
+  purchase_user_rate: number;
+  purchase_revenue?: number;
+  revenue_per_user?: number;
+}
+
+export interface SegmentIntelligenceResponse {
+  status: "ready" | "no_dimensions";
+  dimensions: Array<{ key: string; label: string; values: number }>;
+  selected_dimension: string | null;
+  total_users: number;
+  assigned_users: number;
+  unassigned_users: number;
+  period?: { start_date: string; end_date: string };
+  segments: SegmentIntelligenceRow[];
+  methodology: string;
+}
+
+export async function getSegmentIntelligence(dimension?: string): Promise<SegmentIntelligenceResponse> {
+  const response = await api.get("/api/analytics/segments", {
+    params: dimension ? { dimension } : undefined,
+  });
+  return response.data;
+}

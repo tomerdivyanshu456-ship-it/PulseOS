@@ -42,6 +42,7 @@ import AIAnalyst from "./AIAnalyst";
 import ExperimentIntelligence from "./ExperimentIntelligence";
 import ProductStrategy from "./ProductStrategy";
 import ProductHealthScorecard from "./ProductHealthScorecard";
+import CohortSegmentIntelligence from "./CohortSegmentIntelligence";
 import "./App.css";
 
 const navigation = [
@@ -54,6 +55,7 @@ const navigation = [
   { name: "Experiments", icon: FlaskConical },
   { name: "Strategy & Insights", icon: Lightbulb },
   { name: "Health Scorecard", icon: Gauge },
+  { name: "Cohort & Segments", icon: Users },
 ];
 
 const numberFormatter = new Intl.NumberFormat("en-IN");
@@ -416,6 +418,8 @@ function App() {
             <ProductStrategy />
           ) : activePage === "Health Scorecard" ? (
             <ProductHealthScorecard />
+          ) : activePage === "Cohort & Segments" ? (
+            <CohortSegmentIntelligence />
           ) : (
             <div className="panel page-placeholder">
               <Sparkles size={32} />
