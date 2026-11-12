@@ -145,9 +145,22 @@ export async function uploadDocument(file: File) {
   return response.data;
 }
 
-export async function getDatasets() {
+export interface UploadedDataset {
+  id: string;
+  dataset_type: "events" | "reviews" | "documents";
+  original_filename: string;
+  row_count: number;
+  uploaded_at: string;
+}
+
+export async function getDatasets(): Promise<UploadedDataset[]> {
   const response = await api.get("/api/datasets");
   return response.data.datasets;
+}
+
+export async function deleteDataset(datasetId: string) {
+  const response = await api.delete(`/api/datasets/${datasetId}`);
+  return response.data;
 }
 
 export async function getDatasetPreview(datasetId: string) {
@@ -691,7 +704,7 @@ export interface CustomerChurnResponse {
   limitations: string[];
 }
 
-export async function getCustomerChurn(): Promise<CustomerChurnResponse> {
-  const response = await api.get("/api/ml/customer-churn");
+export async function getCustomerChurn(datasetId: string): Promise<CustomerChurnResponse> {
+  const response = await api.get("/api/ml/customer-churn", { params: { dataset_id: datasetId } });
   return response.data;
 }
