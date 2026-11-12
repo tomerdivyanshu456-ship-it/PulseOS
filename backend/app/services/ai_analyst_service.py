@@ -100,7 +100,7 @@ def answer_product_question(question, history=None):
             "findings": [], "evidence": [], "sources": [],
             "limitations": limitations, "recommendations": [],
             "priority_matrix": [], "funnel_analysis": None,
-            "context_used": bool(history), "document_evidence": [],
+            "context_used": bool(history), "document_evidence": [], "document_answer": None,
         }
 
     metrics = product["metrics"] if product else None
