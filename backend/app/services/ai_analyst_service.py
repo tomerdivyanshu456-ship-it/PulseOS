@@ -1,5 +1,6 @@
 from app.services.analytics_service import calculate_product_analytics
 from app.services.voice_of_customer_service import calculate_voice_of_customer
+from app.services.opportunity_service import calculate_product_opportunities
 
 
 def _find_topic(voice, words):
@@ -344,6 +345,48 @@ def answer_product_question(question, history=None):
                 "A payment-related review exists, but the behavioural dataset cannot currently measure payment reliability.",
                 "Monitor payment success rate, failure reasons and refund completion.",
             ))
+
+    opportunity_intent = any(word in current for word in [
+        "opportunit", "what should we fix", "what should we investigate",
+        "which problem", "which issue", "priorit"
+    ])
+    if opportunity_intent:
+        try:
+            opportunity_result = calculate_product_opportunities()
+            ranked_opportunities = opportunity_result.get("opportunities", [])
+        except ValueError as exc:
+            ranked_opportunities = []
+            limitations.append(str(exc))
+        if ranked_opportunities:
+            top_opportunity = ranked_opportunities[0]
+            behavior = top_opportunity.get("behavior_signal")
+            behavior_detail = (
+                behavior.get("detail") if behavior
+                else "No matching behavioural event signal was available."
+            )
+            findings.append({
+                "title": "Cross-source opportunity: " + top_opportunity["feature"],
+                "detail": (
+                    f'{top_opportunity["priority"]} · '
+                    f'{top_opportunity["customer_signal"]["review_count"]} negative review(s), '
+                    f'average rating {top_opportunity["customer_signal"]["average_rating"]}/5. '
+                    f'{behavior_detail}'
+                ),
+                "type": "customer_feedback",
+            })
+            recommendations.append(_recommendation(
+                "Investigate " + top_opportunity["feature"],
+                top_opportunity["recommendation"],
+                top_opportunity["confidence_note"],
+                "Track the relevant event-level rate and customer complaint frequency before and after a change. "
+                "Do not infer causation from theme-level associations.",
+            ))
+            limitations.append(
+                "Cross-source opportunity detection matches themes, not individual customers or sessions. "
+                "Treat the result as an investigation hypothesis rather than a proven root cause."
+            )
+        elif opportunity_result.get("status") == "no_data":
+            limitations.append("Cross-source opportunities need uploaded event data and/or customer reviews.")
 
     if followup_intent and history:
         recommendations.append(_recommendation(
