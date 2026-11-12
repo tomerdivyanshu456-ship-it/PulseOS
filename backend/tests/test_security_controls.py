@@ -8,7 +8,7 @@ from starlette.datastructures import UploadFile
 
 from app.api.routes.datasets import read_upload_limited
 from app.security import credentials_are_valid, validate_production_config
-from app.middleware import RequestBodyTooLarge, RequestSizeLimitMiddleware
+from app.middleware import RequestSizeLimitMiddleware
 from fastapi import FastAPI, Request
 from app.main import app
 
