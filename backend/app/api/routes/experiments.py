@@ -1,7 +1,8 @@
 from typing import Literal
+import math
 
 from fastapi import APIRouter, HTTPException
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator, model_validator
 
 from app.services.experiment_service import (
     analyze_experiment, calculate_sample_size, create_experiment,
@@ -17,6 +18,17 @@ class SampleSizeRequest(BaseModel):
     confidence_level: float = 0.95
     power: float = 0.80
     daily_eligible_users: int = Field(default=1000, ge=1)
+
+    @classmethod
+    def validate_finite(cls, value):
+        if not math.isfinite(value):
+            raise ValueError("Input values must be finite numbers.")
+        return value
+
+    @field_validator("baseline_rate", "minimum_detectable_effect", "confidence_level", "power")
+    @classmethod
+    def finite_values(cls, value):
+        return cls.validate_finite(value)
 
 
 class ExperimentPlanRequest(BaseModel):
@@ -59,6 +71,14 @@ class ExperimentAnalysisRequest(BaseModel):
     confidence_level: float = 0.95
     planned_sample_size_per_arm: int | None = Field(default=None, gt=0)
     guardrails: list[GuardrailResult] = Field(default_factory=list)
+
+    @model_validator(mode="after")
+    def validate_arm_counts(self):
+        if self.control_conversions > self.control_users:
+            raise ValueError("Control conversions cannot exceed control users.")
+        if self.variant_conversions > self.variant_users:
+            raise ValueError("Variant conversions cannot exceed variant users.")
+        return self
 
 
 @router.post("/sample-size")
