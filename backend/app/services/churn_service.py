@@ -8,7 +8,7 @@ from sklearn.model_selection import StratifiedKFold, cross_validate, train_test_
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 
-from app.services.analytics_service import get_latest_dataset
+from app.services.analytics_service import get_dataset_by_id
 
 
 PURCHASE_EVENTS = {"purchase", "purchased", "order_completed"}
@@ -98,9 +98,11 @@ def _metrics(y_true, y_pred, probabilities):
     }
 
 
-def predict_customer_churn():
-    """Train, compare and validate supervised churn baselines on a time-defined cohort."""
-    events = get_latest_dataset("events")
+def predict_customer_churn(dataset_id):
+    """Train and evaluate churn models for one explicitly selected events dataset."""
+    if not dataset_id:
+        raise ValueError("Select an events dataset to analyse.")
+    events = get_dataset_by_id(dataset_id, "events")
     cohort, observation_start, observation_end, latest_date = _build_churn_cohort(events)
 
     class_counts = cohort["churned"].value_counts()
