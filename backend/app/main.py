@@ -6,6 +6,7 @@ from app.api.routes.analytics import router as analytics_router
 from app.api.routes.voice_of_customer import router as voice_of_customer_router
 from app.api.routes.analyst import router as analyst_router
 from app.api.routes.opportunities import router as opportunities_router
+from app.api.routes.experiments import router as experiments_router
 
 app = FastAPI(
     title="PulseOS API",
@@ -33,6 +34,7 @@ app.include_router(analytics_router)
 app.include_router(voice_of_customer_router)
 app.include_router(analyst_router)
 app.include_router(opportunities_router)
+app.include_router(experiments_router)
 
 
 @app.get("/")
