@@ -10,6 +10,7 @@ from app.api.routes.experiments import router as experiments_router
 from app.api.routes.strategy import router as strategy_router
 from app.api.routes.health_scorecard import router as health_scorecard_router
 from app.api.routes.segments import router as segments_router
+from app.api.routes.journeys import router as journeys_router
 
 app = FastAPI(
     title="PulseOS API",
@@ -41,6 +42,7 @@ app.include_router(experiments_router)
 app.include_router(strategy_router)
 app.include_router(health_scorecard_router)
 app.include_router(segments_router)
+app.include_router(journeys_router)
 
 
 @app.get("/")
