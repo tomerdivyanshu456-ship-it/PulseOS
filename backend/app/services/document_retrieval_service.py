@@ -104,7 +104,7 @@ def synthesize_document_answer(question, passages, max_sentences=6):
     lines = []
     for passage in passages:
         for raw_line in passage.get("text", "").splitlines():
-            line = re.sub(r"^\\s*(?:[•*\\-]|\\d+[.)])\\s*", "", raw_line).strip()
+            line = re.sub(r"^\s*(?:[•*\-]|\d+[.)])\s*", "", raw_line).strip()
             if len(line) >= 18:
                 lines.append({
                     "text": line,
@@ -119,7 +119,7 @@ def synthesize_document_answer(question, passages, max_sentences=6):
     # Section questions (e.g. "describe experience section") should return
     # the contents of that named section rather than only matching its heading.
     section_match = re.search(
-        r"\\b(education|experience|work experience|projects|skills|certifications|summary|objective)\\b",
+        r"\b(education|experience|work experience|projects|skills|certifications|summary|objective)\b",
         question,
         re.IGNORECASE,
     )
@@ -127,7 +127,7 @@ def synthesize_document_answer(question, passages, max_sentences=6):
     if section_match:
         target = section_match.group(1).lower()
         heading_pattern = re.compile(
-            r"^\\s*(?:#{1,3}\\s*)?" + re.escape(target) + r"\\s*:?[\\s]*$",
+            r"^\s*(?:#{1,3}\s*)?" + re.escape(target) + r"\s*:?[\s]*$",
             re.IGNORECASE,
         )
         heading_index = next(
@@ -136,7 +136,7 @@ def synthesize_document_answer(question, passages, max_sentences=6):
         )
         if heading_index is not None:
             stop_heading = re.compile(
-                r"^\\s*(?:#{1,3}\\s*)?(education|experience|work experience|projects|skills|certifications|summary|objective)\\s*:?[\\s]*$",
+                r"^\s*(?:#{1,3}\s*)?(education|experience|work experience|projects|skills|certifications|summary|objective)\s*:?[\s]*$",
                 re.IGNORECASE,
             )
             for item in lines[heading_index + 1:]:
@@ -187,7 +187,7 @@ def synthesize_document_answer(question, passages, max_sentences=6):
             })
     return {
         "status": "ready",
-        "text": "\\n".join(f"• {item['text']}" for item in selected),
+        "text": "\n".join(f"• {item['text']}" for item in selected),
         "citations": citations,
         "method": "extractive",
     }
