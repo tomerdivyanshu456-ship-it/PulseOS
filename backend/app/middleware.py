@@ -1,7 +1,7 @@
 import json
 
 
-class _RequestBodyTooLarge(Exception):
+class RequestBodyTooLarge(Exception):
     pass
 
 
@@ -37,7 +37,7 @@ class RequestSizeLimitMiddleware:
             if message["type"] == "http.request":
                 received += len(message.get("body", b""))
                 if received > self.max_bytes:
-                    raise _RequestBodyTooLarge
+                    raise RequestBodyTooLarge
             return message
 
         async def tracked_send(message):
@@ -48,7 +48,7 @@ class RequestSizeLimitMiddleware:
 
         try:
             await self.app(scope, limited_receive, tracked_send)
-        except _RequestBodyTooLarge:
+        except RequestBodyTooLarge:
             if not response_started:
                 await self._reject(send)
 
