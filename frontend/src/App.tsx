@@ -17,6 +17,7 @@ import {
   Lightbulb,
   Gauge,
   Route,
+  AlertTriangle,
 } from "lucide-react";
 import {
   Area,
@@ -46,6 +47,7 @@ import ProductHealthScorecard from "./ProductHealthScorecard";
 import CohortSegmentIntelligence from "./CohortSegmentIntelligence";
 import FunnelJourneyIntelligence from "./FunnelJourneyIntelligence";
 import RootCauseExplorer from "./RootCauseExplorer";
+import ProductAnomalies from "./ProductAnomalies";
 import "./App.css";
 
 const navigation = [
@@ -61,6 +63,7 @@ const navigation = [
   { name: "Cohort & Segments", icon: Users },
   { name: "Funnel & Journeys", icon: Route },
   { name: "Root Cause Explorer", icon: Search },
+  { name: "Anomaly Detection", icon: AlertTriangle },
 ];
 
 const numberFormatter = new Intl.NumberFormat("en-IN");
