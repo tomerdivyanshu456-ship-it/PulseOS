@@ -14,7 +14,7 @@ app.add_middleware(
     CORSMiddleware,
     # Vite may select a different port when the default ports are busy.
     # Allow local development origins without hardcoding each Vite port.
-    allow_origin_regex=r"https?://(localhost|127\\.0\\.0\\.1):\\d+",
+    allow_origin_regex=r"https?://(localhost|127\.0\.0\.1):\d+",
     allow_origins=[
         "http://localhost:5173",
         "http://localhost:5174",
