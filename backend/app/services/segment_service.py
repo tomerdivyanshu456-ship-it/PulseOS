@@ -7,6 +7,7 @@ PURCHASE_EVENTS = {"purchase", "purchased", "order_completed"}
 EXCLUDED_DIMENSIONS = {
     "user_id", "event_name", "timestamp", "session_id", "event_id",
     "request_id", "transaction_id", "order_id", "review_id",
+    "revenue", "amount", "price",
 }
 
 
@@ -14,6 +15,8 @@ def _available_dimensions(events):
     dimensions = []
     for column in events.columns:
         if column.lower() in EXCLUDED_DIMENSIONS:
+            continue
+        if not (pd.api.types.is_object_dtype(events[column]) or pd.api.types.is_categorical_dtype(events[column]) or pd.api.types.is_bool_dtype(events[column])):
             continue
         values = events[column].dropna().astype(str).str.strip()
         values = values[values.ne("")]
