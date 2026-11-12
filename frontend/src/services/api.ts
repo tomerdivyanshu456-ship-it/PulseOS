@@ -65,3 +65,39 @@ export async function getDatasetPreview(datasetId: string) {
 
   return response.data;
 }
+
+
+export interface VoiceOfCustomerOverview {
+  data_source: string;
+  filename: string;
+  total_reviews: number;
+  average_rating: number;
+  sentiment_distribution: Array<{
+    sentiment: string;
+    count: number;
+  }>;
+  rating_distribution: Array<{
+    rating: number;
+    count: number;
+  }>;
+  topics: Array<{
+    label: string;
+    keywords: string[];
+    review_count: number;
+    evidence: string;
+  }>;
+  negative_evidence: Array<{
+    rating: number;
+    review_text: string;
+    sentiment: string;
+  }>;
+  methodology: {
+    sentiment: string;
+    topics: string;
+  };
+}
+
+export async function getVoiceOfCustomer(): Promise<VoiceOfCustomerOverview> {
+  const response = await api.get("/api/analytics/voice-of-customer");
+  return response.data;
+}
