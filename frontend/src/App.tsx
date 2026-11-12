@@ -94,18 +94,7 @@ function App() {
   async function refreshDataSources() {
     const [available, active] = await Promise.all([getDatasets(), getActiveDatasets()]);
     setDatasets(available);
-    const next = { ...active };
-    for (const kind of ["events", "reviews", "documents"] as const) {
-      if (!next[kind] && !available.some((item) => item.dataset_type === kind)) continue;
-      if (!next[kind]) {
-        const first = available.find((item) => item.dataset_type === kind);
-        if (first) {
-          await setActiveDataset(kind, first.id);
-          next[kind] = first;
-        }
-      }
-    }
-    setActiveDatasets(next);
+    setActiveDatasets(active);
   }
 
   useEffect(() => {
