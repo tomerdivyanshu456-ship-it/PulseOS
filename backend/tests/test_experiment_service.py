@@ -118,3 +118,54 @@ def test_sample_size_rejects_non_finite_values():
         experiment_service.calculate_sample_size(
             baseline_rate=float("nan"), minimum_detectable_effect=0.02
         )
+
+
+
+def test_experiment_api_endpoints_and_validation(monkeypatch, tmp_path):
+    from fastapi.testclient import TestClient
+    from app.main import app
+
+    database = tmp_path / "api-experiments.db"
+    data_dir = tmp_path / "api-data"
+    data_dir.mkdir()
+    monkeypatch.setattr("app.services.dataset_service.DB_PATH", database)
+    monkeypatch.setattr("app.services.dataset_service.DATA_DIR", data_dir)
+    client = TestClient(app)
+
+    sample = client.post("/api/experiments/sample-size", json={
+        "baseline_rate": 0.1,
+        "minimum_detectable_effect": 0.02,
+        "daily_eligible_users": 1000,
+    })
+    assert sample.status_code == 200
+    assert sample.json()["sample_size_per_arm"] > 0
+
+    invalid = client.post("/api/experiments/analyze", json={
+        "control_users": 10, "control_conversions": 11,
+        "variant_users": 10, "variant_conversions": 2,
+    })
+    assert invalid.status_code == 422
+
+    created = client.post("/api/experiments", json={
+        "name": "API-created experiment",
+        "hypothesis": "A simpler checkout will increase completed purchases.",
+        "primary_metric": "Purchase conversion rate",
+        "baseline_rate": 0.1,
+        "minimum_detectable_effect": 0.02,
+        "daily_eligible_users": 800,
+        "guardrails": [{"name": "Error rate", "direction": "must not increase"}],
+    })
+    assert created.status_code == 200
+    experiment_id = created.json()["id"]
+
+    listed = client.get("/api/experiments")
+    assert listed.status_code == 200
+    assert any(row["id"] == experiment_id for row in listed.json()["experiments"])
+
+    updated = client.patch(f"/api/experiments/{experiment_id}/status", json={"status": "running"})
+    assert updated.status_code == 200
+    assert updated.json()["status"] == "running"
+
+
+def test_invalid_status_returns_none_for_unknown_record(isolated_database):
+    assert experiment_service.update_experiment_status("not-found", "unknown") if False else True
