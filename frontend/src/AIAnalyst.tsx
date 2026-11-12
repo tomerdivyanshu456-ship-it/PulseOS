@@ -9,8 +9,13 @@ import {
   Search,
   ShieldCheck,
   Sparkles,
+  Target,
 } from "lucide-react";
-import { askAnalyst, type AnalystResponse } from "./services/api";
+import {
+  askAnalyst,
+  type AnalystConversationTurn,
+  type AnalystResponse,
+} from "./services/api";
 import "./AIAnalyst.css";
 
 const suggestedQuestions = [
@@ -23,6 +28,8 @@ const suggestedQuestions = [
 function AIAnalyst() {
   const [question, setQuestion] = useState("");
   const [result, setResult] = useState<AnalystResponse | null>(null);
+  const [history, setHistory] = useState<AnalystConversationTurn[]>([]);
+  const [transcript, setTranscript] = useState<AnalystConversationTurn[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -30,14 +37,25 @@ function AIAnalyst() {
     const trimmed = value.trim();
     if (trimmed.length < 3 || loading) return;
 
-    setQuestion(trimmed);
+    const nextHistory = history.slice(-8);
+    setQuestion("");
     setLoading(true);
     setError("");
     setResult(null);
+    setTranscript((current) => [...current, { role: "user", content: trimmed }]);
 
     try {
-      const response = await askAnalyst(trimmed);
+      const response = await askAnalyst(trimmed, nextHistory);
       setResult(response);
+      setHistory((current) => [
+        ...current,
+        { role: "user", content: trimmed },
+        { role: "assistant", content: response.answer },
+      ].slice(-8));
+      setTranscript((current) => [
+        ...current,
+        { role: "assistant", content: response.answer },
+      ]);
     } catch (err: unknown) {
       const detail =
         typeof err === "object" &&
@@ -53,16 +71,25 @@ function AIAnalyst() {
           ? err.response.data.detail
           : "Unable to reach the analyst. Check that the backend is running.";
       setError(detail);
+      setTranscript((current) => current.slice(0, -1));
     } finally {
       setLoading(false);
     }
+  }
+
+  function startNewAnalysis() {
+    setQuestion("");
+    setResult(null);
+    setHistory([]);
+    setTranscript([]);
+    setError("");
   }
 
   return (
     <div className="analyst-page">
       <section className="analyst-hero">
         <div className="analyst-hero-icon"><BrainCircuit size={25} /></div>
-        <p className="upload-eyebrow">PULSeOS INTELLIGENCE</p>
+        <p className="upload-eyebrow">PULSEOS INTELLIGENCE</p>
         <h2>Ask your product data anything.</h2>
         <p>Explore product behaviour and customer feedback with answers grounded in your uploaded datasets.</p>
         <div className="analyst-capabilities">
@@ -73,7 +100,7 @@ function AIAnalyst() {
       </section>
 
       <section className="analyst-composer panel">
-        <label htmlFor="analyst-question">Your product question</label>
+        <label htmlFor="analyst-question">{history.length ? "Ask a follow-up question" : "Your product question"}</label>
         <textarea
           id="analyst-question"
           value={question}
@@ -84,24 +111,38 @@ function AIAnalyst() {
               void submitQuestion();
             }
           }}
-          placeholder="e.g. Why might customers be abandoning checkout?"
+          placeholder={history.length ? "e.g. What should we investigate first?" : "e.g. Why might customers be abandoning checkout?"}
           rows={3}
           maxLength={1000}
         />
         <div className="analyst-composer-footer">
-          <span>Answers use your uploaded data. Enter to submit · Shift + Enter for a new line</span>
-          <button
-            className="analyst-submit"
-            disabled={loading || question.trim().length < 3}
-            onClick={() => void submitQuestion()}
-          >
-            {loading ? <LoaderCircle size={15} className="analyst-spin" /> : <Search size={15} />}
-            Analyse
-          </button>
+          <span>Enter to submit · Shift + Enter for a new line</span>
+          <div className="analyst-composer-actions">
+            {history.length > 0 && <button className="analyst-reset" onClick={startNewAnalysis}>New analysis</button>}
+            <button className="analyst-submit" disabled={loading || question.trim().length < 3} onClick={() => void submitQuestion()}>
+              {loading ? <LoaderCircle size={15} className="analyst-spin" /> : <Search size={15} />}
+              Analyse
+            </button>
+          </div>
         </div>
       </section>
 
-      {!result && !loading && !error && (
+      {transcript.length > 0 && (
+        <section className="analyst-conversation">
+          <div className="analyst-conversation-heading">
+            <h3>Conversation</h3>
+            <span>Recent context is used for follow-up questions</span>
+          </div>
+          {transcript.map((turn, index) => (
+            <article className={turn.role === "user" ? "analyst-turn user" : "analyst-turn assistant"} key={index}>
+              <strong>{turn.role === "user" ? "You" : "PulseOS Analyst"}</strong>
+              <p>{turn.content}</p>
+            </article>
+          ))}
+        </section>
+      )}
+
+      {!result && !loading && !error && history.length === 0 && (
         <section className="analyst-suggestions">
           <h3><Sparkles size={16} /> Suggested questions</h3>
           <div className="analyst-suggestion-grid">
@@ -118,7 +159,7 @@ function AIAnalyst() {
         <div className="panel analyst-loading">
           <LoaderCircle size={22} className="analyst-spin" />
           <strong>Analysing your product data…</strong>
-          <span>Reviewing available metrics, feedback and supporting evidence.</span>
+          <span>Reviewing available metrics, feedback and conversation context.</span>
         </div>
       )}
 
@@ -131,8 +172,31 @@ function AIAnalyst() {
 
       {result && (
         <section className="analyst-results">
-          <div className="analyst-question-label">YOUR QUESTION</div>
-          <h3 className="analyst-question-title">{result.question}</h3>
+          <div className="analyst-result-heading">
+            <div>
+              <div className="analyst-question-label">LATEST ANALYSIS</div>
+              <h3 className="analyst-question-title">{result.question}</h3>
+            </div>
+            {result.context_used && <span className="analyst-context-badge">Follow-up context used</span>}
+          </div>
+
+          {result.funnel_analysis && (
+            <section className="panel analyst-funnel">
+              <div className="analyst-section-title"><BarChart3 size={17} /> Sequential funnel analysis</div>
+              <div className="analyst-funnel-stages">
+                {result.funnel_analysis.stages.map((stage, index) => (
+                  <div className="analyst-funnel-stage" key={stage.stage}>
+                    <span>{stage.stage}</span>
+                    <strong>{stage.count}</strong>
+                    {index === 0 && <small>Starting stage</small>}
+                    {index === 1 && <small>{result.funnel_analysis?.conversion_rates.view_to_cart}% from view</small>}
+                    {index === 2 && <small>{result.funnel_analysis?.conversion_rates.cart_to_purchase}% from cart</small>}
+                  </div>
+                ))}
+              </div>
+              <p className="analyst-funnel-note">{result.funnel_analysis.unit} · {result.funnel_analysis.reliability_note}</p>
+            </section>
+          )}
 
           <article className="panel analyst-answer">
             <div className="analyst-section-title"><Sparkles size={17} /> Analyst response</div>
@@ -146,10 +210,27 @@ function AIAnalyst() {
                 {result.findings.map((finding, index) => (
                   <article className="panel analyst-finding" key={finding.title + index}>
                     <span className={finding.type === "metric" ? "analyst-finding-type metric" : "analyst-finding-type feedback"}>
-                      {finding.type === "metric" ? "PRODUCT METRIC" : "CUSTOMER FEEDBACK"}
+                      {finding.type === "metric" ? "OBSERVED METRIC" : "CUSTOMER FEEDBACK"}
                     </span>
                     <h4>{finding.title}</h4>
                     <p>{finding.detail}</p>
+                  </article>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {result.recommendations.length > 0 && (
+            <section className="analyst-section">
+              <h3><Target size={16} /> Recommended next actions</h3>
+              <div className="analyst-recommendations">
+                {result.recommendations.map((item, index) => (
+                  <article className="panel analyst-recommendation" key={item.title + index}>
+                    <div className="analyst-recommendation-number">ACTION 0{index + 1}</div>
+                    <h4>{item.title}</h4>
+                    <div><strong>Suggested action</strong><p>{item.action}</p></div>
+                    <div><strong>Why this matters</strong><p>{item.rationale}</p></div>
+                    <div><strong>How to validate</strong><p>{item.validation}</p></div>
                   </article>
                 ))}
               </div>
@@ -172,9 +253,7 @@ function AIAnalyst() {
             <section className="panel analyst-sources">
               <h3>Data sources used</h3>
               {result.sources.map((source) => (
-                <div key={source.name}>
-                  <strong>{source.name}</strong><span>{source.detail}</span>
-                </div>
+                <div key={source.name}><strong>{source.name}</strong><span>{source.detail}</span></div>
               ))}
             </section>
           )}
