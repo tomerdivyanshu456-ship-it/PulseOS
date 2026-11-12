@@ -81,10 +81,19 @@ export interface VoiceOfCustomerOverview {
     count: number;
   }>;
   topics: Array<{
+    key: string;
     label: string;
     keywords: string[];
     review_count: number;
-    evidence: string;
+    average_rating: number;
+    priority_score: number;
+    priority: string;
+    evidence_level: string;
+    recommendation: string;
+    evidence: Array<{
+      rating: number;
+      review_text: string;
+    }>;
   }>;
   negative_evidence: Array<{
     rating: number;
@@ -94,6 +103,7 @@ export interface VoiceOfCustomerOverview {
   methodology: {
     sentiment: string;
     topics: string;
+    prioritisation: string;
   };
 }
 
