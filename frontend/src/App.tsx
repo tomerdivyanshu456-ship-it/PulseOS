@@ -38,7 +38,8 @@ import ProductAnalytics from "./ProductAnalytics";
 import ProductOpportunities from "./ProductOpportunities";
 import VoiceOfCustomer from "./VoiceOfCustomer";
 import AIAnalyst from "./AIAnalyst";
-import ExperimentIntelligence from "./ExperimentIntelligence";\nimport ProductStrategy from "./ProductStrategy";
+import ExperimentIntelligence from "./ExperimentIntelligence";
+import ProductStrategy from "./ProductStrategy";
 import "./App.css";
 
 const navigation = [
@@ -48,7 +49,8 @@ const navigation = [
   { name: "Opportunities", icon: Target },
   { name: "Voice of Customer", icon: MessageSquareText },
   { name: "AI Analyst", icon: Sparkles },
-  { name: "Experiments", icon: FlaskConical },\n  { name: "Strategy & Insights", icon: Lightbulb },
+  { name: "Experiments", icon: FlaskConical },
+  { name: "Strategy & Insights", icon: Lightbulb },
 ];
 
 const numberFormatter = new Intl.NumberFormat("en-IN");
@@ -407,6 +409,8 @@ function App() {
             <AIAnalyst />
           ) : activePage === "Experiments" ? (
             <ExperimentIntelligence />
+          ) : activePage === "Strategy & Insights" ? (
+            <ProductStrategy />
           ) : (
             <div className="panel page-placeholder">
               <Sparkles size={32} />
