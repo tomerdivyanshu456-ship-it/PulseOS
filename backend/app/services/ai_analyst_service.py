@@ -1,7 +1,7 @@
 from app.services.analytics_service import calculate_product_analytics
 from app.services.voice_of_customer_service import calculate_voice_of_customer
 from app.services.opportunity_service import calculate_product_opportunities
-from app.services.document_retrieval_service import retrieve_document_evidence
+from app.services.document_retrieval_service import retrieve_document_evidence, synthesize_document_answer
 
 
 def _find_topic(voice, words):
@@ -52,7 +52,7 @@ def answer_product_question(question, history=None):
 
     sources, findings, evidence, limitations, recommendations = [], [], [], [], []
     document_result = retrieve_document_evidence(question)
-    document_evidence = document_result.get("passages", [])
+    document_evidence = document_result.get("passages", [])\n    document_answer = synthesize_document_answer(question, document_evidence)
     if document_evidence:
         sources.append({
             "name": "Selected product document",
@@ -77,18 +77,21 @@ def answer_product_question(question, history=None):
     if not product and not voice:
         if document_evidence:
             answer = (
-                f'I retrieved {len(document_evidence)} relevant passage(s) from '
-                f'{document_result.get("document_name", "the selected document")}. '
-                "The passages below are source evidence, not a generated summary. "
-                "No active event or review dataset was available for product-metric analysis."
+                document_answer["text"] if document_answer and document_answer.get("status") == "ready"
+                else "I found relevant document passages, but could not extract a supported answer from them."
             )
+            limitations.append(
+                "Document answers are extractive: source lines are selected and quoted, not paraphrased by a generative model."
+            )
+            limitations.append("Chunk citations identify retrieved text segments, not PDF page numbers.")
             return {
                 "question": question, "answer": answer, "findings": [],
                 "evidence": [], "sources": sources,
                 "limitations": list(dict.fromkeys(limitations)),
                 "recommendations": [], "priority_matrix": [],
                 "funnel_analysis": None, "context_used": bool(history),
-                "document_evidence": document_evidence,
+                "document_evidence": document_evidence,\n        "document_answer": document_answer,
+                "document_answer": document_answer,
             }
         return {
             "question": question,
