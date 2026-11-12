@@ -86,6 +86,15 @@ npm run dev
 
 Frontend: http://localhost:5173
 
+
+### Run backend tests
+
+From the `backend` directory:
+
+```powershell
+python -m pytest
+```
+
 ## 14-day MVP roadmap
 
 | Days | Deliverable |
@@ -111,4 +120,4 @@ Frontend: http://localhost:5173
 
 ## Project status
 
-**Initial repository scaffold.** Implementation is starting with the backend health endpoint and frontend connection.
+**Working MVP in active development.** Implemented CSV ingestion, behavioural product metrics, conversion funnels, weekly retention cohorts, repeat-usage metrics, event adoption, Voice of Customer analysis, and an evidence-backed AI Analyst with issue prioritisation.
