@@ -1,18 +1,29 @@
 import { useEffect, useState } from "react";
 import { RefreshCw, Users, UserRoundX, UserRoundCheck, BrainCircuit } from "lucide-react";
-import { getCustomerChurn, type CustomerChurnResponse } from "./services/api";
+import { getCustomerChurn, getDatasets, type CustomerChurnResponse, type UploadedDataset } from "./services/api";
 import "./CustomerChurn.css";
 
 function CustomerChurn() {
   const [data, setData] = useState<CustomerChurnResponse | null>(null);
+  const [datasets, setDatasets] = useState<UploadedDataset[]>([]);
+  const [selectedDatasetId, setSelectedDatasetId] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
+  async function loadDatasetOptions() {
+    try {
+      const available = (await getDatasets()).filter((item) => item.dataset_type === "events");
+      setDatasets(available);
+      setSelectedDatasetId((current) => current && available.some((item) => item.id === current) ? current : "");
+    } catch { setError("Could not load uploaded event datasets."); }
+  }
+
   async function load() {
+    if (!selectedDatasetId) { setError("Choose an Events dataset before running churn analysis."); return; }
     setLoading(true);
     setError("");
     try {
-      setData(await getCustomerChurn());
+      setData(await getCustomerChurn(selectedDatasetId));
     } catch (err: unknown) {
       const detail = typeof err === "object" && err !== null && "response" in err &&
         typeof err.response === "object" && err.response !== null && "data" in err.response &&
@@ -25,7 +36,7 @@ function CustomerChurn() {
     }
   }
 
-  useEffect(() => { void load(); }, []);
+  useEffect(() => { void loadDatasetOptions(); }, []);
 
   const baseline = data?.model_comparison.find((item) => item.model === "Majority-class baseline");
   const predictiveModels = data?.model_comparison.filter((item) => item.model !== "Majority-class baseline") ?? [];
@@ -33,19 +44,25 @@ function CustomerChurn() {
   const belowBaselineAccuracy = baseline !== undefined && bestModelAccuracy !== null && bestModelAccuracy < baseline.metrics.accuracy;
 
   if (loading) return <div className="panel churn-state">Building the historical churn cohort and evaluating models…</div>;
-  if (error || !data) return (
-    <div className="panel churn-state churn-error">
-      <div><strong>Churn model unavailable</strong><p>{error || "No churn results are available."}</p></div>
-      <button onClick={() => void load()}>Try again</button>
-    </div>
-  );
-
   return (
     <div className="churn-page">
       <div className="churn-toolbar">
-        <p>SUPERVISED ML · OBSERVATION {data.observation_window.start_date} – {data.observation_window.end_date} · OUTCOME {data.outcome_window.start_date} – {data.outcome_window.end_date}</p>
-        <button onClick={() => void load()}><RefreshCw size={14}/> Retrain models</button>
+        <div className="churn-dataset-picker">
+          <label htmlFor="churn-dataset">Analyse this Events dataset</label>
+          <select id="churn-dataset" value={selectedDatasetId} onChange={(event) => { setSelectedDatasetId(event.target.value); setData(null); setError(""); }}>
+            <option value="">Choose an uploaded events dataset…</option>
+            {datasets.map((dataset) => <option key={dataset.id} value={dataset.id}>{dataset.original_filename} · {dataset.row_count.toLocaleString()} rows</option>)}
+          </select>
+          <button onClick={() => void loadDatasetOptions()} type="button">Refresh list</button>
+        </div>
+        <div className="churn-dataset-actions">
+          {data && <p>OBSERVATION {data.observation_window.start_date} – {data.observation_window.end_date} · OUTCOME {data.outcome_window.start_date} – {data.outcome_window.end_date}</p>}
+          <button onClick={() => void load()} disabled={!selectedDatasetId || loading}><RefreshCw size={14}/> {data ? "Retrain models" : "Run analysis"}</button>
+        </div>
       </div>
+      {error && <div className="panel churn-state churn-error"><div><strong>Churn analysis unavailable</strong><p>{error}</p></div><button onClick={() => void load()}>Try again</button></div>}
+      {!data && !error && <div className="panel churn-state">{datasets.length ? "Choose an Events dataset and run the analysis." : "No Events datasets uploaded yet. Add one in Data Sources."}</div>}
+      {data && <>
       <section className="churn-intro">
         <span className="upload-eyebrow">CUSTOMER CHURN PREDICTION</span>
         <h2>Identify behavioural patterns associated with churn.</h2>
@@ -80,6 +97,7 @@ function CustomerChurn() {
         </tbody></table></div>
       </section>
       <section className="panel churn-section"><h3>Target, features & limitations</h3><p><strong>Target definition:</strong> {data.target_definition}</p><p><strong>Features:</strong> {data.features_used.join(", ").replaceAll("_", " ")}.</p><p>{data.methodology}</p><ul>{data.limitations.map((item) => <li key={item}>{item}</li>)}</ul></section>
+      </>}
     </div>
   );
 }
