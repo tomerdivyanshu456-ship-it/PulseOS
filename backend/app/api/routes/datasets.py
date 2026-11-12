@@ -12,12 +12,28 @@ from app.services.dataset_service import (
 router = APIRouter(prefix="/api/datasets", tags=["Datasets"])
 
 
+async def read_upload_limited(file: UploadFile, max_bytes: int) -> bytes:
+    """Read in bounded chunks and stop immediately above the configured limit."""
+    chunks = []
+    total = 0
+    while True:
+        chunk = await file.read(min(1024 * 1024, max_bytes - total + 1))
+        if not chunk:
+            break
+        total += len(chunk)
+        if total > max_bytes:
+            raise HTTPException(status_code=413, detail=f"File exceeds the {max_bytes // (1024 * 1024)} MB upload limit.")
+        chunks.append(chunk)
+    return b"".join(chunks)
+
+
 @router.post("/inspect")
 async def inspect_dataset(file: UploadFile = File(...)):
     if not file.filename or Path(file.filename).suffix.lower() not in (".csv", ".xlsx"):
         raise HTTPException(status_code=400, detail="Please upload a CSV or XLSX file.")
     try:
-        return inspect_tabular(await file.read(), file.filename)
+        contents = await read_upload_limited(file, 20 * 1024 * 1024)
+        return inspect_tabular(contents, file.filename)
     except ValueError as exc:
         raise HTTPException(status_code=422, detail=str(exc)) from exc
     finally:
@@ -32,14 +48,17 @@ async def upload_dataset(
 ):
     if dataset_type not in ("events", "reviews"):
         raise HTTPException(status_code=400, detail="Dataset type must be events or reviews.")
-    if not file.filename or Path(file.filename).suffix.lower() not in (".csv", ".xlsx", ".xls"):
-        raise HTTPException(status_code=400, detail="Please upload a CSV or Excel file.")
+    if not file.filename or Path(file.filename).suffix.lower() not in (".csv", ".xlsx"):
+        raise HTTPException(status_code=400, detail="Please upload a CSV or XLSX file.")
     try:
         column_mapping = json.loads(mapping)
         if not isinstance(column_mapping, dict):
             raise ValueError("Column mapping must be an object.")
-        result = save_dataset(await file.read(), file.filename, dataset_type, column_mapping)
+        contents = await read_upload_limited(file, 20 * 1024 * 1024)
+        result = save_dataset(contents, file.filename, dataset_type, column_mapping)
         return {"message": "Dataset uploaded and validated successfully.", "data": result}
+    except HTTPException:
+        raise
     except (ValueError, json.JSONDecodeError) as exc:
         raise HTTPException(status_code=422, detail=str(exc)) from exc
     except Exception as exc:
@@ -53,8 +72,11 @@ async def upload_document(file: UploadFile = File(...)):
     try:
         if not file.filename:
             raise ValueError("A filename is required.")
-        result = save_document(await file.read(), file.filename)
+        contents = await read_upload_limited(file, 15 * 1024 * 1024)
+        result = save_document(contents, file.filename)
         return {"message": "Document uploaded and text extracted successfully.", "data": result}
+    except HTTPException:
+        raise
     except ValueError as exc:
         raise HTTPException(status_code=422, detail=str(exc)) from exc
     except Exception as exc:

@@ -1,8 +1,29 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://127.0.0.1:8000",
+  baseURL: import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8000",
 });
+
+export async function getAuthConfig(): Promise<{ auth_required: boolean }> {
+  const response = await api.get("/api/auth/config");
+  return response.data;
+}
+
+export async function authenticate(password: string): Promise<void> {
+  const bytes = new TextEncoder().encode(`admin:${password}`);
+  const encoded = btoa(Array.from(bytes, (byte) => String.fromCharCode(byte)).join(""));
+  api.defaults.headers.common.Authorization = `Basic ${encoded}`;
+  try {
+    await api.get("/api/auth/verify");
+  } catch (error) {
+    clearAuth();
+    throw error;
+  }
+}
+
+export function clearAuth(): void {
+  delete api.defaults.headers.common.Authorization;
+}
 
 export interface AnalyticsOverview {
   data_source: string;
