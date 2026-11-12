@@ -26,6 +26,7 @@ def test_save_dataset_standardises_columns_and_preserves_other_fields(monkeypatc
     monkeypatch.setattr(dataset_service, "DATA_DIR", tmp_path)
     monkeypatch.setattr(dataset_service, "UPLOAD_DIR", tmp_path / "raw")
     monkeypatch.setattr(dataset_service, "DOCUMENT_DIR", tmp_path / "documents")
+    monkeypatch.setattr(dataset_service, "DB_PATH", tmp_path / "pulseos.db")
     dataset_service.UPLOAD_DIR.mkdir()
     dataset_service.DOCUMENT_DIR.mkdir()
     contents = (
