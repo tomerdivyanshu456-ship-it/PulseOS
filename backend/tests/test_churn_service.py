@@ -57,7 +57,7 @@ def test_predict_customer_churn_requires_both_classes(monkeypatch):
         })
     events = pd.concat([events, pd.DataFrame(additions)], ignore_index=True)
     monkeypatch.setattr(churn_service, "get_latest_dataset", lambda _: events)
-    with pytest.raises(ValueError, match="At least 30 eligible users"):
+    with pytest.raises(ValueError, match="too few examples in one class"):
         churn_service.predict_customer_churn()
 
 
