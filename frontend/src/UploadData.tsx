@@ -120,6 +120,7 @@ function UploadData() {
       setMappingSearch({});
       setShowAllColumns(false);
       await loadDatasets();
+      window.dispatchEvent(new Event("pulseos:datasets-changed"));
     } catch (err: any) {
       setError(err.response?.data?.detail || "Import failed. Check the selected column mapping.");
     } finally {
