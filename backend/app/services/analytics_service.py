@@ -134,6 +134,7 @@ def calculate_product_analytics():
     sequential_counts = {"Product Viewed": 0, "Add To Cart": 0, "Purchase": 0}
 
     sequence_df = recent_df.dropna(subset=[sequence_key]).copy()
+    sequence_df = sequence_df[sequence_df[sequence_key].astype(str).str.strip().ne("")]
     for _, group in sequence_df.sort_values("timestamp").groupby(sequence_key):
         names = group["event_name"].tolist()
         view_positions = [i for i, name in enumerate(names) if name in event_aliases["product_viewed"]]
