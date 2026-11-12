@@ -32,9 +32,9 @@ def test_predict_customer_churn_returns_holdout_metrics(monkeypatch):
     assert result["churned_users"] == 20
     assert result["retained_users"] == 40
     assert result["holdout_users"] == 15
-    assert {item["model"] for item in result["model_comparison"]} == {"Logistic Regression", "Random Forest"}
+    assert {item["model"] for item in result["model_comparison"]} == {"Majority-class baseline", "Logistic Regression", "Random Forest"}
     assert all(0 <= item["metrics"]["roc_auc"] <= 1 for item in result["model_comparison"])
-    assert all("predicted_churn_probability" in item for item in result["holdout_predictions"])
+    assert all("predicted_churn_probability" in item for item in result["holdout_predictions"])\n    assert result["confusion_matrix"]["true_negative"] + result["confusion_matrix"]["false_positive"] + result["confusion_matrix"]["false_negative"] + result["confusion_matrix"]["true_positive"] == result["holdout_users"]\n    for model in result["model_comparison"][1:]:\n        assert model["cross_validation"]["folds"] == 5\n        assert 0 <= model["cross_validation"]["roc_auc_mean"] <= 1
 
 
 def test_predict_customer_churn_requires_fourteen_days(monkeypatch):
