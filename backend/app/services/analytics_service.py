@@ -37,6 +37,69 @@ def get_latest_dataset(dataset_type):
     return pd.read_csv(file_path)
 
 
+
+# Transparent starter taxonomy. Teams can extend these aliases to match
+# the event names emitted by their own product.
+FEATURE_TAXONOMY = {
+    "Product Discovery": ("product_viewed", "view_product", "product_view", "search", "search_submitted", "category_viewed", "browse"),
+    "Cart & Wishlist": ("add_to_cart", "cart_add", "remove_from_cart", "cart_viewed", "wishlist", "save_item"),
+    "Checkout & Payments": ("checkout", "payment", "purchase", "purchased", "order_completed", "transaction"),
+    "Account & Onboarding": ("sign_up", "signup", "register", "login", "account_created", "onboarding"),
+    "Customer Support": ("support", "help", "ticket", "chat_started", "contact_support"),
+}
+
+
+def calculate_feature_intelligence(events, total_users):
+    """Summarise adoption and usage depth for mapped product feature groups."""
+    rows = []
+    normalised = events["event_name"].astype(str).str.strip().str.lower()
+
+    for feature, aliases in FEATURE_TAXONOMY.items():
+        mask = normalised.apply(lambda event: any(alias in event for alias in aliases))
+        feature_events = events.loc[mask]
+        if feature_events.empty:
+            continue
+
+        user_event_counts = feature_events.groupby("user_id").size()
+        active_users = int(user_event_counts.size)
+        event_count = int(len(feature_events))
+        adoption_rate = round(active_users / total_users * 100, 1) if total_users else 0
+        repeat_users = int((user_event_counts >= 2).sum())
+
+        if adoption_rate < 25:
+            reach_label = "Low reach"
+            interpretation = "A small share of observed users interacted with this feature."
+        elif adoption_rate < 60:
+            reach_label = "Moderate reach"
+            interpretation = "Feature adoption is meaningful but does not yet reach most observed users."
+        else:
+            reach_label = "Broad reach"
+            interpretation = "A majority of observed users interacted with this feature."
+
+        rows.append({
+            "feature": feature,
+            "active_users": active_users,
+            "event_count": event_count,
+            "adoption_rate": adoption_rate,
+            "events_per_active_user": round(event_count / active_users, 2) if active_users else 0,
+            "repeat_users": repeat_users,
+            "repeat_usage_rate": round(repeat_users / active_users * 100, 1) if active_users else 0,
+            "reach_label": reach_label,
+            "interpretation": interpretation,
+        })
+
+    rows.sort(key=lambda item: (item["adoption_rate"], item["active_users"]), reverse=True)
+    return {
+        "features": rows,
+        "mapped_feature_count": len(rows),
+        "mapping_note": (
+            "Feature groups are inferred from event-name aliases in a starter taxonomy. "
+            "Review and customise the mapping for your product's tracking plan. "
+            "Adoption is the share of unique users with at least one mapped event; "
+            "repeat usage means two or more mapped events, not necessarily separate sessions."
+        ),
+    }
+
 def calculate_product_analytics():
     df = get_latest_dataset("events")
 
@@ -277,5 +340,6 @@ def calculate_product_analytics():
         ],
         "retention_cohorts": retention_rows,
         "event_adoption": adoption_rows,
+        "feature_intelligence": calculate_feature_intelligence(df, total_users),
         "adoption_note": "Event adoption is used as a proxy for feature adoption. Map events to product features for a true feature-level view.",
     }
