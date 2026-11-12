@@ -32,6 +32,7 @@ import {
   type AnalyticsOverview,
 } from "./services/api";
 import UploadData from "./UploadData";
+import ProductAnalytics from "./ProductAnalytics";
 import VoiceOfCustomer from "./VoiceOfCustomer";
 import AIAnalyst from "./AIAnalyst";
 import "./App.css";
@@ -391,6 +392,8 @@ function App() {
             </>
           ) : activePage === "Upload Data" ? (
             <UploadData />
+          ) : activePage === "Product Analytics" ? (
+            <ProductAnalytics />
           ) : activePage === "Voice of Customer" ? (
             <VoiceOfCustomer />
           ) : activePage === "AI Analyst" ? (
