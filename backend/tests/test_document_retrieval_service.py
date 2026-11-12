@@ -92,11 +92,11 @@ def test_extractive_answer_returns_requested_cv_section_with_chunk_citation():
         "chunk_index": 1,
         "locator": "Chunk 1",
         "text": (
-            "EDUCATION\\nB.Tech Chemical Engineering.\\n"
-            "EXPERIENCE\\nBusiness Analyst Intern at Gyana Deep Products.\\n"
-            "Analyzed 50K+ sales and inventory records using Python and Excel.\\n"
-            "Developed KPI dashboards that improved peak-season stock availability.\\n"
-            "PROJECTS\\nBuilt a machine learning prediction API."
+            "EDUCATION\nB.Tech Chemical Engineering.\n"
+            "EXPERIENCE\nBusiness Analyst Intern at Gyana Deep Products.\n"
+            "Analyzed 50K+ sales and inventory records using Python and Excel.\n"
+            "Developed KPI dashboards that improved peak-season stock availability.\n"
+            "PROJECTS\nBuilt a machine learning prediction API."
         ),
     }]
 
