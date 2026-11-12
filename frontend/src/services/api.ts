@@ -380,3 +380,64 @@ export async function getExperimentDecision(
   const response = await api.post(`/api/experiments/${id}/decision`, payload);
   return response.data;
 }
+
+
+export interface StrategyRecommendation {
+  id: string;
+  rank: number;
+  title: string;
+  feature: string;
+  priority: string;
+  priority_score: number;
+  impact_score: number;
+  confidence_score: number;
+  effort_estimate: number;
+  effort_label: string;
+  customer_evidence: {
+    review_count: number;
+    average_rating: number | null;
+    examples: Array<{ rating: number; review_text: string }>;
+  };
+  behavioral_evidence: null | {
+    label: string;
+    value: number;
+    unit: string;
+    detail: string;
+    method?: string;
+  };
+  action: string;
+  expected_metric: string;
+  success_measurement: string;
+  linked_experiment_count: number;
+  experiment_names: string[];
+  evidence_note: string;
+  score_explanation: string;
+}
+
+export interface ProductStrategyResponse {
+  status: "ready" | "partial" | "no_data";
+  summary: {
+    opportunities_reviewed: number;
+    high_priority_count: number;
+    experiments_linked: number;
+    top_recommendation: string | null;
+  };
+  recommendations: StrategyRecommendation[];
+  data_gaps: string[];
+  sources: { events: boolean; reviews: boolean };
+  methodology: string;
+}
+
+export async function getProductStrategy(): Promise<ProductStrategyResponse> {
+  const response = await api.get("/api/strategy");
+  return response.data;
+}
+
+export async function prioritiseProductStrategy(
+  effortEstimates: Record<string, number>
+): Promise<ProductStrategyResponse> {
+  const response = await api.post("/api/strategy/prioritise", {
+    effort_estimates: effortEstimates,
+  });
+  return response.data;
+}
