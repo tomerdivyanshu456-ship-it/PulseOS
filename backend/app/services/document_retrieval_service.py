@@ -64,15 +64,27 @@ def retrieve_document_evidence(question, top_k=5):
         return {"status": "no_match", "passages": [], "message": "The question and document do not contain enough searchable terms."}
 
     ranked = sorted(enumerate(scores), key=lambda item: (-float(item[1]), item[0]))
+    broad_document_question = bool(re.search(
+        r"\\b(summar(?:y|ise|ize)|overview|describe this document|what is in this document|key points)\\b",
+        question,
+        re.IGNORECASE,
+    ))
+    selected = [(index, float(score)) for index, score in ranked if score > 0][
+        :max(1, min(int(top_k), 8))
+    ]
+    # Broad summary requests often share no vocabulary with the source itself
+    # (for example, asking for a CV's "key requirements"). In that case, return
+    # the document's opening chunks as explicitly unranked overview evidence.
+    # A zero similarity is retained so the UI does not misrepresent relevance.
+    if not selected and broad_document_question:
+        selected = [(index, 0.0) for index in range(min(len(chunks), max(1, min(int(top_k), 8))))]
     passages = []
-    for index, score in ranked[:max(1, min(int(top_k), 8))]:
-        if score <= 0:
-            continue
+    for index, score in selected:
         passages.append({
             "document_id": record["id"],
             "document_name": record["original_filename"],
             "chunk_index": index + 1,
-            "similarity": round(float(score), 4),
+            "similarity": round(score, 4),
             "text": chunks[index],
             "locator": f"Chunk {index + 1}",
             "page": None,
@@ -178,7 +190,12 @@ def synthesize_document_answer(question, passages, max_sentences=6):
         except (TypeError, ValueError):
             retrieval_score = 0.0
 
-        if not fallback_text or retrieval_score <= 0:
+        broad_document_question = bool(re.search(
+            r"\\b(summar(?:y|ise|ize)|overview|describe this document|what is in this document|key points)\\b",
+            question,
+            re.IGNORECASE,
+        ))
+        if not fallback_text or (retrieval_score <= 0 and not broad_document_question):
             return {
                 "status": "insufficient_evidence",
                 "text": "I couldn't find document text with enough relevance to answer this question.",
