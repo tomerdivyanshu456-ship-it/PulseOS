@@ -1,7 +1,31 @@
-
 review_id,rating,review_text,review_date,product_category
-R01,1,Payment failed and money was deducted,2026-11-01,Food
-R02,5,Excellent user experience,2026-11-02,Food
-R03,2,Application crashes frequently,2026-11-03,Grocery
-R04,1,Customer support is very slow,2026-11-04,Food
-R05,4,Good experience overall,2026-11-05,Grocery
+R001,1,"Payment failed and money was deducted. Refund took too long.",2026-11-01,Food
+R002,2,"The app crashes when I try to place an order.",2026-11-02,Grocery
+R003,5,"Checkout was smooth and delivery was quick.",2026-11-03,Food
+R004,2,"Search results are irrelevant and filters do not work.",2026-11-04,Electronics
+R005,1,"Customer support did not respond to my complaint.",2026-11-05,Food
+R006,4,"Good experience overall, but tracking could be better.",2026-11-06,Grocery
+R007,2,"Cart items disappeared after I logged in.",2026-11-07,Fashion
+R008,5,"Easy to use and the recommendations were useful.",2026-11-08,Electronics
+R009,1,"Payment is stuck on processing for several minutes.",2026-11-09,Food
+R010,3,"Delivery was delayed and status updates were confusing.",2026-11-10,Grocery
+R011,4,"The new wishlist feature is convenient.",2026-11-11,Fashion
+R012,2,"Too many steps before I can complete checkout.",2026-11-12,Electronics
+R013,5,"Quick checkout and reliable payment experience.",2026-11-01,Food
+R014,1,"I was charged twice for the same order.",2026-11-02,Grocery
+R015,3,"Product descriptions need more detail.",2026-11-03,Fashion
+R016,2,"App becomes slow when browsing categories.",2026-11-04,Electronics
+R017,4,"Support resolved my issue after I contacted them.",2026-11-05,Food
+R018,5,"Simple interface and fast search.",2026-11-06,Grocery
+R019,1,"Order cancellation did not trigger a refund.",2026-11-07,Fashion
+R020,3,"Notifications arrive late.",2026-11-08,Electronics
+R021,2,"Filters reset every time I open a product.",2026-11-09,Food
+R022,4,"The app is easy to navigate.",2026-11-10,Grocery
+R023,1,"Checkout failed repeatedly on my phone.",2026-11-11,Fashion
+R024,5,"Great product range and smooth ordering.",2026-11-12,Electronics
+R025,2,"I cannot find my previous orders easily.",2026-11-01,Food
+R026,3,"Delivery estimates are not accurate.",2026-11-02,Grocery
+R027,4,"Payment options are good, but loading is slow.",2026-11-03,Fashion
+R028,1,"Refund status has not changed for days.",2026-11-04,Electronics
+R029,5,"Helpful recommendations made shopping easier.",2026-11-05,Food
+R030,2,"The app logged me out during checkout.",2026-11-06,Grocery
