@@ -45,6 +45,21 @@ export interface AnalyticsOverview {
     user_adoption_rate: number;
   }>;
   adoption_note: string;
+  feature_intelligence: {
+    mapped_feature_count: number;
+    mapping_note: string;
+    features: Array<{
+      feature: string;
+      active_users: number;
+      event_count: number;
+      adoption_rate: number;
+      events_per_active_user: number;
+      repeat_users: number;
+      repeat_usage_rate: number;
+      reach_label: string;
+      interpretation: string;
+    }>;
+  };
 }
 
 export async function getHealth() {
