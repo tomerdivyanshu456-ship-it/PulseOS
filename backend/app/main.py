@@ -35,7 +35,7 @@ cors_options = {
     "allow_headers": ["Authorization", "Content-Type"],
 }
 if os.getenv("PULSEOS_ENV", "development").strip().lower() != "production":
-    cors_options["allow_origin_regex"] = r"https?://(localhost|127\\.0\\.0\\.1):\\d+"
+    cors_options["allow_origin_regex"] = r"https?://(localhost|127\.0\.0\.1):\d+"
 app.add_middleware(CORSMiddleware, **cors_options)
 
 # Health and auth configuration remain public. All workspace APIs are protected
