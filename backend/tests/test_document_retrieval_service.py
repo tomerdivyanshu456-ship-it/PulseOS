@@ -34,6 +34,16 @@ def test_semantic_retrieval_ranks_passages_and_preserves_response_contract(monke
         "The checkout service must retry transient gateway timeouts and show a clear error.",
     )
     monkeypatch.setattr(document_retrieval_service, "SEMANTIC_RETRIEVAL_ENABLED", True)
+    # Keep this test focused on ranking two passages; paragraph packing is tested separately.
+    monkeypatch.setattr(
+        document_retrieval_service,
+        "_chunks",
+        lambda _text: [
+            "The mobile app supports account registration and profile settings.",
+            "Payment failures should be logged with gateway response codes. "
+            "The checkout service must retry transient gateway timeouts and show a clear error.",
+        ],
+    )
     monkeypatch.setattr(
         document_retrieval_service,
         "_semantic_scores",
