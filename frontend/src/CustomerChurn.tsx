@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { RefreshCw, Users, UserRoundX, UserRoundCheck, BrainCircuit } from "lucide-react";
-import { getCustomerChurn, getDatasets, type CustomerChurnResponse, type UploadedDataset } from "./services/api";
+import { getCustomerChurn, getDatasets, getActiveDatasets, setActiveDataset, type CustomerChurnResponse, type UploadedDataset } from "./services/api";
 import "./CustomerChurn.css";
 
 function CustomerChurn() {
@@ -12,9 +12,10 @@ function CustomerChurn() {
 
   async function loadDatasetOptions() {
     try {
-      const available = (await getDatasets()).filter((item) => item.dataset_type === "events");
+      const [all, active] = await Promise.all([getDatasets(), getActiveDatasets()]);
+      const available = all.filter((item) => item.dataset_type === "events");
       setDatasets(available);
-      setSelectedDatasetId((current) => current && available.some((item) => item.id === current) ? current : "");
+      setSelectedDatasetId(active.events?.id || "");
     } catch { setError("Could not load uploaded event datasets."); }
   }
 
@@ -49,7 +50,7 @@ function CustomerChurn() {
       <div className="churn-toolbar">
         <div className="churn-dataset-picker">
           <label htmlFor="churn-dataset">Analyse this Events dataset</label>
-          <select id="churn-dataset" value={selectedDatasetId} onChange={(event) => { setSelectedDatasetId(event.target.value); setData(null); setError(""); }}>
+          <select id="churn-dataset" value={selectedDatasetId} onChange={(event) => { const id = event.target.value; setSelectedDatasetId(id); setData(null); setError(""); void setActiveDataset("events", id || null); }}>
             <option value="">Choose an uploaded events dataset…</option>
             {datasets.map((dataset) => <option key={dataset.id} value={dataset.id}>{dataset.original_filename} · {dataset.row_count.toLocaleString()} rows</option>)}
           </select>
