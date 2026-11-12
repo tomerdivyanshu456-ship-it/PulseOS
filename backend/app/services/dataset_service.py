@@ -1,5 +1,7 @@
+import os
 import sqlite3
 import uuid
+import zipfile
 from datetime import datetime, timezone
 from difflib import SequenceMatcher
 from io import BytesIO
@@ -9,7 +11,7 @@ import pandas as pd
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
-DATA_DIR = PROJECT_ROOT / "data"
+DATA_DIR = Path(os.getenv("PULSEOS_DATA_DIR", str(PROJECT_ROOT / "data"))).expanduser().resolve()
 UPLOAD_DIR = DATA_DIR / "raw"
 DOCUMENT_DIR = DATA_DIR / "documents"
 DB_PATH = DATA_DIR / "pulseos.db"
@@ -118,8 +120,23 @@ def get_active_datasets():
     return result
 
 
+def _validate_zip_size(contents, label, max_uncompressed=100 * 1024 * 1024):
+    """Reject malformed or unusually expanded Office archives before parsing."""
+    try:
+        with zipfile.ZipFile(BytesIO(contents)) as archive:
+            entries = archive.infolist()
+            if len(entries) > 2000:
+                raise ValueError(f"The {label} contains too many archive entries.")
+            if sum(entry.file_size for entry in entries) > max_uncompressed:
+                raise ValueError(f"The {label} expands beyond the 100 MB safety limit.")
+    except zipfile.BadZipFile as exc:
+        raise ValueError(f"The {label} is not a valid Office document.") from exc
+
+
 def _read_tabular(contents, filename):
     suffix = Path(filename).suffix.lower()
+    if suffix == ".xlsx":
+        _validate_zip_size(contents, "XLSX file")
     try:
         if suffix == ".csv":
             return pd.read_csv(BytesIO(contents))
@@ -210,6 +227,8 @@ def validate_dataset(df, dataset_type):
 
 
 def save_dataset(contents, filename, dataset_type, mapping=None):
+    if len(contents) > 20 * 1024 * 1024:
+        raise ValueError("Maximum tabular file size is 20 MB.")
     if dataset_type not in REQUIRED_COLUMNS:
         raise ValueError("Unsupported dataset type.")
     df = _read_tabular(contents, filename)
@@ -272,6 +291,7 @@ def save_document(contents, filename):
             page_count = len(document)
             document.close()
         else:
+            _validate_zip_size(contents, "DOCX file")
             from docx import Document
             document = Document(BytesIO(contents))
             text_content = "\n".join(paragraph.text for paragraph in document.paragraphs if paragraph.text.strip())
