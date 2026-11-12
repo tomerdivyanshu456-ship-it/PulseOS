@@ -37,6 +37,7 @@ function UploadData() {
   const [inspection, setInspection] = useState<DatasetInspection | null>(null);
   const [datasetType, setDatasetType] = useState<UploadType>("events");
   const [mapping, setMapping] = useState<Record<string, string>>({});
+  const [mappingSearch, setMappingSearch] = useState<Record<string, string>>({});
   const [inspecting, setInspecting] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [documentUploading, setDocumentUploading] = useState(false);
@@ -86,6 +87,7 @@ function UploadData() {
       setMapping(Object.fromEntries(
         Object.entries(result.mappings[detected]).map(([key, value]) => [key, value.column])
       ));
+      setMappingSearch({});
     } catch (err: any) {
       setTabularFile(null);
       setError(err.response?.data?.detail || "Could not inspect this file.");
@@ -100,6 +102,7 @@ function UploadData() {
       setMapping(Object.fromEntries(
         Object.entries(inspection.mappings[type]).map(([key, value]) => [key, value.column])
       ));
+      setMappingSearch({});
     }
   }
 
@@ -114,6 +117,7 @@ function UploadData() {
       setTabularFile(null);
       setInspection(null);
       setMapping({});
+      setMappingSearch({});
       setShowAllColumns(false);
       await loadDatasets();
     } catch (err: any) {
@@ -204,9 +208,18 @@ function UploadData() {
               {REQUIRED[datasetType].map(({ key, label }) => (
                 <label className="mapping-field" key={key}>
                   {label}
+                  <input
+                    className="column-search"
+                    type="search"
+                    value={mappingSearch[key] || ""}
+                    placeholder={`Search ${inspection.columns.length} source columns…`}
+                    onChange={(e) => setMappingSearch((old) => ({ ...old, [key]: e.target.value }))}
+                  />
                   <select value={mapping[key] || ""} onChange={(e) => setMapping((old) => ({ ...old, [key]: e.target.value }))}>
                     <option value="">Select source column…</option>
-                    {inspection.columns.map((column) => <option key={column} value={column}>{column}</option>)}
+                    {inspection.columns
+                      .filter((column) => column.toLowerCase().includes((mappingSearch[key] || "").trim().toLowerCase()))
+                      .map((column) => <option key={column} value={column}>{column}</option>)}
                   </select>
                   <small>
                     {inspection.mappings[datasetType][key]?.confidence >= 0.85
