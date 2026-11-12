@@ -47,7 +47,7 @@ function AIAnalyst() {
     try {
       const response = await askAnalyst(trimmed, nextHistory);
       setResult(response);
-      setHistory((current) => [
+      setHistory((current): AnalystConversationTurn[] => [
         ...current,
         { role: "user", content: trimmed },
         { role: "assistant", content: response.answer },
