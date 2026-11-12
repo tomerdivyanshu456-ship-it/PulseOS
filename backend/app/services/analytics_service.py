@@ -4,36 +4,18 @@ import pandas as pd
 from app.services.dataset_service import (
     UPLOAD_DIR,
     get_connection,
+    get_dataset_record,
 )
 
 
 def get_latest_dataset(dataset_type):
-    connection = get_connection()
-
-    try:
-        row = connection.execute(
-            """
-            SELECT stored_filename, original_filename
-            FROM datasets
-            WHERE dataset_type = ?
-            ORDER BY uploaded_at DESC
-            LIMIT 1
-            """,
-            (dataset_type,),
-        ).fetchone()
-    finally:
-        connection.close()
-
+    """Load the active dataset; retain latest-upload compatibility before first selection."""
+    row = get_dataset_record(dataset_type)
     if row is None:
-        raise ValueError(
-            f"No {dataset_type} dataset has been uploaded."
-        )
-
+        raise ValueError(f"No {dataset_type} dataset has been uploaded.")
     file_path = UPLOAD_DIR / row["stored_filename"]
-
     if not file_path.is_file():
-        raise ValueError("The stored dataset file is missing.")
-
+        raise ValueError("The selected dataset file is missing.")
     return pd.read_csv(file_path)
 
 
