@@ -7,6 +7,7 @@ from pydantic import BaseModel, Field, field_validator, model_validator
 from app.services.experiment_service import (
     analyze_experiment, calculate_sample_size, create_experiment,
     generate_experiment_plan, list_experiments, update_experiment_status,
+    analyze_experiment_from_events,
 )
 
 router = APIRouter(prefix="/api/experiments", tags=["Experiment Intelligence"])
@@ -123,5 +124,33 @@ def experiment_analysis(payload: ExperimentAnalysisRequest):
     data = payload.model_dump()
     try:
         return analyze_experiment(data)
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
+
+
+
+class EventGuardrailRequest(BaseModel):
+    name: str = Field(min_length=1, max_length=160)
+    event_name: str = Field(min_length=1, max_length=120)
+    max_increase: float = Field(default=0, ge=0, le=1)
+
+
+class EventDecisionRequest(BaseModel):
+    exposure_event: str = Field(min_length=1, max_length=120)
+    conversion_event: str = Field(min_length=1, max_length=120)
+    guardrails: list[EventGuardrailRequest] = Field(default_factory=list)
+
+
+@router.post("/{experiment_id}/decision")
+def event_based_decision(experiment_id: str, payload: EventDecisionRequest):
+    try:
+        return analyze_experiment_from_events(
+            experiment_id,
+            payload.exposure_event,
+            payload.conversion_event,
+            [item.model_dump() for item in payload.guardrails],
+        )
+    except LookupError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
     except ValueError as exc:
         raise HTTPException(status_code=422, detail=str(exc)) from exc
