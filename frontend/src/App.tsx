@@ -14,6 +14,7 @@ import {
   Activity,
   IndianRupee,
   Target,
+  Lightbulb,
 } from "lucide-react";
 import {
   Area,
@@ -37,7 +38,7 @@ import ProductAnalytics from "./ProductAnalytics";
 import ProductOpportunities from "./ProductOpportunities";
 import VoiceOfCustomer from "./VoiceOfCustomer";
 import AIAnalyst from "./AIAnalyst";
-import ExperimentIntelligence from "./ExperimentIntelligence";
+import ExperimentIntelligence from "./ExperimentIntelligence";\nimport ProductStrategy from "./ProductStrategy";
 import "./App.css";
 
 const navigation = [
@@ -47,7 +48,7 @@ const navigation = [
   { name: "Opportunities", icon: Target },
   { name: "Voice of Customer", icon: MessageSquareText },
   { name: "AI Analyst", icon: Sparkles },
-  { name: "Experiments", icon: FlaskConical },
+  { name: "Experiments", icon: FlaskConical },\n  { name: "Strategy & Insights", icon: Lightbulb },
 ];
 
 const numberFormatter = new Intl.NumberFormat("en-IN");
