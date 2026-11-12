@@ -84,6 +84,7 @@ def calculate_segment_intelligence(dimension=None):
     segmented = events.dropna(subset=["segment"]).copy()
 
     total_users = int(events["user_id"].nunique())
+    assigned_users = int(segmented["user_id"].nunique())
     purchase_users = set(events.loc[events["event_name"].isin(PURCHASE_EVENTS), "user_id"].unique())
     has_revenue = "revenue" in events.columns
     rows = []
@@ -120,6 +121,8 @@ def calculate_segment_intelligence(dimension=None):
     return {
         "status": "ready", "dimensions": dimensions,
         "selected_dimension": selected, "total_users": total_users,
+        "assigned_users": assigned_users,
+        "unassigned_users": total_users - assigned_users,
         "period": {
             "start_date": events["timestamp"].min().strftime("%Y-%m-%d"),
             "end_date": events["timestamp"].max().strftime("%Y-%m-%d"),
