@@ -548,3 +548,39 @@ export async function getJourneyIntelligence(
   });
   return response.data;
 }
+
+
+export interface RootCauseHypothesis {
+  id: string;
+  title: string;
+  signal_type: string;
+  priority_score: number;
+  severity: string;
+  observation: string;
+  evidence: Array<{ label: string; value: number | string | null; unit?: string }>;
+  customer_context: Array<{ rating: number; review_text: string }> | null;
+  segment_context: Array<{ segment: string; units: number; entry_to_completion_rate: number }> | null;
+  experiment_context: Array<{ name: string; status: string; primary_metric: string }> ;
+  next_steps: string[];
+  caveat: string;
+}
+
+export interface RootCauseDiagnosticsResponse {
+  status: "ready" | "partial" | "no_data" | "no_signals";
+  summary: {
+    hypotheses: number;
+    high_priority: number;
+    funnel_signals: number;
+    customer_signals: number;
+  };
+  hypotheses: RootCauseHypothesis[];
+  segment_comparison: Array<{ segment: string; units: number; entry_to_completion_rate: number }>;
+  data_gaps: string[];
+  sources: { events: boolean; reviews: boolean; experiments: boolean };
+  methodology: string;
+}
+
+export async function getRootCauseDiagnostics(): Promise<RootCauseDiagnosticsResponse> {
+  const response = await api.get("/api/diagnostics/root-causes");
+  return response.data;
+}
