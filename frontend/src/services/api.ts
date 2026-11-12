@@ -305,6 +305,13 @@ export interface AnalystDocumentPassage {
   page: number | null;
 }
 
+export interface AnalystDocumentAnswer {
+  status: "ready" | "insufficient_evidence";
+  text: string;
+  method: "extractive";
+  citations: Array<{ document_name: string; chunk_index: number; locator: string }>;
+}
+
 export interface AnalystResponse {
   question: string;
   answer: string;
@@ -331,6 +338,7 @@ export interface AnalystResponse {
   };
   context_used: boolean;
   document_evidence: AnalystDocumentPassage[];
+  document_answer: AnalystDocumentAnswer | null;
 }
 
 export async function askAnalyst(
