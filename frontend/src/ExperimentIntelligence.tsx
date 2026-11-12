@@ -254,7 +254,7 @@ function ExperimentIntelligence() {
         <div>
           <span className="upload-eyebrow">EVENT-DRIVEN DECISION</span>
           <h4>Use uploaded events to recommend Ship, Iterate or Stop</h4>
-          <p>Reads the latest events CSV. Exposure rows must include this experiment's ID and a control/variant assignment; conversion events are attributed to exposed users after exposure.</p>
+          <p>Reads the latest events CSV. Exposure rows must include this experiment's ID and a control/variant assignment; conversion events are attributed to exposed users after exposure. Configure at least one guardrail event before a Ship recommendation is possible.</p>
           {selected && <small className="experiment-id-note">Experiment ID for instrumentation: {selected.id}</small>}
         </div>
         <div className="experiment-event-inputs">
@@ -264,7 +264,7 @@ function ExperimentIntelligence() {
           <label>Primary conversion event
             <input value={decisionInputs.conversion_event} onChange={(event) => setDecisionInputs((current) => ({ ...current, conversion_event: event.target.value }))} />
           </label>
-          <label>Optional guardrail event
+          <label>Guardrail event (required for Ship)
             <input value={decisionInputs.guardrail_event} onChange={(event) => setDecisionInputs((current) => ({ ...current, guardrail_event: event.target.value }))} placeholder="e.g. checkout_error" />
           </label>
           <label>Allowed guardrail increase (pp)
