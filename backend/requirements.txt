@@ -8,3 +8,6 @@ python-multipart
 pydantic-settings
 pytest
 httpx
+openpyxl
+PyMuPDF
+python-docx

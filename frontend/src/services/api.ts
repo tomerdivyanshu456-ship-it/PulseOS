@@ -110,18 +110,38 @@ export async function getAnalytics(): Promise<AnalyticsOverview> {
   return response.data;
 }
 
+export interface DatasetInspection {
+  filename: string;
+  columns: string[];
+  row_count: number;
+  suggested_type: "events" | "reviews" | null;
+  mappings: Record<"events" | "reviews", Record<string, { column: string; confidence: number }>>;
+  preview: Array<Record<string, string>>;
+}
+
+export async function inspectDataset(file: File): Promise<DatasetInspection> {
+  const formData = new FormData();
+  formData.append("file", file);
+  const response = await api.post("/api/datasets/inspect", formData);
+  return response.data;
+}
+
 export async function uploadDataset(
   datasetType: "events" | "reviews",
-  file: File
+  file: File,
+  mapping: Record<string, string>
 ) {
   const formData = new FormData();
   formData.append("file", file);
+  formData.append("mapping", JSON.stringify(mapping));
+  const response = await api.post(`/api/datasets/upload/${datasetType}`, formData);
+  return response.data;
+}
 
-  const response = await api.post(
-    `/api/datasets/upload/${datasetType}`,
-    formData
-  );
-
+export async function uploadDocument(file: File) {
+  const formData = new FormData();
+  formData.append("file", file);
+  const response = await api.post("/api/datasets/upload-document", formData);
   return response.data;
 }
 
