@@ -31,8 +31,9 @@ The platform is designed as decision support. It distinguishes observed metrics,
 
 - PDF and DOCX uploads are text-extracted and stored locally.
 - The AI Analyst searches only the currently selected Documents source.
-- A local TF-IDF unigram/bigram model ranks overlapping text chunks by cosine similarity and returns the original passage, filename, chunk locator and retrieval score.
-- This is a retrieval-grounded evidence workflow, not a generative LLM. PulseOS does not claim that a generated summary or answer is produced from the document.
+- A local TF-IDF unigram/bigram model ranks overlapping text chunks by cosine similarity.
+- The Analyst creates an extractive answer by selecting relevant source lines verbatim, with document filename and chunk-level citations. Section questions (such as "describe the experience section") attempt to return the named section rather than unrelated passages.
+- This is not a generative LLM: answers are not paraphrased or expanded, and the system does not invent missing details. If no source line matches, it reports insufficient evidence.
 - The current extraction pipeline does not preserve PDF page offsets, so citations use chunk numbers. Scanned PDFs without embedded text are not searchable because OCR is not enabled.
 - Retrieval scores indicate lexical similarity, not confidence, truth or causal evidence.
 
