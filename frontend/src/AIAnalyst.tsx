@@ -1,6 +1,7 @@
 import { useState } from "react";
 import {
   AlertTriangle,
+  FileText,
   ArrowUpRight,
   BarChart3,
   BrainCircuit,
@@ -296,6 +297,22 @@ function AIAnalyst() {
                   </article>
                 ))}
               </div>
+            </section>
+          )}
+
+          {result.document_evidence?.length > 0 && (
+            <section className="panel analyst-document-evidence">
+              <div className="analyst-section-title"><FileText size={17} /> Retrieved document passages</div>
+              <p className="analyst-document-note">Ranked lexical matches from the active Documents source. Similarity is a retrieval score, not a confidence score or proof.</p>
+              {result.document_evidence.map((item) => (
+                <article className="analyst-document-passage" key={item.document_id + "-" + item.chunk_index}>
+                  <div className="analyst-document-citation">
+                    <strong>{item.document_name}</strong>
+                    <span>{item.locator}{item.page ? ` · Page ${item.page}` : ""} · Similarity {item.similarity.toFixed(3)}</span>
+                  </div>
+                  <p>{item.text}</p>
+                </article>
+              ))}
             </section>
           )}
 
