@@ -184,7 +184,8 @@ def calculate_product_analytics():
             float(purchase_rows["revenue"].sum()), 2
         )
 
-    # Weekly retention cohorts: cohort week is the week of a user's first event.
+    # Weekly retention cohorts: cohort week is the week of a user's first observed event.
+    # Only show fully elapsed follow-up weeks; partial weeks would understate retention.
     cohort_df = df[["user_id", "timestamp"]].copy()
     cohort_df["activity_week"] = cohort_df["timestamp"].dt.to_period("W-SUN").dt.start_time
     first_weeks = cohort_df.groupby("user_id")["activity_week"].min().rename("cohort_week")
@@ -196,11 +197,12 @@ def calculate_product_analytics():
     retention_rows = []
     for cohort_week, cohort_size in cohort_sizes.items():
         cohort_events = cohort_df[cohort_df["cohort_week"] == cohort_week]
-        max_observed_week = max(
-            0, int((latest_date - cohort_week.normalize()).days // 7)
-        )
+        elapsed_days = int((latest_date - cohort_week.normalize()).days)
+        # Week 0 is the cohort baseline. Week N is reported only after
+        # its full seven-day observation window has elapsed.
+        max_complete_week = max(0, (elapsed_days - 6) // 7)
         cells = []
-        for week_number in range(max_observed_week + 1):
+        for week_number in range(max_complete_week + 1):
             retained_users = int(
                 cohort_events[cohort_events["week_number"] == week_number]["user_id"].nunique()
             )
@@ -208,12 +210,21 @@ def calculate_product_analytics():
                 "week": week_number,
                 "active_users": retained_users,
                 "retention_rate": round(retained_users / int(cohort_size) * 100, 1),
+                "is_complete": True,
             })
         retention_rows.append({
             "cohort": cohort_week.strftime("%Y-%m-%d"),
             "cohort_size": int(cohort_size),
             "weeks": cells,
         })
+
+    # Repeat usage is measured across distinct active calendar days.
+    active_days_per_user = df.groupby("user_id")["timestamp"].apply(
+        lambda values: values.dt.date.nunique()
+    )
+    repeat_users = int((active_days_per_user >= 2).sum())
+    repeat_user_rate = round(repeat_users / total_users * 100, 1) if total_users else 0
+    average_events_per_user = round(len(df) / total_users, 2) if total_users else 0
 
     # Event adoption is a proxy for feature adoption until the product
     # supplies a maintained event-to-feature taxonomy.
@@ -250,6 +261,9 @@ def calculate_product_analytics():
             "total_revenue": revenue,
             "total_users": int(df["user_id"].nunique()),
             "total_events": int(len(df)),
+            "repeat_users": repeat_users,
+            "repeat_user_rate": repeat_user_rate,
+            "average_events_per_user": average_events_per_user,
         },
         "funnel": funnel,
         "sequential_funnel": sequential_funnel,
