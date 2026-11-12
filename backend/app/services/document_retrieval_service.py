@@ -65,7 +65,7 @@ def retrieve_document_evidence(question, top_k=5):
 
     ranked = sorted(enumerate(scores), key=lambda item: (-float(item[1]), item[0]))
     broad_document_question = bool(re.search(
-        r"\\b(summar(?:y|ise|ize)|overview|describe this document|what is in this document|key points)\\b",
+        r"\b(summar(?:y|ise|ize)|overview|describe this document|what is in this document|key points)\b",
         question,
         re.IGNORECASE,
     ))
@@ -191,7 +191,7 @@ def synthesize_document_answer(question, passages, max_sentences=6):
             retrieval_score = 0.0
 
         broad_document_question = bool(re.search(
-            r"\\b(summar(?:y|ise|ize)|overview|describe this document|what is in this document|key points)\\b",
+            r"\b(summar(?:y|ise|ize)|overview|describe this document|what is in this document|key points)\b",
             question,
             re.IGNORECASE,
         ))
