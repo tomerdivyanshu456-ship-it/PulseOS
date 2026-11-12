@@ -147,8 +147,8 @@ def answer_product_question(question, history=None):
             )
             quadrant = (
                 "Investigate first" if severity >= 70 and evidence_strength >= 45 else
-                "Validate severity" if severity >= 70 else
-                "Gather more evidence" if evidence_strength < 45 else
+                "Gather more evidence" if severity >= 70 else
+                "Validate severity" if evidence_strength >= 45 else
                 "Monitor"
             )
             priority_matrix.append({
