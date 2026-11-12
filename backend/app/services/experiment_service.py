@@ -216,6 +216,8 @@ def wilson_interval(successes, trials, confidence_level=0.95):
 def analyze_experiment(payload):
     cu, cc = int(payload["control_users"]), int(payload["control_conversions"])
     vu, vc = int(payload["variant_users"]), int(payload["variant_conversions"])
+    if cu <= 0 or vu <= 0 or cc < 0 or vc < 0 or cc > cu or vc > vu:
+        raise ValueError("Each arm needs positive users and conversions between zero and users.")
     confidence = float(payload.get("confidence_level", 0.95))
     c_low, c_high = wilson_interval(cc, cu, confidence)
     v_low, v_high = wilson_interval(vc, vu, confidence)
@@ -233,6 +235,8 @@ def analyze_experiment(payload):
     for item in payload.get("guardrails", []):
         baseline, variant = float(item["control_rate"]), float(item["variant_rate"])
         threshold = float(item.get("max_increase", 0))
+        if not all(math.isfinite(value) for value in (baseline, variant, threshold)) or not 0 <= baseline <= 1 or not 0 <= variant <= 1 or not 0 <= threshold <= 1:
+            raise ValueError("Guardrail rates and thresholds must be finite values between 0 and 1.")
         change = variant - baseline
         guardrail_results.append({
             "name": item["name"], "control_rate": baseline, "variant_rate": variant,
