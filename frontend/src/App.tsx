@@ -60,22 +60,23 @@ import ProductAnomalies from "./ProductAnomalies";
 import CustomerChurn from "./CustomerChurn";
 import "./App.css";
 import "./Auth.css";
+import "./PulseTheme.css";
 
 const navigation = [
-  { name: "Overview", icon: LayoutDashboard },
-  { name: "Upload Data", icon: UploadCloud },
-  { name: "Product Analytics", icon: BarChart3 },
-  { name: "Opportunities", icon: Target },
-  { name: "Voice of Customer", icon: MessageSquareText },
-  { name: "AI Analyst", icon: Sparkles },
-  { name: "Experiments", icon: FlaskConical },
-  { name: "Strategy & Insights", icon: Lightbulb },
-  { name: "Health Scorecard", icon: Gauge },
-  { name: "Cohort & Segments", icon: Users },
-  { name: "Funnel & Journeys", icon: Route },
-  { name: "Root Cause Explorer", icon: Search },
-  { name: "Anomaly Detection", icon: AlertTriangle },
-  { name: "Churn Prediction", icon: UserMinus },
+  { group: "WORKSPACE", name: "Overview", icon: LayoutDashboard },
+  { group: "WORKSPACE", name: "Upload Data", icon: UploadCloud },
+  { group: "UNDERSTAND", name: "Product Analytics", icon: BarChart3 },
+  { group: "UNDERSTAND", name: "Cohort & Segments", icon: Users },
+  { group: "UNDERSTAND", name: "Funnel & Journeys", icon: Route },
+  { group: "UNDERSTAND", name: "Voice of Customer", icon: MessageSquareText },
+  { group: "INTELLIGENCE", name: "AI Analyst", icon: Sparkles },
+  { group: "INTELLIGENCE", name: "Opportunities", icon: Target },
+  { group: "INTELLIGENCE", name: "Root Cause Explorer", icon: Search },
+  { group: "INTELLIGENCE", name: "Anomaly Detection", icon: AlertTriangle },
+  { group: "OPTIMIZE", name: "Experiments", icon: FlaskConical },
+  { group: "OPTIMIZE", name: "Strategy & Insights", icon: Lightbulb },
+  { group: "OPTIMIZE", name: "Health Scorecard", icon: Gauge },
+  { group: "OPTIMIZE", name: "Churn Prediction", icon: UserMinus },
 ];
 
 const numberFormatter = new Intl.NumberFormat("en-IN");
@@ -267,20 +268,22 @@ function App() {
           </span>
         </div>
 
-        <p className="nav-label">WORKSPACE</p>
-
-        <nav>
-          {navigation.map((item) => {
+        <nav aria-label="Main navigation">
+          {navigation.map((item, index) => {
             const Icon = item.icon;
+            const showGroup = index === 0 || item.group !== navigation[index - 1].group;
             return (
-              <button
-                key={item.name}
-                className={`nav-item ${activePage === item.name ? "active" : ""}`}
-                onClick={() => setActivePage(item.name)}
-              >
-                <Icon size={18} />
-                <span>{item.name}</span>
-              </button>
+              <div className="nav-entry" key={item.name}>
+                {showGroup && <p className="nav-group-label">{item.group}</p>}
+                <button
+                  className={`nav-item ${activePage === item.name ? "active" : ""}`}
+                  onClick={() => setActivePage(item.name)}
+                  aria-current={activePage === item.name ? "page" : undefined}
+                >
+                  <Icon size={18} />
+                  <span>{item.name}</span>
+                </button>
+              </div>
             );
           })}
         </nav>
