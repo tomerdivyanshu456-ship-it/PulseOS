@@ -573,3 +573,14 @@ button:disabled { cursor: not-allowed; }
   .voc-pie-wrap { grid-template-columns: 1fr; }
   .voc-legend { grid-template-columns: 1fr 1fr; }
 }
+
+@media (max-width: 1200px) {
+  .metrics-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .content-grid { grid-template-columns: minmax(0, 1fr); }
+  .dashboard { padding-left: 26px; padding-right: 26px; }
+}
+@media (max-width: 950px) {
+  .sidebar { width: 224px; }
+  .dashboard { padding: 24px 20px 38px; }
+  .topbar { padding-left: 20px; padding-right: 20px; }
+}
