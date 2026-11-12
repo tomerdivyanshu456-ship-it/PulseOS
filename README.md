@@ -4,7 +4,7 @@
 
 PulseOS is a portfolio project built around a practical product workflow: **measure product health → understand customer friction → find opportunities → investigate likely causes → design and evaluate experiments.**
 
-> **Demo data notice:** The files in \`data/sample_*.csv\` are synthetic examples created for demonstrating the application. They are not real customer records and should not be interpreted as actual business performance.
+> **Demo data notice:** The files in `data/sample_*.csv` are synthetic examples created for demonstrating the application. They are not real customer records and should not be interpreted as actual business performance.
 
 ## Product capabilities
 
@@ -31,27 +31,26 @@ The platform is designed as decision support. It distinguishes observed metrics,
 
 - PDF and DOCX uploads are text-extracted and stored locally.
 - The AI Analyst searches only the currently selected Documents source.
-- Retrieval prefers local semantic embeddings from \`sentence-transformers/all-MiniLM-L6-v2\`, using cosine similarity over normalized sentence embeddings.
-- Semantic search is optional. If the dependency or model cannot load, PulseOS falls back to the existing TF-IDF unigram/bigram cosine retrieval. Set \`PULSEOS_SEMANTIC_SEARCH=false\` to force the lexical path.
-- The model runs on CPU and is cached in-process. Its weights are downloaded once on first use (internet is required for that initial download); subsequent inference is local. No API key or paid service is used.
+- Retrieval prefers optional local semantic embeddings from `sentence-transformers/all-MiniLM-L6-v2`, using cosine similarity over normalized sentence embeddings. If the optional dependency or model cannot load, PulseOS falls back to the original TF-IDF unigram/bigram cosine retrieval. Set `PULSEOS_SEMANTIC_SEARCH=false` to force TF-IDF.
 - The Analyst creates an extractive answer by selecting relevant source lines verbatim, with document filename and chunk-level citations. Section questions (such as "describe the experience section") attempt to return the named section rather than unrelated passages.
 - This is not a generative LLM: answers are not paraphrased or expanded, and the system does not invent missing details. If no source line matches, it reports insufficient evidence.
 - The current extraction pipeline does not preserve PDF page offsets, so citations use chunk numbers. Scanned PDFs without embedded text are not searchable because OCR is not enabled.
+- The model runs on CPU and is cached in-process. Its weights are downloaded on first use (internet is required for that initial download); subsequent inference is local. No API key or paid service is used.
 - Retrieval scores indicate semantic or lexical relevance, not confidence, truth or causal evidence.
 
 ### Optional semantic-search installation
 
 The default installation remains lightweight and works without semantic dependencies. To enable MiniLM semantic retrieval in the backend virtual environment:
 
-\`\`\`powershell
+```powershell
 pip install -r requirements-semantic.txt
-\`\`\`
+```
 
-The first semantic query downloads model weights. For an 8 GB CPU-only laptop, use the bounded batch size configured by PulseOS and close unnecessary applications during the first load. To force TF-IDF only:
+To force TF-IDF only:
 
-\`\`\`powershell
+```powershell
 $env:PULSEOS_SEMANTIC_SEARCH = "false"
-\`\`\`
+`
 
 ## Technology
 
@@ -62,11 +61,11 @@ $env:PULSEOS_SEMANTIC_SEARCH = "false"
 - **Optional semantic retrieval:** Sentence Transformers, PyTorch and all-MiniLM-L6-v2 (CPU)
 - **Tests:** Pytest
 
-**Local-first constraints:** no paid API keys, GPU, Docker or hosted inference service required. Semantic model weights are cached locally after the initial download.
+**Local-first constraints:** no paid API keys, GPU, Docker or hosted inference service required.
 
 ## Architecture
 
-\`\`\`text
+```text
 CSV uploads
    │
    ▼
@@ -87,13 +86,13 @@ FastAPI ingestion + validation
 React + TypeScript workspace ◄──── JSON API
 SQLite stores dataset metadata and experiment records;
 uploaded CSV files are stored locally.
-\`\`\`
+```
 
 Customer reviews and behavioural events are separate sources. PulseOS does not join unrelated third-party review records to individual user or session IDs.
 
 ## Repository structure
 
-\`\`\`text
+```text
 PulseOS/
 ├── backend/
 │   ├── app/
@@ -101,8 +100,7 @@ PulseOS/
 │   │   ├── services/
 │   │   └── main.py
 │   ├── tests/
-│   ├── requirements.txt
-│   └── requirements-semantic.txt
+│   └── requirements.txt
 ├── frontend/
 │   └── src/
 ├── data/
@@ -113,7 +111,7 @@ PulseOS/
 │   └── sample_customer_reviews.csv
 ├── docs/
 └── README.md
-\`\`\`
+```
 
 ## Run locally
 
@@ -125,22 +123,20 @@ PulseOS/
 
 ### 1. Clone the repository
 
-\`\`\`powershell
+```powershell
 git clone https://github.com/tomerdivyanshu456-ship-it/PulseOS.git
 cd PulseOS
-\`\`\`
+```
 
 ### 2. Start the backend
 
-\`\`\`powershell
+```powershell
 cd backend
 python -m venv .venv
-.\\.venv\\Scripts\\Activate.ps1
+.\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
-# Optional: enable CPU-based semantic document search
-pip install -r requirements-semantic.txt
 uvicorn app.main:app --reload
-\`\`\`
+```
 
 API documentation: http://127.0.0.1:8000/docs
 
@@ -148,11 +144,11 @@ API documentation: http://127.0.0.1:8000/docs
 
 Open a second PowerShell terminal:
 
-\`\`\`powershell
+```powershell
 cd frontend
 npm install
 npm run dev
-\`\`\`
+```
 
 Open http://localhost:5173.
 
@@ -160,9 +156,9 @@ Open http://localhost:5173.
 
 In the app, open **Upload Data** and upload:
 
-- \`data/sample_user_events.csv\` as the behavioural events dataset for core analytics.
-- \`data/sample_customer_reviews.csv\` as the customer reviews dataset.
-- \`data/sample_churn_events.csv\` as the behavioural events dataset for Churn Prediction (14 days of synthetic history).
+- `data/sample_user_events.csv` as the behavioural events dataset for core analytics.
+- `data/sample_customer_reviews.csv` as the customer reviews dataset.
+- `data/sample_churn_events.csv` as the behavioural events dataset for Churn Prediction (14 days of synthetic history).
 
 The synthetic event datasets include user, event, timestamp, session, product and categorical attributes (platform, plan, region and acquisition channel). The churn-specific file includes a constructed historical inactivity outcome for demonstration; do not interpret its labels or model metrics as real customer behaviour. The review dataset contains ratings, review text, dates and product categories.
 
@@ -176,11 +172,11 @@ Required columns:
 
 | Column | Required | Description |
 |---|---:|---|
-| \`user_id\` | Yes | Stable user identifier |
-| \`event_name\` | Yes | Event/action name |
-| \`timestamp\` | Yes | Parseable event timestamp |
-| \`session_id\` | No | Session identifier; enables session-level journey analysis |
-| \`revenue\` | No | Revenue value on purchase events |
+| `user_id` | Yes | Stable user identifier |
+| `event_name` | Yes | Event/action name |
+| `timestamp` | Yes | Parseable event timestamp |
+| `session_id` | No | Session identifier; enables session-level journey analysis |
+| `revenue` | No | Revenue value on purchase events |
 | Other categorical columns | No | Can be used for segment comparisons |
 
 ### Customer reviews
@@ -189,11 +185,11 @@ Required columns:
 
 | Column | Required | Description |
 |---|---:|---|
-| \`review_id\` | Yes | Review identifier |
-| \`rating\` | Yes | Numeric rating from 1 to 5 |
-| \`review_text\` | Yes | Review text |
+| `review_id` | Yes | Review identifier |
+| `rating` | Yes | Numeric rating from 1 to 5 |
+| `review_text` | Yes | Review text |
 
-Optional fields such as \`review_date\` and \`product_category\` are useful for filtering and context.
+Optional fields such as `review_date` and `product_category` are useful for filtering and context.
 
 ### Experiment decision events
 
@@ -201,15 +197,15 @@ To analyse an experiment using event-level outcomes, include:
 
 | Column | Purpose |
 |---|---|
-| \`experiment_id\` | Saved PulseOS experiment identifier on exposure rows |
-| \`experiment_variant\` | \`control\` or \`variant\` on exposure rows |
+| `experiment_id` | Saved PulseOS experiment identifier on exposure rows |
+| `experiment_variant` | `control` or `variant` on exposure rows |
 
-Each eligible user needs a tagged exposure event (default: \`experiment_exposed\`). The primary conversion event (default: \`purchase\`) must share the same \`user_id\` and occur at or after exposure. Conflicting variant assignments are excluded and reported.
+Each eligible user needs a tagged exposure event (default: `experiment_exposed`). The primary conversion event (default: `purchase`) must share the same `user_id` and occur at or after exposure. Conflicting variant assignments are excluded and reported.
 
 ## Analytical methodology and limitations
 
 - **Descriptive metrics:** calculated from the uploaded event window. DAU is distinct active users on the latest recorded calendar day; MAU uses the available 30-day window.
-- **Funnel analysis:** configurable ordered funnel steps. When \`session_id\` exists, session-level units are used; otherwise analysis falls back to user-level units. This is not automatically a causal attribution model.
+- **Funnel analysis:** configurable ordered event steps. When `session_id` is available, session-level units are used; otherwise analysis falls back to user-level units. This is not automatically a causal attribution model.
 - **Segments:** categorical dimensions are assigned to each user using their most frequently observed non-empty value (alphabetical tie-break). Segment comparisons are descriptive.
 - **Retention:** cohort and return-activity definitions are based on observed event dates and should be interpreted with the dataset's observation window in mind.
 - **Voice of Customer:** lightweight text/sentiment and complaint-theme methods are useful for triage, not substitutes for human qualitative research or a validated language model.
@@ -224,17 +220,17 @@ Each eligible user needs a tagged exposure event (default: \`experiment_exposed\
 
 ## Quality checks
 
-Run backend tests from \`backend/\`:
+Run backend tests from `backend/`:
 
-\`\`\`powershell
+```powershell
 python -m pytest -q
-\`\`\`
+```
 
-Build the frontend from \`frontend/\`:
+Build the frontend from `frontend/`:
 
-\`\`\`powershell
+```powershell
 npm.cmd run build
-\`\`\`
+```
 
 ## Project status
 
