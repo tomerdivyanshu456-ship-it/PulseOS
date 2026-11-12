@@ -60,14 +60,24 @@ function ProductAnalytics() {
           <small>Across the uploaded event dataset</small>
         </article>
         <article className="panel product-analytics-card">
-          <div><Activity size={17} /><span>Tracked event types</span></div>
-          <strong>{data.event_adoption.length}</strong>
-          <small>Most active event types shown below</small>
+          <div><Activity size={17} /><span>Repeat users</span></div>
+          <strong>{data.metrics.repeat_users}</strong>
+          <small>{data.metrics.repeat_user_rate}% active on 2+ distinct days</small>
         </article>
         <article className="panel product-analytics-card">
-          <div><CalendarDays size={17} /><span>Retention cohorts</span></div>
-          <strong>{data.retention_cohorts.length}</strong>
-          <small>Grouped by users' first active week</small>
+          <div><CalendarDays size={17} /><span>Repeat user rate</span></div>
+          <strong>{data.metrics.repeat_user_rate}%</strong>
+          <small>Users active on multiple calendar days</small>
+        </article>
+        <article className="panel product-analytics-card">
+          <div><Layers3 size={17} /><span>Tracked event types</span></div>
+          <strong>{data.event_adoption.length}</strong>
+          <small>Distinct event names in the dataset</small>
+        </article>
+        <article className="panel product-analytics-card">
+          <div><Activity size={17} /><span>Events per user</span></div>
+          <strong>{data.metrics.average_events_per_user}</strong>
+          <small>Average events per unique user</small>
         </article>
       </section>
 
