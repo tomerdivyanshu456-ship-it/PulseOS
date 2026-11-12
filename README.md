@@ -109,7 +109,7 @@ npm run build
 - Result analysis reports observed arm rates, Wilson intervals for each arm, and an approximate unpooled interval for the difference. It is descriptive and does not replace a pre-registered statistical analysis or prove causality.
 - Guardrail comparisons use user-entered rates and thresholds. They are review flags, not automatic rollout decisions.
 - Event-backed decisions require explicit experiment exposure rows tagged with the saved experiment ID and an `experiment_variant` value of `control` or `variant`. The configured exposure event defines the eligible-user denominator; conversion and optional guardrail events are counted once per exposed user only when they occur at or after exposure.
-- The decision rules recommend **Ship** only when both arms reach the planned sample, the approximate primary-metric difference interval is entirely positive, and no configured guardrail threshold is exceeded; **Stop** when the interval is entirely negative or a configured guardrail threshold is exceeded; otherwise **Iterate**. Guardrail thresholds are screening flags, not statistical tests.
+- The decision rules recommend **Ship** only when both arms reach the planned sample, the approximate primary-metric difference interval is entirely positive, and at least one configured guardrail threshold is not exceeded; **Stop** when the interval is entirely negative or a configured guardrail threshold is exceeded; otherwise **Iterate**. Guardrail thresholds are screening flags, not statistical tests.
 - The event-backed workflow assumes stable user-level assignment and complete instrumentation. It is a decision aid, not proof of causality or an automated deployment action.
 
 ### Event tracking contract for experiment decisions
@@ -121,7 +121,7 @@ The latest uploaded events CSV must retain the standard `user_id`, `event_name`,
 | `experiment_id` | Saved PulseOS experiment ID, populated on exposure rows |
 | `experiment_variant` | `control` or `variant`, populated on exposure rows |
 
-Each eligible user must have one tagged exposure event (default event name: `experiment_exposed`). The primary conversion event (default: `purchase`) must use the same `user_id` and occur at or after exposure. Optional guardrail events are also counted per exposed user. Users with conflicting control/variant exposure assignments are excluded and reported. Existing event datasets without experiment tags continue to work for the other PulseOS analytics features, but cannot power event-backed experiment decisions.
+Each eligible user must have one tagged exposure event (default event name: `experiment_exposed`). The primary conversion event (default: `purchase`) must use the same `user_id` and occur at or after exposure. Configured guardrail events are also counted per exposed user; at least one guardrail event is required before a Ship recommendation is possible. Users with conflicting control/variant exposure assignments are excluded and reported. Existing event datasets without experiment tags continue to work for the other PulseOS analytics features, but cannot power event-backed experiment decisions.
 
 ## Data integrity principles
 
