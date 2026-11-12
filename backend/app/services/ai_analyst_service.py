@@ -1,6 +1,7 @@
 from app.services.analytics_service import calculate_product_analytics
 from app.services.voice_of_customer_service import calculate_voice_of_customer
 from app.services.opportunity_service import calculate_product_opportunities
+from app.services.document_retrieval_service import retrieve_document_evidence
 
 
 def _find_topic(voice, words):
@@ -50,6 +51,16 @@ def answer_product_question(question, history=None):
     current = question.lower()
 
     sources, findings, evidence, limitations, recommendations = [], [], [], [], []
+    document_result = retrieve_document_evidence(question)
+    document_evidence = document_result.get("passages", [])
+    if document_evidence:
+        sources.append({
+            "name": "Selected product document",
+            "detail": f'{document_result.get("document_name", "Document")} · {len(document_evidence)} relevant passage(s) retrieved using local TF-IDF.',
+        })
+        limitations.extend(document_result.get("limitations", []))
+    elif document_result.get("status") not in ("no_documents", "no_active_document"):
+        limitations.append(document_result.get("message", "Document retrieval was unavailable."))
 
     try:
         product = calculate_product_analytics()
@@ -64,12 +75,28 @@ def answer_product_question(question, history=None):
         limitations.append(str(exc))
 
     if not product and not voice:
+        if document_evidence:
+            answer = (
+                f'I retrieved {len(document_evidence)} relevant passage(s) from '
+                f'{document_result.get("document_name", "the selected document")}. '
+                "The passages below are source evidence, not a generated summary. "
+                "No active event or review dataset was available for product-metric analysis."
+            )
+            return {
+                "question": question, "answer": answer, "findings": [],
+                "evidence": [], "sources": sources,
+                "limitations": list(dict.fromkeys(limitations)),
+                "recommendations": [], "priority_matrix": [],
+                "funnel_analysis": None, "context_used": bool(history),
+                "document_evidence": document_evidence,
+            }
         return {
             "question": question,
-            "answer": "I can't analyse this question yet because no valid product event or customer review dataset is available. Upload at least one dataset and try again.",
+            "answer": "I can't analyse this question yet because no valid product event, customer review or searchable document evidence is available. Upload or select a dataset and try again.",
             "findings": [], "evidence": [], "sources": [],
             "limitations": limitations, "recommendations": [],
-            "funnel_analysis": None, "context_used": bool(history),
+            "priority_matrix": [], "funnel_analysis": None,
+            "context_used": bool(history), "document_evidence": [],
         }
 
     metrics = product["metrics"] if product else None
@@ -425,4 +452,5 @@ def answer_product_question(question, history=None):
         "priority_matrix": priority_matrix,
         "funnel_analysis": funnel_analysis if checkout_intent else None,
         "context_used": bool(history),
+        "document_evidence": document_evidence,
     }
