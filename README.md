@@ -113,6 +113,22 @@ PulseOS/
 └── README.md
 ```
 
+## Security and deployment configuration
+
+PulseOS supports a single-workspace administrator sign-in. In local development, authentication is disabled unless `PULSEOS_ADMIN_PASSWORD` is set. When enabled, the frontend prompts for the password and keeps the HTTP Basic credential in memory only; it is not written to local storage. Credentials accompany API requests, so public deployments must use HTTPS.
+
+For production, configure these variables in the hosting provider:
+
+- `PULSEOS_ENV=production`
+- `PULSEOS_ADMIN_PASSWORD`: a unique random secret of at least 32 characters. Never commit it or expose it through frontend variables.
+- `PULSEOS_CORS_ORIGINS`: comma-separated exact HTTPS origins for the frontend; wildcards are rejected.
+- `PULSEOS_DATA_DIR`: absolute path to a persistent mounted volume. SQLite metadata, uploaded CSV files and extracted documents are stored here.
+- `VITE_API_BASE_URL`: public HTTPS API base URL, set at frontend build time.
+
+Production startup fails if the administrator password or explicit HTTPS CORS origins are missing. The health and authentication-configuration endpoints remain public; dataset, analytics, ML and experiment APIs require administrator authentication. CORS is not an authentication mechanism. Terminate TLS at the hosting platform or a trusted reverse proxy, restrict API access at the network edge where possible, and back up the persistent volume.
+
+This is single-admin access control, not multi-user authentication or tenant isolation. Do not host confidential customer data for unrelated users. A multi-user SaaS needs individual accounts, roles, tenant-scoped records/storage, audit logs, and managed database/object storage.
+
 ## Run locally
 
 ### Prerequisites
@@ -129,6 +145,14 @@ cd PulseOS
 ```
 
 ### 2. Start the backend
+
+For local development, authentication is disabled by default. To test the sign-in screen, set a password before starting the backend:
+
+```powershell
+$env:PULSEOS_ADMIN_PASSWORD = "use-a-local-secret-password"
+```
+
+Then start the backend:
 
 ```powershell
 cd backend
@@ -150,7 +174,9 @@ npm install
 npm run dev
 ```
 
-Open http://localhost:5173.
+Open http://localhost:5173. If authentication is enabled, enter the administrator password configured for the backend.
+
+The backend stores its SQLite database and uploaded files in `backend/data` by default. Set `PULSEOS_DATA_DIR` to an absolute persistent-volume path when deploying; do not use an ephemeral container filesystem for uploads.
 
 ### 4. Load the included demo CSVs
 
