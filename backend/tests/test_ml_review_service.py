@@ -25,7 +25,13 @@ def _seed_reviews(tmp_path, monkeypatch, reviews):
             ("review-set", "reviews", "reviews.csv", stored, len(reviews), "2026-11-01T00:00:00+00:00"),
         )
     monkeypatch.setattr(ml_review_service, "UPLOAD_DIR", upload_dir)
-    monkeypatch.setattr(ml_review_service, "get_connection", lambda: sqlite3.connect(db_path))
+
+    def connect():
+        connection = sqlite3.connect(db_path)
+        connection.row_factory = sqlite3.Row
+        return connection
+
+    monkeypatch.setattr(ml_review_service, "get_connection", connect)
 
 
 def test_review_clustering_discovers_distinct_text_groups(tmp_path, monkeypatch):
