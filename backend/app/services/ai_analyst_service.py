@@ -351,6 +351,7 @@ def answer_product_question(question, history=None):
         "which problem", "which issue", "priorit"
     ])
     if opportunity_intent:
+        opportunity_result = {}
         try:
             opportunity_result = calculate_product_opportunities()
             ranked_opportunities = opportunity_result.get("opportunities", [])
