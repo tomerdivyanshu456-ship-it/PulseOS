@@ -167,18 +167,25 @@ def synthesize_document_answer(question, passages, max_sentences=6):
             selected = []
 
     if not selected:
-        # The retrieval stage has already ranked passages against the query.
-        # Preserve the top source passage verbatim when sentence-level TF-IDF
-        # finds no shared terms; do not fabricate a paraphrase.
+        # A passage may be used verbatim only when the retrieval stage supplied
+        # a positive lexical-similarity score. This supports cases where the
+        # chunk is relevant but sentence-level matching is too narrow, while
+        # avoiding an answer from an unscored or unrelated passage.
         fallback = passages[0]
         fallback_text = fallback.get("text", "").strip()
-        if not fallback_text:
+        try:
+            retrieval_score = float(fallback.get("similarity", 0))
+        except (TypeError, ValueError):
+            retrieval_score = 0.0
+
+        if not fallback_text or retrieval_score <= 0:
             return {
                 "status": "insufficient_evidence",
-                "text": "I found document passages, but none contained readable text to answer this question.",
+                "text": "I couldn't find document text with enough relevance to answer this question.",
                 "citations": [],
                 "method": "extractive",
             }
+
         return {
             "status": "ready",
             "text": fallback_text,
