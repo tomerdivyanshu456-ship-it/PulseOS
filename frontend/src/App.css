@@ -1484,3 +1484,19 @@ h1 {
 @media (max-width: 1100px) {
   .workspace-source-selectors { display: none; }
 }
+
+.source-refresh-button {
+  align-self: flex-end;
+  padding: 6px 9px;
+  border: 1px solid var(--border, #303442);
+  border-radius: 7px;
+  background: transparent;
+  color: var(--text-muted, #9ca3af);
+  cursor: pointer;
+  font-size: 11px;
+  white-space: nowrap;
+}
+.source-refresh-button:hover {
+  color: var(--text, #f1f2f5);
+  border-color: var(--accent, #7379e8);
+}
