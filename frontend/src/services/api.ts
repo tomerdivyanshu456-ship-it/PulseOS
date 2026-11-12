@@ -204,6 +204,33 @@ export async function getVoiceOfCustomer(): Promise<VoiceOfCustomerOverview> {
   return response.data;
 }
 
+export interface ReviewThemeCluster {
+  cluster_id: number;
+  label: string;
+  keywords: string[];
+  review_count: number;
+  share: number;
+  average_rating: number;
+  examples: Array<{ rating: number; review_text: string }>;
+}
+
+export interface ReviewClusteringResponse {
+  status: "ready";
+  filename: string;
+  reviews_clustered: number;
+  requested_clusters: number;
+  clusters_created: number;
+  silhouette_score: number | null;
+  clusters: ReviewThemeCluster[];
+  methodology: string;
+  limitations: string[];
+}
+
+export async function getReviewThemeClusters(nClusters = 4): Promise<ReviewClusteringResponse> {
+  const response = await api.get("/api/ml/review-clusters", { params: { n_clusters: nClusters } });
+  return response.data;
+}
+
 
 export interface AnalystFinding {
   title: string;
