@@ -125,12 +125,17 @@ function App() {
   const [analyticsError, setAnalyticsError] = useState("");
   const [datasets, setDatasets] = useState<UploadedDataset[]>([]);
   const [activeDatasets, setActiveDatasets] = useState<ActiveDatasetMap>({ events: null, reviews: null, documents: null });
+  const emptyActiveDatasets: ActiveDatasetMap = { events: null, reviews: null, documents: null };
   const [sourceError, setSourceError] = useState("");
 
   async function refreshDataSources() {
     const [available, active] = await Promise.all([getDatasets(), getActiveDatasets()]);
     setDatasets(available);
-    setActiveDatasets(active);
+    setActiveDatasets(active && typeof active === "object" ? {
+      events: active.events ?? null,
+      reviews: active.reviews ?? null,
+      documents: active.documents ?? null,
+    } : emptyActiveDatasets);
   }
 
   useEffect(() => {
