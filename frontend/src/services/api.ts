@@ -494,6 +494,8 @@ export interface SegmentIntelligenceResponse {
   dimensions: Array<{ key: string; label: string; values: number }>;
   selected_dimension: string | null;
   total_users: number;
+  assigned_users: number;
+  unassigned_users: number;
   period?: { start_date: string; end_date: string };
   segments: SegmentIntelligenceRow[];
   methodology: string;
