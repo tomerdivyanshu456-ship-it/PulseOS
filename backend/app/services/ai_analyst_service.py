@@ -133,6 +133,39 @@ def answer_product_question(question, history=None):
         "what should we investigate first", "highest priority issue",
     ])
 
+    priority_matrix = []
+    if voice:
+        for topic in voice.get("topics", []):
+            count = int(topic.get("review_count", 0))
+            rating = float(topic.get("average_rating", 3))
+            severity = round(((5 - rating) / 4) * 100)
+            evidence_strength = 20 if count == 1 else 45 if count < 5 else 75 if count < 10 else 100
+            evidence_label = (
+                "Very limited" if count == 1 else
+                "Emerging" if count < 5 else
+                "Repeated" if count < 10 else "Strong volume"
+            )
+            quadrant = (
+                "Investigate first" if severity >= 70 and evidence_strength >= 45 else
+                "Validate severity" if severity >= 70 else
+                "Gather more evidence" if evidence_strength < 45 else
+                "Monitor"
+            )
+            priority_matrix.append({
+                "label": topic["label"],
+                "review_count": count,
+                "average_rating": rating,
+                "priority_score": topic.get("priority_score", 0),
+                "severity_score": severity,
+                "evidence_strength": evidence_strength,
+                "evidence_label": evidence_label,
+                "quadrant": quadrant,
+            })
+        priority_matrix.sort(
+            key=lambda item: (item["priority_score"], item["severity_score"], item["review_count"]),
+            reverse=True,
+        )
+
     if prioritisation_question:
         ranked_topics = sorted(
             (voice or {}).get("topics", []),
@@ -140,20 +173,40 @@ def answer_product_question(question, history=None):
             reverse=True,
         )
         if ranked_topics:
-            top = ranked_topics[0]
-            findings.append({
-                "title": "Highest-priority customer issue",
-                "detail": f'{top["label"]} has the highest current heuristic priority score ({top["priority_score"]}/100), based on {top["review_count"]} negative review(s) and an average rating of {top["average_rating"]}/5.',
-                "type": "customer_feedback",
-            })
-            evidence.extend(_evidence_for(voice, top.get("keywords", [])))
-            recommendations.append(_recommendation(
-                f'Investigate {top["label"]} first',
-                "Review the underlying customer report, reproduce the issue where possible, and collect event-level or operational data that measures its frequency and impact before committing to a product fix.",
-                f'This issue ranks highest among the themes in the uploaded review sample. The score is a prioritisation heuristic, not proof that it affects the most customers.',
-                "Measure issue incidence, affected users or sessions, severity, and the relevant product metric before and after a change. Gather more customer reports to validate the pattern.",
-            ))
-            answer = f'The first issue to investigate is {top["label"]}, which has the highest heuristic priority score in the uploaded review sample ({top["priority_score"]}/100). It is supported by {top["review_count"]} negative review(s), so treat it as the first investigation candidate—not yet as a proven root cause. Validate its frequency and product impact before deciding on a fix.'
+            top_score = ranked_topics[0].get("priority_score", 0)
+            top_topics = [topic for topic in ranked_topics if topic.get("priority_score", 0) == top_score]
+            tie_names = [topic["label"] for topic in top_topics]
+            if len(top_topics) > 1:
+                issue_names = " and ".join(tie_names)
+                answer = f'{issue_names} are joint top priorities, each scoring {top_score}/100 in the current review sample. The scores are tied, so the available data does not justify choosing one over the other. Investigate both in parallel and collect evidence about frequency, severity and affected users before committing to fixes.'
+                findings.append({
+                    "title": "Joint highest-priority issues",
+                    "detail": f'{issue_names} are tied at {top_score}/100. Each currently has {top_topics[0]["review_count"] if top_topics[0]["review_count"] == top_topics[1]["review_count"] else "its own"} supporting negative review count; compare the individual evidence before deciding sequencing.',
+                    "type": "customer_feedback",
+                })
+                for topic in top_topics:
+                    recommendations.append(_recommendation(
+                        f'Investigate {topic["label"]}',
+                        "Review the underlying report, reproduce the issue where possible, and collect event-level or operational data that measures its frequency and impact.",
+                        f'This theme is tied for the highest heuristic priority ({topic["priority_score"]}/100), based on {topic["review_count"]} negative review(s). The score is a triage signal, not proof of prevalence.',
+                        "Measure issue incidence, affected users or sessions, severity and the relevant product metric. Gather additional customer reports and compare results before and after any change.",
+                    ))
+                    evidence.extend(_evidence_for(voice, topic.get("keywords", [])))
+            else:
+                top = top_topics[0]
+                findings.append({
+                    "title": "Highest-priority customer issue",
+                    "detail": f'{top["label"]} has the highest current heuristic priority score ({top["priority_score"]}/100), based on {top["review_count"]} negative review(s) and an average rating of {top["average_rating"]}/5.',
+                    "type": "customer_feedback",
+                })
+                evidence.extend(_evidence_for(voice, top.get("keywords", [])))
+                recommendations.append(_recommendation(
+                    f'Investigate {top["label"]} first',
+                    "Review the underlying customer report, reproduce the issue where possible, and collect event-level or operational data that measures its frequency and impact before committing to a product fix.",
+                    f'This issue ranks highest among the themes in the uploaded review sample. The score is a prioritisation heuristic, not proof that it affects the most customers.',
+                    "Measure issue incidence, affected users or sessions, severity, and the relevant product metric before and after a change. Gather more customer reports to validate the pattern.",
+                ))
+                answer = f'The first issue to investigate is {top["label"]}, which has the highest heuristic priority score in the uploaded review sample ({top["priority_score"]}/100). It is supported by {top["review_count"]} negative review(s), so treat it as the first investigation candidate—not yet as a proven root cause. Validate its frequency and product impact before deciding on a fix.'
         else:
             answer = "There are no grouped customer pain points available to rank yet. Upload valid customer reviews and rerun the analysis."
         if product and funnel_analysis:
@@ -164,7 +217,7 @@ def answer_product_question(question, history=None):
             })
         if history:
             limitations.append("The previous conversation was considered, but issue ranking is recalculated from the currently uploaded datasets.")
-        limitations.append("Priority scores are heuristic and the review sample is small; validate the issue with additional evidence before shipping a fix.")
+        limitations.append("Priority and evidence scores are heuristic triage aids. The current review sample is small and does not establish prevalence or business impact.")
 
     elif checkout_intent:
         if funnel_analysis:
@@ -318,6 +371,7 @@ def answer_product_question(question, history=None):
         "sources": sources,
         "limitations": list(dict.fromkeys(limitations)),
         "recommendations": recommendations,
+        "priority_matrix": priority_matrix,
         "funnel_analysis": funnel_analysis if checkout_intent else None,
         "context_used": bool(history),
     }
