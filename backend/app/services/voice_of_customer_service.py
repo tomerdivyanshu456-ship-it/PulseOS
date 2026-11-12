@@ -4,7 +4,7 @@ from collections import defaultdict
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 
-from app.services.dataset_service import UPLOAD_DIR, get_connection
+from app.services.dataset_service import UPLOAD_DIR, get_dataset_record
 
 
 POSITIVE_WORDS = {
@@ -178,20 +178,7 @@ def _build_topics(negative_df, total_negative):
 
 
 def calculate_voice_of_customer():
-    connection = get_connection()
-    try:
-        row = connection.execute(
-            """
-            SELECT stored_filename, original_filename, row_count
-            FROM datasets
-            WHERE dataset_type = ?
-            ORDER BY uploaded_at DESC
-            LIMIT 1
-            """,
-            ("reviews",),
-        ).fetchone()
-    finally:
-        connection.close()
+    row = get_dataset_record("reviews")
 
     if row is None:
         raise ValueError("No customer reviews dataset has been uploaded.")
