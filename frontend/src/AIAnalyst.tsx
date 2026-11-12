@@ -1,6 +1,7 @@
 import { useState } from "react";
 import {
   AlertTriangle,
+  FileText,
   ArrowUpRight,
   BarChart3,
   BrainCircuit,
@@ -260,6 +261,24 @@ function AIAnalyst() {
             </section>
           )}
 
+          {result.document_answer && (
+            <article className="panel analyst-document-answer">
+              <div className="analyst-section-title"><FileText size={17} /> Answer from your document</div>
+              <p className="analyst-document-answer-text">{result.document_answer.text}</p>
+              {result.document_answer.citations.length > 0 && (
+                <div className="analyst-document-answer-citations">
+                  <strong>Sources</strong>
+                  {result.document_answer.citations.map((citation) => (
+                    <span key={citation.document_name + citation.chunk_index}>
+                      {citation.document_name} · {citation.locator}
+                    </span>
+                  ))}
+                </div>
+              )}
+              <p className="analyst-document-answer-method">Extractive answer · Source wording is preserved; no generative model or paraphrasing is used.</p>
+            </article>
+          )}
+
           <article className="panel analyst-answer">
             <div className="analyst-section-title"><Sparkles size={17} /> Analyst response</div>
             <p>{result.answer}</p>
@@ -296,6 +315,22 @@ function AIAnalyst() {
                   </article>
                 ))}
               </div>
+            </section>
+          )}
+
+          {result.document_evidence?.length > 0 && (
+            <section className="panel analyst-document-evidence">
+              <div className="analyst-section-title"><FileText size={17} /> Retrieved document passages</div>
+              <p className="analyst-document-note">Ranked lexical matches from the active Documents source. Similarity is a retrieval score, not a confidence score or proof.</p>
+              {result.document_evidence.map((item) => (
+                <article className="analyst-document-passage" key={item.document_id + "-" + item.chunk_index}>
+                  <div className="analyst-document-citation">
+                    <strong>{item.document_name}</strong>
+                    <span>{item.locator}{item.page ? ` · Page ${item.page}` : ""} · Similarity {item.similarity.toFixed(3)}</span>
+                  </div>
+                  <p>{item.text}</p>
+                </article>
+              ))}
             </section>
           )}
 

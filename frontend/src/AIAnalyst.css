@@ -1,1 +1,42 @@
 /* AI Analyst styles are maintained in the shared App.css stylesheet. */
+
+
+.analyst-document-evidence { padding: 22px; }
+.analyst-document-note { color: var(--text-muted, #8b91a0); font-size: 12px; line-height: 1.5; margin: 8px 0 16px; }
+.analyst-document-passage { padding: 15px 0; border-top: 1px solid var(--border, #303442); }
+.analyst-document-citation { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: 12px; }
+.analyst-document-citation span { color: var(--text-muted, #8b91a0); }
+.analyst-document-passage p { white-space: pre-wrap; line-height: 1.65; font-size: 13px; margin: 10px 0 0; color: var(--text, #e8eaf0); }
+
+
+.analyst-document-answer {
+  border: 1px solid var(--border, #ddd);
+  border-left: 3px solid #6d63e8;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.analyst-document-answer-text {
+  white-space: pre-line;
+  line-height: 1.75;
+  margin: 12px 0;
+}
+
+.analyst-document-answer-citations {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  border-top: 1px solid var(--border, #ddd);
+  padding-top: 12px;
+  font-size: 12px;
+}
+
+.analyst-document-answer-citations span {
+  color: var(--text-secondary, #667085);
+}
+
+.analyst-document-answer-method {
+  color: var(--text-secondary, #667085);
+  font-size: 12px;
+  margin: 12px 0 0;
+}
