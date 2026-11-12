@@ -1206,3 +1206,186 @@ h1 {
   .analyst-composer-footer { align-items: flex-start; flex-direction: column; }
   .analyst-loading { align-items: flex-start; flex-wrap: wrap; }
 }
+
+
+/* AI Analyst: sequential funnel, recommendations and conversation */
+.analyst-result-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.analyst-context-badge {
+  flex-shrink: 0;
+  padding: 6px 9px;
+  border-radius: 6px;
+  background: #edf7f2;
+  color: #27815c;
+  font-size: 9px;
+  font-weight: 600;
+}
+
+.analyst-funnel-stages {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.analyst-funnel-stage {
+  display: grid;
+  gap: 6px;
+  padding: 13px;
+  border: 1px solid #eceef4;
+  border-radius: 8px;
+  background: #fcfcff;
+}
+
+.analyst-funnel-stage span {
+  color: #778298;
+  font-size: 10px;
+}
+
+.analyst-funnel-stage strong {
+  color: #293248;
+  font-size: 23px;
+}
+
+.analyst-funnel-stage small {
+  color: #786be9;
+  font-size: 9px;
+}
+
+.analyst-funnel-note {
+  margin: 12px 0 0;
+  color: #8791a4;
+  font-size: 10px;
+  line-height: 1.6;
+}
+
+.analyst-recommendations {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.analyst-recommendation {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+}
+
+.analyst-recommendation-number {
+  color: #786be9;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.analyst-recommendation h4 {
+  margin: -5px 0 0;
+  color: #293248;
+  font-size: 13px;
+}
+
+.analyst-recommendation > div:not(.analyst-recommendation-number) {
+  padding-top: 10px;
+  border-top: 1px solid #eef0f5;
+}
+
+.analyst-recommendation > div strong {
+  color: #5148aa;
+  font-size: 10px;
+}
+
+.analyst-recommendation p {
+  margin: 5px 0 0;
+  color: #748096;
+  font-size: 10px;
+  line-height: 1.7;
+}
+
+.analyst-conversation {
+  display: grid;
+  gap: 10px;
+}
+
+.analyst-conversation-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.analyst-conversation-heading h3 {
+  margin: 0;
+  color: #293248;
+  font-size: 13px;
+}
+
+.analyst-conversation-heading span {
+  color: #8791a4;
+  font-size: 9px;
+}
+
+.analyst-turn {
+  max-width: 88%;
+  padding: 12px 14px;
+  border-radius: 9px;
+}
+
+.analyst-turn.user {
+  justify-self: end;
+  background: #f0efff;
+}
+
+.analyst-turn.assistant {
+  justify-self: start;
+  background: white;
+  border: 1px solid #e9ebf2;
+}
+
+.analyst-turn strong {
+  color: #5148aa;
+  font-size: 10px;
+}
+
+.analyst-turn p {
+  margin: 5px 0 0;
+  color: #68748a;
+  font-size: 11px;
+  line-height: 1.65;
+}
+
+.analyst-composer-actions {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.analyst-reset {
+  padding: 9px 12px;
+  border: 1px solid #e3e6ee;
+  border-radius: 7px;
+  background: white;
+  color: #69758b;
+  font-size: 10px;
+}
+
+@media (max-width: 700px) {
+  .analyst-funnel-stages,
+  .analyst-recommendations {
+    grid-template-columns: 1fr;
+  }
+
+  .analyst-result-heading,
+  .analyst-conversation-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .analyst-turn {
+    max-width: 100%;
+  }
+}
