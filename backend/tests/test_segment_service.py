@@ -28,11 +28,10 @@ def test_segment_comparison_assigns_each_user_once(monkeypatch, sample_events):
     assert segments["ios"]["purchase_revenue"] == 100.0
 
 
-def test_dimension_with_too_many_values_is_rejected(monkeypatch, sample_events):
-    sample_events["campaign"] = ["a", "b", "c", "d", "e"]
+def test_unknown_dimension_is_rejected(monkeypatch, sample_events):
     monkeypatch.setattr(segment_service, "get_latest_dataset", lambda dataset_type: sample_events.copy())
     with pytest.raises(ValueError, match="unavailable"):
-        segment_service.calculate_segment_intelligence("campaign")
+        segment_service.calculate_segment_intelligence("unknown_dimension")
 
 
 def test_no_eligible_dimensions_returns_guidance(monkeypatch):
