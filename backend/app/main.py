@@ -1,8 +1,9 @@
 import os
 from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from app.security import require_auth, validate_production_config
-from app.middleware import RequestSizeLimitMiddleware
+from app.middleware import RequestBodyTooLarge, RequestSizeLimitMiddleware
 from app.api.routes.auth import router as auth_router
 
 from app.api.routes.datasets import router as datasets_router
@@ -27,6 +28,14 @@ app = FastAPI(
     description="Product Intelligence Platform",
     version="0.1.0",
 )
+
+
+@app.exception_handler(RequestBodyTooLarge)
+async def request_body_too_large_handler(_request, _exc):
+    return JSONResponse(
+        status_code=413,
+        content={"detail": "Request body exceeds the 21 MB server limit."},
+    )
 
 cors_origins = [item.strip().rstrip("/") for item in os.getenv("PULSEOS_CORS_ORIGINS", "").split(",") if item.strip()]
 cors_options = {
