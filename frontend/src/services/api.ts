@@ -255,3 +255,96 @@ export async function askAnalyst(
   const response = await api.post("/api/analyst/ask", { question, history });
   return response.data;
 }
+
+
+export interface Experiment {
+  id: string;
+  name: string;
+  opportunity_id: string | null;
+  opportunity_title: string | null;
+  hypothesis: string;
+  rationale: string;
+  primary_metric: string;
+  secondary_metrics: Array<{ name: string; definition?: string }>;
+  guardrails: Array<{ name: string; direction?: string }>;
+  baseline_rate: number;
+  minimum_detectable_effect: number;
+  confidence_level: number;
+  power: number;
+  sample_size_per_arm: number;
+  duration_days: number;
+  status: "draft" | "running" | "completed" | "archived";
+  created_at: string;
+  updated_at: string;
+}
+
+export interface ExperimentDraft {
+  name: string;
+  opportunity_id: string;
+  opportunity_title: string;
+  hypothesis: string;
+  rationale: string;
+  primary_metric: string;
+  secondary_metrics: Array<{ name: string; definition?: string }>;
+  guardrails: Array<{ name: string; direction?: string }>;
+  baseline_rate: number;
+  minimum_detectable_effect: number;
+  confidence_level: number;
+  power: number;
+  daily_eligible_users: number;
+}
+
+export interface ExperimentPlan {
+  name: string;
+  hypothesis: string;
+  rationale: string;
+  primary_metric: { name: string; definition: string; type: string };
+  secondary_metrics: Array<{ name: string; definition: string }>;
+  guardrails: Array<{ name: string; direction: string }>;
+  evidence_note: string;
+}
+
+export interface ExperimentAnalysis {
+  control: { users: number; conversions: number; conversion_rate: number; confidence_interval: [number, number] };
+  variant: { users: number; conversions: number; conversion_rate: number; confidence_interval: [number, number] };
+  absolute_lift: number;
+  relative_lift_percent: number | null;
+  difference_confidence_interval: [number, number];
+  sample_size_reached: boolean | null;
+  guardrails: Array<{ name: string; control_rate: number; variant_rate: number; absolute_change: number; status: string; threshold: number }>;
+  interpretation: string;
+  methodology: string;
+}
+
+export async function generateExperimentPlan(opportunity: ProductOpportunitiesResponse["opportunities"][number]): Promise<ExperimentPlan> {
+  const response = await api.post("/api/experiments/plan", { opportunity });
+  return response.data;
+}
+
+export async function getExperiments(): Promise<Experiment[]> {
+  const response = await api.get("/api/experiments");
+  return response.data.experiments;
+}
+
+export async function createExperiment(payload: ExperimentDraft): Promise<Experiment> {
+  const response = await api.post("/api/experiments", payload);
+  return response.data;
+}
+
+export async function updateExperimentStatus(id: string, status: Experiment["status"]): Promise<Experiment> {
+  const response = await api.patch(`/api/experiments/${id}/status`, { status });
+  return response.data;
+}
+
+export async function analyzeExperiment(payload: {
+  control_users: number;
+  control_conversions: number;
+  variant_users: number;
+  variant_conversions: number;
+  planned_sample_size_per_arm?: number;
+  confidence_level?: number;
+  guardrails?: Array<{ name: string; control_rate: number; variant_rate: number; max_increase?: number }>;
+}): Promise<ExperimentAnalysis> {
+  const response = await api.post("/api/experiments/analyze", payload);
+  return response.data;
+}
