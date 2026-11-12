@@ -1412,3 +1412,36 @@ h1 {
 .analyst-priority-scores b{color:#5148aa;font-size:10px}
 .analyst-priority-scores small{color:#8791a4;font-size:8px;text-align:right}
 @media(max-width:600px){.analyst-matrix{min-height:230px}.analyst-matrix-dot span{max-width:95px;font-size:7px}.analyst-priority-item{align-items:flex-start}}
+
+
+/* Numbered matrix markers map to the numbered issue list below */
+.analyst-matrix-dot{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:18px;
+  height:18px;
+  border:2px solid #fff;
+  border-radius:50%;
+  background:#7164dc;
+  color:#fff;
+  font-size:8px;
+  font-weight:700;
+  line-height:1;
+  box-shadow:0 0 0 1px #7164dc,0 1px 4px #20283b30;
+  transform:translate(-50%,50%);
+}
+.analyst-matrix-dot span{display:none}
+.analyst-priority-item strong{display:flex;align-items:center;gap:7px}
+.analyst-priority-index{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:17px;
+  height:17px;
+  border-radius:50%;
+  background:#7164dc;
+  color:white!important;
+  font-size:8px!important;
+  flex-shrink:0;
+}
