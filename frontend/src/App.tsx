@@ -32,6 +32,7 @@ import {
   type AnalyticsOverview,
 } from "./services/api";
 import UploadData from "./UploadData";
+import VoiceOfCustomer from "./VoiceOfCustomer";
 import "./App.css";
 
 const navigation = [
@@ -389,6 +390,8 @@ function App() {
             </>
           ) : activePage === "Upload Data" ? (
             <UploadData />
+          ) : activePage === "Voice of Customer" ? (
+            <VoiceOfCustomer />
           ) : (
             <div className="panel page-placeholder">
               <Sparkles size={32} />
