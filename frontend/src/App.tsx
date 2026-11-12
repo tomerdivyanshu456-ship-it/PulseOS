@@ -35,6 +35,11 @@ import {
 import {
   getAnalytics,
   getHealth,
+  getDatasets,
+  getActiveDatasets,
+  setActiveDataset,
+  type UploadedDataset,
+  type ActiveDatasetMap,
   type AnalyticsOverview,
 } from "./services/api";
 import UploadData from "./UploadData";
@@ -82,6 +87,43 @@ function App() {
   const [analytics, setAnalytics] = useState<AnalyticsOverview | null>(null);
   const [analyticsLoading, setAnalyticsLoading] = useState(false);
   const [analyticsError, setAnalyticsError] = useState("");
+  const [datasets, setDatasets] = useState<UploadedDataset[]>([]);
+  const [activeDatasets, setActiveDatasets] = useState<ActiveDatasetMap>({ events: null, reviews: null, documents: null });
+  const [sourceError, setSourceError] = useState("");
+
+  async function refreshDataSources() {
+    const [available, active] = await Promise.all([getDatasets(), getActiveDatasets()]);
+    setDatasets(available);
+    const next = { ...active };
+    for (const kind of ["events", "reviews", "documents"] as const) {
+      if (!next[kind] && !available.some((item) => item.dataset_type === kind)) continue;
+      if (!next[kind]) {
+        const first = available.find((item) => item.dataset_type === kind);
+        if (first) {
+          await setActiveDataset(kind, first.id);
+          next[kind] = first;
+        }
+      }
+    }
+    setActiveDatasets(next);
+  }
+
+  useEffect(() => {
+    refreshDataSources().catch(() => setSourceError("Could not load active data sources."));
+  }, []);
+
+  async function changeDataSource(kind: "events" | "reviews" | "documents", id: string) {
+    const selected = id ? datasets.find((item) => item.id === id) || null : null;
+    try {
+      await setActiveDataset(kind, selected?.id || null);
+      setActiveDatasets((current) => ({ ...current, [kind]: selected }));
+      setAnalytics(null);
+    } catch {
+      setSourceError("Could not update the active data source.");
+    }
+  }
+
+  const dataContextKey = [activeDatasets.events?.id || "none", activeDatasets.reviews?.id || "none", activeDatasets.documents?.id || "none"].join(":");
 
   useEffect(() => {
     getHealth()
@@ -128,7 +170,7 @@ function App() {
     return () => {
       cancelled = true;
     };
-  }, [activePage]);
+  }, [activePage, dataContextKey]);
 
   const hasAnalytics = analytics !== null;
   const metrics = hasAnalytics
@@ -215,6 +257,19 @@ function App() {
             Workspace <span>/</span> {activePage}
           </div>
           <div className="top-actions">
+            <div className="workspace-source-selectors">
+              {(["events", "reviews", "documents"] as const).map((kind) => (
+                <label key={kind} className="workspace-source-picker">
+                  <span>{kind}</span>
+                  <select value={activeDatasets[kind]?.id || ""} onChange={(event) => void changeDataSource(kind, event.target.value)}>
+                    <option value="">No active {kind}</option>
+                    {datasets.filter((item) => item.dataset_type === kind).map((item) => (
+                      <option key={item.id} value={item.id}>{item.original_filename}</option>
+                    ))}
+                  </select>
+                </label>
+              ))}
+            </div>
             <button className="icon-button" aria-label="Search">
               <Search size={19} />
             </button>
@@ -225,6 +280,7 @@ function App() {
           </div>
         </header>
 
+        {sourceError && <div className="source-error">{sourceError}</div>}
         <section className="dashboard">
           <div className="page-heading">
             <div>
@@ -416,29 +472,29 @@ function App() {
           ) : activePage === "Upload Data" ? (
             <UploadData />
           ) : activePage === "Product Analytics" ? (
-            <ProductAnalytics />
+            <ProductAnalytics key={dataContextKey} />
           ) : activePage === "Opportunities" ? (
-            <ProductOpportunities />
+            <ProductOpportunities key={dataContextKey} />
           ) : activePage === "Voice of Customer" ? (
-            <VoiceOfCustomer />
+            <VoiceOfCustomer key={dataContextKey} />
           ) : activePage === "AI Analyst" ? (
-            <AIAnalyst />
+            <AIAnalyst key={dataContextKey} />
           ) : activePage === "Experiments" ? (
-            <ExperimentIntelligence />
+            <ExperimentIntelligence key={dataContextKey} />
           ) : activePage === "Strategy & Insights" ? (
-            <ProductStrategy />
+            <ProductStrategy key={dataContextKey} />
           ) : activePage === "Health Scorecard" ? (
-            <ProductHealthScorecard />
+            <ProductHealthScorecard key={dataContextKey} />
           ) : activePage === "Cohort & Segments" ? (
-            <CohortSegmentIntelligence />
+            <CohortSegmentIntelligence key={dataContextKey} />
           ) : activePage === "Funnel & Journeys" ? (
-            <FunnelJourneyIntelligence />
+            <FunnelJourneyIntelligence key={dataContextKey} />
           ) : activePage === "Root Cause Explorer" ? (
-            <RootCauseExplorer />
+            <RootCauseExplorer key={dataContextKey} />
           ) : activePage === "Anomaly Detection" ? (
-            <ProductAnomalies />
+            <ProductAnomalies key={dataContextKey} />
           ) : activePage === "Churn Prediction" ? (
-            <CustomerChurn />
+            <CustomerChurn key={dataContextKey} />
           ) : (
             <div className="panel page-placeholder">
               <Sparkles size={32} />
