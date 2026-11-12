@@ -85,7 +85,7 @@ def calculate_sample_size(baseline_rate, minimum_detectable_effect,
         "confidence_level": confidence_level,
         "power": power,
         "mde_absolute_percentage_points": round(minimum_detectable_effect * 100, 3),
-        "method": "Normal approximation for two independent proportions; equal allocation; two-sided test.",
+        "method": "normal approximation for two independent proportions; equal allocation; two-sided test.",
         "caveats": [
             "Planning estimate, not a guarantee of statistical validity.",
             "Assumes independent eligible users, stable allocation and one primary binary metric.",
