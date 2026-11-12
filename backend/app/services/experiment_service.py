@@ -230,6 +230,8 @@ def analyze_experiment(payload):
     se = math.sqrt(c_rate * (1 - c_rate) / cu + v_rate * (1 - v_rate) / vu)
     low, high = absolute - z * se, absolute + z * se
     planned = payload.get("planned_sample_size_per_arm")
+    if planned is not None and (isinstance(planned, bool) or int(planned) < 1):
+        raise ValueError("Planned sample size per arm must be a positive integer.")
     sample_reached = (cu >= planned and vu >= planned) if planned else None
     guardrail_results = []
     for item in payload.get("guardrails", []):
