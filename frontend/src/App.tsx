@@ -16,6 +16,7 @@ import {
   Target,
   Lightbulb,
   Gauge,
+  Route,
 } from "lucide-react";
 import {
   Area,
@@ -43,6 +44,7 @@ import ExperimentIntelligence from "./ExperimentIntelligence";
 import ProductStrategy from "./ProductStrategy";
 import ProductHealthScorecard from "./ProductHealthScorecard";
 import CohortSegmentIntelligence from "./CohortSegmentIntelligence";
+import FunnelJourneyIntelligence from "./FunnelJourneyIntelligence";
 import "./App.css";
 
 const navigation = [
@@ -56,6 +58,7 @@ const navigation = [
   { name: "Strategy & Insights", icon: Lightbulb },
   { name: "Health Scorecard", icon: Gauge },
   { name: "Cohort & Segments", icon: Users },
+  { name: "Funnel & Journeys", icon: Route },
 ];
 
 const numberFormatter = new Intl.NumberFormat("en-IN");
@@ -420,6 +423,8 @@ function App() {
             <ProductHealthScorecard />
           ) : activePage === "Cohort & Segments" ? (
             <CohortSegmentIntelligence />
+          ) : activePage === "Funnel & Journeys" ? (
+            <FunnelJourneyIntelligence />
           ) : (
             <div className="panel page-placeholder">
               <Sparkles size={32} />
