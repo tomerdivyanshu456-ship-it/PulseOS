@@ -1,0 +1,1284 @@
+user_id,event_name,timestamp,session_id,product_id,revenue,platform,plan,region,acquisition_channel
+U001,search_performed,2026-10-01 12:07:00,S00001,P02,0,iOS,Basic,South,Referral
+U001,feature_used,2026-10-01 12:10:00,S00001,P02,0,iOS,Basic,South,Referral
+U001,feature_used,2026-10-02 14:18:00,S00002,P02,0,iOS,Basic,South,Referral
+U001,product_viewed,2026-10-02 14:21:00,S00002,P02,0,iOS,Basic,South,Referral
+U001,search_performed,2026-10-02 14:24:00,S00002,P02,0,iOS,Basic,South,Referral
+U001,product_viewed,2026-10-03 16:29:00,S00003,P02,0,iOS,Basic,South,Referral
+U001,search_performed,2026-10-04 18:40:00,S00004,P02,0,iOS,Basic,South,Referral
+U001,feature_used,2026-10-04 18:43:00,S00004,P02,0,iOS,Basic,South,Referral
+U001,feature_used,2026-10-05 09:51:00,S00005,P02,0,iOS,Basic,South,Referral
+U001,product_viewed,2026-10-05 09:54:00,S00005,P02,0,iOS,Basic,South,Referral
+U001,search_performed,2026-10-05 09:57:00,S00005,P02,0,iOS,Basic,South,Referral
+U001,search_performed,2026-10-07 13:13:00,S00006,P02,0,iOS,Basic,South,Referral
+U001,feature_used,2026-10-07 13:16:00,S00006,P02,0,iOS,Basic,South,Referral
+U002,feature_used,2026-10-01 15:14:00,S00007,P03,0,Web,Premium,East,Paid Search
+U002,product_viewed,2026-10-01 15:17:00,S00007,P03,0,Web,Premium,East,Paid Search
+U002,search_performed,2026-10-01 15:20:00,S00007,P03,0,Web,Premium,East,Paid Search
+U002,product_viewed,2026-10-02 17:25:00,S00008,P03,0,Web,Premium,East,Paid Search
+U002,search_performed,2026-10-03 19:36:00,S00009,P03,0,Web,Premium,East,Paid Search
+U002,feature_used,2026-10-03 19:39:00,S00009,P03,0,Web,Premium,East,Paid Search
+U002,feature_used,2026-10-04 10:47:00,S00010,P03,0,Web,Premium,East,Paid Search
+U002,product_viewed,2026-10-04 10:50:00,S00010,P03,0,Web,Premium,East,Paid Search
+U002,search_performed,2026-10-04 10:53:00,S00010,P03,0,Web,Premium,East,Paid Search
+U002,search_performed,2026-10-06 14:09:00,S00011,P03,0,Web,Premium,East,Paid Search
+U002,feature_used,2026-10-06 14:12:00,S00011,P03,0,Web,Premium,East,Paid Search
+U002,feature_used,2026-10-07 16:20:00,S00012,P03,0,Web,Premium,East,Paid Search
+U002,product_viewed,2026-10-07 16:23:00,S00012,P03,0,Web,Premium,East,Paid Search
+U002,search_performed,2026-10-07 16:26:00,S00012,P03,0,Web,Premium,East,Paid Search
+U003,product_viewed,2026-10-01 18:21:00,S00013,P04,0,Android,Free,West,Organic
+U003,search_performed,2026-10-02 09:32:00,S00014,P04,0,Android,Free,West,Organic
+U003,feature_used,2026-10-02 09:35:00,S00014,P04,0,Android,Free,West,Organic
+U003,feature_used,2026-10-03 11:43:00,S00015,P04,0,Android,Free,West,Organic
+U003,product_viewed,2026-10-03 11:46:00,S00015,P04,0,Android,Free,West,Organic
+U003,search_performed,2026-10-03 11:49:00,S00015,P04,0,Android,Free,West,Organic
+U003,search_performed,2026-10-05 15:05:00,S00016,P04,0,Android,Free,West,Organic
+U003,feature_used,2026-10-05 15:08:00,S00016,P04,0,Android,Free,West,Organic
+U003,feature_used,2026-10-06 17:16:00,S00017,P04,0,Android,Free,West,Organic
+U003,product_viewed,2026-10-06 17:19:00,S00017,P04,0,Android,Free,West,Organic
+U003,search_performed,2026-10-06 17:22:00,S00017,P04,0,Android,Free,West,Organic
+U003,product_viewed,2026-10-07 19:27:00,S00018,P04,0,Android,Free,West,Organic
+U004,search_performed,2026-10-01 10:28:00,S00019,P01,0,iOS,Basic,North,Referral
+U004,purchase,2026-10-01 10:31:00,S00019,P01,799,iOS,Basic,North,Referral
+U004,feature_used,2026-10-02 12:39:00,S00020,P01,0,iOS,Basic,North,Referral
+U004,product_viewed,2026-10-02 12:42:00,S00020,P01,0,iOS,Basic,North,Referral
+U004,purchase,2026-10-02 12:45:00,S00020,P01,799,iOS,Basic,North,Referral
+U004,search_performed,2026-10-04 16:01:00,S00021,P01,0,iOS,Basic,North,Referral
+U004,purchase,2026-10-04 16:04:00,S00021,P01,799,iOS,Basic,North,Referral
+U004,feature_used,2026-10-05 18:12:00,S00022,P01,0,iOS,Basic,North,Referral
+U004,product_viewed,2026-10-05 18:15:00,S00022,P01,0,iOS,Basic,North,Referral
+U004,purchase,2026-10-05 18:18:00,S00022,P01,799,iOS,Basic,North,Referral
+U004,purchase,2026-10-06 09:23:00,S00023,P01,799,iOS,Basic,North,Referral
+U004,search_performed,2026-10-07 11:34:00,S00024,P01,0,iOS,Basic,North,Referral
+U004,purchase,2026-10-07 11:37:00,S00024,P01,799,iOS,Basic,North,Referral
+U005,feature_used,2026-10-01 13:35:00,S00025,P02,0,Web,Premium,South,Paid Search
+U005,product_viewed,2026-10-01 13:38:00,S00025,P02,0,Web,Premium,South,Paid Search
+U005,search_performed,2026-10-01 13:41:00,S00025,P02,0,Web,Premium,South,Paid Search
+U005,search_performed,2026-10-03 17:57:00,S00026,P02,0,Web,Premium,South,Paid Search
+U005,feature_used,2026-10-03 17:00:00,S00026,P02,0,Web,Premium,South,Paid Search
+U005,feature_used,2026-10-04 19:08:00,S00027,P02,0,Web,Premium,South,Paid Search
+U005,product_viewed,2026-10-04 19:11:00,S00027,P02,0,Web,Premium,South,Paid Search
+U005,search_performed,2026-10-04 19:14:00,S00027,P02,0,Web,Premium,South,Paid Search
+U005,product_viewed,2026-10-05 10:19:00,S00028,P02,0,Web,Premium,South,Paid Search
+U005,search_performed,2026-10-06 12:30:00,S00029,P02,0,Web,Premium,South,Paid Search
+U005,feature_used,2026-10-06 12:33:00,S00029,P02,0,Web,Premium,South,Paid Search
+U005,feature_used,2026-10-07 14:41:00,S00030,P02,0,Web,Premium,South,Paid Search
+U005,product_viewed,2026-10-07 14:44:00,S00030,P02,0,Web,Premium,South,Paid Search
+U005,search_performed,2026-10-07 14:47:00,S00030,P02,0,Web,Premium,South,Paid Search
+U006,search_performed,2026-10-02 18:53:00,S00031,P03,0,Android,Free,East,Organic
+U006,feature_used,2026-10-02 18:56:00,S00031,P03,0,Android,Free,East,Organic
+U006,feature_used,2026-10-03 09:04:00,S00032,P03,0,Android,Free,East,Organic
+U006,product_viewed,2026-10-03 09:07:00,S00032,P03,0,Android,Free,East,Organic
+U006,search_performed,2026-10-03 09:10:00,S00032,P03,0,Android,Free,East,Organic
+U006,product_viewed,2026-10-04 11:15:00,S00033,P03,0,Android,Free,East,Organic
+U006,search_performed,2026-10-05 13:26:00,S00034,P03,0,Android,Free,East,Organic
+U006,feature_used,2026-10-05 13:29:00,S00034,P03,0,Android,Free,East,Organic
+U006,feature_used,2026-10-06 15:37:00,S00035,P03,0,Android,Free,East,Organic
+U006,product_viewed,2026-10-06 15:40:00,S00035,P03,0,Android,Free,East,Organic
+U006,search_performed,2026-10-06 15:43:00,S00035,P03,0,Android,Free,East,Organic
+U007,search_performed,2026-10-01 19:49:00,S00036,P04,0,iOS,Basic,West,Referral
+U007,feature_used,2026-10-01 19:52:00,S00036,P04,0,iOS,Basic,West,Referral
+U007,feature_used,2026-10-02 10:00:00,S00037,P04,0,iOS,Basic,West,Referral
+U007,product_viewed,2026-10-02 10:03:00,S00037,P04,0,iOS,Basic,West,Referral
+U007,search_performed,2026-10-02 10:06:00,S00037,P04,0,iOS,Basic,West,Referral
+U007,product_viewed,2026-10-03 12:11:00,S00038,P04,0,iOS,Basic,West,Referral
+U007,search_performed,2026-10-04 14:22:00,S00039,P04,0,iOS,Basic,West,Referral
+U007,feature_used,2026-10-04 14:25:00,S00039,P04,0,iOS,Basic,West,Referral
+U007,feature_used,2026-10-05 16:33:00,S00040,P04,0,iOS,Basic,West,Referral
+U007,product_viewed,2026-10-05 16:36:00,S00040,P04,0,iOS,Basic,West,Referral
+U007,search_performed,2026-10-05 16:39:00,S00040,P04,0,iOS,Basic,West,Referral
+U007,search_performed,2026-10-07 09:55:00,S00041,P04,0,iOS,Basic,West,Referral
+U007,feature_used,2026-10-07 09:58:00,S00041,P04,0,iOS,Basic,West,Referral
+U008,feature_used,2026-10-01 11:56:00,S00042,P01,0,Web,Premium,North,Paid Search
+U008,product_viewed,2026-10-01 11:59:00,S00042,P01,0,Web,Premium,North,Paid Search
+U008,purchase,2026-10-01 11:02:00,S00042,P01,799,Web,Premium,North,Paid Search
+U008,purchase,2026-10-02 13:07:00,S00043,P01,799,Web,Premium,North,Paid Search
+U008,search_performed,2026-10-03 15:18:00,S00044,P01,0,Web,Premium,North,Paid Search
+U008,purchase,2026-10-03 15:21:00,S00044,P01,799,Web,Premium,North,Paid Search
+U008,feature_used,2026-10-04 17:29:00,S00045,P01,0,Web,Premium,North,Paid Search
+U008,product_viewed,2026-10-04 17:32:00,S00045,P01,0,Web,Premium,North,Paid Search
+U008,purchase,2026-10-04 17:35:00,S00045,P01,799,Web,Premium,North,Paid Search
+U008,search_performed,2026-10-06 10:51:00,S00046,P01,0,Web,Premium,North,Paid Search
+U008,purchase,2026-10-06 10:54:00,S00046,P01,799,Web,Premium,North,Paid Search
+U008,feature_used,2026-10-07 12:02:00,S00047,P01,0,Web,Premium,North,Paid Search
+U008,product_viewed,2026-10-07 12:05:00,S00047,P01,0,Web,Premium,North,Paid Search
+U008,purchase,2026-10-07 12:08:00,S00047,P01,799,Web,Premium,North,Paid Search
+U009,product_viewed,2026-10-01 14:03:00,S00048,P02,0,Android,Free,South,Organic
+U009,search_performed,2026-10-02 16:14:00,S00049,P02,0,Android,Free,South,Organic
+U009,feature_used,2026-10-02 16:17:00,S00049,P02,0,Android,Free,South,Organic
+U009,feature_used,2026-10-03 18:25:00,S00050,P02,0,Android,Free,South,Organic
+U009,product_viewed,2026-10-03 18:28:00,S00050,P02,0,Android,Free,South,Organic
+U009,search_performed,2026-10-03 18:31:00,S00050,P02,0,Android,Free,South,Organic
+U009,search_performed,2026-10-05 11:47:00,S00051,P02,0,Android,Free,South,Organic
+U009,feature_used,2026-10-05 11:50:00,S00051,P02,0,Android,Free,South,Organic
+U009,feature_used,2026-10-06 13:58:00,S00052,P02,0,Android,Free,South,Organic
+U009,product_viewed,2026-10-06 13:01:00,S00052,P02,0,Android,Free,South,Organic
+U009,search_performed,2026-10-06 13:04:00,S00052,P02,0,Android,Free,South,Organic
+U009,product_viewed,2026-10-07 15:09:00,S00053,P02,0,Android,Free,South,Organic
+U010,search_performed,2026-10-01 17:10:00,S00054,P03,0,iOS,Basic,East,Referral
+U010,feature_used,2026-10-01 17:13:00,S00054,P03,0,iOS,Basic,East,Referral
+U010,feature_used,2026-10-02 19:21:00,S00055,P03,0,iOS,Basic,East,Referral
+U010,product_viewed,2026-10-02 19:24:00,S00055,P03,0,iOS,Basic,East,Referral
+U010,search_performed,2026-10-02 19:27:00,S00055,P03,0,iOS,Basic,East,Referral
+U010,search_performed,2026-10-04 12:43:00,S00056,P03,0,iOS,Basic,East,Referral
+U010,feature_used,2026-10-04 12:46:00,S00056,P03,0,iOS,Basic,East,Referral
+U010,feature_used,2026-10-05 14:54:00,S00057,P03,0,iOS,Basic,East,Referral
+U010,product_viewed,2026-10-05 14:57:00,S00057,P03,0,iOS,Basic,East,Referral
+U010,search_performed,2026-10-05 14:00:00,S00057,P03,0,iOS,Basic,East,Referral
+U010,product_viewed,2026-10-06 16:05:00,S00058,P03,0,iOS,Basic,East,Referral
+U010,search_performed,2026-10-07 18:16:00,S00059,P03,0,iOS,Basic,East,Referral
+U010,feature_used,2026-10-07 18:19:00,S00059,P03,0,iOS,Basic,East,Referral
+U011,feature_used,2026-10-01 09:17:00,S00060,P04,0,Web,Premium,West,Paid Search
+U011,product_viewed,2026-10-01 09:20:00,S00060,P04,0,Web,Premium,West,Paid Search
+U011,search_performed,2026-10-01 09:23:00,S00060,P04,0,Web,Premium,West,Paid Search
+U011,search_performed,2026-10-03 13:39:00,S00061,P04,0,Web,Premium,West,Paid Search
+U011,feature_used,2026-10-03 13:42:00,S00061,P04,0,Web,Premium,West,Paid Search
+U011,feature_used,2026-10-04 15:50:00,S00062,P04,0,Web,Premium,West,Paid Search
+U011,product_viewed,2026-10-04 15:53:00,S00062,P04,0,Web,Premium,West,Paid Search
+U011,search_performed,2026-10-04 15:56:00,S00062,P04,0,Web,Premium,West,Paid Search
+U011,product_viewed,2026-10-05 17:01:00,S00063,P04,0,Web,Premium,West,Paid Search
+U011,search_performed,2026-10-06 19:12:00,S00064,P04,0,Web,Premium,West,Paid Search
+U011,feature_used,2026-10-06 19:15:00,S00064,P04,0,Web,Premium,West,Paid Search
+U011,feature_used,2026-10-07 10:23:00,S00065,P04,0,Web,Premium,West,Paid Search
+U011,product_viewed,2026-10-07 10:26:00,S00065,P04,0,Web,Premium,West,Paid Search
+U011,search_performed,2026-10-07 10:29:00,S00065,P04,0,Web,Premium,West,Paid Search
+U012,search_performed,2026-10-02 14:35:00,S00066,P01,0,Android,Free,North,Organic
+U012,purchase,2026-10-02 14:38:00,S00066,P01,799,Android,Free,North,Organic
+U012,feature_used,2026-10-03 16:46:00,S00067,P01,0,Android,Free,North,Organic
+U012,product_viewed,2026-10-03 16:49:00,S00067,P01,0,Android,Free,North,Organic
+U012,purchase,2026-10-03 16:52:00,S00067,P01,799,Android,Free,North,Organic
+U012,purchase,2026-10-04 18:57:00,S00068,P01,799,Android,Free,North,Organic
+U012,search_performed,2026-10-05 09:08:00,S00069,P01,0,Android,Free,North,Organic
+U012,purchase,2026-10-05 09:11:00,S00069,P01,799,Android,Free,North,Organic
+U012,feature_used,2026-10-06 11:19:00,S00070,P01,0,Android,Free,North,Organic
+U012,product_viewed,2026-10-06 11:22:00,S00070,P01,0,Android,Free,North,Organic
+U012,purchase,2026-10-06 11:25:00,S00070,P01,799,Android,Free,North,Organic
+U013,search_performed,2026-10-01 15:31:00,S00071,P02,0,iOS,Basic,South,Referral
+U013,feature_used,2026-10-01 15:34:00,S00071,P02,0,iOS,Basic,South,Referral
+U013,feature_used,2026-10-02 17:42:00,S00072,P02,0,iOS,Basic,South,Referral
+U013,product_viewed,2026-10-02 17:45:00,S00072,P02,0,iOS,Basic,South,Referral
+U013,search_performed,2026-10-02 17:48:00,S00072,P02,0,iOS,Basic,South,Referral
+U013,product_viewed,2026-10-03 19:53:00,S00073,P02,0,iOS,Basic,South,Referral
+U013,search_performed,2026-10-04 10:04:00,S00074,P02,0,iOS,Basic,South,Referral
+U013,feature_used,2026-10-04 10:07:00,S00074,P02,0,iOS,Basic,South,Referral
+U013,feature_used,2026-10-05 12:15:00,S00075,P02,0,iOS,Basic,South,Referral
+U013,product_viewed,2026-10-05 12:18:00,S00075,P02,0,iOS,Basic,South,Referral
+U013,search_performed,2026-10-05 12:21:00,S00075,P02,0,iOS,Basic,South,Referral
+U013,search_performed,2026-10-07 16:37:00,S00076,P02,0,iOS,Basic,South,Referral
+U013,feature_used,2026-10-07 16:40:00,S00076,P02,0,iOS,Basic,South,Referral
+U014,feature_used,2026-10-01 18:38:00,S00077,P03,0,Web,Premium,East,Paid Search
+U014,product_viewed,2026-10-01 18:41:00,S00077,P03,0,Web,Premium,East,Paid Search
+U014,search_performed,2026-10-01 18:44:00,S00077,P03,0,Web,Premium,East,Paid Search
+U014,product_viewed,2026-10-02 09:49:00,S00078,P03,0,Web,Premium,East,Paid Search
+U014,search_performed,2026-10-03 11:00:00,S00079,P03,0,Web,Premium,East,Paid Search
+U014,feature_used,2026-10-03 11:03:00,S00079,P03,0,Web,Premium,East,Paid Search
+U014,feature_used,2026-10-04 13:11:00,S00080,P03,0,Web,Premium,East,Paid Search
+U014,product_viewed,2026-10-04 13:14:00,S00080,P03,0,Web,Premium,East,Paid Search
+U014,search_performed,2026-10-04 13:17:00,S00080,P03,0,Web,Premium,East,Paid Search
+U014,search_performed,2026-10-06 17:33:00,S00081,P03,0,Web,Premium,East,Paid Search
+U014,feature_used,2026-10-06 17:36:00,S00081,P03,0,Web,Premium,East,Paid Search
+U014,feature_used,2026-10-07 19:44:00,S00082,P03,0,Web,Premium,East,Paid Search
+U014,product_viewed,2026-10-07 19:47:00,S00082,P03,0,Web,Premium,East,Paid Search
+U014,search_performed,2026-10-07 19:50:00,S00082,P03,0,Web,Premium,East,Paid Search
+U015,product_viewed,2026-10-01 10:45:00,S00083,P04,0,Android,Free,West,Organic
+U015,search_performed,2026-10-02 12:56:00,S00084,P04,0,Android,Free,West,Organic
+U015,feature_used,2026-10-02 12:59:00,S00084,P04,0,Android,Free,West,Organic
+U015,feature_used,2026-10-03 14:07:00,S00085,P04,0,Android,Free,West,Organic
+U015,product_viewed,2026-10-03 14:10:00,S00085,P04,0,Android,Free,West,Organic
+U015,search_performed,2026-10-03 14:13:00,S00085,P04,0,Android,Free,West,Organic
+U015,search_performed,2026-10-05 18:29:00,S00086,P04,0,Android,Free,West,Organic
+U015,feature_used,2026-10-05 18:32:00,S00086,P04,0,Android,Free,West,Organic
+U015,feature_used,2026-10-06 09:40:00,S00087,P04,0,Android,Free,West,Organic
+U015,product_viewed,2026-10-06 09:43:00,S00087,P04,0,Android,Free,West,Organic
+U015,search_performed,2026-10-06 09:46:00,S00087,P04,0,Android,Free,West,Organic
+U015,product_viewed,2026-10-07 11:51:00,S00088,P04,0,Android,Free,West,Organic
+U016,search_performed,2026-10-01 13:52:00,S00089,P01,0,iOS,Basic,North,Referral
+U016,purchase,2026-10-01 13:55:00,S00089,P01,799,iOS,Basic,North,Referral
+U016,feature_used,2026-10-02 15:03:00,S00090,P01,0,iOS,Basic,North,Referral
+U016,product_viewed,2026-10-02 15:06:00,S00090,P01,0,iOS,Basic,North,Referral
+U016,purchase,2026-10-02 15:09:00,S00090,P01,799,iOS,Basic,North,Referral
+U016,search_performed,2026-10-04 19:25:00,S00091,P01,0,iOS,Basic,North,Referral
+U016,purchase,2026-10-04 19:28:00,S00091,P01,799,iOS,Basic,North,Referral
+U016,feature_used,2026-10-05 10:36:00,S00092,P01,0,iOS,Basic,North,Referral
+U016,product_viewed,2026-10-05 10:39:00,S00092,P01,0,iOS,Basic,North,Referral
+U016,purchase,2026-10-05 10:42:00,S00092,P01,799,iOS,Basic,North,Referral
+U016,purchase,2026-10-06 12:47:00,S00093,P01,799,iOS,Basic,North,Referral
+U016,search_performed,2026-10-07 14:58:00,S00094,P01,0,iOS,Basic,North,Referral
+U016,purchase,2026-10-07 14:01:00,S00094,P01,799,iOS,Basic,North,Referral
+U017,feature_used,2026-10-01 16:59:00,S00095,P02,0,Web,Premium,South,Paid Search
+U017,product_viewed,2026-10-01 16:02:00,S00095,P02,0,Web,Premium,South,Paid Search
+U017,search_performed,2026-10-01 16:05:00,S00095,P02,0,Web,Premium,South,Paid Search
+U017,search_performed,2026-10-03 09:21:00,S00096,P02,0,Web,Premium,South,Paid Search
+U017,feature_used,2026-10-03 09:24:00,S00096,P02,0,Web,Premium,South,Paid Search
+U017,feature_used,2026-10-04 11:32:00,S00097,P02,0,Web,Premium,South,Paid Search
+U017,product_viewed,2026-10-04 11:35:00,S00097,P02,0,Web,Premium,South,Paid Search
+U017,search_performed,2026-10-04 11:38:00,S00097,P02,0,Web,Premium,South,Paid Search
+U017,product_viewed,2026-10-05 13:43:00,S00098,P02,0,Web,Premium,South,Paid Search
+U017,search_performed,2026-10-06 15:54:00,S00099,P02,0,Web,Premium,South,Paid Search
+U017,feature_used,2026-10-06 15:57:00,S00099,P02,0,Web,Premium,South,Paid Search
+U017,feature_used,2026-10-07 17:05:00,S00100,P02,0,Web,Premium,South,Paid Search
+U017,product_viewed,2026-10-07 17:08:00,S00100,P02,0,Web,Premium,South,Paid Search
+U017,search_performed,2026-10-07 17:11:00,S00100,P02,0,Web,Premium,South,Paid Search
+U018,search_performed,2026-10-02 10:17:00,S00101,P03,0,Android,Free,East,Organic
+U018,feature_used,2026-10-02 10:20:00,S00101,P03,0,Android,Free,East,Organic
+U018,feature_used,2026-10-03 12:28:00,S00102,P03,0,Android,Free,East,Organic
+U018,product_viewed,2026-10-03 12:31:00,S00102,P03,0,Android,Free,East,Organic
+U018,search_performed,2026-10-03 12:34:00,S00102,P03,0,Android,Free,East,Organic
+U018,product_viewed,2026-10-04 14:39:00,S00103,P03,0,Android,Free,East,Organic
+U018,search_performed,2026-10-05 16:50:00,S00104,P03,0,Android,Free,East,Organic
+U018,feature_used,2026-10-05 16:53:00,S00104,P03,0,Android,Free,East,Organic
+U018,feature_used,2026-10-06 18:01:00,S00105,P03,0,Android,Free,East,Organic
+U018,product_viewed,2026-10-06 18:04:00,S00105,P03,0,Android,Free,East,Organic
+U018,search_performed,2026-10-06 18:07:00,S00105,P03,0,Android,Free,East,Organic
+U019,search_performed,2026-10-01 11:13:00,S00106,P04,0,iOS,Basic,West,Referral
+U019,feature_used,2026-10-01 11:16:00,S00106,P04,0,iOS,Basic,West,Referral
+U019,feature_used,2026-10-02 13:24:00,S00107,P04,0,iOS,Basic,West,Referral
+U019,product_viewed,2026-10-02 13:27:00,S00107,P04,0,iOS,Basic,West,Referral
+U019,search_performed,2026-10-02 13:30:00,S00107,P04,0,iOS,Basic,West,Referral
+U019,product_viewed,2026-10-03 15:35:00,S00108,P04,0,iOS,Basic,West,Referral
+U019,search_performed,2026-10-04 17:46:00,S00109,P04,0,iOS,Basic,West,Referral
+U019,feature_used,2026-10-04 17:49:00,S00109,P04,0,iOS,Basic,West,Referral
+U019,feature_used,2026-10-05 19:57:00,S00110,P04,0,iOS,Basic,West,Referral
+U019,product_viewed,2026-10-05 19:00:00,S00110,P04,0,iOS,Basic,West,Referral
+U019,search_performed,2026-10-05 19:03:00,S00110,P04,0,iOS,Basic,West,Referral
+U019,search_performed,2026-10-07 12:19:00,S00111,P04,0,iOS,Basic,West,Referral
+U019,feature_used,2026-10-07 12:22:00,S00111,P04,0,iOS,Basic,West,Referral
+U020,feature_used,2026-10-01 14:20:00,S00112,P01,0,Web,Premium,North,Paid Search
+U020,product_viewed,2026-10-01 14:23:00,S00112,P01,0,Web,Premium,North,Paid Search
+U020,purchase,2026-10-01 14:26:00,S00112,P01,799,Web,Premium,North,Paid Search
+U020,purchase,2026-10-02 16:31:00,S00113,P01,799,Web,Premium,North,Paid Search
+U020,search_performed,2026-10-03 18:42:00,S00114,P01,0,Web,Premium,North,Paid Search
+U020,purchase,2026-10-03 18:45:00,S00114,P01,799,Web,Premium,North,Paid Search
+U020,feature_used,2026-10-04 09:53:00,S00115,P01,0,Web,Premium,North,Paid Search
+U020,product_viewed,2026-10-04 09:56:00,S00115,P01,0,Web,Premium,North,Paid Search
+U020,purchase,2026-10-04 09:59:00,S00115,P01,799,Web,Premium,North,Paid Search
+U020,search_performed,2026-10-06 13:15:00,S00116,P01,0,Web,Premium,North,Paid Search
+U020,purchase,2026-10-06 13:18:00,S00116,P01,799,Web,Premium,North,Paid Search
+U020,feature_used,2026-10-07 15:26:00,S00117,P01,0,Web,Premium,North,Paid Search
+U020,product_viewed,2026-10-07 15:29:00,S00117,P01,0,Web,Premium,North,Paid Search
+U020,purchase,2026-10-07 15:32:00,S00117,P01,799,Web,Premium,North,Paid Search
+U021,product_viewed,2026-10-01 17:27:00,S00118,P02,0,Android,Free,South,Organic
+U021,search_performed,2026-10-02 19:38:00,S00119,P02,0,Android,Free,South,Organic
+U021,feature_used,2026-10-02 19:41:00,S00119,P02,0,Android,Free,South,Organic
+U021,feature_used,2026-10-03 10:49:00,S00120,P02,0,Android,Free,South,Organic
+U021,product_viewed,2026-10-03 10:52:00,S00120,P02,0,Android,Free,South,Organic
+U021,search_performed,2026-10-03 10:55:00,S00120,P02,0,Android,Free,South,Organic
+U021,search_performed,2026-10-05 14:11:00,S00121,P02,0,Android,Free,South,Organic
+U021,feature_used,2026-10-05 14:14:00,S00121,P02,0,Android,Free,South,Organic
+U021,feature_used,2026-10-06 16:22:00,S00122,P02,0,Android,Free,South,Organic
+U021,product_viewed,2026-10-06 16:25:00,S00122,P02,0,Android,Free,South,Organic
+U021,search_performed,2026-10-06 16:28:00,S00122,P02,0,Android,Free,South,Organic
+U021,product_viewed,2026-10-07 18:33:00,S00123,P02,0,Android,Free,South,Organic
+U021,search_performed,2026-10-08 09:44:00,S00124,P02,0,Android,Free,South,Organic
+U021,feature_used,2026-10-08 09:47:00,S00124,P02,0,Android,Free,South,Organic
+U021,feature_used,2026-10-09 11:55:00,S00125,P02,0,Android,Free,South,Organic
+U021,product_viewed,2026-10-09 11:58:00,S00125,P02,0,Android,Free,South,Organic
+U021,search_performed,2026-10-09 11:01:00,S00125,P02,0,Android,Free,South,Organic
+U021,search_performed,2026-10-11 15:17:00,S00126,P02,0,Android,Free,South,Organic
+U021,feature_used,2026-10-11 15:20:00,S00126,P02,0,Android,Free,South,Organic
+U021,feature_used,2026-10-12 17:28:00,S00127,P02,0,Android,Free,South,Organic
+U021,product_viewed,2026-10-12 17:31:00,S00127,P02,0,Android,Free,South,Organic
+U021,search_performed,2026-10-12 17:34:00,S00127,P02,0,Android,Free,South,Organic
+U021,product_viewed,2026-10-13 19:39:00,S00128,P02,0,Android,Free,South,Organic
+U021,search_performed,2026-10-14 10:50:00,S00129,P02,0,Android,Free,South,Organic
+U021,feature_used,2026-10-14 10:53:00,S00129,P02,0,Android,Free,South,Organic
+U022,search_performed,2026-10-01 09:34:00,S00130,P03,0,iOS,Basic,East,Referral
+U022,feature_used,2026-10-01 09:37:00,S00130,P03,0,iOS,Basic,East,Referral
+U022,feature_used,2026-10-02 11:45:00,S00131,P03,0,iOS,Basic,East,Referral
+U022,product_viewed,2026-10-02 11:48:00,S00131,P03,0,iOS,Basic,East,Referral
+U022,search_performed,2026-10-02 11:51:00,S00131,P03,0,iOS,Basic,East,Referral
+U022,search_performed,2026-10-04 15:07:00,S00132,P03,0,iOS,Basic,East,Referral
+U022,feature_used,2026-10-04 15:10:00,S00132,P03,0,iOS,Basic,East,Referral
+U022,feature_used,2026-10-05 17:18:00,S00133,P03,0,iOS,Basic,East,Referral
+U022,product_viewed,2026-10-05 17:21:00,S00133,P03,0,iOS,Basic,East,Referral
+U022,search_performed,2026-10-05 17:24:00,S00133,P03,0,iOS,Basic,East,Referral
+U022,product_viewed,2026-10-06 19:29:00,S00134,P03,0,iOS,Basic,East,Referral
+U022,search_performed,2026-10-07 10:40:00,S00135,P03,0,iOS,Basic,East,Referral
+U022,feature_used,2026-10-07 10:43:00,S00135,P03,0,iOS,Basic,East,Referral
+U022,feature_used,2026-10-08 12:51:00,S00136,P03,0,iOS,Basic,East,Referral
+U022,product_viewed,2026-10-08 12:54:00,S00136,P03,0,iOS,Basic,East,Referral
+U022,search_performed,2026-10-08 12:57:00,S00136,P03,0,iOS,Basic,East,Referral
+U022,search_performed,2026-10-10 16:13:00,S00137,P03,0,iOS,Basic,East,Referral
+U022,feature_used,2026-10-10 16:16:00,S00137,P03,0,iOS,Basic,East,Referral
+U022,feature_used,2026-10-11 18:24:00,S00138,P03,0,iOS,Basic,East,Referral
+U022,product_viewed,2026-10-11 18:27:00,S00138,P03,0,iOS,Basic,East,Referral
+U022,search_performed,2026-10-11 18:30:00,S00138,P03,0,iOS,Basic,East,Referral
+U022,product_viewed,2026-10-12 09:35:00,S00139,P03,0,iOS,Basic,East,Referral
+U022,search_performed,2026-10-13 11:46:00,S00140,P03,0,iOS,Basic,East,Referral
+U022,feature_used,2026-10-13 11:49:00,S00140,P03,0,iOS,Basic,East,Referral
+U022,feature_used,2026-10-14 13:57:00,S00141,P03,0,iOS,Basic,East,Referral
+U022,product_viewed,2026-10-14 13:00:00,S00141,P03,0,iOS,Basic,East,Referral
+U022,search_performed,2026-10-14 13:03:00,S00141,P03,0,iOS,Basic,East,Referral
+U023,feature_used,2026-10-01 12:41:00,S00142,P04,0,Web,Premium,West,Paid Search
+U023,product_viewed,2026-10-01 12:44:00,S00142,P04,0,Web,Premium,West,Paid Search
+U023,search_performed,2026-10-01 12:47:00,S00142,P04,0,Web,Premium,West,Paid Search
+U023,search_performed,2026-10-03 16:03:00,S00143,P04,0,Web,Premium,West,Paid Search
+U023,feature_used,2026-10-03 16:06:00,S00143,P04,0,Web,Premium,West,Paid Search
+U023,feature_used,2026-10-04 18:14:00,S00144,P04,0,Web,Premium,West,Paid Search
+U023,product_viewed,2026-10-04 18:17:00,S00144,P04,0,Web,Premium,West,Paid Search
+U023,search_performed,2026-10-04 18:20:00,S00144,P04,0,Web,Premium,West,Paid Search
+U023,product_viewed,2026-10-05 09:25:00,S00145,P04,0,Web,Premium,West,Paid Search
+U023,search_performed,2026-10-06 11:36:00,S00146,P04,0,Web,Premium,West,Paid Search
+U023,feature_used,2026-10-06 11:39:00,S00146,P04,0,Web,Premium,West,Paid Search
+U023,feature_used,2026-10-07 13:47:00,S00147,P04,0,Web,Premium,West,Paid Search
+U023,product_viewed,2026-10-07 13:50:00,S00147,P04,0,Web,Premium,West,Paid Search
+U023,search_performed,2026-10-07 13:53:00,S00147,P04,0,Web,Premium,West,Paid Search
+U023,search_performed,2026-10-09 17:09:00,S00148,P04,0,Web,Premium,West,Paid Search
+U023,feature_used,2026-10-09 17:12:00,S00148,P04,0,Web,Premium,West,Paid Search
+U023,feature_used,2026-10-10 19:20:00,S00149,P04,0,Web,Premium,West,Paid Search
+U023,product_viewed,2026-10-10 19:23:00,S00149,P04,0,Web,Premium,West,Paid Search
+U023,search_performed,2026-10-10 19:26:00,S00149,P04,0,Web,Premium,West,Paid Search
+U023,product_viewed,2026-10-11 10:31:00,S00150,P04,0,Web,Premium,West,Paid Search
+U023,search_performed,2026-10-12 12:42:00,S00151,P04,0,Web,Premium,West,Paid Search
+U023,feature_used,2026-10-12 12:45:00,S00151,P04,0,Web,Premium,West,Paid Search
+U023,feature_used,2026-10-13 14:53:00,S00152,P04,0,Web,Premium,West,Paid Search
+U023,product_viewed,2026-10-13 14:56:00,S00152,P04,0,Web,Premium,West,Paid Search
+U023,search_performed,2026-10-13 14:59:00,S00152,P04,0,Web,Premium,West,Paid Search
+U024,search_performed,2026-10-02 17:59:00,S00153,P01,0,Android,Free,North,Organic
+U024,purchase,2026-10-02 17:02:00,S00153,P01,799,Android,Free,North,Organic
+U024,feature_used,2026-10-03 19:10:00,S00154,P01,0,Android,Free,North,Organic
+U024,product_viewed,2026-10-03 19:13:00,S00154,P01,0,Android,Free,North,Organic
+U024,purchase,2026-10-03 19:16:00,S00154,P01,799,Android,Free,North,Organic
+U024,purchase,2026-10-04 10:21:00,S00155,P01,799,Android,Free,North,Organic
+U024,search_performed,2026-10-05 12:32:00,S00156,P01,0,Android,Free,North,Organic
+U024,purchase,2026-10-05 12:35:00,S00156,P01,799,Android,Free,North,Organic
+U024,feature_used,2026-10-06 14:43:00,S00157,P01,0,Android,Free,North,Organic
+U024,product_viewed,2026-10-06 14:46:00,S00157,P01,0,Android,Free,North,Organic
+U024,purchase,2026-10-06 14:49:00,S00157,P01,799,Android,Free,North,Organic
+U024,search_performed,2026-10-08 18:05:00,S00158,P01,0,Android,Free,North,Organic
+U024,purchase,2026-10-08 18:08:00,S00158,P01,799,Android,Free,North,Organic
+U024,feature_used,2026-10-09 09:16:00,S00159,P01,0,Android,Free,North,Organic
+U024,product_viewed,2026-10-09 09:19:00,S00159,P01,0,Android,Free,North,Organic
+U024,purchase,2026-10-09 09:22:00,S00159,P01,799,Android,Free,North,Organic
+U024,purchase,2026-10-10 11:27:00,S00160,P01,799,Android,Free,North,Organic
+U024,search_performed,2026-10-11 13:38:00,S00161,P01,0,Android,Free,North,Organic
+U024,purchase,2026-10-11 13:41:00,S00161,P01,799,Android,Free,North,Organic
+U024,feature_used,2026-10-12 15:49:00,S00162,P01,0,Android,Free,North,Organic
+U024,product_viewed,2026-10-12 15:52:00,S00162,P01,0,Android,Free,North,Organic
+U024,purchase,2026-10-12 15:55:00,S00162,P01,799,Android,Free,North,Organic
+U024,search_performed,2026-10-14 19:11:00,S00163,P01,0,Android,Free,North,Organic
+U024,purchase,2026-10-14 19:14:00,S00163,P01,799,Android,Free,North,Organic
+U025,search_performed,2026-10-01 18:55:00,S00164,P02,0,iOS,Basic,South,Referral
+U025,feature_used,2026-10-01 18:58:00,S00164,P02,0,iOS,Basic,South,Referral
+U025,feature_used,2026-10-02 09:06:00,S00165,P02,0,iOS,Basic,South,Referral
+U025,product_viewed,2026-10-02 09:09:00,S00165,P02,0,iOS,Basic,South,Referral
+U025,search_performed,2026-10-02 09:12:00,S00165,P02,0,iOS,Basic,South,Referral
+U025,product_viewed,2026-10-03 11:17:00,S00166,P02,0,iOS,Basic,South,Referral
+U025,search_performed,2026-10-04 13:28:00,S00167,P02,0,iOS,Basic,South,Referral
+U025,feature_used,2026-10-04 13:31:00,S00167,P02,0,iOS,Basic,South,Referral
+U025,feature_used,2026-10-05 15:39:00,S00168,P02,0,iOS,Basic,South,Referral
+U025,product_viewed,2026-10-05 15:42:00,S00168,P02,0,iOS,Basic,South,Referral
+U025,search_performed,2026-10-05 15:45:00,S00168,P02,0,iOS,Basic,South,Referral
+U025,search_performed,2026-10-07 19:01:00,S00169,P02,0,iOS,Basic,South,Referral
+U025,feature_used,2026-10-07 19:04:00,S00169,P02,0,iOS,Basic,South,Referral
+U025,feature_used,2026-10-08 10:12:00,S00170,P02,0,iOS,Basic,South,Referral
+U025,product_viewed,2026-10-08 10:15:00,S00170,P02,0,iOS,Basic,South,Referral
+U025,search_performed,2026-10-08 10:18:00,S00170,P02,0,iOS,Basic,South,Referral
+U025,product_viewed,2026-10-09 12:23:00,S00171,P02,0,iOS,Basic,South,Referral
+U025,search_performed,2026-10-10 14:34:00,S00172,P02,0,iOS,Basic,South,Referral
+U025,feature_used,2026-10-10 14:37:00,S00172,P02,0,iOS,Basic,South,Referral
+U025,feature_used,2026-10-11 16:45:00,S00173,P02,0,iOS,Basic,South,Referral
+U025,product_viewed,2026-10-11 16:48:00,S00173,P02,0,iOS,Basic,South,Referral
+U025,search_performed,2026-10-11 16:51:00,S00173,P02,0,iOS,Basic,South,Referral
+U025,search_performed,2026-10-13 09:07:00,S00174,P02,0,iOS,Basic,South,Referral
+U025,feature_used,2026-10-13 09:10:00,S00174,P02,0,iOS,Basic,South,Referral
+U025,feature_used,2026-10-14 11:18:00,S00175,P02,0,iOS,Basic,South,Referral
+U025,product_viewed,2026-10-14 11:21:00,S00175,P02,0,iOS,Basic,South,Referral
+U025,search_performed,2026-10-14 11:24:00,S00175,P02,0,iOS,Basic,South,Referral
+U026,feature_used,2026-10-01 10:02:00,S00176,P03,0,Web,Premium,East,Paid Search
+U026,product_viewed,2026-10-01 10:05:00,S00176,P03,0,Web,Premium,East,Paid Search
+U026,search_performed,2026-10-01 10:08:00,S00176,P03,0,Web,Premium,East,Paid Search
+U026,product_viewed,2026-10-02 12:13:00,S00177,P03,0,Web,Premium,East,Paid Search
+U026,search_performed,2026-10-03 14:24:00,S00178,P03,0,Web,Premium,East,Paid Search
+U026,feature_used,2026-10-03 14:27:00,S00178,P03,0,Web,Premium,East,Paid Search
+U026,feature_used,2026-10-04 16:35:00,S00179,P03,0,Web,Premium,East,Paid Search
+U026,product_viewed,2026-10-04 16:38:00,S00179,P03,0,Web,Premium,East,Paid Search
+U026,search_performed,2026-10-04 16:41:00,S00179,P03,0,Web,Premium,East,Paid Search
+U026,search_performed,2026-10-06 09:57:00,S00180,P03,0,Web,Premium,East,Paid Search
+U026,feature_used,2026-10-06 09:00:00,S00180,P03,0,Web,Premium,East,Paid Search
+U026,feature_used,2026-10-07 11:08:00,S00181,P03,0,Web,Premium,East,Paid Search
+U026,product_viewed,2026-10-07 11:11:00,S00181,P03,0,Web,Premium,East,Paid Search
+U026,search_performed,2026-10-07 11:14:00,S00181,P03,0,Web,Premium,East,Paid Search
+U026,product_viewed,2026-10-08 13:19:00,S00182,P03,0,Web,Premium,East,Paid Search
+U026,search_performed,2026-10-09 15:30:00,S00183,P03,0,Web,Premium,East,Paid Search
+U026,feature_used,2026-10-09 15:33:00,S00183,P03,0,Web,Premium,East,Paid Search
+U026,feature_used,2026-10-10 17:41:00,S00184,P03,0,Web,Premium,East,Paid Search
+U026,product_viewed,2026-10-10 17:44:00,S00184,P03,0,Web,Premium,East,Paid Search
+U026,search_performed,2026-10-10 17:47:00,S00184,P03,0,Web,Premium,East,Paid Search
+U026,search_performed,2026-10-12 10:03:00,S00185,P03,0,Web,Premium,East,Paid Search
+U026,feature_used,2026-10-12 10:06:00,S00185,P03,0,Web,Premium,East,Paid Search
+U026,feature_used,2026-10-13 12:14:00,S00186,P03,0,Web,Premium,East,Paid Search
+U026,product_viewed,2026-10-13 12:17:00,S00186,P03,0,Web,Premium,East,Paid Search
+U026,search_performed,2026-10-13 12:20:00,S00186,P03,0,Web,Premium,East,Paid Search
+U026,product_viewed,2026-10-14 14:25:00,S00187,P03,0,Web,Premium,East,Paid Search
+U027,product_viewed,2026-10-01 13:09:00,S00188,P04,0,Android,Free,West,Organic
+U027,search_performed,2026-10-02 15:20:00,S00189,P04,0,Android,Free,West,Organic
+U027,feature_used,2026-10-02 15:23:00,S00189,P04,0,Android,Free,West,Organic
+U027,feature_used,2026-10-03 17:31:00,S00190,P04,0,Android,Free,West,Organic
+U027,product_viewed,2026-10-03 17:34:00,S00190,P04,0,Android,Free,West,Organic
+U027,search_performed,2026-10-03 17:37:00,S00190,P04,0,Android,Free,West,Organic
+U027,search_performed,2026-10-05 10:53:00,S00191,P04,0,Android,Free,West,Organic
+U027,feature_used,2026-10-05 10:56:00,S00191,P04,0,Android,Free,West,Organic
+U027,feature_used,2026-10-06 12:04:00,S00192,P04,0,Android,Free,West,Organic
+U027,product_viewed,2026-10-06 12:07:00,S00192,P04,0,Android,Free,West,Organic
+U027,search_performed,2026-10-06 12:10:00,S00192,P04,0,Android,Free,West,Organic
+U027,product_viewed,2026-10-07 14:15:00,S00193,P04,0,Android,Free,West,Organic
+U027,search_performed,2026-10-08 16:26:00,S00194,P04,0,Android,Free,West,Organic
+U027,feature_used,2026-10-08 16:29:00,S00194,P04,0,Android,Free,West,Organic
+U027,feature_used,2026-10-09 18:37:00,S00195,P04,0,Android,Free,West,Organic
+U027,product_viewed,2026-10-09 18:40:00,S00195,P04,0,Android,Free,West,Organic
+U027,search_performed,2026-10-09 18:43:00,S00195,P04,0,Android,Free,West,Organic
+U027,search_performed,2026-10-11 11:59:00,S00196,P04,0,Android,Free,West,Organic
+U027,feature_used,2026-10-11 11:02:00,S00196,P04,0,Android,Free,West,Organic
+U027,feature_used,2026-10-12 13:10:00,S00197,P04,0,Android,Free,West,Organic
+U027,product_viewed,2026-10-12 13:13:00,S00197,P04,0,Android,Free,West,Organic
+U027,search_performed,2026-10-12 13:16:00,S00197,P04,0,Android,Free,West,Organic
+U027,product_viewed,2026-10-13 15:21:00,S00198,P04,0,Android,Free,West,Organic
+U027,search_performed,2026-10-14 17:32:00,S00199,P04,0,Android,Free,West,Organic
+U027,feature_used,2026-10-14 17:35:00,S00199,P04,0,Android,Free,West,Organic
+U028,search_performed,2026-10-01 16:16:00,S00200,P01,0,iOS,Basic,North,Referral
+U028,purchase,2026-10-01 16:19:00,S00200,P01,799,iOS,Basic,North,Referral
+U028,feature_used,2026-10-02 18:27:00,S00201,P01,0,iOS,Basic,North,Referral
+U028,product_viewed,2026-10-02 18:30:00,S00201,P01,0,iOS,Basic,North,Referral
+U028,purchase,2026-10-02 18:33:00,S00201,P01,799,iOS,Basic,North,Referral
+U028,search_performed,2026-10-04 11:49:00,S00202,P01,0,iOS,Basic,North,Referral
+U028,purchase,2026-10-04 11:52:00,S00202,P01,799,iOS,Basic,North,Referral
+U028,feature_used,2026-10-05 13:00:00,S00203,P01,0,iOS,Basic,North,Referral
+U028,product_viewed,2026-10-05 13:03:00,S00203,P01,0,iOS,Basic,North,Referral
+U028,purchase,2026-10-05 13:06:00,S00203,P01,799,iOS,Basic,North,Referral
+U028,purchase,2026-10-06 15:11:00,S00204,P01,799,iOS,Basic,North,Referral
+U028,search_performed,2026-10-07 17:22:00,S00205,P01,0,iOS,Basic,North,Referral
+U028,purchase,2026-10-07 17:25:00,S00205,P01,799,iOS,Basic,North,Referral
+U028,feature_used,2026-10-08 19:33:00,S00206,P01,0,iOS,Basic,North,Referral
+U028,product_viewed,2026-10-08 19:36:00,S00206,P01,0,iOS,Basic,North,Referral
+U028,purchase,2026-10-08 19:39:00,S00206,P01,799,iOS,Basic,North,Referral
+U028,search_performed,2026-10-10 12:55:00,S00207,P01,0,iOS,Basic,North,Referral
+U028,purchase,2026-10-10 12:58:00,S00207,P01,799,iOS,Basic,North,Referral
+U028,feature_used,2026-10-11 14:06:00,S00208,P01,0,iOS,Basic,North,Referral
+U028,product_viewed,2026-10-11 14:09:00,S00208,P01,0,iOS,Basic,North,Referral
+U028,purchase,2026-10-11 14:12:00,S00208,P01,799,iOS,Basic,North,Referral
+U028,purchase,2026-10-12 16:17:00,S00209,P01,799,iOS,Basic,North,Referral
+U028,search_performed,2026-10-13 18:28:00,S00210,P01,0,iOS,Basic,North,Referral
+U028,purchase,2026-10-13 18:31:00,S00210,P01,799,iOS,Basic,North,Referral
+U028,feature_used,2026-10-14 09:39:00,S00211,P01,0,iOS,Basic,North,Referral
+U028,product_viewed,2026-10-14 09:42:00,S00211,P01,0,iOS,Basic,North,Referral
+U028,purchase,2026-10-14 09:45:00,S00211,P01,799,iOS,Basic,North,Referral
+U029,feature_used,2026-10-01 19:23:00,S00212,P02,0,Web,Premium,South,Paid Search
+U029,product_viewed,2026-10-01 19:26:00,S00212,P02,0,Web,Premium,South,Paid Search
+U029,search_performed,2026-10-01 19:29:00,S00212,P02,0,Web,Premium,South,Paid Search
+U029,search_performed,2026-10-03 12:45:00,S00213,P02,0,Web,Premium,South,Paid Search
+U029,feature_used,2026-10-03 12:48:00,S00213,P02,0,Web,Premium,South,Paid Search
+U029,feature_used,2026-10-04 14:56:00,S00214,P02,0,Web,Premium,South,Paid Search
+U029,product_viewed,2026-10-04 14:59:00,S00214,P02,0,Web,Premium,South,Paid Search
+U029,search_performed,2026-10-04 14:02:00,S00214,P02,0,Web,Premium,South,Paid Search
+U029,product_viewed,2026-10-05 16:07:00,S00215,P02,0,Web,Premium,South,Paid Search
+U029,search_performed,2026-10-06 18:18:00,S00216,P02,0,Web,Premium,South,Paid Search
+U029,feature_used,2026-10-06 18:21:00,S00216,P02,0,Web,Premium,South,Paid Search
+U029,feature_used,2026-10-07 09:29:00,S00217,P02,0,Web,Premium,South,Paid Search
+U029,product_viewed,2026-10-07 09:32:00,S00217,P02,0,Web,Premium,South,Paid Search
+U029,search_performed,2026-10-07 09:35:00,S00217,P02,0,Web,Premium,South,Paid Search
+U029,search_performed,2026-10-09 13:51:00,S00218,P02,0,Web,Premium,South,Paid Search
+U029,feature_used,2026-10-09 13:54:00,S00218,P02,0,Web,Premium,South,Paid Search
+U029,feature_used,2026-10-10 15:02:00,S00219,P02,0,Web,Premium,South,Paid Search
+U029,product_viewed,2026-10-10 15:05:00,S00219,P02,0,Web,Premium,South,Paid Search
+U029,search_performed,2026-10-10 15:08:00,S00219,P02,0,Web,Premium,South,Paid Search
+U029,product_viewed,2026-10-11 17:13:00,S00220,P02,0,Web,Premium,South,Paid Search
+U029,search_performed,2026-10-12 19:24:00,S00221,P02,0,Web,Premium,South,Paid Search
+U029,feature_used,2026-10-12 19:27:00,S00221,P02,0,Web,Premium,South,Paid Search
+U029,feature_used,2026-10-13 10:35:00,S00222,P02,0,Web,Premium,South,Paid Search
+U029,product_viewed,2026-10-13 10:38:00,S00222,P02,0,Web,Premium,South,Paid Search
+U029,search_performed,2026-10-13 10:41:00,S00222,P02,0,Web,Premium,South,Paid Search
+U030,search_performed,2026-10-02 13:41:00,S00223,P03,0,Android,Free,East,Organic
+U030,feature_used,2026-10-02 13:44:00,S00223,P03,0,Android,Free,East,Organic
+U030,feature_used,2026-10-03 15:52:00,S00224,P03,0,Android,Free,East,Organic
+U030,product_viewed,2026-10-03 15:55:00,S00224,P03,0,Android,Free,East,Organic
+U030,search_performed,2026-10-03 15:58:00,S00224,P03,0,Android,Free,East,Organic
+U030,product_viewed,2026-10-04 17:03:00,S00225,P03,0,Android,Free,East,Organic
+U030,search_performed,2026-10-05 19:14:00,S00226,P03,0,Android,Free,East,Organic
+U030,feature_used,2026-10-05 19:17:00,S00226,P03,0,Android,Free,East,Organic
+U030,feature_used,2026-10-06 10:25:00,S00227,P03,0,Android,Free,East,Organic
+U030,product_viewed,2026-10-06 10:28:00,S00227,P03,0,Android,Free,East,Organic
+U030,search_performed,2026-10-06 10:31:00,S00227,P03,0,Android,Free,East,Organic
+U030,search_performed,2026-10-08 14:47:00,S00228,P03,0,Android,Free,East,Organic
+U030,feature_used,2026-10-08 14:50:00,S00228,P03,0,Android,Free,East,Organic
+U030,feature_used,2026-10-09 16:58:00,S00229,P03,0,Android,Free,East,Organic
+U030,product_viewed,2026-10-09 16:01:00,S00229,P03,0,Android,Free,East,Organic
+U030,search_performed,2026-10-09 16:04:00,S00229,P03,0,Android,Free,East,Organic
+U030,product_viewed,2026-10-10 18:09:00,S00230,P03,0,Android,Free,East,Organic
+U030,search_performed,2026-10-11 09:20:00,S00231,P03,0,Android,Free,East,Organic
+U030,feature_used,2026-10-11 09:23:00,S00231,P03,0,Android,Free,East,Organic
+U030,feature_used,2026-10-12 11:31:00,S00232,P03,0,Android,Free,East,Organic
+U030,product_viewed,2026-10-12 11:34:00,S00232,P03,0,Android,Free,East,Organic
+U030,search_performed,2026-10-12 11:37:00,S00232,P03,0,Android,Free,East,Organic
+U030,search_performed,2026-10-14 15:53:00,S00233,P03,0,Android,Free,East,Organic
+U030,feature_used,2026-10-14 15:56:00,S00233,P03,0,Android,Free,East,Organic
+U031,search_performed,2026-10-01 14:37:00,S00234,P04,0,iOS,Basic,West,Referral
+U031,feature_used,2026-10-01 14:40:00,S00234,P04,0,iOS,Basic,West,Referral
+U031,feature_used,2026-10-02 16:48:00,S00235,P04,0,iOS,Basic,West,Referral
+U031,product_viewed,2026-10-02 16:51:00,S00235,P04,0,iOS,Basic,West,Referral
+U031,search_performed,2026-10-02 16:54:00,S00235,P04,0,iOS,Basic,West,Referral
+U031,product_viewed,2026-10-03 18:59:00,S00236,P04,0,iOS,Basic,West,Referral
+U031,search_performed,2026-10-04 09:10:00,S00237,P04,0,iOS,Basic,West,Referral
+U031,feature_used,2026-10-04 09:13:00,S00237,P04,0,iOS,Basic,West,Referral
+U031,feature_used,2026-10-05 11:21:00,S00238,P04,0,iOS,Basic,West,Referral
+U031,product_viewed,2026-10-05 11:24:00,S00238,P04,0,iOS,Basic,West,Referral
+U031,search_performed,2026-10-05 11:27:00,S00238,P04,0,iOS,Basic,West,Referral
+U031,search_performed,2026-10-07 15:43:00,S00239,P04,0,iOS,Basic,West,Referral
+U031,feature_used,2026-10-07 15:46:00,S00239,P04,0,iOS,Basic,West,Referral
+U031,feature_used,2026-10-08 17:54:00,S00240,P04,0,iOS,Basic,West,Referral
+U031,product_viewed,2026-10-08 17:57:00,S00240,P04,0,iOS,Basic,West,Referral
+U031,search_performed,2026-10-08 17:00:00,S00240,P04,0,iOS,Basic,West,Referral
+U031,product_viewed,2026-10-09 19:05:00,S00241,P04,0,iOS,Basic,West,Referral
+U031,search_performed,2026-10-10 10:16:00,S00242,P04,0,iOS,Basic,West,Referral
+U031,feature_used,2026-10-10 10:19:00,S00242,P04,0,iOS,Basic,West,Referral
+U031,feature_used,2026-10-11 12:27:00,S00243,P04,0,iOS,Basic,West,Referral
+U031,product_viewed,2026-10-11 12:30:00,S00243,P04,0,iOS,Basic,West,Referral
+U031,search_performed,2026-10-11 12:33:00,S00243,P04,0,iOS,Basic,West,Referral
+U031,search_performed,2026-10-13 16:49:00,S00244,P04,0,iOS,Basic,West,Referral
+U031,feature_used,2026-10-13 16:52:00,S00244,P04,0,iOS,Basic,West,Referral
+U031,feature_used,2026-10-14 18:00:00,S00245,P04,0,iOS,Basic,West,Referral
+U031,product_viewed,2026-10-14 18:03:00,S00245,P04,0,iOS,Basic,West,Referral
+U031,search_performed,2026-10-14 18:06:00,S00245,P04,0,iOS,Basic,West,Referral
+U032,feature_used,2026-10-01 17:44:00,S00246,P01,0,Web,Premium,North,Paid Search
+U032,product_viewed,2026-10-01 17:47:00,S00246,P01,0,Web,Premium,North,Paid Search
+U032,purchase,2026-10-01 17:50:00,S00246,P01,799,Web,Premium,North,Paid Search
+U032,purchase,2026-10-02 19:55:00,S00247,P01,799,Web,Premium,North,Paid Search
+U032,search_performed,2026-10-03 10:06:00,S00248,P01,0,Web,Premium,North,Paid Search
+U032,purchase,2026-10-03 10:09:00,S00248,P01,799,Web,Premium,North,Paid Search
+U032,feature_used,2026-10-04 12:17:00,S00249,P01,0,Web,Premium,North,Paid Search
+U032,product_viewed,2026-10-04 12:20:00,S00249,P01,0,Web,Premium,North,Paid Search
+U032,purchase,2026-10-04 12:23:00,S00249,P01,799,Web,Premium,North,Paid Search
+U032,search_performed,2026-10-06 16:39:00,S00250,P01,0,Web,Premium,North,Paid Search
+U032,purchase,2026-10-06 16:42:00,S00250,P01,799,Web,Premium,North,Paid Search
+U032,feature_used,2026-10-07 18:50:00,S00251,P01,0,Web,Premium,North,Paid Search
+U032,product_viewed,2026-10-07 18:53:00,S00251,P01,0,Web,Premium,North,Paid Search
+U032,purchase,2026-10-07 18:56:00,S00251,P01,799,Web,Premium,North,Paid Search
+U032,purchase,2026-10-08 09:01:00,S00252,P01,799,Web,Premium,North,Paid Search
+U032,search_performed,2026-10-09 11:12:00,S00253,P01,0,Web,Premium,North,Paid Search
+U032,purchase,2026-10-09 11:15:00,S00253,P01,799,Web,Premium,North,Paid Search
+U032,feature_used,2026-10-10 13:23:00,S00254,P01,0,Web,Premium,North,Paid Search
+U032,product_viewed,2026-10-10 13:26:00,S00254,P01,0,Web,Premium,North,Paid Search
+U032,purchase,2026-10-10 13:29:00,S00254,P01,799,Web,Premium,North,Paid Search
+U032,search_performed,2026-10-12 17:45:00,S00255,P01,0,Web,Premium,North,Paid Search
+U032,purchase,2026-10-12 17:48:00,S00255,P01,799,Web,Premium,North,Paid Search
+U032,feature_used,2026-10-13 19:56:00,S00256,P01,0,Web,Premium,North,Paid Search
+U032,product_viewed,2026-10-13 19:59:00,S00256,P01,0,Web,Premium,North,Paid Search
+U032,purchase,2026-10-13 19:02:00,S00256,P01,799,Web,Premium,North,Paid Search
+U032,purchase,2026-10-14 10:07:00,S00257,P01,799,Web,Premium,North,Paid Search
+U033,product_viewed,2026-10-01 09:51:00,S00258,P02,0,Android,Free,South,Organic
+U033,search_performed,2026-10-02 11:02:00,S00259,P02,0,Android,Free,South,Organic
+U033,feature_used,2026-10-02 11:05:00,S00259,P02,0,Android,Free,South,Organic
+U033,feature_used,2026-10-03 13:13:00,S00260,P02,0,Android,Free,South,Organic
+U033,product_viewed,2026-10-03 13:16:00,S00260,P02,0,Android,Free,South,Organic
+U033,search_performed,2026-10-03 13:19:00,S00260,P02,0,Android,Free,South,Organic
+U033,search_performed,2026-10-05 17:35:00,S00261,P02,0,Android,Free,South,Organic
+U033,feature_used,2026-10-05 17:38:00,S00261,P02,0,Android,Free,South,Organic
+U033,feature_used,2026-10-06 19:46:00,S00262,P02,0,Android,Free,South,Organic
+U033,product_viewed,2026-10-06 19:49:00,S00262,P02,0,Android,Free,South,Organic
+U033,search_performed,2026-10-06 19:52:00,S00262,P02,0,Android,Free,South,Organic
+U033,product_viewed,2026-10-07 10:57:00,S00263,P02,0,Android,Free,South,Organic
+U033,search_performed,2026-10-08 12:08:00,S00264,P02,0,Android,Free,South,Organic
+U033,feature_used,2026-10-08 12:11:00,S00264,P02,0,Android,Free,South,Organic
+U033,feature_used,2026-10-09 14:19:00,S00265,P02,0,Android,Free,South,Organic
+U033,product_viewed,2026-10-09 14:22:00,S00265,P02,0,Android,Free,South,Organic
+U033,search_performed,2026-10-09 14:25:00,S00265,P02,0,Android,Free,South,Organic
+U033,search_performed,2026-10-11 18:41:00,S00266,P02,0,Android,Free,South,Organic
+U033,feature_used,2026-10-11 18:44:00,S00266,P02,0,Android,Free,South,Organic
+U033,feature_used,2026-10-12 09:52:00,S00267,P02,0,Android,Free,South,Organic
+U033,product_viewed,2026-10-12 09:55:00,S00267,P02,0,Android,Free,South,Organic
+U033,search_performed,2026-10-12 09:58:00,S00267,P02,0,Android,Free,South,Organic
+U033,product_viewed,2026-10-13 11:03:00,S00268,P02,0,Android,Free,South,Organic
+U033,search_performed,2026-10-14 13:14:00,S00269,P02,0,Android,Free,South,Organic
+U033,feature_used,2026-10-14 13:17:00,S00269,P02,0,Android,Free,South,Organic
+U034,search_performed,2026-10-01 12:58:00,S00270,P03,0,iOS,Basic,East,Referral
+U034,feature_used,2026-10-01 12:01:00,S00270,P03,0,iOS,Basic,East,Referral
+U034,feature_used,2026-10-02 14:09:00,S00271,P03,0,iOS,Basic,East,Referral
+U034,product_viewed,2026-10-02 14:12:00,S00271,P03,0,iOS,Basic,East,Referral
+U034,search_performed,2026-10-02 14:15:00,S00271,P03,0,iOS,Basic,East,Referral
+U034,search_performed,2026-10-04 18:31:00,S00272,P03,0,iOS,Basic,East,Referral
+U034,feature_used,2026-10-04 18:34:00,S00272,P03,0,iOS,Basic,East,Referral
+U034,feature_used,2026-10-05 09:42:00,S00273,P03,0,iOS,Basic,East,Referral
+U034,product_viewed,2026-10-05 09:45:00,S00273,P03,0,iOS,Basic,East,Referral
+U034,search_performed,2026-10-05 09:48:00,S00273,P03,0,iOS,Basic,East,Referral
+U034,product_viewed,2026-10-06 11:53:00,S00274,P03,0,iOS,Basic,East,Referral
+U034,search_performed,2026-10-07 13:04:00,S00275,P03,0,iOS,Basic,East,Referral
+U034,feature_used,2026-10-07 13:07:00,S00275,P03,0,iOS,Basic,East,Referral
+U034,feature_used,2026-10-08 15:15:00,S00276,P03,0,iOS,Basic,East,Referral
+U034,product_viewed,2026-10-08 15:18:00,S00276,P03,0,iOS,Basic,East,Referral
+U034,search_performed,2026-10-08 15:21:00,S00276,P03,0,iOS,Basic,East,Referral
+U034,search_performed,2026-10-10 19:37:00,S00277,P03,0,iOS,Basic,East,Referral
+U034,feature_used,2026-10-10 19:40:00,S00277,P03,0,iOS,Basic,East,Referral
+U034,feature_used,2026-10-11 10:48:00,S00278,P03,0,iOS,Basic,East,Referral
+U034,product_viewed,2026-10-11 10:51:00,S00278,P03,0,iOS,Basic,East,Referral
+U034,search_performed,2026-10-11 10:54:00,S00278,P03,0,iOS,Basic,East,Referral
+U034,product_viewed,2026-10-12 12:59:00,S00279,P03,0,iOS,Basic,East,Referral
+U034,search_performed,2026-10-13 14:10:00,S00280,P03,0,iOS,Basic,East,Referral
+U034,feature_used,2026-10-13 14:13:00,S00280,P03,0,iOS,Basic,East,Referral
+U034,feature_used,2026-10-14 16:21:00,S00281,P03,0,iOS,Basic,East,Referral
+U034,product_viewed,2026-10-14 16:24:00,S00281,P03,0,iOS,Basic,East,Referral
+U034,search_performed,2026-10-14 16:27:00,S00281,P03,0,iOS,Basic,East,Referral
+U035,feature_used,2026-10-01 15:05:00,S00282,P04,0,Web,Premium,West,Paid Search
+U035,product_viewed,2026-10-01 15:08:00,S00282,P04,0,Web,Premium,West,Paid Search
+U035,search_performed,2026-10-01 15:11:00,S00282,P04,0,Web,Premium,West,Paid Search
+U035,search_performed,2026-10-03 19:27:00,S00283,P04,0,Web,Premium,West,Paid Search
+U035,feature_used,2026-10-03 19:30:00,S00283,P04,0,Web,Premium,West,Paid Search
+U035,feature_used,2026-10-04 10:38:00,S00284,P04,0,Web,Premium,West,Paid Search
+U035,product_viewed,2026-10-04 10:41:00,S00284,P04,0,Web,Premium,West,Paid Search
+U035,search_performed,2026-10-04 10:44:00,S00284,P04,0,Web,Premium,West,Paid Search
+U035,product_viewed,2026-10-05 12:49:00,S00285,P04,0,Web,Premium,West,Paid Search
+U035,search_performed,2026-10-06 14:00:00,S00286,P04,0,Web,Premium,West,Paid Search
+U035,feature_used,2026-10-06 14:03:00,S00286,P04,0,Web,Premium,West,Paid Search
+U035,feature_used,2026-10-07 16:11:00,S00287,P04,0,Web,Premium,West,Paid Search
+U035,product_viewed,2026-10-07 16:14:00,S00287,P04,0,Web,Premium,West,Paid Search
+U035,search_performed,2026-10-07 16:17:00,S00287,P04,0,Web,Premium,West,Paid Search
+U035,search_performed,2026-10-09 09:33:00,S00288,P04,0,Web,Premium,West,Paid Search
+U035,feature_used,2026-10-09 09:36:00,S00288,P04,0,Web,Premium,West,Paid Search
+U035,feature_used,2026-10-10 11:44:00,S00289,P04,0,Web,Premium,West,Paid Search
+U035,product_viewed,2026-10-10 11:47:00,S00289,P04,0,Web,Premium,West,Paid Search
+U035,search_performed,2026-10-10 11:50:00,S00289,P04,0,Web,Premium,West,Paid Search
+U035,product_viewed,2026-10-11 13:55:00,S00290,P04,0,Web,Premium,West,Paid Search
+U035,search_performed,2026-10-12 15:06:00,S00291,P04,0,Web,Premium,West,Paid Search
+U035,feature_used,2026-10-12 15:09:00,S00291,P04,0,Web,Premium,West,Paid Search
+U035,feature_used,2026-10-13 17:17:00,S00292,P04,0,Web,Premium,West,Paid Search
+U035,product_viewed,2026-10-13 17:20:00,S00292,P04,0,Web,Premium,West,Paid Search
+U035,search_performed,2026-10-13 17:23:00,S00292,P04,0,Web,Premium,West,Paid Search
+U036,search_performed,2026-10-02 09:23:00,S00293,P01,0,Android,Free,North,Organic
+U036,purchase,2026-10-02 09:26:00,S00293,P01,799,Android,Free,North,Organic
+U036,feature_used,2026-10-03 11:34:00,S00294,P01,0,Android,Free,North,Organic
+U036,product_viewed,2026-10-03 11:37:00,S00294,P01,0,Android,Free,North,Organic
+U036,purchase,2026-10-03 11:40:00,S00294,P01,799,Android,Free,North,Organic
+U036,purchase,2026-10-04 13:45:00,S00295,P01,799,Android,Free,North,Organic
+U036,search_performed,2026-10-05 15:56:00,S00296,P01,0,Android,Free,North,Organic
+U036,purchase,2026-10-05 15:59:00,S00296,P01,799,Android,Free,North,Organic
+U036,feature_used,2026-10-06 17:07:00,S00297,P01,0,Android,Free,North,Organic
+U036,product_viewed,2026-10-06 17:10:00,S00297,P01,0,Android,Free,North,Organic
+U036,purchase,2026-10-06 17:13:00,S00297,P01,799,Android,Free,North,Organic
+U036,search_performed,2026-10-08 10:29:00,S00298,P01,0,Android,Free,North,Organic
+U036,purchase,2026-10-08 10:32:00,S00298,P01,799,Android,Free,North,Organic
+U036,feature_used,2026-10-09 12:40:00,S00299,P01,0,Android,Free,North,Organic
+U036,product_viewed,2026-10-09 12:43:00,S00299,P01,0,Android,Free,North,Organic
+U036,purchase,2026-10-09 12:46:00,S00299,P01,799,Android,Free,North,Organic
+U036,purchase,2026-10-10 14:51:00,S00300,P01,799,Android,Free,North,Organic
+U036,search_performed,2026-10-11 16:02:00,S00301,P01,0,Android,Free,North,Organic
+U036,purchase,2026-10-11 16:05:00,S00301,P01,799,Android,Free,North,Organic
+U036,feature_used,2026-10-12 18:13:00,S00302,P01,0,Android,Free,North,Organic
+U036,product_viewed,2026-10-12 18:16:00,S00302,P01,0,Android,Free,North,Organic
+U036,purchase,2026-10-12 18:19:00,S00302,P01,799,Android,Free,North,Organic
+U036,search_performed,2026-10-14 11:35:00,S00303,P01,0,Android,Free,North,Organic
+U036,purchase,2026-10-14 11:38:00,S00303,P01,799,Android,Free,North,Organic
+U037,search_performed,2026-10-01 10:19:00,S00304,P02,0,iOS,Basic,South,Referral
+U037,feature_used,2026-10-01 10:22:00,S00304,P02,0,iOS,Basic,South,Referral
+U037,feature_used,2026-10-02 12:30:00,S00305,P02,0,iOS,Basic,South,Referral
+U037,product_viewed,2026-10-02 12:33:00,S00305,P02,0,iOS,Basic,South,Referral
+U037,search_performed,2026-10-02 12:36:00,S00305,P02,0,iOS,Basic,South,Referral
+U037,product_viewed,2026-10-03 14:41:00,S00306,P02,0,iOS,Basic,South,Referral
+U037,search_performed,2026-10-04 16:52:00,S00307,P02,0,iOS,Basic,South,Referral
+U037,feature_used,2026-10-04 16:55:00,S00307,P02,0,iOS,Basic,South,Referral
+U037,feature_used,2026-10-05 18:03:00,S00308,P02,0,iOS,Basic,South,Referral
+U037,product_viewed,2026-10-05 18:06:00,S00308,P02,0,iOS,Basic,South,Referral
+U037,search_performed,2026-10-05 18:09:00,S00308,P02,0,iOS,Basic,South,Referral
+U037,search_performed,2026-10-07 11:25:00,S00309,P02,0,iOS,Basic,South,Referral
+U037,feature_used,2026-10-07 11:28:00,S00309,P02,0,iOS,Basic,South,Referral
+U037,feature_used,2026-10-08 13:36:00,S00310,P02,0,iOS,Basic,South,Referral
+U037,product_viewed,2026-10-08 13:39:00,S00310,P02,0,iOS,Basic,South,Referral
+U037,search_performed,2026-10-08 13:42:00,S00310,P02,0,iOS,Basic,South,Referral
+U037,product_viewed,2026-10-09 15:47:00,S00311,P02,0,iOS,Basic,South,Referral
+U037,search_performed,2026-10-10 17:58:00,S00312,P02,0,iOS,Basic,South,Referral
+U037,feature_used,2026-10-10 17:01:00,S00312,P02,0,iOS,Basic,South,Referral
+U037,feature_used,2026-10-11 19:09:00,S00313,P02,0,iOS,Basic,South,Referral
+U037,product_viewed,2026-10-11 19:12:00,S00313,P02,0,iOS,Basic,South,Referral
+U037,search_performed,2026-10-11 19:15:00,S00313,P02,0,iOS,Basic,South,Referral
+U037,search_performed,2026-10-13 12:31:00,S00314,P02,0,iOS,Basic,South,Referral
+U037,feature_used,2026-10-13 12:34:00,S00314,P02,0,iOS,Basic,South,Referral
+U037,feature_used,2026-10-14 14:42:00,S00315,P02,0,iOS,Basic,South,Referral
+U037,product_viewed,2026-10-14 14:45:00,S00315,P02,0,iOS,Basic,South,Referral
+U037,search_performed,2026-10-14 14:48:00,S00315,P02,0,iOS,Basic,South,Referral
+U038,feature_used,2026-10-01 13:26:00,S00316,P03,0,Web,Premium,East,Paid Search
+U038,product_viewed,2026-10-01 13:29:00,S00316,P03,0,Web,Premium,East,Paid Search
+U038,search_performed,2026-10-01 13:32:00,S00316,P03,0,Web,Premium,East,Paid Search
+U038,product_viewed,2026-10-02 15:37:00,S00317,P03,0,Web,Premium,East,Paid Search
+U038,search_performed,2026-10-03 17:48:00,S00318,P03,0,Web,Premium,East,Paid Search
+U038,feature_used,2026-10-03 17:51:00,S00318,P03,0,Web,Premium,East,Paid Search
+U038,feature_used,2026-10-04 19:59:00,S00319,P03,0,Web,Premium,East,Paid Search
+U038,product_viewed,2026-10-04 19:02:00,S00319,P03,0,Web,Premium,East,Paid Search
+U038,search_performed,2026-10-04 19:05:00,S00319,P03,0,Web,Premium,East,Paid Search
+U038,search_performed,2026-10-06 12:21:00,S00320,P03,0,Web,Premium,East,Paid Search
+U038,feature_used,2026-10-06 12:24:00,S00320,P03,0,Web,Premium,East,Paid Search
+U038,feature_used,2026-10-07 14:32:00,S00321,P03,0,Web,Premium,East,Paid Search
+U038,product_viewed,2026-10-07 14:35:00,S00321,P03,0,Web,Premium,East,Paid Search
+U038,search_performed,2026-10-07 14:38:00,S00321,P03,0,Web,Premium,East,Paid Search
+U038,product_viewed,2026-10-08 16:43:00,S00322,P03,0,Web,Premium,East,Paid Search
+U038,search_performed,2026-10-09 18:54:00,S00323,P03,0,Web,Premium,East,Paid Search
+U038,feature_used,2026-10-09 18:57:00,S00323,P03,0,Web,Premium,East,Paid Search
+U038,feature_used,2026-10-10 09:05:00,S00324,P03,0,Web,Premium,East,Paid Search
+U038,product_viewed,2026-10-10 09:08:00,S00324,P03,0,Web,Premium,East,Paid Search
+U038,search_performed,2026-10-10 09:11:00,S00324,P03,0,Web,Premium,East,Paid Search
+U038,search_performed,2026-10-12 13:27:00,S00325,P03,0,Web,Premium,East,Paid Search
+U038,feature_used,2026-10-12 13:30:00,S00325,P03,0,Web,Premium,East,Paid Search
+U038,feature_used,2026-10-13 15:38:00,S00326,P03,0,Web,Premium,East,Paid Search
+U038,product_viewed,2026-10-13 15:41:00,S00326,P03,0,Web,Premium,East,Paid Search
+U038,search_performed,2026-10-13 15:44:00,S00326,P03,0,Web,Premium,East,Paid Search
+U038,product_viewed,2026-10-14 17:49:00,S00327,P03,0,Web,Premium,East,Paid Search
+U039,product_viewed,2026-10-01 16:33:00,S00328,P04,0,Android,Free,West,Organic
+U039,search_performed,2026-10-02 18:44:00,S00329,P04,0,Android,Free,West,Organic
+U039,feature_used,2026-10-02 18:47:00,S00329,P04,0,Android,Free,West,Organic
+U039,feature_used,2026-10-03 09:55:00,S00330,P04,0,Android,Free,West,Organic
+U039,product_viewed,2026-10-03 09:58:00,S00330,P04,0,Android,Free,West,Organic
+U039,search_performed,2026-10-03 09:01:00,S00330,P04,0,Android,Free,West,Organic
+U039,search_performed,2026-10-05 13:17:00,S00331,P04,0,Android,Free,West,Organic
+U039,feature_used,2026-10-05 13:20:00,S00331,P04,0,Android,Free,West,Organic
+U039,feature_used,2026-10-06 15:28:00,S00332,P04,0,Android,Free,West,Organic
+U039,product_viewed,2026-10-06 15:31:00,S00332,P04,0,Android,Free,West,Organic
+U039,search_performed,2026-10-06 15:34:00,S00332,P04,0,Android,Free,West,Organic
+U039,product_viewed,2026-10-07 17:39:00,S00333,P04,0,Android,Free,West,Organic
+U039,search_performed,2026-10-08 19:50:00,S00334,P04,0,Android,Free,West,Organic
+U039,feature_used,2026-10-08 19:53:00,S00334,P04,0,Android,Free,West,Organic
+U039,feature_used,2026-10-09 10:01:00,S00335,P04,0,Android,Free,West,Organic
+U039,product_viewed,2026-10-09 10:04:00,S00335,P04,0,Android,Free,West,Organic
+U039,search_performed,2026-10-09 10:07:00,S00335,P04,0,Android,Free,West,Organic
+U039,search_performed,2026-10-11 14:23:00,S00336,P04,0,Android,Free,West,Organic
+U039,feature_used,2026-10-11 14:26:00,S00336,P04,0,Android,Free,West,Organic
+U039,feature_used,2026-10-12 16:34:00,S00337,P04,0,Android,Free,West,Organic
+U039,product_viewed,2026-10-12 16:37:00,S00337,P04,0,Android,Free,West,Organic
+U039,search_performed,2026-10-12 16:40:00,S00337,P04,0,Android,Free,West,Organic
+U039,product_viewed,2026-10-13 18:45:00,S00338,P04,0,Android,Free,West,Organic
+U039,search_performed,2026-10-14 09:56:00,S00339,P04,0,Android,Free,West,Organic
+U039,feature_used,2026-10-14 09:59:00,S00339,P04,0,Android,Free,West,Organic
+U040,search_performed,2026-10-01 19:40:00,S00340,P01,0,iOS,Basic,North,Referral
+U040,purchase,2026-10-01 19:43:00,S00340,P01,799,iOS,Basic,North,Referral
+U040,feature_used,2026-10-02 10:51:00,S00341,P01,0,iOS,Basic,North,Referral
+U040,product_viewed,2026-10-02 10:54:00,S00341,P01,0,iOS,Basic,North,Referral
+U040,purchase,2026-10-02 10:57:00,S00341,P01,799,iOS,Basic,North,Referral
+U040,search_performed,2026-10-04 14:13:00,S00342,P01,0,iOS,Basic,North,Referral
+U040,purchase,2026-10-04 14:16:00,S00342,P01,799,iOS,Basic,North,Referral
+U040,feature_used,2026-10-05 16:24:00,S00343,P01,0,iOS,Basic,North,Referral
+U040,product_viewed,2026-10-05 16:27:00,S00343,P01,0,iOS,Basic,North,Referral
+U040,purchase,2026-10-05 16:30:00,S00343,P01,799,iOS,Basic,North,Referral
+U040,purchase,2026-10-06 18:35:00,S00344,P01,799,iOS,Basic,North,Referral
+U040,search_performed,2026-10-07 09:46:00,S00345,P01,0,iOS,Basic,North,Referral
+U040,purchase,2026-10-07 09:49:00,S00345,P01,799,iOS,Basic,North,Referral
+U040,feature_used,2026-10-08 11:57:00,S00346,P01,0,iOS,Basic,North,Referral
+U040,product_viewed,2026-10-08 11:00:00,S00346,P01,0,iOS,Basic,North,Referral
+U040,purchase,2026-10-08 11:03:00,S00346,P01,799,iOS,Basic,North,Referral
+U040,search_performed,2026-10-10 15:19:00,S00347,P01,0,iOS,Basic,North,Referral
+U040,purchase,2026-10-10 15:22:00,S00347,P01,799,iOS,Basic,North,Referral
+U040,feature_used,2026-10-11 17:30:00,S00348,P01,0,iOS,Basic,North,Referral
+U040,product_viewed,2026-10-11 17:33:00,S00348,P01,0,iOS,Basic,North,Referral
+U040,purchase,2026-10-11 17:36:00,S00348,P01,799,iOS,Basic,North,Referral
+U040,purchase,2026-10-12 19:41:00,S00349,P01,799,iOS,Basic,North,Referral
+U040,search_performed,2026-10-13 10:52:00,S00350,P01,0,iOS,Basic,North,Referral
+U040,purchase,2026-10-13 10:55:00,S00350,P01,799,iOS,Basic,North,Referral
+U040,feature_used,2026-10-14 12:03:00,S00351,P01,0,iOS,Basic,North,Referral
+U040,product_viewed,2026-10-14 12:06:00,S00351,P01,0,iOS,Basic,North,Referral
+U040,purchase,2026-10-14 12:09:00,S00351,P01,799,iOS,Basic,North,Referral
+U041,feature_used,2026-10-01 11:47:00,S00352,P02,0,Web,Premium,South,Paid Search
+U041,product_viewed,2026-10-01 11:50:00,S00352,P02,0,Web,Premium,South,Paid Search
+U041,search_performed,2026-10-01 11:53:00,S00352,P02,0,Web,Premium,South,Paid Search
+U041,search_performed,2026-10-03 15:09:00,S00353,P02,0,Web,Premium,South,Paid Search
+U041,feature_used,2026-10-03 15:12:00,S00353,P02,0,Web,Premium,South,Paid Search
+U041,feature_used,2026-10-04 17:20:00,S00354,P02,0,Web,Premium,South,Paid Search
+U041,product_viewed,2026-10-04 17:23:00,S00354,P02,0,Web,Premium,South,Paid Search
+U041,search_performed,2026-10-04 17:26:00,S00354,P02,0,Web,Premium,South,Paid Search
+U041,product_viewed,2026-10-05 19:31:00,S00355,P02,0,Web,Premium,South,Paid Search
+U041,search_performed,2026-10-06 10:42:00,S00356,P02,0,Web,Premium,South,Paid Search
+U041,feature_used,2026-10-06 10:45:00,S00356,P02,0,Web,Premium,South,Paid Search
+U041,feature_used,2026-10-07 12:53:00,S00357,P02,0,Web,Premium,South,Paid Search
+U041,product_viewed,2026-10-07 12:56:00,S00357,P02,0,Web,Premium,South,Paid Search
+U041,search_performed,2026-10-07 12:59:00,S00357,P02,0,Web,Premium,South,Paid Search
+U041,search_performed,2026-10-09 16:15:00,S00358,P02,0,Web,Premium,South,Paid Search
+U041,feature_used,2026-10-09 16:18:00,S00358,P02,0,Web,Premium,South,Paid Search
+U041,feature_used,2026-10-10 18:26:00,S00359,P02,0,Web,Premium,South,Paid Search
+U041,product_viewed,2026-10-10 18:29:00,S00359,P02,0,Web,Premium,South,Paid Search
+U041,search_performed,2026-10-10 18:32:00,S00359,P02,0,Web,Premium,South,Paid Search
+U041,product_viewed,2026-10-11 09:37:00,S00360,P02,0,Web,Premium,South,Paid Search
+U041,search_performed,2026-10-12 11:48:00,S00361,P02,0,Web,Premium,South,Paid Search
+U041,feature_used,2026-10-12 11:51:00,S00361,P02,0,Web,Premium,South,Paid Search
+U041,feature_used,2026-10-13 13:59:00,S00362,P02,0,Web,Premium,South,Paid Search
+U041,product_viewed,2026-10-13 13:02:00,S00362,P02,0,Web,Premium,South,Paid Search
+U041,search_performed,2026-10-13 13:05:00,S00362,P02,0,Web,Premium,South,Paid Search
+U042,search_performed,2026-10-02 16:05:00,S00363,P03,0,Android,Free,East,Organic
+U042,feature_used,2026-10-02 16:08:00,S00363,P03,0,Android,Free,East,Organic
+U042,feature_used,2026-10-03 18:16:00,S00364,P03,0,Android,Free,East,Organic
+U042,product_viewed,2026-10-03 18:19:00,S00364,P03,0,Android,Free,East,Organic
+U042,search_performed,2026-10-03 18:22:00,S00364,P03,0,Android,Free,East,Organic
+U042,product_viewed,2026-10-04 09:27:00,S00365,P03,0,Android,Free,East,Organic
+U042,search_performed,2026-10-05 11:38:00,S00366,P03,0,Android,Free,East,Organic
+U042,feature_used,2026-10-05 11:41:00,S00366,P03,0,Android,Free,East,Organic
+U042,feature_used,2026-10-06 13:49:00,S00367,P03,0,Android,Free,East,Organic
+U042,product_viewed,2026-10-06 13:52:00,S00367,P03,0,Android,Free,East,Organic
+U042,search_performed,2026-10-06 13:55:00,S00367,P03,0,Android,Free,East,Organic
+U042,search_performed,2026-10-08 17:11:00,S00368,P03,0,Android,Free,East,Organic
+U042,feature_used,2026-10-08 17:14:00,S00368,P03,0,Android,Free,East,Organic
+U042,feature_used,2026-10-09 19:22:00,S00369,P03,0,Android,Free,East,Organic
+U042,product_viewed,2026-10-09 19:25:00,S00369,P03,0,Android,Free,East,Organic
+U042,search_performed,2026-10-09 19:28:00,S00369,P03,0,Android,Free,East,Organic
+U042,product_viewed,2026-10-10 10:33:00,S00370,P03,0,Android,Free,East,Organic
+U042,search_performed,2026-10-11 12:44:00,S00371,P03,0,Android,Free,East,Organic
+U042,feature_used,2026-10-11 12:47:00,S00371,P03,0,Android,Free,East,Organic
+U042,feature_used,2026-10-12 14:55:00,S00372,P03,0,Android,Free,East,Organic
+U042,product_viewed,2026-10-12 14:58:00,S00372,P03,0,Android,Free,East,Organic
+U042,search_performed,2026-10-12 14:01:00,S00372,P03,0,Android,Free,East,Organic
+U042,search_performed,2026-10-14 18:17:00,S00373,P03,0,Android,Free,East,Organic
+U042,feature_used,2026-10-14 18:20:00,S00373,P03,0,Android,Free,East,Organic
+U043,search_performed,2026-10-01 17:01:00,S00374,P04,0,iOS,Basic,West,Referral
+U043,feature_used,2026-10-01 17:04:00,S00374,P04,0,iOS,Basic,West,Referral
+U043,feature_used,2026-10-02 19:12:00,S00375,P04,0,iOS,Basic,West,Referral
+U043,product_viewed,2026-10-02 19:15:00,S00375,P04,0,iOS,Basic,West,Referral
+U043,search_performed,2026-10-02 19:18:00,S00375,P04,0,iOS,Basic,West,Referral
+U043,product_viewed,2026-10-03 10:23:00,S00376,P04,0,iOS,Basic,West,Referral
+U043,search_performed,2026-10-04 12:34:00,S00377,P04,0,iOS,Basic,West,Referral
+U043,feature_used,2026-10-04 12:37:00,S00377,P04,0,iOS,Basic,West,Referral
+U043,feature_used,2026-10-05 14:45:00,S00378,P04,0,iOS,Basic,West,Referral
+U043,product_viewed,2026-10-05 14:48:00,S00378,P04,0,iOS,Basic,West,Referral
+U043,search_performed,2026-10-05 14:51:00,S00378,P04,0,iOS,Basic,West,Referral
+U043,search_performed,2026-10-07 18:07:00,S00379,P04,0,iOS,Basic,West,Referral
+U043,feature_used,2026-10-07 18:10:00,S00379,P04,0,iOS,Basic,West,Referral
+U043,feature_used,2026-10-08 09:18:00,S00380,P04,0,iOS,Basic,West,Referral
+U043,product_viewed,2026-10-08 09:21:00,S00380,P04,0,iOS,Basic,West,Referral
+U043,search_performed,2026-10-08 09:24:00,S00380,P04,0,iOS,Basic,West,Referral
+U043,product_viewed,2026-10-09 11:29:00,S00381,P04,0,iOS,Basic,West,Referral
+U043,search_performed,2026-10-10 13:40:00,S00382,P04,0,iOS,Basic,West,Referral
+U043,feature_used,2026-10-10 13:43:00,S00382,P04,0,iOS,Basic,West,Referral
+U043,feature_used,2026-10-11 15:51:00,S00383,P04,0,iOS,Basic,West,Referral
+U043,product_viewed,2026-10-11 15:54:00,S00383,P04,0,iOS,Basic,West,Referral
+U043,search_performed,2026-10-11 15:57:00,S00383,P04,0,iOS,Basic,West,Referral
+U043,search_performed,2026-10-13 19:13:00,S00384,P04,0,iOS,Basic,West,Referral
+U043,feature_used,2026-10-13 19:16:00,S00384,P04,0,iOS,Basic,West,Referral
+U043,feature_used,2026-10-14 10:24:00,S00385,P04,0,iOS,Basic,West,Referral
+U043,product_viewed,2026-10-14 10:27:00,S00385,P04,0,iOS,Basic,West,Referral
+U043,search_performed,2026-10-14 10:30:00,S00385,P04,0,iOS,Basic,West,Referral
+U044,feature_used,2026-10-01 09:08:00,S00386,P01,0,Web,Premium,North,Paid Search
+U044,product_viewed,2026-10-01 09:11:00,S00386,P01,0,Web,Premium,North,Paid Search
+U044,purchase,2026-10-01 09:14:00,S00386,P01,799,Web,Premium,North,Paid Search
+U044,purchase,2026-10-02 11:19:00,S00387,P01,799,Web,Premium,North,Paid Search
+U044,search_performed,2026-10-03 13:30:00,S00388,P01,0,Web,Premium,North,Paid Search
+U044,purchase,2026-10-03 13:33:00,S00388,P01,799,Web,Premium,North,Paid Search
+U044,feature_used,2026-10-04 15:41:00,S00389,P01,0,Web,Premium,North,Paid Search
+U044,product_viewed,2026-10-04 15:44:00,S00389,P01,0,Web,Premium,North,Paid Search
+U044,purchase,2026-10-04 15:47:00,S00389,P01,799,Web,Premium,North,Paid Search
+U044,search_performed,2026-10-06 19:03:00,S00390,P01,0,Web,Premium,North,Paid Search
+U044,purchase,2026-10-06 19:06:00,S00390,P01,799,Web,Premium,North,Paid Search
+U044,feature_used,2026-10-07 10:14:00,S00391,P01,0,Web,Premium,North,Paid Search
+U044,product_viewed,2026-10-07 10:17:00,S00391,P01,0,Web,Premium,North,Paid Search
+U044,purchase,2026-10-07 10:20:00,S00391,P01,799,Web,Premium,North,Paid Search
+U044,purchase,2026-10-08 12:25:00,S00392,P01,799,Web,Premium,North,Paid Search
+U044,search_performed,2026-10-09 14:36:00,S00393,P01,0,Web,Premium,North,Paid Search
+U044,purchase,2026-10-09 14:39:00,S00393,P01,799,Web,Premium,North,Paid Search
+U044,feature_used,2026-10-10 16:47:00,S00394,P01,0,Web,Premium,North,Paid Search
+U044,product_viewed,2026-10-10 16:50:00,S00394,P01,0,Web,Premium,North,Paid Search
+U044,purchase,2026-10-10 16:53:00,S00394,P01,799,Web,Premium,North,Paid Search
+U044,search_performed,2026-10-12 09:09:00,S00395,P01,0,Web,Premium,North,Paid Search
+U044,purchase,2026-10-12 09:12:00,S00395,P01,799,Web,Premium,North,Paid Search
+U044,feature_used,2026-10-13 11:20:00,S00396,P01,0,Web,Premium,North,Paid Search
+U044,product_viewed,2026-10-13 11:23:00,S00396,P01,0,Web,Premium,North,Paid Search
+U044,purchase,2026-10-13 11:26:00,S00396,P01,799,Web,Premium,North,Paid Search
+U044,purchase,2026-10-14 13:31:00,S00397,P01,799,Web,Premium,North,Paid Search
+U045,product_viewed,2026-10-01 12:15:00,S00398,P02,0,Android,Free,South,Organic
+U045,search_performed,2026-10-02 14:26:00,S00399,P02,0,Android,Free,South,Organic
+U045,feature_used,2026-10-02 14:29:00,S00399,P02,0,Android,Free,South,Organic
+U045,feature_used,2026-10-03 16:37:00,S00400,P02,0,Android,Free,South,Organic
+U045,product_viewed,2026-10-03 16:40:00,S00400,P02,0,Android,Free,South,Organic
+U045,search_performed,2026-10-03 16:43:00,S00400,P02,0,Android,Free,South,Organic
+U045,search_performed,2026-10-05 09:59:00,S00401,P02,0,Android,Free,South,Organic
+U045,feature_used,2026-10-05 09:02:00,S00401,P02,0,Android,Free,South,Organic
+U045,feature_used,2026-10-06 11:10:00,S00402,P02,0,Android,Free,South,Organic
+U045,product_viewed,2026-10-06 11:13:00,S00402,P02,0,Android,Free,South,Organic
+U045,search_performed,2026-10-06 11:16:00,S00402,P02,0,Android,Free,South,Organic
+U045,product_viewed,2026-10-07 13:21:00,S00403,P02,0,Android,Free,South,Organic
+U045,search_performed,2026-10-08 15:32:00,S00404,P02,0,Android,Free,South,Organic
+U045,feature_used,2026-10-08 15:35:00,S00404,P02,0,Android,Free,South,Organic
+U045,feature_used,2026-10-09 17:43:00,S00405,P02,0,Android,Free,South,Organic
+U045,product_viewed,2026-10-09 17:46:00,S00405,P02,0,Android,Free,South,Organic
+U045,search_performed,2026-10-09 17:49:00,S00405,P02,0,Android,Free,South,Organic
+U045,search_performed,2026-10-11 10:05:00,S00406,P02,0,Android,Free,South,Organic
+U045,feature_used,2026-10-11 10:08:00,S00406,P02,0,Android,Free,South,Organic
+U045,feature_used,2026-10-12 12:16:00,S00407,P02,0,Android,Free,South,Organic
+U045,product_viewed,2026-10-12 12:19:00,S00407,P02,0,Android,Free,South,Organic
+U045,search_performed,2026-10-12 12:22:00,S00407,P02,0,Android,Free,South,Organic
+U045,product_viewed,2026-10-13 14:27:00,S00408,P02,0,Android,Free,South,Organic
+U045,search_performed,2026-10-14 16:38:00,S00409,P02,0,Android,Free,South,Organic
+U045,feature_used,2026-10-14 16:41:00,S00409,P02,0,Android,Free,South,Organic
+U046,search_performed,2026-10-01 15:22:00,S00410,P03,0,iOS,Basic,East,Referral
+U046,feature_used,2026-10-01 15:25:00,S00410,P03,0,iOS,Basic,East,Referral
+U046,feature_used,2026-10-02 17:33:00,S00411,P03,0,iOS,Basic,East,Referral
+U046,product_viewed,2026-10-02 17:36:00,S00411,P03,0,iOS,Basic,East,Referral
+U046,search_performed,2026-10-02 17:39:00,S00411,P03,0,iOS,Basic,East,Referral
+U046,search_performed,2026-10-04 10:55:00,S00412,P03,0,iOS,Basic,East,Referral
+U046,feature_used,2026-10-04 10:58:00,S00412,P03,0,iOS,Basic,East,Referral
+U046,feature_used,2026-10-05 12:06:00,S00413,P03,0,iOS,Basic,East,Referral
+U046,product_viewed,2026-10-05 12:09:00,S00413,P03,0,iOS,Basic,East,Referral
+U046,search_performed,2026-10-05 12:12:00,S00413,P03,0,iOS,Basic,East,Referral
+U046,product_viewed,2026-10-06 14:17:00,S00414,P03,0,iOS,Basic,East,Referral
+U046,search_performed,2026-10-07 16:28:00,S00415,P03,0,iOS,Basic,East,Referral
+U046,feature_used,2026-10-07 16:31:00,S00415,P03,0,iOS,Basic,East,Referral
+U046,feature_used,2026-10-08 18:39:00,S00416,P03,0,iOS,Basic,East,Referral
+U046,product_viewed,2026-10-08 18:42:00,S00416,P03,0,iOS,Basic,East,Referral
+U046,search_performed,2026-10-08 18:45:00,S00416,P03,0,iOS,Basic,East,Referral
+U046,search_performed,2026-10-10 11:01:00,S00417,P03,0,iOS,Basic,East,Referral
+U046,feature_used,2026-10-10 11:04:00,S00417,P03,0,iOS,Basic,East,Referral
+U046,feature_used,2026-10-11 13:12:00,S00418,P03,0,iOS,Basic,East,Referral
+U046,product_viewed,2026-10-11 13:15:00,S00418,P03,0,iOS,Basic,East,Referral
+U046,search_performed,2026-10-11 13:18:00,S00418,P03,0,iOS,Basic,East,Referral
+U046,product_viewed,2026-10-12 15:23:00,S00419,P03,0,iOS,Basic,East,Referral
+U046,search_performed,2026-10-13 17:34:00,S00420,P03,0,iOS,Basic,East,Referral
+U046,feature_used,2026-10-13 17:37:00,S00420,P03,0,iOS,Basic,East,Referral
+U046,feature_used,2026-10-14 19:45:00,S00421,P03,0,iOS,Basic,East,Referral
+U046,product_viewed,2026-10-14 19:48:00,S00421,P03,0,iOS,Basic,East,Referral
+U046,search_performed,2026-10-14 19:51:00,S00421,P03,0,iOS,Basic,East,Referral
+U047,feature_used,2026-10-01 18:29:00,S00422,P04,0,Web,Premium,West,Paid Search
+U047,product_viewed,2026-10-01 18:32:00,S00422,P04,0,Web,Premium,West,Paid Search
+U047,search_performed,2026-10-01 18:35:00,S00422,P04,0,Web,Premium,West,Paid Search
+U047,search_performed,2026-10-03 11:51:00,S00423,P04,0,Web,Premium,West,Paid Search
+U047,feature_used,2026-10-03 11:54:00,S00423,P04,0,Web,Premium,West,Paid Search
+U047,feature_used,2026-10-04 13:02:00,S00424,P04,0,Web,Premium,West,Paid Search
+U047,product_viewed,2026-10-04 13:05:00,S00424,P04,0,Web,Premium,West,Paid Search
+U047,search_performed,2026-10-04 13:08:00,S00424,P04,0,Web,Premium,West,Paid Search
+U047,product_viewed,2026-10-05 15:13:00,S00425,P04,0,Web,Premium,West,Paid Search
+U047,search_performed,2026-10-06 17:24:00,S00426,P04,0,Web,Premium,West,Paid Search
+U047,feature_used,2026-10-06 17:27:00,S00426,P04,0,Web,Premium,West,Paid Search
+U047,feature_used,2026-10-07 19:35:00,S00427,P04,0,Web,Premium,West,Paid Search
+U047,product_viewed,2026-10-07 19:38:00,S00427,P04,0,Web,Premium,West,Paid Search
+U047,search_performed,2026-10-07 19:41:00,S00427,P04,0,Web,Premium,West,Paid Search
+U047,search_performed,2026-10-09 12:57:00,S00428,P04,0,Web,Premium,West,Paid Search
+U047,feature_used,2026-10-09 12:00:00,S00428,P04,0,Web,Premium,West,Paid Search
+U047,feature_used,2026-10-10 14:08:00,S00429,P04,0,Web,Premium,West,Paid Search
+U047,product_viewed,2026-10-10 14:11:00,S00429,P04,0,Web,Premium,West,Paid Search
+U047,search_performed,2026-10-10 14:14:00,S00429,P04,0,Web,Premium,West,Paid Search
+U047,product_viewed,2026-10-11 16:19:00,S00430,P04,0,Web,Premium,West,Paid Search
+U047,search_performed,2026-10-12 18:30:00,S00431,P04,0,Web,Premium,West,Paid Search
+U047,feature_used,2026-10-12 18:33:00,S00431,P04,0,Web,Premium,West,Paid Search
+U047,feature_used,2026-10-13 09:41:00,S00432,P04,0,Web,Premium,West,Paid Search
+U047,product_viewed,2026-10-13 09:44:00,S00432,P04,0,Web,Premium,West,Paid Search
+U047,search_performed,2026-10-13 09:47:00,S00432,P04,0,Web,Premium,West,Paid Search
+U048,search_performed,2026-10-02 12:47:00,S00433,P01,0,Android,Free,North,Organic
+U048,purchase,2026-10-02 12:50:00,S00433,P01,799,Android,Free,North,Organic
+U048,feature_used,2026-10-03 14:58:00,S00434,P01,0,Android,Free,North,Organic
+U048,product_viewed,2026-10-03 14:01:00,S00434,P01,0,Android,Free,North,Organic
+U048,purchase,2026-10-03 14:04:00,S00434,P01,799,Android,Free,North,Organic
+U048,purchase,2026-10-04 16:09:00,S00435,P01,799,Android,Free,North,Organic
+U048,search_performed,2026-10-05 18:20:00,S00436,P01,0,Android,Free,North,Organic
+U048,purchase,2026-10-05 18:23:00,S00436,P01,799,Android,Free,North,Organic
+U048,feature_used,2026-10-06 09:31:00,S00437,P01,0,Android,Free,North,Organic
+U048,product_viewed,2026-10-06 09:34:00,S00437,P01,0,Android,Free,North,Organic
+U048,purchase,2026-10-06 09:37:00,S00437,P01,799,Android,Free,North,Organic
+U048,search_performed,2026-10-08 13:53:00,S00438,P01,0,Android,Free,North,Organic
+U048,purchase,2026-10-08 13:56:00,S00438,P01,799,Android,Free,North,Organic
+U048,feature_used,2026-10-09 15:04:00,S00439,P01,0,Android,Free,North,Organic
+U048,product_viewed,2026-10-09 15:07:00,S00439,P01,0,Android,Free,North,Organic
+U048,purchase,2026-10-09 15:10:00,S00439,P01,799,Android,Free,North,Organic
+U048,purchase,2026-10-10 17:15:00,S00440,P01,799,Android,Free,North,Organic
+U048,search_performed,2026-10-11 19:26:00,S00441,P01,0,Android,Free,North,Organic
+U048,purchase,2026-10-11 19:29:00,S00441,P01,799,Android,Free,North,Organic
+U048,feature_used,2026-10-12 10:37:00,S00442,P01,0,Android,Free,North,Organic
+U048,product_viewed,2026-10-12 10:40:00,S00442,P01,0,Android,Free,North,Organic
+U048,purchase,2026-10-12 10:43:00,S00442,P01,799,Android,Free,North,Organic
+U048,search_performed,2026-10-14 14:59:00,S00443,P01,0,Android,Free,North,Organic
+U048,purchase,2026-10-14 14:02:00,S00443,P01,799,Android,Free,North,Organic
+U049,search_performed,2026-10-01 13:43:00,S00444,P02,0,iOS,Basic,South,Referral
+U049,feature_used,2026-10-01 13:46:00,S00444,P02,0,iOS,Basic,South,Referral
+U049,feature_used,2026-10-02 15:54:00,S00445,P02,0,iOS,Basic,South,Referral
+U049,product_viewed,2026-10-02 15:57:00,S00445,P02,0,iOS,Basic,South,Referral
+U049,search_performed,2026-10-02 15:00:00,S00445,P02,0,iOS,Basic,South,Referral
+U049,product_viewed,2026-10-03 17:05:00,S00446,P02,0,iOS,Basic,South,Referral
+U049,search_performed,2026-10-04 19:16:00,S00447,P02,0,iOS,Basic,South,Referral
+U049,feature_used,2026-10-04 19:19:00,S00447,P02,0,iOS,Basic,South,Referral
+U049,feature_used,2026-10-05 10:27:00,S00448,P02,0,iOS,Basic,South,Referral
+U049,product_viewed,2026-10-05 10:30:00,S00448,P02,0,iOS,Basic,South,Referral
+U049,search_performed,2026-10-05 10:33:00,S00448,P02,0,iOS,Basic,South,Referral
+U049,search_performed,2026-10-07 14:49:00,S00449,P02,0,iOS,Basic,South,Referral
+U049,feature_used,2026-10-07 14:52:00,S00449,P02,0,iOS,Basic,South,Referral
+U049,feature_used,2026-10-08 16:00:00,S00450,P02,0,iOS,Basic,South,Referral
+U049,product_viewed,2026-10-08 16:03:00,S00450,P02,0,iOS,Basic,South,Referral
+U049,search_performed,2026-10-08 16:06:00,S00450,P02,0,iOS,Basic,South,Referral
+U049,product_viewed,2026-10-09 18:11:00,S00451,P02,0,iOS,Basic,South,Referral
+U049,search_performed,2026-10-10 09:22:00,S00452,P02,0,iOS,Basic,South,Referral
+U049,feature_used,2026-10-10 09:25:00,S00452,P02,0,iOS,Basic,South,Referral
+U049,feature_used,2026-10-11 11:33:00,S00453,P02,0,iOS,Basic,South,Referral
+U049,product_viewed,2026-10-11 11:36:00,S00453,P02,0,iOS,Basic,South,Referral
+U049,search_performed,2026-10-11 11:39:00,S00453,P02,0,iOS,Basic,South,Referral
+U049,search_performed,2026-10-13 15:55:00,S00454,P02,0,iOS,Basic,South,Referral
+U049,feature_used,2026-10-13 15:58:00,S00454,P02,0,iOS,Basic,South,Referral
+U049,feature_used,2026-10-14 17:06:00,S00455,P02,0,iOS,Basic,South,Referral
+U049,product_viewed,2026-10-14 17:09:00,S00455,P02,0,iOS,Basic,South,Referral
+U049,search_performed,2026-10-14 17:12:00,S00455,P02,0,iOS,Basic,South,Referral
+U050,feature_used,2026-10-01 16:50:00,S00456,P03,0,Web,Premium,East,Paid Search
+U050,product_viewed,2026-10-01 16:53:00,S00456,P03,0,Web,Premium,East,Paid Search
+U050,search_performed,2026-10-01 16:56:00,S00456,P03,0,Web,Premium,East,Paid Search
+U050,product_viewed,2026-10-02 18:01:00,S00457,P03,0,Web,Premium,East,Paid Search
+U050,search_performed,2026-10-03 09:12:00,S00458,P03,0,Web,Premium,East,Paid Search
+U050,feature_used,2026-10-03 09:15:00,S00458,P03,0,Web,Premium,East,Paid Search
+U050,feature_used,2026-10-04 11:23:00,S00459,P03,0,Web,Premium,East,Paid Search
+U050,product_viewed,2026-10-04 11:26:00,S00459,P03,0,Web,Premium,East,Paid Search
+U050,search_performed,2026-10-04 11:29:00,S00459,P03,0,Web,Premium,East,Paid Search
+U050,search_performed,2026-10-06 15:45:00,S00460,P03,0,Web,Premium,East,Paid Search
+U050,feature_used,2026-10-06 15:48:00,S00460,P03,0,Web,Premium,East,Paid Search
+U050,feature_used,2026-10-07 17:56:00,S00461,P03,0,Web,Premium,East,Paid Search
+U050,product_viewed,2026-10-07 17:59:00,S00461,P03,0,Web,Premium,East,Paid Search
+U050,search_performed,2026-10-07 17:02:00,S00461,P03,0,Web,Premium,East,Paid Search
+U050,product_viewed,2026-10-08 19:07:00,S00462,P03,0,Web,Premium,East,Paid Search
+U050,search_performed,2026-10-09 10:18:00,S00463,P03,0,Web,Premium,East,Paid Search
+U050,feature_used,2026-10-09 10:21:00,S00463,P03,0,Web,Premium,East,Paid Search
+U050,feature_used,2026-10-10 12:29:00,S00464,P03,0,Web,Premium,East,Paid Search
+U050,product_viewed,2026-10-10 12:32:00,S00464,P03,0,Web,Premium,East,Paid Search
+U050,search_performed,2026-10-10 12:35:00,S00464,P03,0,Web,Premium,East,Paid Search
+U050,search_performed,2026-10-12 16:51:00,S00465,P03,0,Web,Premium,East,Paid Search
+U050,feature_used,2026-10-12 16:54:00,S00465,P03,0,Web,Premium,East,Paid Search
+U050,feature_used,2026-10-13 18:02:00,S00466,P03,0,Web,Premium,East,Paid Search
+U050,product_viewed,2026-10-13 18:05:00,S00466,P03,0,Web,Premium,East,Paid Search
+U050,search_performed,2026-10-13 18:08:00,S00466,P03,0,Web,Premium,East,Paid Search
+U050,product_viewed,2026-10-14 09:13:00,S00467,P03,0,Web,Premium,East,Paid Search
+U051,product_viewed,2026-10-01 19:57:00,S00468,P04,0,Android,Free,West,Organic
+U051,search_performed,2026-10-02 10:08:00,S00469,P04,0,Android,Free,West,Organic
+U051,feature_used,2026-10-02 10:11:00,S00469,P04,0,Android,Free,West,Organic
+U051,feature_used,2026-10-03 12:19:00,S00470,P04,0,Android,Free,West,Organic
+U051,product_viewed,2026-10-03 12:22:00,S00470,P04,0,Android,Free,West,Organic
+U051,search_performed,2026-10-03 12:25:00,S00470,P04,0,Android,Free,West,Organic
+U051,search_performed,2026-10-05 16:41:00,S00471,P04,0,Android,Free,West,Organic
+U051,feature_used,2026-10-05 16:44:00,S00471,P04,0,Android,Free,West,Organic
+U051,feature_used,2026-10-06 18:52:00,S00472,P04,0,Android,Free,West,Organic
+U051,product_viewed,2026-10-06 18:55:00,S00472,P04,0,Android,Free,West,Organic
+U051,search_performed,2026-10-06 18:58:00,S00472,P04,0,Android,Free,West,Organic
+U051,product_viewed,2026-10-07 09:03:00,S00473,P04,0,Android,Free,West,Organic
+U051,search_performed,2026-10-08 11:14:00,S00474,P04,0,Android,Free,West,Organic
+U051,feature_used,2026-10-08 11:17:00,S00474,P04,0,Android,Free,West,Organic
+U051,feature_used,2026-10-09 13:25:00,S00475,P04,0,Android,Free,West,Organic
+U051,product_viewed,2026-10-09 13:28:00,S00475,P04,0,Android,Free,West,Organic
+U051,search_performed,2026-10-09 13:31:00,S00475,P04,0,Android,Free,West,Organic
+U051,search_performed,2026-10-11 17:47:00,S00476,P04,0,Android,Free,West,Organic
+U051,feature_used,2026-10-11 17:50:00,S00476,P04,0,Android,Free,West,Organic
+U051,feature_used,2026-10-12 19:58:00,S00477,P04,0,Android,Free,West,Organic
+U051,product_viewed,2026-10-12 19:01:00,S00477,P04,0,Android,Free,West,Organic
+U051,search_performed,2026-10-12 19:04:00,S00477,P04,0,Android,Free,West,Organic
+U051,product_viewed,2026-10-13 10:09:00,S00478,P04,0,Android,Free,West,Organic
+U051,search_performed,2026-10-14 12:20:00,S00479,P04,0,Android,Free,West,Organic
+U051,feature_used,2026-10-14 12:23:00,S00479,P04,0,Android,Free,West,Organic
+U052,search_performed,2026-10-01 11:04:00,S00480,P01,0,iOS,Basic,North,Referral
+U052,purchase,2026-10-01 11:07:00,S00480,P01,799,iOS,Basic,North,Referral
+U052,feature_used,2026-10-02 13:15:00,S00481,P01,0,iOS,Basic,North,Referral
+U052,product_viewed,2026-10-02 13:18:00,S00481,P01,0,iOS,Basic,North,Referral
+U052,purchase,2026-10-02 13:21:00,S00481,P01,799,iOS,Basic,North,Referral
+U052,search_performed,2026-10-04 17:37:00,S00482,P01,0,iOS,Basic,North,Referral
+U052,purchase,2026-10-04 17:40:00,S00482,P01,799,iOS,Basic,North,Referral
+U052,feature_used,2026-10-05 19:48:00,S00483,P01,0,iOS,Basic,North,Referral
+U052,product_viewed,2026-10-05 19:51:00,S00483,P01,0,iOS,Basic,North,Referral
+U052,purchase,2026-10-05 19:54:00,S00483,P01,799,iOS,Basic,North,Referral
+U052,purchase,2026-10-06 10:59:00,S00484,P01,799,iOS,Basic,North,Referral
+U052,search_performed,2026-10-07 12:10:00,S00485,P01,0,iOS,Basic,North,Referral
+U052,purchase,2026-10-07 12:13:00,S00485,P01,799,iOS,Basic,North,Referral
+U052,feature_used,2026-10-08 14:21:00,S00486,P01,0,iOS,Basic,North,Referral
+U052,product_viewed,2026-10-08 14:24:00,S00486,P01,0,iOS,Basic,North,Referral
+U052,purchase,2026-10-08 14:27:00,S00486,P01,799,iOS,Basic,North,Referral
+U052,search_performed,2026-10-10 18:43:00,S00487,P01,0,iOS,Basic,North,Referral
+U052,purchase,2026-10-10 18:46:00,S00487,P01,799,iOS,Basic,North,Referral
+U052,feature_used,2026-10-11 09:54:00,S00488,P01,0,iOS,Basic,North,Referral
+U052,product_viewed,2026-10-11 09:57:00,S00488,P01,0,iOS,Basic,North,Referral
+U052,purchase,2026-10-11 09:00:00,S00488,P01,799,iOS,Basic,North,Referral
+U052,purchase,2026-10-12 11:05:00,S00489,P01,799,iOS,Basic,North,Referral
+U052,search_performed,2026-10-13 13:16:00,S00490,P01,0,iOS,Basic,North,Referral
+U052,purchase,2026-10-13 13:19:00,S00490,P01,799,iOS,Basic,North,Referral
+U052,feature_used,2026-10-14 15:27:00,S00491,P01,0,iOS,Basic,North,Referral
+U052,product_viewed,2026-10-14 15:30:00,S00491,P01,0,iOS,Basic,North,Referral
+U052,purchase,2026-10-14 15:33:00,S00491,P01,799,iOS,Basic,North,Referral
+U053,feature_used,2026-10-01 14:11:00,S00492,P02,0,Web,Premium,South,Paid Search
+U053,product_viewed,2026-10-01 14:14:00,S00492,P02,0,Web,Premium,South,Paid Search
+U053,search_performed,2026-10-01 14:17:00,S00492,P02,0,Web,Premium,South,Paid Search
+U053,search_performed,2026-10-03 18:33:00,S00493,P02,0,Web,Premium,South,Paid Search
+U053,feature_used,2026-10-03 18:36:00,S00493,P02,0,Web,Premium,South,Paid Search
+U053,feature_used,2026-10-04 09:44:00,S00494,P02,0,Web,Premium,South,Paid Search
+U053,product_viewed,2026-10-04 09:47:00,S00494,P02,0,Web,Premium,South,Paid Search
+U053,search_performed,2026-10-04 09:50:00,S00494,P02,0,Web,Premium,South,Paid Search
+U053,product_viewed,2026-10-05 11:55:00,S00495,P02,0,Web,Premium,South,Paid Search
+U053,search_performed,2026-10-06 13:06:00,S00496,P02,0,Web,Premium,South,Paid Search
+U053,feature_used,2026-10-06 13:09:00,S00496,P02,0,Web,Premium,South,Paid Search
+U053,feature_used,2026-10-07 15:17:00,S00497,P02,0,Web,Premium,South,Paid Search
+U053,product_viewed,2026-10-07 15:20:00,S00497,P02,0,Web,Premium,South,Paid Search
+U053,search_performed,2026-10-07 15:23:00,S00497,P02,0,Web,Premium,South,Paid Search
+U053,search_performed,2026-10-09 19:39:00,S00498,P02,0,Web,Premium,South,Paid Search
+U053,feature_used,2026-10-09 19:42:00,S00498,P02,0,Web,Premium,South,Paid Search
+U053,feature_used,2026-10-10 10:50:00,S00499,P02,0,Web,Premium,South,Paid Search
+U053,product_viewed,2026-10-10 10:53:00,S00499,P02,0,Web,Premium,South,Paid Search
+U053,search_performed,2026-10-10 10:56:00,S00499,P02,0,Web,Premium,South,Paid Search
+U053,product_viewed,2026-10-11 12:01:00,S00500,P02,0,Web,Premium,South,Paid Search
+U053,search_performed,2026-10-12 14:12:00,S00501,P02,0,Web,Premium,South,Paid Search
+U053,feature_used,2026-10-12 14:15:00,S00501,P02,0,Web,Premium,South,Paid Search
+U053,feature_used,2026-10-13 16:23:00,S00502,P02,0,Web,Premium,South,Paid Search
+U053,product_viewed,2026-10-13 16:26:00,S00502,P02,0,Web,Premium,South,Paid Search
+U053,search_performed,2026-10-13 16:29:00,S00502,P02,0,Web,Premium,South,Paid Search
+U054,search_performed,2026-10-02 19:29:00,S00503,P03,0,Android,Free,East,Organic
+U054,feature_used,2026-10-02 19:32:00,S00503,P03,0,Android,Free,East,Organic
+U054,feature_used,2026-10-03 10:40:00,S00504,P03,0,Android,Free,East,Organic
+U054,product_viewed,2026-10-03 10:43:00,S00504,P03,0,Android,Free,East,Organic
+U054,search_performed,2026-10-03 10:46:00,S00504,P03,0,Android,Free,East,Organic
+U054,product_viewed,2026-10-04 12:51:00,S00505,P03,0,Android,Free,East,Organic
+U054,search_performed,2026-10-05 14:02:00,S00506,P03,0,Android,Free,East,Organic
+U054,feature_used,2026-10-05 14:05:00,S00506,P03,0,Android,Free,East,Organic
+U054,feature_used,2026-10-06 16:13:00,S00507,P03,0,Android,Free,East,Organic
+U054,product_viewed,2026-10-06 16:16:00,S00507,P03,0,Android,Free,East,Organic
+U054,search_performed,2026-10-06 16:19:00,S00507,P03,0,Android,Free,East,Organic
+U054,search_performed,2026-10-08 09:35:00,S00508,P03,0,Android,Free,East,Organic
+U054,feature_used,2026-10-08 09:38:00,S00508,P03,0,Android,Free,East,Organic
+U054,feature_used,2026-10-09 11:46:00,S00509,P03,0,Android,Free,East,Organic
+U054,product_viewed,2026-10-09 11:49:00,S00509,P03,0,Android,Free,East,Organic
+U054,search_performed,2026-10-09 11:52:00,S00509,P03,0,Android,Free,East,Organic
+U054,product_viewed,2026-10-10 13:57:00,S00510,P03,0,Android,Free,East,Organic
+U054,search_performed,2026-10-11 15:08:00,S00511,P03,0,Android,Free,East,Organic
+U054,feature_used,2026-10-11 15:11:00,S00511,P03,0,Android,Free,East,Organic
+U054,feature_used,2026-10-12 17:19:00,S00512,P03,0,Android,Free,East,Organic
+U054,product_viewed,2026-10-12 17:22:00,S00512,P03,0,Android,Free,East,Organic
+U054,search_performed,2026-10-12 17:25:00,S00512,P03,0,Android,Free,East,Organic
+U054,search_performed,2026-10-14 10:41:00,S00513,P03,0,Android,Free,East,Organic
+U054,feature_used,2026-10-14 10:44:00,S00513,P03,0,Android,Free,East,Organic
+U055,search_performed,2026-10-01 09:25:00,S00514,P04,0,iOS,Basic,West,Referral
+U055,feature_used,2026-10-01 09:28:00,S00514,P04,0,iOS,Basic,West,Referral
+U055,feature_used,2026-10-02 11:36:00,S00515,P04,0,iOS,Basic,West,Referral
+U055,product_viewed,2026-10-02 11:39:00,S00515,P04,0,iOS,Basic,West,Referral
+U055,search_performed,2026-10-02 11:42:00,S00515,P04,0,iOS,Basic,West,Referral
+U055,product_viewed,2026-10-03 13:47:00,S00516,P04,0,iOS,Basic,West,Referral
+U055,search_performed,2026-10-04 15:58:00,S00517,P04,0,iOS,Basic,West,Referral
+U055,feature_used,2026-10-04 15:01:00,S00517,P04,0,iOS,Basic,West,Referral
+U055,feature_used,2026-10-05 17:09:00,S00518,P04,0,iOS,Basic,West,Referral
+U055,product_viewed,2026-10-05 17:12:00,S00518,P04,0,iOS,Basic,West,Referral
+U055,search_performed,2026-10-05 17:15:00,S00518,P04,0,iOS,Basic,West,Referral
+U055,search_performed,2026-10-07 10:31:00,S00519,P04,0,iOS,Basic,West,Referral
+U055,feature_used,2026-10-07 10:34:00,S00519,P04,0,iOS,Basic,West,Referral
+U055,feature_used,2026-10-08 12:42:00,S00520,P04,0,iOS,Basic,West,Referral
+U055,product_viewed,2026-10-08 12:45:00,S00520,P04,0,iOS,Basic,West,Referral
+U055,search_performed,2026-10-08 12:48:00,S00520,P04,0,iOS,Basic,West,Referral
+U055,product_viewed,2026-10-09 14:53:00,S00521,P04,0,iOS,Basic,West,Referral
+U055,search_performed,2026-10-10 16:04:00,S00522,P04,0,iOS,Basic,West,Referral
+U055,feature_used,2026-10-10 16:07:00,S00522,P04,0,iOS,Basic,West,Referral
+U055,feature_used,2026-10-11 18:15:00,S00523,P04,0,iOS,Basic,West,Referral
+U055,product_viewed,2026-10-11 18:18:00,S00523,P04,0,iOS,Basic,West,Referral
+U055,search_performed,2026-10-11 18:21:00,S00523,P04,0,iOS,Basic,West,Referral
+U055,search_performed,2026-10-13 11:37:00,S00524,P04,0,iOS,Basic,West,Referral
+U055,feature_used,2026-10-13 11:40:00,S00524,P04,0,iOS,Basic,West,Referral
+U055,feature_used,2026-10-14 13:48:00,S00525,P04,0,iOS,Basic,West,Referral
+U055,product_viewed,2026-10-14 13:51:00,S00525,P04,0,iOS,Basic,West,Referral
+U055,search_performed,2026-10-14 13:54:00,S00525,P04,0,iOS,Basic,West,Referral
+U056,feature_used,2026-10-01 12:32:00,S00526,P01,0,Web,Premium,North,Paid Search
+U056,product_viewed,2026-10-01 12:35:00,S00526,P01,0,Web,Premium,North,Paid Search
+U056,purchase,2026-10-01 12:38:00,S00526,P01,799,Web,Premium,North,Paid Search
+U056,purchase,2026-10-02 14:43:00,S00527,P01,799,Web,Premium,North,Paid Search
+U056,search_performed,2026-10-03 16:54:00,S00528,P01,0,Web,Premium,North,Paid Search
+U056,purchase,2026-10-03 16:57:00,S00528,P01,799,Web,Premium,North,Paid Search
+U056,feature_used,2026-10-04 18:05:00,S00529,P01,0,Web,Premium,North,Paid Search
+U056,product_viewed,2026-10-04 18:08:00,S00529,P01,0,Web,Premium,North,Paid Search
+U056,purchase,2026-10-04 18:11:00,S00529,P01,799,Web,Premium,North,Paid Search
+U056,search_performed,2026-10-06 11:27:00,S00530,P01,0,Web,Premium,North,Paid Search
+U056,purchase,2026-10-06 11:30:00,S00530,P01,799,Web,Premium,North,Paid Search
+U056,feature_used,2026-10-07 13:38:00,S00531,P01,0,Web,Premium,North,Paid Search
+U056,product_viewed,2026-10-07 13:41:00,S00531,P01,0,Web,Premium,North,Paid Search
+U056,purchase,2026-10-07 13:44:00,S00531,P01,799,Web,Premium,North,Paid Search
+U056,purchase,2026-10-08 15:49:00,S00532,P01,799,Web,Premium,North,Paid Search
+U056,search_performed,2026-10-09 17:00:00,S00533,P01,0,Web,Premium,North,Paid Search
+U056,purchase,2026-10-09 17:03:00,S00533,P01,799,Web,Premium,North,Paid Search
+U056,feature_used,2026-10-10 19:11:00,S00534,P01,0,Web,Premium,North,Paid Search
+U056,product_viewed,2026-10-10 19:14:00,S00534,P01,0,Web,Premium,North,Paid Search
+U056,purchase,2026-10-10 19:17:00,S00534,P01,799,Web,Premium,North,Paid Search
+U056,search_performed,2026-10-12 12:33:00,S00535,P01,0,Web,Premium,North,Paid Search
+U056,purchase,2026-10-12 12:36:00,S00535,P01,799,Web,Premium,North,Paid Search
+U056,feature_used,2026-10-13 14:44:00,S00536,P01,0,Web,Premium,North,Paid Search
+U056,product_viewed,2026-10-13 14:47:00,S00536,P01,0,Web,Premium,North,Paid Search
+U056,purchase,2026-10-13 14:50:00,S00536,P01,799,Web,Premium,North,Paid Search
+U056,purchase,2026-10-14 16:55:00,S00537,P01,799,Web,Premium,North,Paid Search
+U057,product_viewed,2026-10-01 15:39:00,S00538,P02,0,Android,Free,South,Organic
+U057,search_performed,2026-10-02 17:50:00,S00539,P02,0,Android,Free,South,Organic
+U057,feature_used,2026-10-02 17:53:00,S00539,P02,0,Android,Free,South,Organic
+U057,feature_used,2026-10-03 19:01:00,S00540,P02,0,Android,Free,South,Organic
+U057,product_viewed,2026-10-03 19:04:00,S00540,P02,0,Android,Free,South,Organic
+U057,search_performed,2026-10-03 19:07:00,S00540,P02,0,Android,Free,South,Organic
+U057,search_performed,2026-10-05 12:23:00,S00541,P02,0,Android,Free,South,Organic
+U057,feature_used,2026-10-05 12:26:00,S00541,P02,0,Android,Free,South,Organic
+U057,feature_used,2026-10-06 14:34:00,S00542,P02,0,Android,Free,South,Organic
+U057,product_viewed,2026-10-06 14:37:00,S00542,P02,0,Android,Free,South,Organic
+U057,search_performed,2026-10-06 14:40:00,S00542,P02,0,Android,Free,South,Organic
+U057,product_viewed,2026-10-07 16:45:00,S00543,P02,0,Android,Free,South,Organic
+U057,search_performed,2026-10-08 18:56:00,S00544,P02,0,Android,Free,South,Organic
+U057,feature_used,2026-10-08 18:59:00,S00544,P02,0,Android,Free,South,Organic
+U057,feature_used,2026-10-09 09:07:00,S00545,P02,0,Android,Free,South,Organic
+U057,product_viewed,2026-10-09 09:10:00,S00545,P02,0,Android,Free,South,Organic
+U057,search_performed,2026-10-09 09:13:00,S00545,P02,0,Android,Free,South,Organic
+U057,search_performed,2026-10-11 13:29:00,S00546,P02,0,Android,Free,South,Organic
+U057,feature_used,2026-10-11 13:32:00,S00546,P02,0,Android,Free,South,Organic
+U057,feature_used,2026-10-12 15:40:00,S00547,P02,0,Android,Free,South,Organic
+U057,product_viewed,2026-10-12 15:43:00,S00547,P02,0,Android,Free,South,Organic
+U057,search_performed,2026-10-12 15:46:00,S00547,P02,0,Android,Free,South,Organic
+U057,product_viewed,2026-10-13 17:51:00,S00548,P02,0,Android,Free,South,Organic
+U057,search_performed,2026-10-14 19:02:00,S00549,P02,0,Android,Free,South,Organic
+U057,feature_used,2026-10-14 19:05:00,S00549,P02,0,Android,Free,South,Organic
+U058,search_performed,2026-10-01 18:46:00,S00550,P03,0,iOS,Basic,East,Referral
+U058,feature_used,2026-10-01 18:49:00,S00550,P03,0,iOS,Basic,East,Referral
+U058,feature_used,2026-10-02 09:57:00,S00551,P03,0,iOS,Basic,East,Referral
+U058,product_viewed,2026-10-02 09:00:00,S00551,P03,0,iOS,Basic,East,Referral
+U058,search_performed,2026-10-02 09:03:00,S00551,P03,0,iOS,Basic,East,Referral
+U058,search_performed,2026-10-04 13:19:00,S00552,P03,0,iOS,Basic,East,Referral
+U058,feature_used,2026-10-04 13:22:00,S00552,P03,0,iOS,Basic,East,Referral
+U058,feature_used,2026-10-05 15:30:00,S00553,P03,0,iOS,Basic,East,Referral
+U058,product_viewed,2026-10-05 15:33:00,S00553,P03,0,iOS,Basic,East,Referral
+U058,search_performed,2026-10-05 15:36:00,S00553,P03,0,iOS,Basic,East,Referral
+U058,product_viewed,2026-10-06 17:41:00,S00554,P03,0,iOS,Basic,East,Referral
+U058,search_performed,2026-10-07 19:52:00,S00555,P03,0,iOS,Basic,East,Referral
+U058,feature_used,2026-10-07 19:55:00,S00555,P03,0,iOS,Basic,East,Referral
+U058,feature_used,2026-10-08 10:03:00,S00556,P03,0,iOS,Basic,East,Referral
+U058,product_viewed,2026-10-08 10:06:00,S00556,P03,0,iOS,Basic,East,Referral
+U058,search_performed,2026-10-08 10:09:00,S00556,P03,0,iOS,Basic,East,Referral
+U058,search_performed,2026-10-10 14:25:00,S00557,P03,0,iOS,Basic,East,Referral
+U058,feature_used,2026-10-10 14:28:00,S00557,P03,0,iOS,Basic,East,Referral
+U058,feature_used,2026-10-11 16:36:00,S00558,P03,0,iOS,Basic,East,Referral
+U058,product_viewed,2026-10-11 16:39:00,S00558,P03,0,iOS,Basic,East,Referral
+U058,search_performed,2026-10-11 16:42:00,S00558,P03,0,iOS,Basic,East,Referral
+U058,product_viewed,2026-10-12 18:47:00,S00559,P03,0,iOS,Basic,East,Referral
+U058,search_performed,2026-10-13 09:58:00,S00560,P03,0,iOS,Basic,East,Referral
+U058,feature_used,2026-10-13 09:01:00,S00560,P03,0,iOS,Basic,East,Referral
+U058,feature_used,2026-10-14 11:09:00,S00561,P03,0,iOS,Basic,East,Referral
+U058,product_viewed,2026-10-14 11:12:00,S00561,P03,0,iOS,Basic,East,Referral
+U058,search_performed,2026-10-14 11:15:00,S00561,P03,0,iOS,Basic,East,Referral
+U059,feature_used,2026-10-01 10:53:00,S00562,P04,0,Web,Premium,West,Paid Search
+U059,product_viewed,2026-10-01 10:56:00,S00562,P04,0,Web,Premium,West,Paid Search
+U059,search_performed,2026-10-01 10:59:00,S00562,P04,0,Web,Premium,West,Paid Search
+U059,search_performed,2026-10-03 14:15:00,S00563,P04,0,Web,Premium,West,Paid Search
+U059,feature_used,2026-10-03 14:18:00,S00563,P04,0,Web,Premium,West,Paid Search
+U059,feature_used,2026-10-04 16:26:00,S00564,P04,0,Web,Premium,West,Paid Search
+U059,product_viewed,2026-10-04 16:29:00,S00564,P04,0,Web,Premium,West,Paid Search
+U059,search_performed,2026-10-04 16:32:00,S00564,P04,0,Web,Premium,West,Paid Search
+U059,product_viewed,2026-10-05 18:37:00,S00565,P04,0,Web,Premium,West,Paid Search
+U059,search_performed,2026-10-06 09:48:00,S00566,P04,0,Web,Premium,West,Paid Search
+U059,feature_used,2026-10-06 09:51:00,S00566,P04,0,Web,Premium,West,Paid Search
+U059,feature_used,2026-10-07 11:59:00,S00567,P04,0,Web,Premium,West,Paid Search
+U059,product_viewed,2026-10-07 11:02:00,S00567,P04,0,Web,Premium,West,Paid Search
+U059,search_performed,2026-10-07 11:05:00,S00567,P04,0,Web,Premium,West,Paid Search
+U059,search_performed,2026-10-09 15:21:00,S00568,P04,0,Web,Premium,West,Paid Search
+U059,feature_used,2026-10-09 15:24:00,S00568,P04,0,Web,Premium,West,Paid Search
+U059,feature_used,2026-10-10 17:32:00,S00569,P04,0,Web,Premium,West,Paid Search
+U059,product_viewed,2026-10-10 17:35:00,S00569,P04,0,Web,Premium,West,Paid Search
+U059,search_performed,2026-10-10 17:38:00,S00569,P04,0,Web,Premium,West,Paid Search
+U059,product_viewed,2026-10-11 19:43:00,S00570,P04,0,Web,Premium,West,Paid Search
+U059,search_performed,2026-10-12 10:54:00,S00571,P04,0,Web,Premium,West,Paid Search
+U059,feature_used,2026-10-12 10:57:00,S00571,P04,0,Web,Premium,West,Paid Search
+U059,feature_used,2026-10-13 12:05:00,S00572,P04,0,Web,Premium,West,Paid Search
+U059,product_viewed,2026-10-13 12:08:00,S00572,P04,0,Web,Premium,West,Paid Search
+U059,search_performed,2026-10-13 12:11:00,S00572,P04,0,Web,Premium,West,Paid Search
+U060,search_performed,2026-10-02 15:11:00,S00573,P01,0,Android,Free,North,Organic
+U060,purchase,2026-10-02 15:14:00,S00573,P01,799,Android,Free,North,Organic
+U060,feature_used,2026-10-03 17:22:00,S00574,P01,0,Android,Free,North,Organic
+U060,product_viewed,2026-10-03 17:25:00,S00574,P01,0,Android,Free,North,Organic
+U060,purchase,2026-10-03 17:28:00,S00574,P01,799,Android,Free,North,Organic
+U060,purchase,2026-10-04 19:33:00,S00575,P01,799,Android,Free,North,Organic
+U060,search_performed,2026-10-05 10:44:00,S00576,P01,0,Android,Free,North,Organic
+U060,purchase,2026-10-05 10:47:00,S00576,P01,799,Android,Free,North,Organic
+U060,feature_used,2026-10-06 12:55:00,S00577,P01,0,Android,Free,North,Organic
+U060,product_viewed,2026-10-06 12:58:00,S00577,P01,0,Android,Free,North,Organic
+U060,purchase,2026-10-06 12:01:00,S00577,P01,799,Android,Free,North,Organic
+U060,search_performed,2026-10-08 16:17:00,S00578,P01,0,Android,Free,North,Organic
+U060,purchase,2026-10-08 16:20:00,S00578,P01,799,Android,Free,North,Organic
+U060,feature_used,2026-10-09 18:28:00,S00579,P01,0,Android,Free,North,Organic
+U060,product_viewed,2026-10-09 18:31:00,S00579,P01,0,Android,Free,North,Organic
+U060,purchase,2026-10-09 18:34:00,S00579,P01,799,Android,Free,North,Organic
+U060,purchase,2026-10-10 09:39:00,S00580,P01,799,Android,Free,North,Organic
+U060,search_performed,2026-10-11 11:50:00,S00581,P01,0,Android,Free,North,Organic
+U060,purchase,2026-10-11 11:53:00,S00581,P01,799,Android,Free,North,Organic
+U060,feature_used,2026-10-12 13:01:00,S00582,P01,0,Android,Free,North,Organic
+U060,product_viewed,2026-10-12 13:04:00,S00582,P01,0,Android,Free,North,Organic
+U060,purchase,2026-10-12 13:07:00,S00582,P01,799,Android,Free,North,Organic
+U060,search_performed,2026-10-14 17:23:00,S00583,P01,0,Android,Free,North,Organic
+U060,purchase,2026-10-14 17:26:00,S00583,P01,799,Android,Free,North,Organic
