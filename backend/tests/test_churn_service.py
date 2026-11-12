@@ -62,7 +62,7 @@ def test_predict_customer_churn_requires_both_classes(monkeypatch):
     events = pd.concat([events, pd.DataFrame(additions)], ignore_index=True)
     monkeypatch.setattr(churn_service, "get_dataset_by_id", lambda _dataset_id, _dataset_type: events)
     with pytest.raises(ValueError, match="too few examples in one class"):
-        churn_service.predict_customer_churn()
+        churn_service.predict_customer_churn("dataset-1")
 
 
 def test_build_churn_cohort_uses_only_observation_features():
