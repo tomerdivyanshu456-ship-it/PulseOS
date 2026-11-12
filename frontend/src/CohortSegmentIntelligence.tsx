@@ -53,7 +53,7 @@ function CohortSegmentIntelligence() {
             <small>Observed period: {data.period?.start_date} to {data.period?.end_date}</small>
           </section>
           <section className="segment-summary-grid">
-            <article className="panel segment-summary-card"><Users size={17} /><span>Users analysed</span><strong>{data.total_users.toLocaleString()}</strong></article>
+            <article className="panel segment-summary-card"><Users size={17} /><span>Users assigned</span><strong>{data.assigned_users.toLocaleString()}</strong><small>{data.unassigned_users.toLocaleString()} users lack this attribute</small></article>
             <article className="panel segment-summary-card"><Layers3 size={17} /><span>Segments found</span><strong>{segments.length}</strong></article>
             <article className="panel segment-summary-card"><Activity size={17} /><span>Highest repeat rate</span><strong>{bestRepeat ? `${bestRepeat.repeat_user_rate}%` : "—"}</strong><small>{bestRepeat?.segment || "No segment data"}</small></article>
             <article className="panel segment-summary-card"><ShoppingCart size={17} /><span>Highest purchase-user rate</span><strong>{bestPurchase ? `${bestPurchase.purchase_user_rate}%` : "—"}</strong><small>{bestPurchase?.segment || "No segment data"}</small></article>
