@@ -166,6 +166,15 @@ def test_experiment_api_endpoints_and_validation(monkeypatch, tmp_path):
     assert updated.status_code == 200
     assert updated.json()["status"] == "running"
 
+    event_data = _event_rows(experiment_id, 5000, 5000, 500, 750)
+    monkeypatch.setattr(experiment_service, "get_latest_dataset", lambda _: event_data)
+    decision = client.post(f"/api/experiments/{experiment_id}/decision", json={
+        "exposure_event": "experiment_exposed",
+        "conversion_event": "purchase",
+    })
+    assert decision.status_code == 200
+    assert decision.json()["recommendation"] == "Ship"
+
 
 def _decision_experiment():
     return experiment_service.create_experiment({
