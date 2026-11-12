@@ -456,4 +456,5 @@ def answer_product_question(question, history=None):
         "funnel_analysis": funnel_analysis if checkout_intent else None,
         "context_used": bool(history),
         "document_evidence": document_evidence,
+        "document_answer": document_answer,
     }
