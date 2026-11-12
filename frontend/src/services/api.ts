@@ -62,6 +62,44 @@ export interface AnalyticsOverview {
   };
 }
 
+export interface ProductOpportunitiesResponse {
+  status: "ready" | "partial" | "no_data";
+  opportunities: Array<{
+    id: string;
+    title: string;
+    feature: string;
+    priority: "Investigate" | "Validate" | "Monitor";
+    priority_score: number;
+    review_count: number;
+    average_rating: number;
+    severity_score: number;
+    evidence_strength: number;
+    customer_signal: {
+      topic: string;
+      review_count: number;
+      average_rating: number;
+      evidence: Array<{ rating: number; review_text: string }>;
+    };
+    behavior_signal: null | {
+      label: string;
+      value: number;
+      unit: string;
+      detail: string;
+      method: string;
+    };
+    recommendation: string;
+    confidence_note: string;
+  }>;
+  data_gaps: string[];
+  sources?: { events: boolean; reviews: boolean };
+  methodology: string;
+}
+
+export async function getProductOpportunities(): Promise<ProductOpportunitiesResponse> {
+  const response = await api.get("/api/opportunities");
+  return response.data;
+}
+
 export async function getHealth() {
   const response = await api.get("/api/health");
   return response.data;
