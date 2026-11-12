@@ -81,6 +81,7 @@ PulseOS/
 │   ├── raw/                 # Local uploads; not committed
 │   ├── processed/
 │   ├── sample_user_events.csv
+│   ├── sample_churn_events.csv
 │   └── sample_customer_reviews.csv
 ├── docs/
 └── README.md
@@ -129,8 +130,9 @@ Open http://localhost:5173.
 
 In the app, open **Upload Data** and upload:
 
-- `data/sample_user_events.csv` as the behavioural events dataset.
+- `data/sample_user_events.csv` as the behavioural events dataset for core analytics.
 - `data/sample_customer_reviews.csv` as the customer reviews dataset.
+- `data/sample_churn_events.csv` as the behavioural events dataset for Churn Prediction (14 days of synthetic history).
 
 The synthetic event datasets include user, event, timestamp, session, product and categorical attributes (platform, plan, region and acquisition channel). The churn-specific file includes a constructed historical inactivity outcome for demonstration; do not interpret its labels or model metrics as real customer behaviour. The review dataset contains ratings, review text, dates and product categories.
 
@@ -186,7 +188,9 @@ Each eligible user needs a tagged exposure event (default: `experiment_exposed`)
 - **Health scorecard:** the overall index averages available pillars only; missing pillars are not treated as zero. Starter thresholds are illustrative defaults, not industry benchmarks.
 - **Experiment planning:** sample-size estimates use a normal approximation for two independent binary proportions, two-sided confidence, specified power and equal allocation. Duration estimates are planning approximations.
 - **Experiment decisions:** observed arm rates and approximate confidence intervals support a Ship / Iterate / Stop recommendation. Instrumentation, stable assignment, adequate sample size and guardrails matter; this is not proof of causality or an automated deployment action.
-- **Strategy scoring:** impact, evidence confidence and effort are transparent heuristics for prioritisation, not predicted business outcomes.\n- **Anomaly detection:** independent Isolation Forest models flag unusual daily metrics; contamination is a modelling assumption and flags are not proof of incidents.\n- **Churn prediction:** churn is operationalised as no recorded event in the 7 calendar days after a 7-day observation window. User-level features use only the observation window; a stratified holdout evaluates Logistic Regression and Random Forest. This is an inactivity proxy, not confirmed cancellation, and holdout scores are retrospective rather than live customer risk predictions.
+- **Strategy scoring:** impact, evidence confidence and effort are transparent heuristics for prioritisation, not predicted business outcomes.
+- **Anomaly detection:** independent Isolation Forest models flag unusual daily metrics; contamination is a modelling assumption and flags are not proof of incidents.
+- **Churn prediction:** churn is operationalised as no recorded event in the 7 calendar days after a 7-day observation window. User-level features use only the observation window; a stratified holdout evaluates Logistic Regression and Random Forest. This is an inactivity proxy, not confirmed cancellation, and holdout scores are retrospective rather than live customer risk predictions.
 
 ## Quality checks
 
