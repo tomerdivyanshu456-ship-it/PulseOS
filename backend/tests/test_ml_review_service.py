@@ -1,5 +1,3 @@
-import sqlite3
-
 import pandas as pd
 import pytest
 
@@ -9,29 +7,19 @@ from app.services import ml_review_service
 def _seed_reviews(tmp_path, monkeypatch, reviews):
     upload_dir = tmp_path / "raw"
     upload_dir.mkdir()
-    db_path = tmp_path / "pulseos.db"
     stored = "reviews.csv"
     pd.DataFrame(reviews).to_csv(upload_dir / stored, index=False)
-    with sqlite3.connect(db_path) as connection:
-        connection.execute(
-            """CREATE TABLE datasets (
-                id TEXT PRIMARY KEY, dataset_type TEXT NOT NULL,
-                original_filename TEXT NOT NULL, stored_filename TEXT NOT NULL,
-                row_count INTEGER NOT NULL, uploaded_at TEXT NOT NULL
-            )"""
-        )
-        connection.execute(
-            "INSERT INTO datasets VALUES (?, ?, ?, ?, ?, ?)",
-            ("review-set", "reviews", "reviews.csv", stored, len(reviews), "2026-11-01T00:00:00+00:00"),
-        )
     monkeypatch.setattr(ml_review_service, "UPLOAD_DIR", upload_dir)
-
-    def connect():
-        connection = sqlite3.connect(db_path)
-        connection.row_factory = sqlite3.Row
-        return connection
-
-    monkeypatch.setattr(ml_review_service, "get_connection", connect)
+    monkeypatch.setattr(
+        ml_review_service,
+        "get_dataset_record",
+        lambda dataset_type: {
+            "id": "review-set",
+            "dataset_type": dataset_type,
+            "original_filename": "reviews.csv",
+            "stored_filename": stored,
+        },
+    )
 
 
 def test_review_clustering_discovers_distinct_text_groups(tmp_path, monkeypatch):

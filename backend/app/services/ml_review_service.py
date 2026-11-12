@@ -3,7 +3,7 @@ from sklearn.cluster import KMeans
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics import silhouette_score
 
-from app.services.dataset_service import UPLOAD_DIR, get_connection
+from app.services.dataset_service import UPLOAD_DIR, get_dataset_record
 
 
 def cluster_review_themes(n_clusters=4):
@@ -11,20 +11,7 @@ def cluster_review_themes(n_clusters=4):
     if not 2 <= n_clusters <= 8:
         raise ValueError("n_clusters must be between 2 and 8.")
 
-    connection = get_connection()
-    try:
-        row = connection.execute(
-            """
-            SELECT stored_filename, original_filename
-            FROM datasets
-            WHERE dataset_type = ?
-            ORDER BY uploaded_at DESC
-            LIMIT 1
-            """,
-            ("reviews",),
-        ).fetchone()
-    finally:
-        connection.close()
+    row = get_dataset_record("reviews")
 
     if row is None:
         raise ValueError("No customer reviews dataset has been uploaded.")
