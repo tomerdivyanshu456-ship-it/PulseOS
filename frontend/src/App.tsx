@@ -45,6 +45,7 @@ import ProductStrategy from "./ProductStrategy";
 import ProductHealthScorecard from "./ProductHealthScorecard";
 import CohortSegmentIntelligence from "./CohortSegmentIntelligence";
 import FunnelJourneyIntelligence from "./FunnelJourneyIntelligence";
+import RootCauseExplorer from "./RootCauseExplorer";
 import "./App.css";
 
 const navigation = [
@@ -59,6 +60,7 @@ const navigation = [
   { name: "Health Scorecard", icon: Gauge },
   { name: "Cohort & Segments", icon: Users },
   { name: "Funnel & Journeys", icon: Route },
+  { name: "Root Cause Explorer", icon: Search },
 ];
 
 const numberFormatter = new Intl.NumberFormat("en-IN");
@@ -425,6 +427,8 @@ function App() {
             <CohortSegmentIntelligence />
           ) : activePage === "Funnel & Journeys" ? (
             <FunnelJourneyIntelligence />
+          ) : activePage === "Root Cause Explorer" ? (
+            <RootCauseExplorer />
           ) : (
             <div className="panel page-placeholder">
               <Sparkles size={32} />
