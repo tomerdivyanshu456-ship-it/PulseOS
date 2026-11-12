@@ -1,0 +1,4 @@
+# Optional CPU-based semantic retrieval dependencies.
+# Install inside backend/.venv with:
+#   pip install -r requirements-semantic.txt
+sentence-transformers>=3.0,<6
