@@ -27,6 +27,11 @@ function CustomerChurn() {
 
   useEffect(() => { void load(); }, []);
 
+  const baseline = data?.model_comparison.find((item) => item.model === "Majority-class baseline");
+  const predictiveModels = data?.model_comparison.filter((item) => item.model !== "Majority-class baseline") ?? [];
+  const bestModelAccuracy = predictiveModels.length ? Math.max(...predictiveModels.map((item) => item.metrics.accuracy)) : null;
+  const belowBaselineAccuracy = baseline !== undefined && bestModelAccuracy !== null && bestModelAccuracy < baseline.metrics.accuracy;
+
   if (loading) return <div className="panel churn-state">Building the historical churn cohort and evaluating models…</div>;
   if (error || !data) return (
     <div className="panel churn-state churn-error">
@@ -51,6 +56,7 @@ function CustomerChurn() {
         <article className="panel"><UserRoundX size={18}/><span>Churned by inactivity</span><strong>{data.churned_users.toLocaleString("en-IN")}</strong><small>No events in the following 7 days</small></article>
         <article className="panel"><UserRoundCheck size={18}/><span>Retained</span><strong>{data.retained_users.toLocaleString("en-IN")}</strong><small>At least one event in the outcome window</small></article>
       </section>
+      {belowBaselineAccuracy && <section className="churn-model-warning" role="status"><strong>Model performance warning</strong><p>Neither trained model beats the majority-class baseline on holdout accuracy ({(baseline!.metrics.accuracy * 100).toFixed(1)}%). The best trained-model accuracy is {((bestModelAccuracy ?? 0) * 100).toFixed(1)}%. Review precision, recall, ROC-AUC and cross-validation before relying on these predictions. This result is a diagnostic signal, not a production-ready churn model.</p></section>}
       <section className="panel churn-section">
         <div className="churn-section-heading"><div><h3>Held-out model evaluation</h3><p>Metrics are calculated on the 25% user holdout. Positive class = churn. Compare against the majority-class baseline.</p></div><BrainCircuit size={20}/></div>
         <div className="churn-table-wrap"><table className="churn-table"><thead><tr><th>Model</th><th>Accuracy</th><th>Precision</th><th>Recall</th><th>F1</th><th>ROC-AUC</th><th>CV F1 ± SD</th><th>CV AUC ± SD</th></tr></thead><tbody>
