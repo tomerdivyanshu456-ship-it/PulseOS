@@ -111,3 +111,34 @@ export async function getVoiceOfCustomer(): Promise<VoiceOfCustomerOverview> {
   const response = await api.get("/api/analytics/voice-of-customer");
   return response.data;
 }
+
+
+export interface AnalystFinding {
+  title: string;
+  detail: string;
+  type: "metric" | "customer_feedback";
+}
+
+export interface AnalystEvidence {
+  type: string;
+  rating: number;
+  text: string;
+  sentiment: string;
+}
+
+export interface AnalystResponse {
+  question: string;
+  answer: string;
+  findings: AnalystFinding[];
+  evidence: AnalystEvidence[];
+  sources: Array<{
+    name: string;
+    detail: string;
+  }>;
+  limitations: string[];
+}
+
+export async function askAnalyst(question: string): Promise<AnalystResponse> {
+  const response = await api.post("/api/analyst/ask", { question });
+  return response.data;
+}
