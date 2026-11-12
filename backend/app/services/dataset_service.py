@@ -227,3 +227,22 @@ def save_document(contents, filename):
         "characters": len(text_content), "pages": page_count,
         "uploaded_at": uploaded_at,
     }
+
+def delete_dataset(dataset_id):
+    """Delete one uploaded dataset/document and its stored file."""
+    with get_connection() as connection:
+        row = connection.execute(
+            "SELECT dataset_type, stored_filename FROM datasets WHERE id = ?",
+            (dataset_id,),
+        ).fetchone()
+        if row is None:
+            return False
+
+        base_dir = DOCUMENT_DIR if row["dataset_type"] == "documents" else UPLOAD_DIR
+        file_path = (base_dir / row["stored_filename"]).resolve()
+        if file_path.parent != base_dir.resolve():
+            raise ValueError("Stored file path is invalid.")
+
+        connection.execute("DELETE FROM datasets WHERE id = ?", (dataset_id,))
+        file_path.unlink(missing_ok=True)
+    return True
