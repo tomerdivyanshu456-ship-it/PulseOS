@@ -93,3 +93,25 @@
 .experiment-guardrail-output small{grid-column:1/-1;color:#929bad;font-size:8px}
 .guardrail-risk{color:#b45649}.guardrail-ok{color:#4f8968}
 @media(max-width:650px){.experiment-guardrail-row{grid-template-columns:1fr 1fr}.experiment-guardrail-row>strong{grid-column:1/-1}}
+
+
+.experiment-event-decision{display:grid;gap:12px;margin:14px 0;padding:15px;border:1px solid #e7e8f3;border-radius:9px;background:#fcfcff}
+.experiment-event-decision h4{margin:5px 0;color:#39445b;font-size:12px}
+.experiment-event-decision p{margin:5px 0;color:#7d8799;font-size:9px;line-height:1.6}
+.experiment-id-note{display:block;margin-top:5px;color:#6d63bf;font-size:8px;overflow-wrap:anywhere}
+.experiment-event-inputs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.experiment-event-inputs label{display:grid;gap:5px;color:#7d8799;font-size:9px}
+.experiment-event-inputs input{width:100%;min-width:0;padding:8px;border:1px solid #e5e8ef;border-radius:6px;background:#fff;color:#39445b;font-size:10px}
+.experiment-decision-result{display:grid;gap:10px;padding-top:10px;border-top:1px solid #e9eaf2}
+.experiment-decision-banner{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-radius:7px}
+.experiment-decision-banner span{font-size:8px;font-weight:700;letter-spacing:.08em}
+.experiment-decision-banner strong{font-size:16px}
+.decision-ship{background:#edf8f1;color:#397d59}.decision-iterate{background:#fff8e9;color:#98712e}.decision-stop{background:#fff0ee;color:#a64f46}
+.experiment-decision-result ul{margin:0;padding-left:18px;color:#58647a;font-size:9px;line-height:1.7}
+.experiment-decision-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.experiment-decision-stats span{display:grid;gap:3px;padding:9px;border:1px solid #edf0f5;border-radius:6px;color:#8791a4;font-size:8px}
+.experiment-decision-stats strong{color:#39445b;font-size:11px;overflow-wrap:anywhere}
+.experiment-decision-result>small,.experiment-decision-limitations small{color:#8791a4;font-size:8px;line-height:1.5}
+.experiment-decision-limitations{display:grid;gap:4px;padding:9px;border-radius:6px;background:#f6f7fa}
+.experiment-decision-limitations strong{color:#667188;font-size:9px}
+@media(max-width:650px){.experiment-event-inputs,.experiment-decision-stats{grid-template-columns:1fr}}
