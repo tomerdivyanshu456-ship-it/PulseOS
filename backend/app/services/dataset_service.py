@@ -46,8 +46,73 @@ def get_connection():
             uploaded_at TEXT NOT NULL
         )
     """)
+    connection.execute("""
+        CREATE TABLE IF NOT EXISTS active_datasets (
+            dataset_type TEXT PRIMARY KEY,
+            dataset_id TEXT,
+            updated_at TEXT NOT NULL
+        )
+    """)
     connection.commit()
     return connection
+
+
+def get_dataset_record(dataset_type):
+    """Return the selected dataset metadata, or the latest upload before a selection exists."""
+    connection = get_connection()
+    try:
+        active = connection.execute(
+            "SELECT dataset_id FROM active_datasets WHERE dataset_type = ?",
+            (dataset_type,),
+        ).fetchone()
+        if active is not None:
+            if not active["dataset_id"]:
+                raise ValueError(f"No active {dataset_type} dataset is selected.")
+            row = connection.execute(
+                "SELECT id, dataset_type, stored_filename, original_filename, row_count "
+                "FROM datasets WHERE id = ? AND dataset_type = ?",
+                (active["dataset_id"], dataset_type),
+            ).fetchone()
+            if row is None:
+                raise ValueError(f"The active {dataset_type} dataset is no longer available.")
+            return dict(row)
+        row = connection.execute(
+            "SELECT id, dataset_type, stored_filename, original_filename, row_count "
+            "FROM datasets WHERE dataset_type = ? ORDER BY uploaded_at DESC LIMIT 1",
+            (dataset_type,),
+        ).fetchone()
+        return dict(row) if row else None
+    finally:
+        connection.close()
+
+
+def set_active_dataset(dataset_type, dataset_id):
+    """Persist a dataset selection; a null ID explicitly clears the selection."""
+    if dataset_type not in ("events", "reviews", "documents"):
+        raise ValueError("Dataset type must be events, reviews or documents.")
+    with get_connection() as connection:
+        if dataset_id is not None:
+            row = connection.execute(
+                "SELECT id FROM datasets WHERE id = ? AND dataset_type = ?",
+                (dataset_id, dataset_type),
+            ).fetchone()
+            if row is None:
+                raise ValueError(f"Selected {dataset_type} dataset was not found.")
+        connection.execute(
+            """INSERT INTO active_datasets (dataset_type, dataset_id, updated_at)
+               VALUES (?, ?, ?)
+               ON CONFLICT(dataset_type) DO UPDATE SET
+               dataset_id = excluded.dataset_id, updated_at = excluded.updated_at""",
+            (dataset_type, dataset_id, datetime.now(timezone.utc).isoformat()),
+        )
+    return get_dataset_record(dataset_type)
+
+
+def get_active_datasets():
+    return {
+        kind: get_dataset_record(kind)
+        for kind in ("events", "reviews", "documents")
+    }
 
 
 def _read_tabular(contents, filename):
@@ -173,6 +238,12 @@ def save_dataset(contents, filename, dataset_type, mapping=None):
                    VALUES (?, ?, ?, ?, ?, ?)""",
                 (dataset_id, dataset_type, Path(filename).name, stored_filename, len(df), uploaded_at),
             )
+            connection.execute(
+                """INSERT INTO active_datasets (dataset_type, dataset_id, updated_at)
+                   VALUES (?, ?, ?)
+                   ON CONFLICT(dataset_type) DO NOTHING""",
+                (dataset_type, dataset_id, uploaded_at),
+            )
     except Exception:
         file_path.unlink(missing_ok=True)
         raise
@@ -218,6 +289,12 @@ def save_document(contents, filename):
                    VALUES (?, 'documents', ?, ?, ?, ?)""",
                 (dataset_id, Path(filename).name, stored_filename, len(text_content.split()), uploaded_at),
             )
+            connection.execute(
+                """INSERT INTO active_datasets (dataset_type, dataset_id, updated_at)
+                   VALUES ('documents', ?, ?)
+                   ON CONFLICT(dataset_type) DO NOTHING""",
+                (dataset_id, uploaded_at),
+            )
     except Exception:
         file_path.unlink(missing_ok=True)
         raise
@@ -243,6 +320,11 @@ def delete_dataset(dataset_id):
         if file_path.parent != base_dir.resolve():
             raise ValueError("Stored file path is invalid.")
 
+        connection.execute(
+            "UPDATE active_datasets SET dataset_id = NULL, updated_at = ? "
+            "WHERE dataset_id = ?",
+            (datetime.now(timezone.utc).isoformat(), dataset_id),
+        )
         connection.execute("DELETE FROM datasets WHERE id = ?", (dataset_id,))
         file_path.unlink(missing_ok=True)
     return True
