@@ -283,7 +283,7 @@ function ExperimentIntelligence() {
             <span>Control <strong>{pct(eventDecision.analysis.control.conversion_rate)}</strong> ({eventDecision.analysis.control.users.toLocaleString("en-IN")} users)</span>
             <span>Variant <strong>{pct(eventDecision.analysis.variant.conversion_rate)}</strong> ({eventDecision.analysis.variant.users.toLocaleString("en-IN")} users)</span>
             <span>Absolute lift <strong>{(eventDecision.analysis.absolute_lift * 100).toFixed(2)} pp</strong></span>
-            <span>95% interval <strong>{(eventDecision.analysis.difference_confidence_interval[0] * 100).toFixed(2)} to {(eventDecision.analysis.difference_confidence_interval[1] * 100).toFixed(2)} pp</strong></span>
+            <span>{Math.round((selected?.confidence_level ?? 0.95) * 100)}% interval <strong>{(eventDecision.analysis.difference_confidence_interval[0] * 100).toFixed(2)} to {(eventDecision.analysis.difference_confidence_interval[1] * 100).toFixed(2)} pp</strong></span>
           </div>
           <small>{eventDecision.events.exposed_users.toLocaleString("en-IN")} exposed users · {eventDecision.events.conflicting_assignment_users_excluded} conflicting assignments excluded · Planned sample {eventDecision.analysis.sample_size_reached ? "reached" : "not reached"}</small>
           {eventDecision.analysis.guardrails.length > 0 && <p>{eventDecision.guardrail_note}</p>}
