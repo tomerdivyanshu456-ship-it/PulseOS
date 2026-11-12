@@ -6,7 +6,7 @@ from fastapi import APIRouter, File, Form, HTTPException, UploadFile
 
 from app.services.dataset_service import (
     DOCUMENT_DIR, UPLOAD_DIR, get_connection, inspect_tabular,
-    save_dataset, save_document, delete_dataset,
+    save_dataset, save_document, delete_dataset, get_active_datasets, set_active_dataset,
 )
 
 router = APIRouter(prefix="/api/datasets", tags=["Datasets"])
@@ -62,6 +62,20 @@ async def upload_document(file: UploadFile = File(...)):
     finally:
         await file.close()
 
+
+
+@router.get("/active")
+def active_datasets():
+    return {"active_datasets": get_active_datasets()}
+
+
+@router.put("/active/{dataset_type}")
+def update_active_dataset(dataset_type: str, dataset_id: str | None = None):
+    try:
+        selected = set_active_dataset(dataset_type, dataset_id)
+        return {"dataset_type": dataset_type, "dataset": selected}
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
 
 
 @router.delete("/{dataset_id}")
