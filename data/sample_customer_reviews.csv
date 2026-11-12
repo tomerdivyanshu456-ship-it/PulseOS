@@ -1,0 +1,7 @@
+
+review_id,rating,review_text,review_date,product_category
+R01,1,Payment failed and money was deducted,2026-11-01,Food
+R02,5,Excellent user experience,2026-11-02,Food
+R03,2,Application crashes frequently,2026-11-03,Grocery
+R04,1,Customer support is very slow,2026-11-04,Food
+R05,4,Good experience overall,2026-11-05,Grocery
