@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import {
   UploadCloud, FileSpreadsheet, FileText, CheckCircle, AlertCircle,
-  Eye, RefreshCw, ArrowRight, Loader2,
+  Eye, RefreshCw, ArrowRight, Loader2, Trash2,
 } from "lucide-react";
 import {
   uploadDataset, uploadDocument, inspectDataset, getDatasets,
-  getDatasetPreview,
+  getDatasetPreview, deleteDataset,
 } from "./services/api";
 import type { DatasetInspection } from "./services/api";
 import "./UploadData.css";
@@ -154,6 +154,20 @@ function UploadData() {
     }
   }
 
+  async function handleDelete(dataset: Dataset) {
+    if (!window.confirm("Delete " + dataset.original_filename + " permanently from this PulseOS workspace?")) return;
+    setError("");
+    setMessage("");
+    try {
+      await deleteDataset(dataset.id);
+      if (preview?.filename === dataset.original_filename) setPreview(null);
+      setMessage(dataset.original_filename + " deleted.");
+      await loadDatasets();
+    } catch (err: any) {
+      setError(err.response?.data?.detail || "Could not delete this uploaded file.");
+    }
+  }
+
   const mappingComplete = REQUIRED[datasetType].every(({ key }) => mapping[key]);
   const mappedSources = new Set(Object.values(mapping).filter(Boolean));
   const unmappedColumns = inspection?.columns.filter((column) => !mappedSources.has(column)) || [];
@@ -287,13 +301,13 @@ function UploadData() {
         </div>
         {datasets.length === 0 ? <div className="history-empty">No files uploaded yet.</div> : (
           <div className="history-table">
-            <div className="history-row history-header"><span>Filename</span><span>Type</span><span>Rows / words</span><span>Action</span></div>
+            <div className="history-row history-header"><span>Filename</span><span>Type</span><span>Rows / words</span><span>Actions</span></div>
             {datasets.map((dataset) => (
               <div className="history-row" key={dataset.id}>
                 <span className="filename-cell">{dataset.dataset_type === "documents" ? <FileText size={17} /> : <FileSpreadsheet size={17} />}{dataset.original_filename}</span>
                 <span>{dataset.dataset_type === "events" ? "Behaviour" : dataset.dataset_type === "reviews" ? "Reviews" : "Document"}</span>
                 <span>{dataset.row_count.toLocaleString()}</span>
-                <button className="preview-button" onClick={() => handlePreview(dataset.id)}><Eye size={15} /> Preview</button>
+                <div className="history-actions"><button className="preview-button" onClick={() => handlePreview(dataset.id)}><Eye size={15} /> Preview</button><button className="delete-file-button" onClick={() => void handleDelete(dataset)} title="Delete uploaded file"><Trash2 size={15} /> Delete</button></div>
               </div>
             ))}
           </div>
