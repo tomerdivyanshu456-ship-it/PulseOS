@@ -26,8 +26,10 @@ def test_diagnostics_combine_funnel_and_customer_signals(monkeypatch):
 
     assert result["status"] == "partial"
     assert result["summary"]["hypotheses"] == 2
-    assert result["hypotheses"][0]["signal_type"] == "Funnel drop-off"
-    assert result["hypotheses"][0]["evidence"][2]["value"] == 60
+    by_type = {item["signal_type"]: item for item in result["hypotheses"]}
+    assert set(by_type) == {"Funnel drop-off", "Customer feedback"}
+    assert by_type["Funnel drop-off"]["evidence"][2]["value"] == 60
+    assert result["hypotheses"][0]["priority_score"] >= result["hypotheses"][1]["priority_score"]
 
 
 def test_diagnostics_handle_missing_sources(monkeypatch):
