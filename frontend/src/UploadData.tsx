@@ -5,8 +5,9 @@ import {
 } from "lucide-react";
 import {
   uploadDataset, uploadDocument, inspectDataset, getDatasets,
-  getDatasetPreview, DatasetInspection,
+  getDatasetPreview,
 } from "./services/api";
+import type { DatasetInspection } from "./services/api";
 import "./UploadData.css";
 
 type Dataset = {
