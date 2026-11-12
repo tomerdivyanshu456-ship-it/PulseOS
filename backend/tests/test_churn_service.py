@@ -24,8 +24,8 @@ def _events(days=14, users=60):
 
 
 def test_predict_customer_churn_returns_holdout_metrics(monkeypatch):
-    monkeypatch.setattr(churn_service, "get_latest_dataset", lambda _: _events())
-    result = churn_service.predict_customer_churn()
+    monkeypatch.setattr(churn_service, "get_dataset_by_id", lambda _dataset_id, _dataset_type: _events())
+    result = churn_service.predict_customer_churn("dataset-1")
 
     assert result["status"] == "ready"
     assert result["cohort_size"] == 60
@@ -38,7 +38,7 @@ def test_predict_customer_churn_returns_holdout_metrics(monkeypatch):
 
 
 def test_predict_customer_churn_requires_fourteen_days(monkeypatch):
-    monkeypatch.setattr(churn_service, "get_latest_dataset", lambda _: _events(days=12))
+    monkeypatch.setattr(churn_service, "get_dataset_by_id", lambda _dataset_id, _dataset_type: _events(days=12))
     with pytest.raises(ValueError, match="At least 14 calendar days"):
         churn_service.predict_customer_churn()
 
@@ -56,7 +56,7 @@ def test_predict_customer_churn_requires_both_classes(monkeypatch):
             "timestamp": "2026-10-14T12:00:00", "session_id": f"last-{user}", "revenue": 0,
         })
     events = pd.concat([events, pd.DataFrame(additions)], ignore_index=True)
-    monkeypatch.setattr(churn_service, "get_latest_dataset", lambda _: events)
+    monkeypatch.setattr(churn_service, "get_dataset_by_id", lambda _dataset_id, _dataset_type: events)
     with pytest.raises(ValueError, match="too few examples in one class"):
         churn_service.predict_customer_churn()
 
