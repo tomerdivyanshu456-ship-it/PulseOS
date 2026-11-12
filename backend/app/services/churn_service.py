@@ -1,8 +1,10 @@
 import pandas as pd
+from sklearn.base import clone
+from sklearn.dummy import DummyClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score, roc_auc_score
-from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score, confusion_matrix, f1_score, precision_score, recall_score, roc_auc_score
+from sklearn.model_selection import StratifiedKFold, cross_validate, train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 
@@ -36,7 +38,6 @@ def _build_churn_cohort(events):
     df["date"] = df["timestamp"].dt.tz_convert(None).dt.normalize()
     df["event_name"] = df["event_name"].astype(str).str.strip().str.lower()
     latest_date = df["date"].max()
-    window_start = latest_date - pd.Timedelta(days=13)
     observation_end = latest_date - pd.Timedelta(days=7)
     observation_start = latest_date - pd.Timedelta(days=13)
 
@@ -84,23 +85,21 @@ def _build_churn_cohort(events):
             "churned": int(user_id not in retained_users),
         })
 
-    cohort = pd.DataFrame(rows)
-    return cohort, observation_start, observation_end, latest_date
+    return pd.DataFrame(rows), observation_start, observation_end, latest_date
 
 
 def _metrics(y_true, y_pred, probabilities):
-    result = {
+    return {
         "accuracy": round(float(accuracy_score(y_true, y_pred)), 3),
         "precision": round(float(precision_score(y_true, y_pred, zero_division=0)), 3),
         "recall": round(float(recall_score(y_true, y_pred, zero_division=0)), 3),
         "f1": round(float(f1_score(y_true, y_pred, zero_division=0)), 3),
         "roc_auc": round(float(roc_auc_score(y_true, probabilities)), 3),
     }
-    return result
 
 
 def predict_customer_churn():
-    """Train and evaluate supervised churn classifiers on a time-defined cohort."""
+    """Train, compare and validate supervised churn baselines on a time-defined cohort."""
     events = get_latest_dataset("events")
     cohort, observation_start, observation_end, latest_date = _build_churn_cohort(events)
 
@@ -122,7 +121,9 @@ def predict_customer_churn():
     models = {
         "Logistic Regression": Pipeline([
             ("scale", StandardScaler()),
-            ("model", LogisticRegression(class_weight="balanced", max_iter=1000, random_state=42)),
+            ("model", LogisticRegression(
+                class_weight="balanced", max_iter=1000, random_state=42, solver="liblinear"
+            )),
         ]),
         "Random Forest": RandomForestClassifier(
             n_estimators=200,
@@ -132,18 +133,47 @@ def predict_customer_churn():
         ),
     }
 
-    comparison = []
+    majority_baseline = DummyClassifier(strategy="most_frequent")
+    majority_baseline.fit(X_train, y_train)
+    baseline_predictions = majority_baseline.predict(X_test)
+    baseline_probabilities = majority_baseline.predict_proba(X_test)[:, 1]
+    comparison = [{
+        "model": "Majority-class baseline",
+        "metrics": _metrics(y_test, baseline_predictions, baseline_probabilities),
+        "cross_validation": None,
+    }]
+
+    folds = min(5, int(class_counts.min()))
+    if folds < 2:
+        raise ValueError("At least two examples per class are required for cross-validation.")
+    cv = StratifiedKFold(n_splits=folds, shuffle=True, random_state=42)
+
     for name, model in models.items():
         model.fit(X_train, y_train)
         probabilities = model.predict_proba(X_test)[:, 1]
         predictions = (probabilities >= 0.5).astype(int)
+        cv_results = cross_validate(
+            clone(model), X, y, cv=cv,
+            scoring={"f1": "f1", "roc_auc": "roc_auc"},
+            n_jobs=1,
+            error_score="raise",
+        )
         comparison.append({
             "model": name,
             "metrics": _metrics(y_test, predictions, probabilities),
+            "cross_validation": {
+                "folds": folds,
+                "f1_mean": round(float(cv_results["test_f1"].mean()), 3),
+                "f1_std": round(float(cv_results["test_f1"].std()), 3),
+                "roc_auc_mean": round(float(cv_results["test_roc_auc"].mean()), 3),
+                "roc_auc_std": round(float(cv_results["test_roc_auc"].std()), 3),
+            },
         })
 
     logistic = models["Logistic Regression"]
     logistic_probabilities = logistic.predict_proba(X_test)[:, 1]
+    logistic_predictions = (logistic_probabilities >= 0.5).astype(int)
+    matrix = confusion_matrix(y_test, logistic_predictions, labels=[0, 1])
     holdout = []
     for user_id, actual, probability in zip(ids_test.tolist(), y_test.tolist(), logistic_probabilities.tolist()):
         holdout.append({
@@ -166,19 +196,26 @@ def predict_customer_churn():
         "train_users": int(len(X_train)),
         "holdout_users": int(len(X_test)),
         "model_comparison": comparison,
+        "confusion_matrix": {
+            "labels": ["Retained", "Churn"],
+            "true_negative": int(matrix[0, 0]),
+            "false_positive": int(matrix[0, 1]),
+            "false_negative": int(matrix[1, 0]),
+            "true_positive": int(matrix[1, 1]),
+        },
         "holdout_predictions": holdout,
         "features_used": FEATURE_COLUMNS,
         "methodology": (
-            "User-level features are calculated only from the 7-day observation window. "
-            "Labels are derived from activity in the following 7-day outcome window. "
-            "A stratified 75/25 user holdout is used; the reported metrics are evaluated only on held-out users. "
-            "Logistic Regression and Random Forest are trained as supervised baselines."
+            "Features use only the 7-day observation window; labels use the following 7-day outcome window. "
+            "A stratified 75/25 user holdout reports final metrics. A separate stratified cross-validation "
+            "on the full eligible cohort reports mean and standard deviation for F1 and ROC-AUC. "
+            "A majority-class DummyClassifier is included as a simple baseline."
         ),
         "limitations": [
             "Churn is an inactivity proxy, not confirmed cancellation or subscription termination.",
-            "Predictions shown are retrospective holdout predictions, not live scores for current customers.",
-            "A single temporal cohort may not represent future behaviour, seasonality or product changes.",
-            "Small or imbalanced datasets can produce unstable evaluation metrics.",
-            "The model identifies associations in event behaviour; it does not explain why a user churned.",
+            "Holdout predictions are retrospective examples, not live scores for current customers.",
+            "Cross-validation and holdout results on synthetic data do not establish real-world performance.",
+            "Small cohorts and a single observation period can produce unstable estimates.",
+            "The models identify associations in event behaviour; they do not establish why a user churned.",
         ],
     }
