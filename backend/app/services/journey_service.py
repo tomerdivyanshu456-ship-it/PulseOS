@@ -156,7 +156,6 @@ def calculate_journey_intelligence(steps=None, dimension=None):
         )
         events["_segment"] = events["user_id"].map(assignments)
         unit_segments = events.dropna(subset=["_segment"]).groupby("_unit")["_segment"].first()
-        unit_users = events.groupby("_unit")["user_id"].first()
         for segment_value in sorted(unit_segments.unique().tolist(), key=str):
             matching_units = [
                 unit for unit, value in unit_segments.items()
