@@ -63,7 +63,7 @@ import CustomerChurn from "./CustomerChurn";
 import "./App.css";
 import "./Auth.css";
 import "./PulseTheme.css";
-import { completeGoogleSignIn, getGoogleUserEmail, isSupabaseAuthConfigured, startGoogleSignIn } from "./services/supabaseAuth";
+import { completeGoogleSignIn, clearSupabaseSession, getGoogleUserEmail, getSupabaseAccessToken, isSupabaseAuthConfigured, startGoogleSignIn } from "./services/supabaseAuth";
 
 const navigation = [
   { group: "WORKSPACE", name: "Overview", icon: LayoutDashboard },
@@ -99,26 +99,36 @@ function App() {
   const [googleLoading, setGoogleLoading] = useState(false);
   const [googleMessage, setGoogleMessage] = useState("");
   const [googleEmail, setGoogleEmail] = useState<string | null>(null);
+  const [isGoogleWorkspace, setIsGoogleWorkspace] = useState(false);
 
   useEffect(() => {
-    getAuthConfig()
-      .then((config) => setAuthState(config.auth_required ? "required" : "disabled"))
-      .catch(() => setAuthState(googleConfigured ? "required" : "unavailable"));
-
-    completeGoogleSignIn()
-      .then(async (completed) => {
-        if (completed) {
+    let cancelled = false;
+    async function initialiseAuth() {
+      try {
+        const config = await getAuthConfig();
+        await completeGoogleSignIn();
+        if (getSupabaseAccessToken()) {
           const identity = await verifyGoogleIdentity();
           const result = await getWorkspace();
+          if (cancelled) return;
+          if (result.workspace.user_id !== identity.user_id) {
+            throw new Error("The workspace account did not match the signed-in user. Please sign out and try again.");
+          }
           setGoogleEmail(identity.email || getGoogleUserEmail());
-          setGoogleMessage(
-            result.workspace.user_id === identity.user_id
-              ? "Your private workspace is provisioned and verified. PulseOS data services are being migrated to owner-scoped storage; workspace features will unlock after that migration is complete."
-              : "The workspace account did not match the signed-in user. Please sign out and try again."
-          );
+          setIsGoogleWorkspace(true);
+          setGoogleMessage("Your private workspace is ready. Upload the included sample CSV files or your own data to explore PulseOS.");
+          setAuthState("authenticated");
+          return;
         }
-      })
-      .catch((error: unknown) => setGoogleMessage(error instanceof Error ? error.message : "Google sign-in failed. Please try again."));
+        if (!cancelled) setAuthState(config.auth_required ? "required" : "disabled");
+      } catch (error) {
+        if (cancelled) return;
+        setGoogleMessage(error instanceof Error ? error.message : "Google sign-in failed. Please try again.");
+        setAuthState(googleConfigured ? "required" : "unavailable");
+      }
+    }
+    void initialiseAuth();
+    return () => { cancelled = true; };
   }, [googleConfigured]);
 
   async function handleGoogleLogin() {
@@ -139,6 +149,7 @@ function App() {
     try {
       await authenticate(loginPassword);
       setLoginPassword("");
+      setIsGoogleWorkspace(false);
       setAuthState("authenticated");
     } catch {
       setLoginError("Sign-in failed. Check the password and try again.");
@@ -149,6 +160,10 @@ function App() {
 
   function handleLogout() {
     clearAuth();
+    clearSupabaseSession();
+    setIsGoogleWorkspace(false);
+    setGoogleEmail(null);
+    setGoogleMessage("");
     setLoginPassword("");
     setAuthState("required");
   }
@@ -325,9 +340,9 @@ function App() {
         </div>
 
         <nav aria-label="Main navigation">
-          {navigation.map((item, index) => {
+          {navigation.filter((item) => !isGoogleWorkspace || !["Experiments", "Strategy & Insights", "Health Scorecard", "Root Cause Explorer"].includes(item.name)).map((item, index, visibleItems) => {
             const Icon = item.icon;
-            const showGroup = index === 0 || item.group !== navigation[index - 1].group;
+            const showGroup = index === 0 || item.group !== visibleItems[index - 1].group;
             return (
               <div className="nav-entry" key={item.name}>
                 {showGroup && <p className="nav-group-label">{item.group}</p>}

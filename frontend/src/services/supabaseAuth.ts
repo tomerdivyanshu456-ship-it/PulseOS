@@ -63,6 +63,11 @@ export async function completeGoogleSignIn(): Promise<boolean> {
   return true;
 }
 
+export function clearSupabaseSession(): void {
+  sessionStorage.removeItem(SESSION_KEY);
+  sessionStorage.removeItem(VERIFIER_KEY);
+}
+
 export function getGoogleUserEmail(): string | null {
   try {
     const session = JSON.parse(sessionStorage.getItem(SESSION_KEY) || "null");

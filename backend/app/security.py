@@ -112,3 +112,41 @@ def require_auth(credentials: HTTPBasicCredentials | None = Depends(basic_auth))
     if credentials is None or not credentials_are_valid(credentials.username, credentials.password, expected):
         raise HTTPException(status_code=401, detail="Authentication required. Sign in to PulseOS.", headers={"WWW-Authenticate": 'Basic realm="PulseOS"'})
     return True
+
+
+async def require_workspace_or_admin(
+    bearer=Depends(bearer_auth),
+    basic=Depends(basic_auth),
+):
+    """Authenticate Google users into an isolated data context; retain admin Basic auth.
+
+    The context is reset after the request, including when an endpoint raises.
+    """
+    if bearer is not None:
+        claims = verify_supabase_access_token(bearer.credentials)
+        if claims.get("role") != "authenticated":
+            raise HTTPException(status_code=401, detail="Token does not represent an authenticated user.")
+        claims["_access_token"] = bearer.credentials
+        from app.services.workspace_data_context import load_workspace_data, set_workspace_data, reset_workspace_data
+        try:
+            data = load_workspace_data(claims)
+        except Exception as exc:
+            from app.services.supabase_dataset_repository import DatasetRepositoryError
+            if isinstance(exc, DatasetRepositoryError):
+                raise HTTPException(status_code=503, detail=str(exc)) from exc
+            raise
+        token = set_workspace_data(data)
+        try:
+            yield claims
+        finally:
+            reset_workspace_data(token)
+        return
+
+    # Preserve the existing administrator workflow without exposing it to users.
+    expected = configured_admin_password()
+    if not expected and not is_production():
+        yield True
+        return
+    if basic is None or not credentials_are_valid(basic.username, basic.password, expected):
+        raise HTTPException(status_code=401, detail="Authentication required. Sign in to PulseOS.")
+    yield True
