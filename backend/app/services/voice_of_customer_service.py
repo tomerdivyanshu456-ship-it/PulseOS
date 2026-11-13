@@ -179,16 +179,21 @@ def _build_topics(negative_df, total_negative):
 
 
 def calculate_voice_of_customer():
-    row = get_dataset_record("reviews")
-
-    if row is None:
-        raise ValueError("No customer reviews dataset has been uploaded.")
-
-    file_path = UPLOAD_DIR / row["stored_filename"]
-    if not file_path.is_file():
-        raise ValueError("The stored reviews dataset file is missing.")
-
-    df = pd.read_csv(file_path)
+    workspace = current_workspace_data()
+    if workspace is not None:
+        item = workspace.get("reviews")
+        if not item:
+            raise ValueError("No customer reviews dataset has been uploaded.")
+        row = item["record"]
+        df = item["dataframe"].copy()
+    else:
+        row = get_dataset_record("reviews")
+        if row is None:
+            raise ValueError("No customer reviews dataset has been uploaded.")
+        file_path = UPLOAD_DIR / row["stored_filename"]
+        if not file_path.is_file():
+            raise ValueError("The stored reviews dataset file is missing.")
+        df = pd.read_csv(file_path)
     required = {"review_id", "rating", "review_text"}
     if not required.issubset(df.columns):
         raise ValueError("The reviews dataset is missing required columns.")
