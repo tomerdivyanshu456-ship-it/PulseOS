@@ -1,50 +1,55 @@
-# PulseOS Product & Technical Plan
+# PulseOS product brief and technical direction
 
-## Goal
+## Product
 
-Build a credible, locally runnable product intelligence MVP in 14 days with a zero-rupee API budget and an 8 GB RAM, CPU-only laptop.
+PulseOS is a multi-user product intelligence portfolio application that helps product teams explore behavioural event data alongside customer feedback. Its workflow is to measure product behaviour, understand customer friction, identify opportunities and support evidence-led product decisions.
 
-## Target users
+## Intended users
 
-- **Product Analyst:** investigates activation, conversion, retention, and feature adoption.
-- **Product Manager:** identifies customer problems, prioritises opportunities, and measures experiments.
-- **AI Product Manager:** evaluates AI-assisted insight workflows with evidence and measurable outcomes.
+- **Product Analysts:** explore activation, conversion, retention, funnels, cohorts and feature usage.
+- **Product Managers:** identify customer problems and prioritise follow-up investigations.
+- **Data Analysts / Business Analysts:** inspect uploaded datasets, build descriptive analyses and communicate findings.
+- **AI Product practitioners:** evaluate evidence retrieval and applied ML workflows without overstating model capability.
 
-## MVP acceptance criteria
+## Product principles
 
-1. User can inspect sample or uploaded behavioural event data.
-2. Backend calculates documented KPIs and funnel steps from stored records.
-3. Cohort and retention calculations disclose their definitions.
-4. User can upload customer review text and ratings.
-5. Sentiment and topic outputs disclose method, sample size, and limitations.
-6. Analytical questions execute only through an allowlisted, read-only query layer.
-7. Frontend provides loading, empty, validation, and error states.
-8. Tests cover metric calculations and API contracts.
+1. Make the source and observation window of metrics clear.
+2. Separate descriptive facts from heuristics and model outputs.
+3. Do not present correlations as proven causes.
+4. Do not join unrelated review data to individual behavioural user IDs.
+5. Prefer lightweight, interpretable methods and zero-cost APIs.
+6. Keep tenant-owned data private and derive ownership from verified identity.
+7. Expose only modules whose data and persistence paths are ready for the authenticated workspace.
 
-## Metric definitions to document
+## Current release scope
 
-- **DAU:** distinct active users on a calendar day in the dataset timezone.
-- **Funnel conversion:** users reaching the final step divided by users entering the first step, with a stated attribution window.
-- **Retention:** cohort users with a qualifying activity event in a later period divided by cohort size.
-- **Sentiment distribution:** successfully classified review count per class divided by all successfully processed reviews.
+The Google-authenticated workspace currently exposes:
 
-## 14-day schedule
+- Overview and Upload Data
+- Product Analytics
+- Voice of Customer
+- AI Analyst / document retrieval
+- Product Opportunities
+- Cohorts and Segments
+- Funnels and Journeys
+- Anomaly Detection
+- Churn Prediction
 
-- Days 1–2: setup and API connection.
-- Day 3: SQLite schema and ingestion validation.
-- Days 4–6: metrics, funnel, cohorts, and retention.
-- Day 7: overview dashboard.
-- Days 8–10: review preprocessing, sentiment, and topic discovery.
-- Day 11: Voice of Customer interface.
-- Day 12: constrained question engine.
-- Day 13: tests and deployment attempt.
-- Day 14: documentation, demo, and polish.
+Experiments, Strategy & Insights, Health Scorecard and Root Cause Explorer are intentionally hidden from Google workspaces pending completion of their tenant-owned persistence and isolation paths.
 
-## Engineering guardrails
+## Technical architecture
 
-- No paid API dependency.
-- No GPU dependency.
-- Keep raw data local and out of Git.
-- Process CSVs in chunks and cap initial sample sizes.
-- Do not combine third-party reviews with unrelated behavioural user IDs.
-- Do not present placeholder numbers as measured findings.
+- Frontend: React, TypeScript, Vite and Recharts.
+- API: Python, FastAPI and Pandas.
+- Identity: Supabase Auth with Google OAuth and PKCE.
+- API authentication: Supabase JWT verification using JWKS.
+- Tenant persistence: Supabase PostgreSQL with RLS.
+- Dataset storage: private Supabase Storage with owner-scoped paths and policies.
+- Analytics / ML: NumPy, Pandas and scikit-learn.
+- Hosting: Render for frontend/API and Supabase for identity and durable tenant data.
+
+See [architecture.md](architecture.md), [multi-tenant-google-auth-plan.md](multi-tenant-google-auth-plan.md) and [demo-guide.md](demo-guide.md).
+
+## Current non-goals
+
+PulseOS is not positioned as an enterprise production analytics service. The current release does not claim full tenant migration of every legacy module, formal security certification, billing, enterprise RBAC, audit logging, OCR for scanned PDFs, generative AI answers or autonomous causal inference.
