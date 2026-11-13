@@ -12,6 +12,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 from app.services.dataset_service import DOCUMENT_DIR, get_dataset_record
+from app.services.workspace_data_context import current_workspace_data
 
 DEFAULT_EMBEDDING_MODEL = os.getenv(
     "PULSEOS_EMBEDDING_MODEL", "sentence-transformers/all-MiniLM-L6-v2"
@@ -108,17 +109,24 @@ def _rank_chunks(question, chunks):
 
 def retrieve_document_evidence(question, top_k=5):
     """Retrieve passages from the active document with semantic/lexical ranking."""
-    try:
-        record = get_dataset_record("documents")
-    except ValueError as exc:
-        return {"status": "no_active_document", "passages": [], "message": str(exc)}
-    if record is None:
-        return {"status": "no_documents", "passages": [], "message": "No document has been uploaded."}
-
-    path = DOCUMENT_DIR / record["stored_filename"]
-    if not path.is_file():
-        return {"status": "missing_document", "passages": [], "message": "The selected document text file is missing."}
-    text = path.read_text(encoding="utf-8", errors="replace")
+    workspace = current_workspace_data()
+    if workspace is not None:
+        item = workspace.get("documents")
+        if not item:
+            return {"status": "no_documents", "passages": [], "message": "No document has been uploaded."}
+        record = item["record"]
+        text = item["text"] or ""
+    else:
+        try:
+            record = get_dataset_record("documents")
+        except ValueError as exc:
+            return {"status": "no_active_document", "passages": [], "message": str(exc)}
+        if record is None:
+            return {"status": "no_documents", "passages": [], "message": "No document has been uploaded."}
+        path = DOCUMENT_DIR / record["stored_filename"]
+        if not path.is_file():
+            return {"status": "missing_document", "passages": [], "message": "The selected document text file is missing."}
+        text = path.read_text(encoding="utf-8", errors="replace")
     chunks = _chunks(text)
     if not chunks:
         return {"status": "empty_document", "passages": [], "message": "The selected document contains no extractable text."}
