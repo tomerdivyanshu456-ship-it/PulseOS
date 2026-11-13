@@ -5,9 +5,9 @@ import {
 } from "lucide-react";
 import {
   uploadDataset, uploadDocument, inspectDataset, getDatasets,
-  getDatasetPreview, deleteDataset,
+  getDatasetPreview, deleteDataset, getActiveDatasets, setActiveDataset,
 } from "./services/api";
-import type { DatasetInspection } from "./services/api";
+import type { DatasetInspection, ActiveDatasetMap } from "./services/api";
 import "./UploadData.css";
 
 type Dataset = {
@@ -44,6 +44,8 @@ function UploadData() {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [datasets, setDatasets] = useState<Dataset[]>([]);
+  const [activeDatasets, setActiveDatasets] = useState<ActiveDatasetMap | null>(null);
+  const [activatingId, setActivatingId] = useState<string | null>(null);
   const [preview, setPreview] = useState<any>(null);
   const [refreshing, setRefreshing] = useState(false);
   const [showAllColumns, setShowAllColumns] = useState(false);
@@ -51,7 +53,9 @@ function UploadData() {
   async function loadDatasets() {
     setRefreshing(true);
     try {
-      setDatasets(await getDatasets());
+      const [uploaded, active] = await Promise.all([getDatasets(), getActiveDatasets()]);
+      setDatasets(uploaded);
+      setActiveDatasets(active);
     } catch {
       setError("Could not load dataset history.");
     } finally {
@@ -143,6 +147,22 @@ function UploadData() {
       setError(err.response?.data?.detail || "Document upload failed.");
     } finally {
       setDocumentUploading(false);
+    }
+  }
+
+  async function handleSetActive(dataset: Dataset) {
+    setActivatingId(dataset.id);
+    setError("");
+    setMessage("");
+    try {
+      await setActiveDataset(dataset.dataset_type as "events" | "reviews" | "documents", dataset.id);
+      await loadDatasets();
+      setMessage(dataset.original_filename + " is now the active " + dataset.dataset_type + " dataset.");
+      window.dispatchEvent(new Event("pulseos:datasets-changed"));
+    } catch (err: any) {
+      setError(err.response?.data?.detail || "Could not change the active dataset.");
+    } finally {
+      setActivatingId(null);
     }
   }
 
@@ -299,7 +319,7 @@ function UploadData() {
 
       <section className="dataset-history">
         <div className="history-heading">
-          <div><h3>Uploaded datasets & documents</h3><p>Files stored locally in this PulseOS instance</p></div>
+          <div><h3>Uploaded datasets & documents</h3><p>Private workspace files. Select which dataset each module should analyse.</p></div>
           <span>{datasets.length} files</span>
         </div>
         {datasets.length === 0 ? <div className="history-empty">No files uploaded yet.</div> : (
@@ -310,7 +330,18 @@ function UploadData() {
                 <span className="filename-cell">{dataset.dataset_type === "documents" ? <FileText size={17} /> : <FileSpreadsheet size={17} />}{dataset.original_filename}</span>
                 <span>{dataset.dataset_type === "events" ? "Behaviour" : dataset.dataset_type === "reviews" ? "Reviews" : "Document"}</span>
                 <span>{dataset.row_count.toLocaleString()}</span>
-                <div className="history-actions"><button className="preview-button" onClick={() => handlePreview(dataset.id)}><Eye size={15} /> Preview</button><button className="delete-file-button" onClick={() => void handleDelete(dataset)} title="Delete uploaded file"><Trash2 size={15} /> Delete</button></div>
+                <div className="history-actions">
+                  <span className={activeDatasets?.[dataset.dataset_type as keyof ActiveDatasetMap]?.id === dataset.id ? "active-dataset-label" : "inactive-dataset-label"}>
+                    {activeDatasets?.[dataset.dataset_type as keyof ActiveDatasetMap]?.id === dataset.id ? "Active" : "Inactive"}
+                  </span>
+                  {activeDatasets?.[dataset.dataset_type as keyof ActiveDatasetMap]?.id !== dataset.id && (
+                    <button className="preview-button" disabled={activatingId === dataset.id} onClick={() => void handleSetActive(dataset)}>
+                      {activatingId === dataset.id ? "Selecting…" : "Use in modules"}
+                    </button>
+                  )}
+                  <button className="preview-button" onClick={() => handlePreview(dataset.id)}><Eye size={15} /> Preview</button>
+                  <button className="delete-file-button" onClick={() => void handleDelete(dataset)} title="Delete uploaded file"><Trash2 size={15} /> Delete</button>
+                </div>
               </div>
             ))}
           </div>
