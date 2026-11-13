@@ -5,6 +5,16 @@ const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8000",
 });
 
+// Attach the current user's Supabase JWT to all owner-scoped workspace APIs.
+// Legacy administrator Basic auth remains in place when no Google session exists.
+api.interceptors.request.use((config) => {
+  const token = getSupabaseAccessToken();
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
 export interface WorkspaceResponse {
   workspace: {
     user_id: string;
