@@ -2,7 +2,7 @@ import os
 from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
-from app.security import require_auth, validate_production_config
+from app.security import require_auth, require_workspace_or_admin, validate_production_config
 from app.middleware import RequestBodyTooLarge, RequestSizeLimitMiddleware
 from app.api.routes.auth import router as auth_router
 from app.api.routes.workspace import router as workspace_router
@@ -59,20 +59,21 @@ app.include_router(workspace_router)
 # New Google-authenticated dataset endpoints; legacy SQLite endpoints remain Basic-auth protected.
 app.include_router(private_datasets_router)
 protected = {"dependencies": [Depends(require_auth)]}
+workspace_protected = {"dependencies": [Depends(require_workspace_or_admin)]}
 app.include_router(datasets_router, **protected)
-app.include_router(analytics_router, **protected)
-app.include_router(voice_of_customer_router, **protected)
-app.include_router(analyst_router, **protected)
-app.include_router(opportunities_router, **protected)
+app.include_router(analytics_router, **workspace_protected)
+app.include_router(voice_of_customer_router, **workspace_protected)
+app.include_router(analyst_router, **workspace_protected)
+app.include_router(opportunities_router, **workspace_protected)
 app.include_router(experiments_router, **protected)
 app.include_router(strategy_router, **protected)
 app.include_router(health_scorecard_router, **protected)
-app.include_router(segments_router, **protected)
-app.include_router(journeys_router, **protected)
+app.include_router(segments_router, **workspace_protected)
+app.include_router(journeys_router, **workspace_protected)
 app.include_router(diagnostics_router, **protected)
-app.include_router(ml_intelligence_router, **protected)
-app.include_router(anomalies_router, **protected)
-app.include_router(churn_router, **protected)
+app.include_router(ml_intelligence_router, **workspace_protected)
+app.include_router(anomalies_router, **workspace_protected)
+app.include_router(churn_router, **workspace_protected)
 
 
 @app.get("/")
