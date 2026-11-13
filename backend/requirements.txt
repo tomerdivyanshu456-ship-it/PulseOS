@@ -11,3 +11,4 @@ httpx
 openpyxl
 PyMuPDF
 python-docx
+PyJWT[crypto]
