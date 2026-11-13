@@ -69,7 +69,10 @@ def verify_supabase_access_token(token: str) -> dict:
 def require_supabase_user(credentials=Depends(bearer_auth)):
     if credentials is None:
         raise HTTPException(status_code=401, detail="A Supabase bearer token is required.", headers={"WWW-Authenticate": "Bearer"})
-    return verify_supabase_access_token(credentials.credentials)
+    claims = verify_supabase_access_token(credentials.credentials)
+    # Forward the verified token only to downstream Supabase requests protected by RLS.
+    claims["_access_token"] = credentials.credentials
+    return claims
 
 
 def credentials_are_valid(username, password, expected_password):
