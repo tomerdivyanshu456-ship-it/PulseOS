@@ -1,141 +1,211 @@
-# PulseOS
+# PulseOS — Product Intelligence Platform
 
-**Local-first Product Intelligence Platform** that helps product teams move from behavioural data and customer feedback to prioritised investigations and experiment decisions.
+<p align="center">
+  <strong>Turn product events and customer feedback into evidence-led product decisions.</strong>
+</p>
 
-PulseOS is a portfolio project built around a practical product workflow: **measure product health → understand customer friction → find opportunities → investigate likely causes → design and evaluate experiments.**
+<p align="center">
+  <a href="https://pulseos-frontend.onrender.com">Live demo</a> ·
+  <a href="https://github.com/tomerdivyanshu456-ship-it/PulseOS">Source code</a> ·
+  <a href="https://github.com/tomerdivyanshu456-ship-it/PulseOS/tree/main/docs">Architecture & demo docs</a>
+</p>
 
-> **Demo data notice:** The files in `data/sample_*.csv` are synthetic examples created for demonstrating the application. They are not real customer records and should not be interpreted as actual business performance.
+PulseOS is a multi-user product analytics and product intelligence portfolio application. It brings behavioural event data and customer feedback into one workspace so a product team can understand what users do, identify friction, investigate opportunities and make better-informed decisions.
+
+**Core workflow:** measure product behaviour → understand customer feedback → identify opportunities → investigate signals → make product decisions.
+
+> **Demo data:** Included CSV files are synthetic and intended only to demonstrate workflows. They are not real customer records, and their outputs must not be presented as actual business performance.
+
+## Live demo
+
+**[Open PulseOS](https://pulseos-frontend.onrender.com)**
+
+1. Sign in with Google.
+2. Upload the sample event and review CSVs from the **Upload Data** section.
+3. Open Product Analytics to explore behavioural metrics.
+4. Open Voice of Customer to explore review feedback.
+5. Sign in with a second Google account to see a separate workspace.
+
+The deployed Google workspace currently exposes the core modules listed below. Experiments, Strategy & Insights, Health Scorecard and Root Cause Explorer are intentionally hidden for Google-authenticated users while their persistence and tenant isolation are outside the current release scope.
+
+## Why I built it
+
+Product teams often inspect behavioural analytics in one tool and customer feedback in another. This makes it harder to connect what users are doing with the problems they describe.
+
+PulseOS explores a practical workflow for combining these signals without pretending that correlation proves causation. It is designed as a product decision-support tool, not an autonomous product manager or a replacement for a production analytics stack.
 
 ## Product capabilities
 
-| Workspace | What it helps answer |
+| Area | What it helps answer |
 |---|---|
-| **Overview & Product Analytics** | How are active users, conversion, revenue, funnels and retention changing in the uploaded data? |
-| **Voice of Customer** | What are customers complaining about, and how does review sentiment distribute? |
-| **AI Analyst** | What evidence in the available datasets supports an analytical question, including passages retrieved from the active PDF/DOCX? |
-| **Product Opportunities** | Which customer complaint themes may warrant behavioural investigation? |
-| **Feature Intelligence** | Which features are being adopted and reused? |
-| **Experiment Intelligence** | How should a hypothesis, primary metric, guardrails and test plan be defined? |
-| **Experiment Decision Intelligence** | Given tagged exposure and outcome events, should a test be shipped, iterated or stopped? |
-| **Strategy & Insights** | Which investigations should be prioritised, considering impact, evidence and effort? |
-| **Product Health Scorecard** | What does the available evidence say about engagement, conversion, sentiment and experiment coverage? |
-| **Cohort & Segments** | How do engagement and purchasing metrics differ across user attributes? |
-| **Funnel & Journeys** | Where do users drop off in an ordered journey, and what paths do they take? |
-| **Root Cause Explorer** | Which funnel, feedback and segment signals are worth investigating first? |
-| **Anomaly Detection** | Which daily product activity metrics are unusual relative to recent history? |
-| **Customer Churn Prediction** | Which behavioural patterns distinguish users who become inactive in a defined follow-up window? |
+| **Overview & Product Analytics** | How are active users, conversion, revenue, funnels and retention changing in the uploaded event data? |
+| **Voice of Customer** | What themes appear in customer reviews, and how are ratings and sentiment distributed? |
+| **AI Analyst** | Which source passages support a question about uploaded data or PDF/DOCX documents? |
+| **Product Opportunities** | Which feedback themes may deserve further behavioural investigation? |
+| **Cohorts & Segments** | How do engagement and purchasing metrics differ across user attributes and cohorts? |
+| **Funnel & Journeys** | Where do users drop off in an ordered journey, and which paths do they take? |
+| **Anomaly Detection** | Which daily product activity metrics look unusual relative to recent history? |
+| **Churn Prediction** | Which behavioural patterns distinguish users who become inactive in a defined follow-up window? |
+| **Upload Data** | How can a user upload, inspect, activate and manage their own event, review and document sources? |
 
-The platform is designed as decision support. It distinguishes observed metrics, heuristic rankings and experimental evidence rather than presenting correlations or keyword matches as proven causes.
+### Current Google-workspace availability
 
-## Document retrieval (local RAG foundation)
+The deployed Google-authenticated experience enables the core data workflow: Overview, Upload Data, Product Analytics, Opportunities, Voice of Customer, AI Analyst, Cohorts & Segments, Funnel & Journeys, Anomaly Detection and Churn Prediction.
 
-- PDF and DOCX uploads are text-extracted and stored locally.
-- The AI Analyst searches only the currently selected Documents source.
-- Retrieval prefers optional local semantic embeddings from `sentence-transformers/all-MiniLM-L6-v2`, using cosine similarity over normalized sentence embeddings. If the optional dependency or model cannot load, PulseOS falls back to the original TF-IDF unigram/bigram cosine retrieval. Set `PULSEOS_SEMANTIC_SEARCH=false` to force TF-IDF.
-- The Analyst creates an extractive answer by selecting relevant source lines verbatim, with document filename and chunk-level citations. Section questions (such as "describe the experience section") attempt to return the named section rather than unrelated passages.
-- This is not a generative LLM: answers are not paraphrased or expanded, and the system does not invent missing details. If no source line matches, it reports insufficient evidence.
-- The current extraction pipeline does not preserve PDF page offsets, so citations use chunk numbers. Scanned PDFs without embedded text are not searchable because OCR is not enabled.
-- The model runs on CPU and is cached in-process. Its weights are downloaded on first use (internet is required for that initial download); subsequent inference is local. No API key or paid service is used.
-- Retrieval scores indicate semantic or lexical relevance, not confidence, truth or causal evidence.
-
-### Optional semantic-search installation
-
-The default installation remains lightweight and works without semantic dependencies. To enable MiniLM semantic retrieval in the backend virtual environment:
-
-```powershell
-pip install -r requirements-semantic.txt
-```
-
-To force TF-IDF only:
-
-```powershell
-$env:PULSEOS_SEMANTIC_SEARCH = "false"
-`
-
-## Technology
-
-- **Frontend:** React 19, TypeScript, Vite, Recharts
-- **Backend:** Python, FastAPI, Pandas
-- **Storage:** SQLite
-- **Analytics / ML:** NumPy, scikit-learn, TF-IDF/KMeans, Isolation Forest, Logistic Regression and Random Forest
-- **Optional semantic retrieval:** Sentence Transformers, PyTorch and all-MiniLM-L6-v2 (CPU)
-- **Tests:** Pytest
-
-**Local-first constraints:** no paid API keys, GPU, Docker or hosted inference service required.
+The following modules are not currently exposed in the Google workspace: **Experiments, Strategy & Insights, Health Scorecard and Root Cause Explorer.** They are not represented as completed multi-tenant features.
 
 ## Architecture
 
-```text
-CSV uploads
-   │
-   ▼
-FastAPI ingestion + validation
-   │
-   ├── Behavioural events ──► Analytics / cohorts / funnels / segments
-   │                              │
-   │                              ▼
-   │                       Opportunities / diagnostics
-   │                              │
-   │                              ▼
-   │                       Strategy / experiments
-   │
-   └── Customer reviews ───► Sentiment / complaint themes
-                                  │
-                                  └── Theme-level opportunity signals
-
-React + TypeScript workspace ◄──── JSON API
-SQLite stores dataset metadata and experiment records;
-uploaded CSV files are stored locally.
-```
-
-Customer reviews and behavioural events are separate sources. PulseOS does not join unrelated third-party review records to individual user or session IDs.
-
-## Repository structure
+PulseOS uses a React frontend, a FastAPI backend and Supabase for user identity and tenant-owned dataset persistence.
 
 ```text
-PulseOS/
-├── backend/
-│   ├── app/
-│   │   ├── api/routes/
-│   │   ├── services/
-│   │   └── main.py
-│   ├── tests/
-│   └── requirements.txt
-├── frontend/
-│   └── src/
-├── data/
-│   ├── raw/                 # Local uploads; not committed
-│   ├── processed/
-│   ├── sample_user_events.csv
-│   ├── sample_churn_events.csv
-│   └── sample_customer_reviews.csv
-├── docs/
-└── README.md
+                   Google sign-in
+                        │
+                        ▼
+                 Supabase Auth
+              (OAuth + PKCE session)
+                        │
+                 Supabase access JWT
+                        │
+                        ▼
+React + TypeScript ──► FastAPI API
+                        │
+                 Verify JWT signature,
+                 issuer, audience, claims
+                        │
+                 derive owner from sub
+                        │
+             ┌──────────┴──────────┐
+             ▼                     ▼
+      Supabase Postgres      Supabase Storage
+      + Row Level Security   private bucket
+      workspace/dataset      owner-scoped object
+      metadata + active      paths and policies
+      dataset selection
+             │                     │
+             └──────────┬──────────┘
+                        ▼
+              Workspace data context
+                        │
+                        ▼
+             Pandas / analytics / ML
+                        │
+                        ▼
+              Workspace-scoped API
+                        │
+                        ▼
+                 React dashboards
 ```
 
-## Security and deployment configuration
+### Main technology choices
 
-PulseOS supports a single-workspace administrator sign-in. In local development, authentication is disabled unless `PULSEOS_ADMIN_PASSWORD` is set. When enabled, the frontend prompts for the password and keeps the HTTP Basic credential in memory only; it is not written to local storage. Credentials accompany API requests, so public deployments must use HTTPS.
+| Layer | Technology |
+|---|---|
+| Frontend | React 19, TypeScript, Vite |
+| Backend | Python, FastAPI, Pandas |
+| Authentication | Supabase Auth, Google OAuth, PKCE |
+| API identity verification | Supabase JWT/JWKS verification |
+| Tenant-owned persistence | Supabase PostgreSQL with Row Level Security |
+| Uploaded dataset storage | Private Supabase Storage bucket |
+| Analytics & machine learning | NumPy, Pandas, scikit-learn |
+| Visualisation | Recharts |
+| Testing | Pytest, FastAPI TestClient, TypeScript/Vite build |
+| Hosting | Render (frontend and API), Supabase (auth and data) |
 
-For production, configure these variables in the hosting provider:
+## Multi-user security model
 
-- `PULSEOS_ENV=production`
-- `PULSEOS_ADMIN_PASSWORD`: a unique random secret of at least 32 characters. Never commit it or expose it through frontend variables.
-- `PULSEOS_CORS_ORIGINS`: comma-separated exact HTTPS origins for the frontend; wildcards are rejected.
-- `PULSEOS_DATA_DIR`: absolute path to a persistent mounted volume. SQLite metadata, uploaded CSV files and extracted documents are stored here.
-- `VITE_API_BASE_URL`: public HTTPS API base URL, set at frontend build time.
+Tenant isolation is enforced by the backend and Supabase policies, not by hiding rows in the frontend.
 
-Production startup fails if the administrator password or explicit HTTPS CORS origins are missing. The health and authentication-configuration endpoints remain public; dataset, analytics, ML and experiment APIs require administrator authentication. CORS is not an authentication mechanism. API request bodies are capped at 21 MB before multipart parsing; individual tabular uploads are capped at 20 MB and PDF/DOCX uploads at 15 MB. XLSX/DOCX archives are also checked for excessive expanded size. Terminate TLS at the hosting platform or a trusted reverse proxy, apply edge rate limiting, restrict API access at the network edge where possible, and back up the persistent volume.
+- Users authenticate through Google OAuth via Supabase Auth.
+- FastAPI verifies Supabase access tokens using the project's published JWKS and validates token claims.
+- The backend derives the authenticated user ID from the verified token subject; it does not trust a caller-supplied owner ID.
+- Workspace and dataset metadata are stored in Supabase PostgreSQL with Row Level Security.
+- Uploaded files are stored in a private Supabase Storage bucket under owner-scoped paths.
+- Dataset list, active selection, preview, retrieval and deletion operations use the authenticated user's access token and ownership policies.
+- The backend does not expose a Supabase service-role key to the browser.
 
-This is single-admin access control, not multi-user authentication or tenant isolation. Do not host confidential customer data for unrelated users. A multi-user SaaS needs individual accounts, roles, tenant-scoped records/storage, audit logs, and managed database/object storage.
+### Isolation verification
 
-## Run locally
+The live two-account test covered the following scenario:
+
+| Test | Expected result | Observed result |
+|---|---|---|
+| Account A uploads a dataset | Upload succeeds for A | Passed |
+| Account A lists and previews its dataset | A can access its own data | Passed |
+| Account B lists datasets | A's dataset is not listed | Passed |
+| Account B previews A's dataset by ID | Access is denied | Passed (404) |
+| Account B deletes A's dataset by ID | Access is denied | Passed (404) |
+| Account B uploads its own dataset | B sees its own workspace data | Passed in live frontend test |
+
+These are application-level verification results for the tested dataset operations, not a claim of a formal third-party security audit. The current tenant-scoped release is intentionally limited to the modules identified above; unfinished modules remain unavailable to Google workspaces.
+
+More detail: [Security and tenant isolation](docs/multi-tenant-google-auth-plan.md).
+
+## Data ingestion
+
+PulseOS supports user-uploaded datasets and document sources.
+
+### Behavioural event CSV
+
+| Column | Required | Description |
+|---|---|---|
+| `user_id` | Yes | Stable user identifier |
+| `event_name` | Yes | Event or action name |
+| `timestamp` | Yes | Parseable event timestamp |
+| `session_id` | No | Session identifier for session-level journeys |
+| `revenue` | No | Revenue value on purchase events |
+| Other categorical columns | No | Useful for segment comparisons |
+
+### Customer review CSV
+
+| Column | Required | Description |
+|---|---|---|
+| `review_id` | Yes | Review identifier |
+| `rating` | Yes | Numeric rating from 1 to 5 |
+| `review_text` | Yes | Review text |
+
+Optional fields such as `review_date` and `product_category` provide additional context.
+
+### Documents
+
+PDF and DOCX files can be uploaded for text extraction and retrieval in AI Analyst. The current pipeline extracts embedded text; scanned PDFs without a text layer are not searchable because OCR is not enabled. Extracted text is stored in the private workspace storage. The current document upload flow stores extracted text and filename metadata rather than preserving the original binary file.
+
+### Included synthetic datasets
+
+- `data/sample_user_events.csv` — behavioural events for core product analytics.
+- `data/sample_customer_reviews.csv` — ratings and review text for Voice of Customer.
+- `data/sample_churn_events.csv` — synthetic history for demonstrating the inactivity prediction workflow.
+
+The churn sample uses a constructed inactivity outcome. Do not interpret its labels or model metrics as real customer behaviour.
+
+## Analytics and ML methodology
+
+PulseOS favours interpretable methods and discloses important limitations.
+
+- **Product metrics:** calculated from the uploaded event window. DAU is distinct active users on the latest recorded calendar day; MAU uses the available 30-day window.
+- **Funnels:** configurable ordered event steps. Session-level units are used when `session_id` is available; otherwise the analysis falls back to user-level units.
+- **Cohorts and segments:** comparisons are descriptive and depend on the available event observation window.
+- **Voice of Customer:** lightweight text, sentiment and complaint-theme methods support triage; they are not a substitute for qualitative research or a validated language model.
+- **Opportunity signals:** review themes and behavioural patterns are compared at theme level. Unrelated third-party reviews are not joined to individual behavioural user IDs.
+- **AI Analyst:** document retrieval is extractive and evidence-oriented. It returns relevant source passages rather than generating unsupported answers.
+- **Document retrieval:** optional MiniLM semantic embeddings can be used locally; TF-IDF unigram/bigram cosine retrieval is the fallback. Retrieval scores indicate relevance, not truth or confidence.
+- **Anomaly detection:** Isolation Forest flags unusual daily metrics. Flags are investigation leads, not proof of incidents.
+- **Churn prediction:** churn is operationalised as inactivity in a defined follow-up window. This is an inactivity proxy, not confirmed cancellation; holdout scores are retrospective, not live customer risk predictions.
+
+### AI Analyst: retrieval, not generative AI
+
+The AI Analyst is not powered by a hosted generative LLM. It retrieves relevant evidence from the selected document source and returns extractive passages with filename and chunk-level references. Optional semantic retrieval uses `sentence-transformers/all-MiniLM-L6-v2`; TF-IDF retrieval is available as a lighter fallback. No paid API key is required.
+
+Semantic model weights may need to be downloaded on first use. The model runs on CPU and is cached in-process. Scanned-document OCR and PDF page-offset citations are not currently supported.
+
+## Local development
 
 ### Prerequisites
 
 - Python 3.11+
 - Node.js LTS
 - Git
+- A Supabase project configured with Google OAuth for the authenticated workspace flow
 
 ### 1. Clone the repository
 
@@ -144,18 +214,26 @@ git clone https://github.com/tomerdivyanshu456-ship-it/PulseOS.git
 cd PulseOS
 ```
 
-### 2. Start the backend
+### 2. Configure the backend
 
-For local development, authentication is disabled by default. To test the sign-in screen, set a password before starting the backend:
-
-```powershell
-$env:PULSEOS_ADMIN_PASSWORD = "use-a-local-secret-password"
-```
-
-Then start the backend:
+Copy the example file and fill in your own Supabase project values. Do not commit local environment files or secrets.
 
 ```powershell
 cd backend
+Copy-Item .env.example .env
+```
+
+Set these backend variables in your local environment or `.env` according to your environment loader:
+
+- `SUPABASE_URL` — Supabase project URL.
+- `SUPABASE_JWT_ISSUER` — `https://<project-ref>.supabase.co/auth/v1`.
+- `SUPABASE_PUBLISHABLE_KEY` — Supabase publishable key used for user-token requests subject to RLS.
+- `PULSEOS_CORS_ORIGINS` — include `http://localhost:5173` for local frontend development.
+- `PULSEOS_ENV=development`.
+
+Create and activate a virtual environment, install dependencies and start the API:
+
+```powershell
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
@@ -164,85 +242,41 @@ uvicorn app.main:app --reload
 
 API documentation: http://127.0.0.1:8000/docs
 
-### 3. Start the frontend
+### 3. Configure and start the frontend
 
 Open a second PowerShell terminal:
 
 ```powershell
 cd frontend
+Copy-Item .env.example .env
+```
+
+Set the frontend values in `frontend/.env`:
+
+- `VITE_API_BASE_URL=http://127.0.0.1:8000`
+- `VITE_SUPABASE_URL` — same Supabase project URL.
+- `VITE_SUPABASE_PUBLISHABLE_KEY` — the project's publishable key.
+
+Then run:
+
+```powershell
 npm install
 npm run dev
 ```
 
-Open http://localhost:5173. If authentication is enabled, enter the administrator password configured for the backend.
+Open http://localhost:5173. Configure the Supabase Google provider and add the local origin/redirect URL to the Supabase Auth URL configuration. The backend CORS allowlist must include the local frontend origin.
 
-The backend stores its SQLite database and uploaded files in `backend/data` by default. Set `PULSEOS_DATA_DIR` to an absolute persistent-volume path when deploying; do not use an ephemeral container filesystem for uploads.
+> Do not use production secrets in a local environment, commit `.env` files, or expose server-only credentials in frontend variables. The publishable key is intended for client use with correctly configured RLS; service-role keys and database passwords must remain server-side.
 
-### 4. Load the included demo CSVs
+## Deployment
 
-In the app, open **Upload Data** and upload:
+The hosted demo uses Render for the frontend and FastAPI service, and Supabase for Google authentication, PostgreSQL metadata and private object storage.
 
-- `data/sample_user_events.csv` as the behavioural events dataset for core analytics.
-- `data/sample_customer_reviews.csv` as the customer reviews dataset.
-- `data/sample_churn_events.csv` as the behavioural events dataset for Churn Prediction (14 days of synthetic history).
+- Frontend: https://pulseos-frontend.onrender.com
+- Backend health endpoint: https://pulseos-api-99m1.onrender.com/api/health
+- API OpenAPI schema: https://pulseos-api-99m1.onrender.com/openapi.json
 
-The synthetic event datasets include user, event, timestamp, session, product and categorical attributes (platform, plan, region and acquisition channel). The churn-specific file includes a constructed historical inactivity outcome for demonstration; do not interpret its labels or model metrics as real customer behaviour. The review dataset contains ratings, review text, dates and product categories.
-
-For event-backed experiment decisions, use a separate experiment dataset with the exposure fields described below; the general demo events file is not tagged as an experiment.
-
-## CSV contracts
-
-### Behavioural events
-
-Required columns:
-
-| Column | Required | Description |
-|---|---:|---|
-| `user_id` | Yes | Stable user identifier |
-| `event_name` | Yes | Event/action name |
-| `timestamp` | Yes | Parseable event timestamp |
-| `session_id` | No | Session identifier; enables session-level journey analysis |
-| `revenue` | No | Revenue value on purchase events |
-| Other categorical columns | No | Can be used for segment comparisons |
-
-### Customer reviews
-
-Required columns:
-
-| Column | Required | Description |
-|---|---:|---|
-| `review_id` | Yes | Review identifier |
-| `rating` | Yes | Numeric rating from 1 to 5 |
-| `review_text` | Yes | Review text |
-
-Optional fields such as `review_date` and `product_category` are useful for filtering and context.
-
-### Experiment decision events
-
-To analyse an experiment using event-level outcomes, include:
-
-| Column | Purpose |
-|---|---|
-| `experiment_id` | Saved PulseOS experiment identifier on exposure rows |
-| `experiment_variant` | `control` or `variant` on exposure rows |
-
-Each eligible user needs a tagged exposure event (default: `experiment_exposed`). The primary conversion event (default: `purchase`) must share the same `user_id` and occur at or after exposure. Conflicting variant assignments are excluded and reported.
-
-## Analytical methodology and limitations
-
-- **Descriptive metrics:** calculated from the uploaded event window. DAU is distinct active users on the latest recorded calendar day; MAU uses the available 30-day window.
-- **Funnel analysis:** configurable ordered event steps. When `session_id` is available, session-level units are used; otherwise analysis falls back to user-level units. This is not automatically a causal attribution model.
-- **Segments:** categorical dimensions are assigned to each user using their most frequently observed non-empty value (alphabetical tie-break). Segment comparisons are descriptive.
-- **Retention:** cohort and return-activity definitions are based on observed event dates and should be interpreted with the dataset's observation window in mind.
-- **Voice of Customer:** lightweight text/sentiment and complaint-theme methods are useful for triage, not substitutes for human qualitative research or a validated language model.
-- **Opportunity matching:** complaint themes and behavioural signals are matched at theme level. They are not linked at individual customer level.
-- **Root Cause Explorer:** ranks diagnostic hypotheses from observed funnel, review-theme and segment signals. These are investigation leads, not proven root causes.
-- **Health scorecard:** the overall index averages available pillars only; missing pillars are not treated as zero. Starter thresholds are illustrative defaults, not industry benchmarks.
-- **Experiment planning:** sample-size estimates use a normal approximation for two independent binary proportions, two-sided confidence, specified power and equal allocation. Duration estimates are planning approximations.
-- **Experiment decisions:** observed arm rates and approximate confidence intervals support a Ship / Iterate / Stop recommendation. Instrumentation, stable assignment, adequate sample size and guardrails matter; this is not proof of causality or an automated deployment action.
-- **Strategy scoring:** impact, evidence confidence and effort are transparent heuristics for prioritisation, not predicted business outcomes.
-- **Anomaly detection:** independent Isolation Forest models flag unusual daily metrics; contamination is a modelling assumption and flags are not proof of incidents.
-- **Churn prediction:** churn is operationalised as no recorded event in the 7 calendar days after a 7-day observation window. User-level features use only the observation window; a stratified holdout evaluates Logistic Regression and Random Forest. This is an inactivity proxy, not confirmed cancellation, and holdout scores are retrospective rather than live customer risk predictions.
+**Free-tier caveats:** Render free web services may sleep and have ephemeral local filesystems. User-owned dataset metadata and uploaded data for the tenant workflow are stored in Supabase rather than relying on the Render filesystem. Supabase free-tier quotas, availability and inactivity policies still apply. The hosted instance is a portfolio demo, not a production SLA-backed service.
 
 ## Quality checks
 
@@ -258,6 +292,19 @@ Build the frontend from `frontend/`:
 npm.cmd run build
 ```
 
-## Project status
+The project has a backend test suite covering authentication, workspace/dataset APIs and service behaviour. Run the commands above on the current checkout before making a release; test counts can change as the code evolves.
 
-PulseOS is a working local MVP with CSV ingestion, product analytics, customer feedback analysis, evidence-backed analysis workflows, cohort/segment and journey intelligence, experiment planning and event-backed decision support. It is intended as a demonstrable product analytics and product decision-support portfolio project; it is not positioned as a production multi-tenant SaaS or an autonomous causal inference system.
+## Known limitations and next engineering steps
+
+- Four modules remain hidden from Google workspaces: Experiments, Strategy & Insights, Health Scorecard and Root Cause Explorer.
+- The current tenant migration covers the Google-workspace data path and enabled modules, not every legacy module or every persisted analytical artifact.
+- The app is a portfolio MVP, not a production SaaS offering with a formal security audit, billing, role-based access control, audit trails, service-level objectives or enterprise operations.
+- Scanned PDF OCR and original document-binary retention are not implemented in the current document flow.
+- Some analytics and ML outputs are descriptive, heuristic or retrospective. They must not be described as causal proof or production predictions.
+- Free hosting tiers can have cold starts, quota constraints and service interruptions.
+
+## Project positioning
+
+PulseOS demonstrates product thinking, full-stack implementation, practical analytics, applied machine learning, evidence-aware AI retrieval and multi-user data isolation. It is intended as a portfolio project for Product Analyst, Data Analyst, Business Analyst and AI Product roles.
+
+It is not marketed as a production-ready enterprise analytics platform.
