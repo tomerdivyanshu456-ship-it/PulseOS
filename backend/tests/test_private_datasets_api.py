@@ -15,6 +15,7 @@ class FakeRepository:
     def __init__(self):
         self.closed = False
         self.upload_args = None
+        self.activated = []
 
     def close(self):
         self.closed = True
@@ -46,6 +47,9 @@ class FakeRepository:
             "row_count": kwargs["row_count"],
             "uploaded_at": "2026-11-13T00:00:00Z",
         }
+
+    def set_active_dataset(self, dataset_type, dataset_id):
+        self.activated.append((dataset_type, dataset_id))
 
 
 def make_client(monkeypatch, authenticated=True):
@@ -91,6 +95,7 @@ def test_upload_normalizes_and_persists_csv_under_verified_user(monkeypatch):
     assert repository.upload_args["row_count"] == 1
     assert repository.upload_args["content_type"] == "text/csv"
     assert b"user_id,event_name,timestamp" in repository.upload_args["contents"]
+    assert repository.activated == [("events", response.json()["data"]["dataset_id"])]
     assert repository.closed
 
 
@@ -147,6 +152,7 @@ def test_upload_docx_extracts_text_and_stores_it_privately(monkeypatch):
     assert repository.upload_args["dataset_type"] == "documents"
     assert repository.upload_args["content_type"].startswith("text/plain")
     assert b"Private product research" in repository.upload_args["contents"]
+    assert repository.activated == [("documents", response.json()["data"]["dataset_id"])]
     assert repository.closed
 
 
