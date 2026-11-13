@@ -36,6 +36,7 @@ import {
   getAnalytics,
   getHealth,
   getAuthConfig,
+  verifyGoogleIdentity,
   authenticate,
   clearAuth,
   getDatasets,
@@ -106,8 +107,9 @@ function App() {
     completeGoogleSignIn()
       .then((completed) => {
         if (completed) {
-          setGoogleEmail(getGoogleUserEmail());
-          setGoogleMessage("Google identity verified. Workspace access will be enabled after the secure account-isolation backend is deployed.");
+          const identity = await verifyGoogleIdentity();
+          setGoogleEmail(identity.email || getGoogleUserEmail());
+          setGoogleMessage("Google identity verified by the PulseOS API. Your private workspace will be enabled after tenant data isolation is completed.");
         }
       })
       .catch((error: unknown) => setGoogleMessage(error instanceof Error ? error.message : "Google sign-in failed. Please try again."));
