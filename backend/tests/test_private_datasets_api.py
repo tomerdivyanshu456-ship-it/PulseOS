@@ -25,6 +25,18 @@ class FakeRepository:
     def get_active_datasets(self):
         return {"events": None, "reviews": None, "documents": None}
 
+    def get_dataset(self, dataset_id):
+        return {
+            "id": dataset_id,
+            "dataset_type": "documents",
+            "original_filename": "research.docx",
+            "row_count": 3,
+            "object_path": f"{CLAIMS['sub']}/{dataset_id}/research.docx",
+        }
+
+    def download(self, object_path):
+        return b"Extracted document text for preview."
+
     def upload(self, **kwargs):
         self.upload_args = kwargs
         return {
@@ -106,4 +118,46 @@ def test_active_dataset_listing_is_scoped_through_repository(monkeypatch):
 
     assert response.status_code == 200
     assert response.json()["active_datasets"]["events"] is None
+    assert repository.closed
+
+
+
+def test_upload_docx_extracts_text_and_stores_it_privately(monkeypatch):
+    from io import BytesIO
+    from docx import Document
+
+    document = Document()
+    document.add_paragraph("Private product research")
+    document.add_paragraph("Customer interview findings")
+    buffer = BytesIO()
+    document.save(buffer)
+
+    repository = FakeRepository()
+    monkeypatch.setattr(private_datasets, "_repository", lambda claims: repository)
+    client = make_client(monkeypatch)
+
+    response = client.post(
+        "/api/workspace/datasets/upload-document",
+        files={"file": ("research.docx", buffer.getvalue(), "application/vnd.openxmlformats-officedocument.wordprocessingml.document")},
+    )
+
+    assert response.status_code == 200, response.text
+    assert response.json()["data"]["dataset_type"] == "documents"
+    assert response.json()["data"]["rows"] > 0
+    assert repository.upload_args["dataset_type"] == "documents"
+    assert repository.upload_args["content_type"].startswith("text/plain")
+    assert b"Private product research" in repository.upload_args["contents"]
+    assert repository.closed
+
+
+def test_document_preview_returns_extracted_text(monkeypatch):
+    repository = FakeRepository()
+    monkeypatch.setattr(private_datasets, "_repository", lambda claims: repository)
+    client = make_client(monkeypatch)
+
+    response = client.get("/api/workspace/datasets/document-1/preview")
+
+    assert response.status_code == 200
+    assert response.json()["dataset_type"] == "documents"
+    assert "Extracted document text" in response.json()["extracted_text"]
     assert repository.closed
