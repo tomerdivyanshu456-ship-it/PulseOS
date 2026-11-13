@@ -12,16 +12,21 @@ def cluster_review_themes(n_clusters=4):
     if not 2 <= n_clusters <= 8:
         raise ValueError("n_clusters must be between 2 and 8.")
 
-    row = get_dataset_record("reviews")
-
-    if row is None:
-        raise ValueError("No customer reviews dataset has been uploaded.")
-
-    file_path = UPLOAD_DIR / row["stored_filename"]
-    if not file_path.is_file():
-        raise ValueError("The stored reviews dataset file is missing.")
-
-    df = pd.read_csv(file_path)
+    workspace = current_workspace_data()
+    if workspace is not None:
+        item = workspace.get("reviews")
+        if not item:
+            raise ValueError("No customer reviews dataset has been uploaded.")
+        row = item["record"]
+        df = item["dataframe"].copy()
+    else:
+        row = get_dataset_record("reviews")
+        if row is None:
+            raise ValueError("No customer reviews dataset has been uploaded.")
+        file_path = UPLOAD_DIR / row["stored_filename"]
+        if not file_path.is_file():
+            raise ValueError("The stored reviews dataset file is missing.")
+        df = pd.read_csv(file_path)
     required = {"review_id", "rating", "review_text"}
     if not required.issubset(df.columns):
         raise ValueError("The reviews dataset is missing required columns.")
