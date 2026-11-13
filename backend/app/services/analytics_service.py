@@ -6,10 +6,17 @@ from app.services.dataset_service import (
     get_connection,
     get_dataset_record,
 )
+from app.services.workspace_data_context import current_workspace_data
 
 
 def get_latest_dataset(dataset_type):
-    """Load the active dataset; retain latest-upload compatibility before first selection."""
+    """Load the current user's active dataset, or the legacy admin dataset."""
+    workspace = current_workspace_data()
+    if workspace is not None:
+        item = workspace.get(dataset_type)
+        if not item or item.get("dataframe") is None:
+            raise ValueError(f"No active {dataset_type} dataset has been uploaded.")
+        return item["dataframe"].copy()
     row = get_dataset_record(dataset_type)
     if row is None:
         raise ValueError(f"No {dataset_type} dataset has been uploaded.")
