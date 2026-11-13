@@ -130,7 +130,7 @@ function App() {
 
   async function refreshDataSources() {
     const [available, active] = await Promise.all([getDatasets(), getActiveDatasets()]);
-    setDatasets(available);
+    setDatasets(Array.isArray(available) ? available : []);
     setActiveDatasets(active && typeof active === "object" ? {
       events: active.events ?? null,
       reviews: active.reviews ?? null,
