@@ -21,7 +21,7 @@ function toBase64Url(bytes: Uint8Array): string {
 }
 
 export async function startGoogleSignIn(): Promise<void> {
-  const { url, key } = requireSupabaseConfig();
+  const { url } = requireSupabaseConfig();
   const verifierBytes = crypto.getRandomValues(new Uint8Array(64));
   const verifier = toBase64Url(verifierBytes);
   const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(verifier));
