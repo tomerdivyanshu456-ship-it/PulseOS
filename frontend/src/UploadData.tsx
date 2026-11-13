@@ -214,6 +214,17 @@ function UploadData() {
       {message && <div className="upload-message success-message"><CheckCircle size={18} />{message}</div>}
       {error && <div className="upload-message error-message"><AlertCircle size={18} />{error}</div>}
 
+      <section className="sample-data-panel">
+        <div>
+          <strong>New to PulseOS? Try the sample datasets</strong>
+          <p>Download a sample file, then upload it below. Events power analytics; reviews power Voice of Customer and opportunities.</p>
+        </div>
+        <div className="sample-data-links">
+          <a href="https://raw.githubusercontent.com/tomerdivyanshu456-ship-it/PulseOS/main/data/sample_user_events.csv" download>Download sample events CSV</a>
+          <a href="https://raw.githubusercontent.com/tomerdivyanshu456-ship-it/PulseOS/main/data/sample_customer_reviews.csv" download>Download sample reviews CSV</a>
+        </div>
+      </section>
+
       <div className="upload-cards">
         <div className="upload-card">
           <div className="upload-card-icon"><FileSpreadsheet size={23} /></div>
