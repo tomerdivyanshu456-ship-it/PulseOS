@@ -113,6 +113,9 @@ async def upload_private_dataset(
                 row_count=len(frame),
                 content_type="text/csv",
             )
+            # Newly uploaded tabular data becomes the active source for its type.
+            # This makes the upload immediately available to owner-scoped analytics.
+            repository.set_active_dataset(dataset_type, result["id"])
             return {
                 "message": "Dataset uploaded and validated successfully.",
                 "data": {
@@ -180,6 +183,7 @@ async def upload_private_document(
             row_count=len(text_content.split()),
             content_type="text/plain; charset=utf-8",
         )
+        repository.set_active_dataset("documents", result["id"])
         return {
             "message": "Document uploaded and text extracted successfully.",
             "data": {
