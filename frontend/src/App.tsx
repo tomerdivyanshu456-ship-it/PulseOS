@@ -294,12 +294,13 @@ function App() {
           </button>}
           {googleEmail && <p className="auth-google-email">Signed in as {googleEmail}</p>}
           {googleMessage && <div className="auth-info" role="status">{googleMessage}</div>}
-          {googleConfigured && <div className="auth-divider"><span>or use legacy administrator access</span></div>}
-          <p className="auth-legacy-copy">Legacy administrator sign-in</p>
-          <label htmlFor="pulseos-password">Administrator password</label>
-          <input id="pulseos-password" type="password" autoComplete="current-password" value={loginPassword} onChange={(event) => setLoginPassword(event.target.value)} required autoFocus />
-          {loginError && <div className="auth-error" role="alert">{loginError}</div>}
-          <button type="submit" disabled={loginLoading || !loginPassword}>{loginLoading ? "Signing in…" : "Sign in"}</button>
+          {!googleConfigured && <>
+            <p className="auth-legacy-copy">Administrator sign-in</p>
+            <label htmlFor="pulseos-password">Administrator password</label>
+            <input id="pulseos-password" type="password" autoComplete="current-password" value={loginPassword} onChange={(event) => setLoginPassword(event.target.value)} required autoFocus />
+            {loginError && <div className="auth-error" role="alert">{loginError}</div>}
+            <button type="submit" disabled={loginLoading || !loginPassword}>{loginLoading ? "Signing in…" : "Sign in"}</button>
+          </>}
         </form>
       </main>
     );
