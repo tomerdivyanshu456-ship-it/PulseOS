@@ -28,6 +28,12 @@ def get_latest_dataset(dataset_type):
 
 
 def get_dataset_by_id(dataset_id, dataset_type):
+    workspace = current_workspace_data()
+    if workspace is not None:
+        item = workspace.get(dataset_type)
+        if not item or item["record"].get("id") != dataset_id:
+            raise ValueError(f"Selected {dataset_type} dataset was not found.")
+        return item["dataframe"].copy()
     connection = get_connection()
     try:
         row = connection.execute(
