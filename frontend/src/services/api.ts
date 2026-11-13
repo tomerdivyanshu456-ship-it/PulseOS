@@ -168,10 +168,21 @@ export interface DatasetInspection {
   preview: Array<Record<string, string>>;
 }
 
+function datasetApiPath(suffix: string): string {
+  return getSupabaseAccessToken()
+    ? `/api/workspace/datasets${suffix}`
+    : `/api/datasets${suffix}`;
+}
+
+function datasetApiConfig(): { headers?: { Authorization: string } } {
+  const token = getSupabaseAccessToken();
+  return token ? { headers: { Authorization: `Bearer ${token}` } } : {};
+}
+
 export async function inspectDataset(file: File): Promise<DatasetInspection> {
   const formData = new FormData();
   formData.append("file", file);
-  const response = await api.post("/api/datasets/inspect", formData);
+  const response = await api.post(datasetApiPath("/inspect"), formData, datasetApiConfig());
   return response.data;
 }
 
@@ -183,14 +194,14 @@ export async function uploadDataset(
   const formData = new FormData();
   formData.append("file", file);
   formData.append("mapping", JSON.stringify(mapping));
-  const response = await api.post(`/api/datasets/upload/${datasetType}`, formData);
+  const response = await api.post(datasetApiPath(`/upload/${datasetType}`), formData, datasetApiConfig());
   return response.data;
 }
 
 export async function uploadDocument(file: File) {
   const formData = new FormData();
   formData.append("file", file);
-  const response = await api.post("/api/datasets/upload-document", formData);
+  const response = await api.post(datasetApiPath("/upload-document"), formData, datasetApiConfig());
   return response.data;
 }
 
@@ -203,32 +214,34 @@ export interface UploadedDataset {
 }
 
 export async function getDatasets(): Promise<UploadedDataset[]> {
-  const response = await api.get("/api/datasets");
+  const response = await api.get(datasetApiPath(""), datasetApiConfig());
   return response.data.datasets;
 }
 
 export type ActiveDatasetMap = Record<"events" | "reviews" | "documents", UploadedDataset | null>;
 
 export async function getActiveDatasets(): Promise<ActiveDatasetMap> {
-  const response = await api.get("/api/datasets/active");
+  const response = await api.get(datasetApiPath("/active"), datasetApiConfig());
   return response.data.active_datasets;
 }
 
 export async function setActiveDataset(datasetType: "events" | "reviews" | "documents", datasetId: string | null) {
-  const response = await api.put(`/api/datasets/active/${datasetType}`, null, {
+  const response = await api.put(datasetApiPath(`/active/${datasetType}`), null, {
     params: datasetId ? { dataset_id: datasetId } : {},
+    ...datasetApiConfig(),
   });
   return response.data;
 }
 
 export async function deleteDataset(datasetId: string) {
-  const response = await api.delete(`/api/datasets/${datasetId}`);
+  const response = await api.delete(datasetApiPath(`/${datasetId}`), datasetApiConfig());
   return response.data;
 }
 
 export async function getDatasetPreview(datasetId: string) {
   const response = await api.get(
-    `/api/datasets/${datasetId}/preview`
+    datasetApiPath(`/${datasetId}/preview`),
+    datasetApiConfig()
   );
 
   return response.data;
