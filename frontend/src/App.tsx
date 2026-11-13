@@ -105,7 +105,7 @@ function App() {
       .catch(() => setAuthState(googleConfigured ? "required" : "unavailable"));
 
     completeGoogleSignIn()
-      .then((completed) => {
+      .then(async (completed) => {
         if (completed) {
           const identity = await verifyGoogleIdentity();
           setGoogleEmail(identity.email || getGoogleUserEmail());
