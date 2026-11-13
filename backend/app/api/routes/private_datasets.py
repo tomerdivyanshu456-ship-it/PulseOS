@@ -153,14 +153,14 @@ async def upload_private_document(
             if suffix == ".pdf":
                 import fitz
                 document = fitz.open(stream=contents, filetype="pdf")
-                text_content = "\\n\\n".join(page.get_text() for page in document)
+                text_content = "\n\n".join(page.get_text() for page in document)
                 page_count = len(document)
                 document.close()
             else:
                 _validate_zip_size(contents, "DOCX file")
                 from docx import Document
                 document = Document(BytesIO(contents))
-                text_content = "\\n".join(
+                text_content = "\n".join(
                     paragraph.text for paragraph in document.paragraphs if paragraph.text.strip()
                 )
                 page_count = 0
