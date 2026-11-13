@@ -1,3 +1,4 @@
+import logging
 import os
 from uuid import UUID
 
@@ -7,6 +8,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from app.security import require_supabase_user
 
 router = APIRouter(prefix="/api/workspace", tags=["Workspace"])
+logger = logging.getLogger(__name__)
 
 
 def _supabase_config():
@@ -44,11 +46,17 @@ def get_workspace(claims: dict = Depends(require_supabase_user)):
             timeout=8.0,
         )
     except httpx.RequestError as exc:
+        logger.exception("Supabase workspace request failed before receiving a response (%s).", type(exc).__name__)
         raise HTTPException(status_code=503, detail="Supabase workspace service is temporarily unavailable.") from exc
 
     if response.status_code in (401, 403):
         raise HTTPException(status_code=401, detail="Supabase rejected the workspace access token.")
     if response.status_code >= 500:
+        logger.error(
+            "Supabase workspace REST returned HTTP %s; response body: %s",
+            response.status_code,
+            response.text[:1000],
+        )
         raise HTTPException(status_code=503, detail="Supabase workspace service is temporarily unavailable.")
     if response.status_code >= 400:
         raise HTTPException(status_code=502, detail="Could not retrieve the private workspace.")
