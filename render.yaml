@@ -29,6 +29,10 @@ services:
     envVars:
       - key: VITE_API_BASE_URL
         sync: false
+      - key: VITE_SUPABASE_URL
+        value: https://khxrdwfakimcglctornm.supabase.co
+      - key: VITE_SUPABASE_PUBLISHABLE_KEY
+        value: sb_publishable_gwCP57r4DOndlIhZweQnkA_dHPEJm9i
     routes:
       - type: rewrite
         source: /*
