@@ -17,6 +17,7 @@ from app.services.dataset_service import (
     _read_tabular,
     inspect_tabular,
     validate_dataset,
+    _validate_zip_size,
 )
 from app.services.supabase_dataset_repository import (
     DatasetRepositoryError,
@@ -137,6 +138,69 @@ async def upload_private_dataset(
         await file.close()
 
 
+@router.post("/upload-document")
+async def upload_private_document(
+    file: UploadFile = File(...),
+    claims: dict = Depends(require_supabase_user),
+):
+    if not file.filename or Path(file.filename).suffix.lower() not in (".pdf", ".docx"):
+        raise HTTPException(status_code=400, detail="Please upload a PDF or DOCX file.")
+    repository = _repository(claims)
+    try:
+        contents = await _read_limited(file, 15 * 1024 * 1024)
+        suffix = Path(file.filename).suffix.lower()
+        try:
+            if suffix == ".pdf":
+                import fitz
+                document = fitz.open(stream=contents, filetype="pdf")
+                text_content = "\\n\\n".join(page.get_text() for page in document)
+                page_count = len(document)
+                document.close()
+            else:
+                _validate_zip_size(contents, "DOCX file")
+                from docx import Document
+                document = Document(BytesIO(contents))
+                text_content = "\\n".join(
+                    paragraph.text for paragraph in document.paragraphs if paragraph.text.strip()
+                )
+                page_count = 0
+        except Exception as exc:
+            raise HTTPException(status_code=422, detail="Could not extract document text.") from exc
+        if not text_content.strip():
+            raise HTTPException(
+                status_code=422,
+                detail="No extractable text found. Scanned PDFs require OCR, which is not enabled yet.",
+            )
+        dataset_id = str(uuid4())
+        result = repository.upload(
+            dataset_id=dataset_id,
+            dataset_type="documents",
+            filename=Path(file.filename).name,
+            contents=text_content.encode("utf-8"),
+            row_count=len(text_content.split()),
+            content_type="text/plain; charset=utf-8",
+        )
+        return {
+            "message": "Document uploaded and text extracted successfully.",
+            "data": {
+                "dataset_id": result["id"],
+                "dataset_type": "documents",
+                "filename": result["original_filename"],
+                "rows": result["row_count"],
+                "characters": len(text_content),
+                "pages": page_count,
+                "uploaded_at": result.get("uploaded_at"),
+            },
+        }
+    except HTTPException:
+        raise
+    except DatasetRepositoryError as exc:
+        raise HTTPException(status_code=503, detail=str(exc)) from exc
+    finally:
+        repository.close()
+        await file.close()
+
+
 @router.get("")
 def list_private_datasets(claims: dict = Depends(require_supabase_user)):
     repository = _repository(claims)
@@ -185,6 +249,13 @@ def preview_private_dataset(dataset_id: str, claims: dict = Depends(require_supa
         if not record:
             raise HTTPException(status_code=404, detail="Dataset not found.")
         raw = repository.download(record["object_path"])
+        if record["dataset_type"] == "documents":
+            return {
+                "filename": record["original_filename"],
+                "dataset_type": "documents",
+                "total_rows": record["row_count"],
+                "extracted_text": raw.decode("utf-8")[:6000],
+            }
         frame = pd.read_csv(BytesIO(raw), nrows=10)
         return {
             "filename": record["original_filename"],
