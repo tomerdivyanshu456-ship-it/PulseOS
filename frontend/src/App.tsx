@@ -93,7 +93,7 @@ function App() {
   const [loginError, setLoginError] = useState("");
   const [loginLoading, setLoginLoading] = useState(false);
   const [status, setStatus] = useState("Connecting...");
-  const [googleConfigured] = useState(isSupabaseAuthConfigured());
+  const googleConfigured = isSupabaseAuthConfigured();
   const [googleLoading, setGoogleLoading] = useState(false);
   const [googleMessage, setGoogleMessage] = useState("");
   const [googleEmail, setGoogleEmail] = useState<string | null>(null);
@@ -111,7 +111,7 @@ function App() {
         }
       })
       .catch((error: unknown) => setGoogleMessage(error instanceof Error ? error.message : "Google sign-in failed. Please try again."));
-  }, []);
+  }, [googleConfigured]);
 
   async function handleGoogleLogin() {
     setGoogleLoading(true);
