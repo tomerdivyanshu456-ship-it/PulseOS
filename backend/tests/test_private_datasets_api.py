@@ -66,7 +66,7 @@ def test_upload_normalizes_and_persists_csv_under_verified_user(monkeypatch):
     repository = FakeRepository()
     monkeypatch.setattr(private_datasets, "_repository", lambda claims: repository)
     client = make_client(monkeypatch)
-    csv = b"customer_id,action,event_time\\nu-1,view,2026-11-01T10:00:00Z\\n"
+    csv = b"customer_id,action,event_time\nu-1,view,2026-11-01T10:00:00Z\n"
 
     response = client.post(
         "/api/workspace/datasets/upload/events",
@@ -89,7 +89,7 @@ def test_invalid_dataset_mapping_does_not_upload(monkeypatch):
 
     response = client.post(
         "/api/workspace/datasets/upload/events",
-        files={"file": ("events.csv", b"wrong,columns\\na,b\\n", "text/csv")},
+        files={"file": ("events.csv", b"wrong,columns\na,b\n", "text/csv")},
     )
 
     assert response.status_code == 422
