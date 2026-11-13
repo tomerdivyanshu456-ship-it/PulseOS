@@ -168,10 +168,18 @@ export interface DatasetInspection {
   preview: Array<Record<string, string>>;
 }
 
+function privateWorkspaceHeaders(): { Authorization: string } {
+  const token = getSupabaseAccessToken();
+  if (!token) throw new Error("Sign in with Google to access your private workspace.");
+  return { Authorization: `Bearer ${token}` };
+}
+
 export async function inspectDataset(file: File): Promise<DatasetInspection> {
   const formData = new FormData();
   formData.append("file", file);
-  const response = await api.post("/api/datasets/inspect", formData);
+  const response = await api.post("/api/workspace/datasets/inspect", formData, {
+    headers: privateWorkspaceHeaders(),
+  });
   return response.data;
 }
 
@@ -183,14 +191,14 @@ export async function uploadDataset(
   const formData = new FormData();
   formData.append("file", file);
   formData.append("mapping", JSON.stringify(mapping));
-  const response = await api.post(`/api/datasets/upload/${datasetType}`, formData);
+  const response = await api.post(`/api/workspace/datasets/upload/${datasetType}`, formData, { headers: privateWorkspaceHeaders() });
   return response.data;
 }
 
 export async function uploadDocument(file: File) {
   const formData = new FormData();
   formData.append("file", file);
-  const response = await api.post("/api/datasets/upload-document", formData);
+  const response = await api.post("/api/workspace/datasets/upload-document", formData, { headers: privateWorkspaceHeaders() });
   return response.data;
 }
 
@@ -203,32 +211,34 @@ export interface UploadedDataset {
 }
 
 export async function getDatasets(): Promise<UploadedDataset[]> {
-  const response = await api.get("/api/datasets");
+  const response = await api.get("/api/workspace/datasets", { headers: privateWorkspaceHeaders() });
   return response.data.datasets;
 }
 
 export type ActiveDatasetMap = Record<"events" | "reviews" | "documents", UploadedDataset | null>;
 
 export async function getActiveDatasets(): Promise<ActiveDatasetMap> {
-  const response = await api.get("/api/datasets/active");
+  const response = await api.get("/api/workspace/datasets/active", { headers: privateWorkspaceHeaders() });
   return response.data.active_datasets;
 }
 
 export async function setActiveDataset(datasetType: "events" | "reviews" | "documents", datasetId: string | null) {
-  const response = await api.put(`/api/datasets/active/${datasetType}`, null, {
+  const response = await api.put(`/api/workspace/datasets/active/${datasetType}`, null, {
     params: datasetId ? { dataset_id: datasetId } : {},
+    headers: privateWorkspaceHeaders(),
   });
   return response.data;
 }
 
 export async function deleteDataset(datasetId: string) {
-  const response = await api.delete(`/api/datasets/${datasetId}`);
+  const response = await api.delete(`/api/workspace/datasets/${datasetId}`, { headers: privateWorkspaceHeaders() });
   return response.data;
 }
 
 export async function getDatasetPreview(datasetId: string) {
   const response = await api.get(
-    `/api/datasets/${datasetId}/preview`
+    `/api/workspace/datasets/${datasetId}/preview`,
+    { headers: privateWorkspaceHeaders() }
   );
 
   return response.data;
