@@ -5,6 +5,7 @@ import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 from app.services.dataset_service import UPLOAD_DIR, get_dataset_record
+from app.services.workspace_data_context import current_workspace_data
 
 
 POSITIVE_WORDS = {
