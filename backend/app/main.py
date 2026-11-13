@@ -5,6 +5,7 @@ from fastapi.responses import JSONResponse
 from app.security import require_auth, validate_production_config
 from app.middleware import RequestBodyTooLarge, RequestSizeLimitMiddleware
 from app.api.routes.auth import router as auth_router
+from app.api.routes.workspace import router as workspace_router
 
 from app.api.routes.datasets import router as datasets_router
 from app.api.routes.analytics import router as analytics_router
@@ -52,6 +53,8 @@ app.add_middleware(CORSMiddleware, **cors_options)
 # Health and auth configuration remain public. All workspace APIs are protected
 # whenever an administrator password is configured.
 app.include_router(auth_router)
+# This router uses Supabase Bearer authentication and database RLS, not admin Basic auth.
+app.include_router(workspace_router)
 protected = {"dependencies": [Depends(require_auth)]}
 app.include_router(datasets_router, **protected)
 app.include_router(analytics_router, **protected)
