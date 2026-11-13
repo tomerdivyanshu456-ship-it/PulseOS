@@ -101,7 +101,7 @@ function App() {
   useEffect(() => {
     getAuthConfig()
       .then((config) => setAuthState(config.auth_required ? "required" : "disabled"))
-      .catch(() => setAuthState("unavailable"));
+      .catch(() => setAuthState(googleConfigured ? "required" : "unavailable"));
 
     completeGoogleSignIn()
       .then((completed) => {
