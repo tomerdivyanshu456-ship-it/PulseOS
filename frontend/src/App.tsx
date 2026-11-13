@@ -37,6 +37,7 @@ import {
   getHealth,
   getAuthConfig,
   verifyGoogleIdentity,
+  getWorkspace,
   authenticate,
   clearAuth,
   getDatasets,
@@ -108,8 +109,13 @@ function App() {
       .then(async (completed) => {
         if (completed) {
           const identity = await verifyGoogleIdentity();
+          const result = await getWorkspace();
           setGoogleEmail(identity.email || getGoogleUserEmail());
-          setGoogleMessage("Google identity verified by the PulseOS API. Your private workspace will be enabled after tenant data isolation is completed.");
+          setGoogleMessage(
+            result.workspace.user_id === identity.user_id
+              ? "Your private workspace is provisioned and verified. PulseOS data services are being migrated to owner-scoped storage; workspace features will unlock after that migration is complete."
+              : "The workspace account did not match the signed-in user. Please sign out and try again."
+          );
         }
       })
       .catch((error: unknown) => setGoogleMessage(error instanceof Error ? error.message : "Google sign-in failed. Please try again."));

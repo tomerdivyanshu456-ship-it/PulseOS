@@ -5,6 +5,24 @@ const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8000",
 });
 
+export interface WorkspaceResponse {
+  workspace: {
+    user_id: string;
+    display_name: string | null;
+    created_at: string;
+    updated_at: string;
+  };
+}
+
+export async function getWorkspace(): Promise<WorkspaceResponse> {
+  const token = getSupabaseAccessToken();
+  if (!token) throw new Error("No active Google sign-in session was found.");
+  const response = await api.get("/api/workspace", {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return response.data;
+}
+
 export async function verifyGoogleIdentity(): Promise<{ user_id: string; email: string | null }> {
   const token = getSupabaseAccessToken();
   if (!token) throw new Error("No active Google sign-in session was found.");
