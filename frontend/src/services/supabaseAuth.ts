@@ -71,3 +71,13 @@ export function getGoogleUserEmail(): string | null {
     return null;
   }
 }
+
+
+export function getSupabaseAccessToken(): string | null {
+  try {
+    const session = JSON.parse(sessionStorage.getItem(SESSION_KEY) || "null");
+    return typeof session?.access_token === "string" ? session.access_token : null;
+  } catch {
+    return null;
+  }
+}

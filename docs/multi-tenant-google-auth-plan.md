@@ -77,3 +77,20 @@ Supabase free-tier quotas, inactivity pausing, egress, storage and database limi
 - No frontend-only access control.
 - No public access to the existing shared administrator data.
 - No migration or deletion of existing data without an explicit backup and ownership decision.
+
+
+## Implementation status — JWT identity foundation branch
+
+The branch `feat/supabase-multitenant-foundation` adds an initial backend identity-verification layer:
+
+- FastAPI can validate asymmetric Supabase access tokens against the project's JWKS endpoint, issuer and the `authenticated` audience.
+- `GET /api/auth/me` returns the verified subject and email; it does not accept a caller-supplied user ID.
+- The frontend can retrieve its existing PKCE session access token and ask the API to verify it.
+- The existing HTTP Basic workspace routes remain unchanged. This is deliberate: no user is granted access to shared SQLite/files until tenant storage is implemented.
+
+Required Render backend environment variables for this identity endpoint:
+
+- `SUPABASE_URL=https://<project-ref>.supabase.co`
+- `SUPABASE_JWT_ISSUER=https://<project-ref>.supabase.co/auth/v1`
+
+No service-role key or database password is required for this identity-only step. Do not put either secret in the frontend. The current branch is an identity foundation, not a completed multi-tenant release; PostgreSQL persistence, RLS, private Storage policies, module scoping and two-user tests remain release blockers.
