@@ -11,7 +11,7 @@ def auth_config():
 
 @router.get("/verify")
 def verify_auth(_authenticated: bool = Depends(require_auth)):
-    return {"authenticated": True, "method": "admin_basic"}
+    return {"authenticated": True}
 
 
 @router.get("/me")
