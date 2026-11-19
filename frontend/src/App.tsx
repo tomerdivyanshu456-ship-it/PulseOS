@@ -19,6 +19,7 @@ import {
   Route,
   AlertTriangle,
   UserMinus,
+  Scale,
 } from "lucide-react";
 import {
   Area,
@@ -60,6 +61,7 @@ import FunnelJourneyIntelligence from "./FunnelJourneyIntelligence";
 import RootCauseExplorer from "./RootCauseExplorer";
 import ProductAnomalies from "./ProductAnomalies";
 import CustomerChurn from "./CustomerChurn";
+import CompetitorAnalysis from "./CompetitorAnalysis";
 import "./App.css";
 import "./Auth.css";
 import "./PulseTheme.css";
@@ -74,6 +76,7 @@ const navigation = [
   { group: "UNDERSTAND", name: "Voice of Customer", icon: MessageSquareText },
   { group: "INTELLIGENCE", name: "AI Analyst", icon: Sparkles },
   { group: "INTELLIGENCE", name: "Opportunities", icon: Target },
+  { group: "INTELLIGENCE", name: "Competitor Analysis", icon: Scale },
   { group: "INTELLIGENCE", name: "Root Cause Explorer", icon: Search },
   { group: "INTELLIGENCE", name: "Anomaly Detection", icon: AlertTriangle },
   { group: "OPTIMIZE", name: "Experiments", icon: FlaskConical },
@@ -349,6 +352,8 @@ function App() {
                 <button
                   className={`nav-item ${activePage === item.name ? "active" : ""}`}
                   onClick={() => setActivePage(item.name)}
+                  aria-label={item.name}
+                  title={item.name}
                   aria-current={activePage === item.name ? "page" : undefined}
                 >
                   <Icon size={18} />
@@ -418,7 +423,9 @@ function App() {
               <p className="eyebrow">PRODUCT INTELLIGENCE</p>
               <h1>{activePage}</h1>
               <p className="subtitle">
-                Understand your product. Discover opportunities. Make better decisions.
+                {activePage === "Competitor Analysis"
+                  ? "Compare Mixpanel and PulseOS, and identify where to invest next."
+                  : "Understand your product. Discover opportunities. Make better decisions."}
               </p>
             </div>
             {activePage === "Overview" && (
@@ -606,6 +613,8 @@ function App() {
             <ProductAnalytics key={dataContextKey} />
           ) : activePage === "Opportunities" ? (
             <ProductOpportunities key={dataContextKey} />
+          ) : activePage === "Competitor Analysis" ? (
+            <CompetitorAnalysis />
           ) : activePage === "Voice of Customer" ? (
             <VoiceOfCustomer key={dataContextKey} />
           ) : activePage === "AI Analyst" ? (
